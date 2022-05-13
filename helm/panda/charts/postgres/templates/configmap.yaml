@@ -1,0 +1,10 @@
+# config map
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "postgres.fullname" . }}-configmap
+  labels:
+    {{- include "postgres.labels" . | nindent 4 }}
+data:
+  PANDA_PASSWORD: {{ .Values.database.panda_password }}
+  PANDA_DBHOST: {{ .Values.database.panda_dbhost | default panda-database }}

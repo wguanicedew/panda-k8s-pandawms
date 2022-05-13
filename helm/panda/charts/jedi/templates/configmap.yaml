@@ -1,0 +1,63 @@
+# JEDI and server configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "jedi.fullname" . }}-configmap
+data:
+  panda_server_configmap.json: |-
+    {
+        "server": {
+            "CRIC_URL_CM": "https://atlas-cric.cern.ch/api/core/sitematrix/query/?json&json_pretty=0",
+            "CRIC_URL_DDMBLACKLIST": "https://datalake-cric.cern.ch/api/atlas/ddmendpointstatus/query/?json&activity=write_wan&fstate=OFF",
+            "CRIC_URL_DDMENDPOINTS": "https://datalake-cric.cern.ch/api/atlas/ddmendpoint/query/?json",
+            "CRIC_URL_SCHEDCONFIG": "https://datalake-cric.cern.ch/api/atlas/pandaqueue/query/?json",
+            "CRIC_URL_SITES": "https://datalake-cric.cern.ch/api/atlas/site/query/?json",
+            "adder_plugins": "wlcg:dataservice.AdderDummyPlugin:AdderDummyPlugin",
+            "backend": "postgres",
+            "dbhost": "{{.Release.Name}}-postgres",
+            "dbname": "{{.Values.database.panda_db}}",
+            "dbpasswd": "{{.Values.database.panda_password}}",
+            "dbport": 5432,
+            "dbuser": "{{.Values.database.panda_user}}",
+            "production_dns": "FIXME: a comma-separated list of privileged user names",
+            "pserveralias": "FIXME: a common name of httpd",
+            "schemaDEFT": "DOMA_DEFT",
+            "schemaJEDI": "DOMA_PANDA",
+            "schemaMETA": "DOMA_PANDAMETA",
+            "schemaPANDA": "DOMA_PANDA",
+            "schemaPANDAARCH": "DOMA_PANDAARCH",
+            "setupper_plugins": "wlcg:dataservice.SetupperDummyPlugin:SetupperDummyPlugin",
+            "token_authType": "oidc"
+        }
+    }
+  panda_jedi_configmap.json: |-
+    {
+        "db": {
+            "backend": "postgres",
+            "dbhost": "{{.Release.Name}}-postgres",
+            "dbname": "{{.Values.database.panda_db}}",
+            "dbpasswd": "{{.Values.database.panda_password}}",
+            "dbport": 5432,
+            "dbuser": "{{.Values.database.panda_user}}",
+            "schemaDEFT": "DOMA_DEFT",
+            "schemaJEDI": "DOMA_PANDA",
+            "schemaMETA": "DOMA_PANDAMETA",
+            "schemaPANDA": "DOMA_PANDA",
+            "schemaPANDAARCH": "DOMA_PANDAARCH"
+        }
+    }
+
+{{- if .Values.hostcerts.enabled -}}
+---
+# host cert and key
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: {{ include "jedi.fullname" . }}-certs
+data:
+    hostcert.pem: |-
+{{ .Files.Get "hostcert.pem" | indent 8}}
+
+    hostkey.pem: |-
+{{ .Files.Get "hostkey.pem" | indent 8}}
+{{- end }}
