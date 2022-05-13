@@ -88,7 +88,7 @@ spec:
                mountPath: /var/log/panda
              - name: {{ include "server.fullname" . }}-configmap
                mountPath: /opt/panda/etc/configmap
-             {{- if .Values.hostcerts.enabled -}}
+             {{- if .Values.hostcerts.enabled }}
              - name: {{ include "server.fullname" . }}-certs
                mountPath: /opt/panda/etc/cert
              {{- end }}
@@ -120,7 +120,7 @@ spec:
         - name: {{ include "server.fullname" . }}-configmap
           configMap:
               name: {{ include "server.fullname" . }}-configmap
-        {{- if .Values.hostcerts.enabled -}}
+        {{- if .Values.hostcerts.enabled }}
         - name: {{ include "server.fullname" . }}-certs
           configMap:
               name: {{ include "server.fullname" . }}-certs
