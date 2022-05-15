@@ -96,7 +96,7 @@ spec:
           envFrom:
              - configMapRef:
                 {{- if .Values.database.password_ref }}
-                name: {{ .Values.database.password_ref }}-postgres-configmap
+                name: {{ .Values.database.password_ref }}
                 {{- else }}
                 name: {{ .Release.Name }}-postgres-configmap
                 {{- end }}

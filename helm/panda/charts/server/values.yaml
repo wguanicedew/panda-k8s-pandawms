@@ -14,7 +14,9 @@ image:
 autoStart: false
 
 persistentvolume:
+  # Set true to create PV
   create: false
+  # StorageClass
   class: nas
   path: "/mnt/panda-server-logs"
   size: 5Gi
@@ -23,8 +25,10 @@ hostcerts:
   enabled: false
 
 database:
+  # Set true to get database password via database configmap
   password_get: true
-  password_ref: panda
+  # Specify name of database configmap if different from server configmap
+  # password_ref: panda-postgres-configmap
 
 imagePullSecrets: []
 nameOverride: ""

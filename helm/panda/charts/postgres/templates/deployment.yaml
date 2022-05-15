@@ -53,11 +53,6 @@ spec:
       labels:
         {{- include "postgres.selectorLabels" . | nindent 8 }}
     spec:
-      {{- if .Values.database.panda_dbhost }}
-      hostname {{ .Values.database.panda_dbhost }}
-      {{- else }}
-      hostname: panda-database
-      {{ end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

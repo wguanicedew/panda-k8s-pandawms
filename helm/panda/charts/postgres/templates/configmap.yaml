@@ -9,4 +9,6 @@ data:
   PANDA_PASSWORD: {{ .Values.database.panda_password }}
   {{- if .Values.database.panda_dbhost }}
   PANDA_DBHOST: {{ .Values.database.panda_dbhost }}
+  {{- else }}
+  PANDA_DBHOST: {{ include "postgres.fullname" . }}
   {{- end }}
