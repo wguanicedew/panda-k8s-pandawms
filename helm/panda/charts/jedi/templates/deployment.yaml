@@ -108,10 +108,10 @@ spec:
           projected:
             sources:
               - configMap:
-                name: {{ include "jedi.fullname" . }}-configmap
+                  name: {{ include "jedi.fullname" . }}-configmap
               - configMap:
-                {{- if .Values.server_ref }}
-                name: {{ .Values.database.server_ref }}
-                {{- else }}
-                name: {{ .Release.Name }}-server-configmap
-                {{- end }}
+                  {{- if .Values.server_ref }}
+                  name: {{ .Values.database.server_ref }}
+                  {{- else }}
+                  name: {{ .Release.Name }}-server-configmap
+                  {{- end }}
