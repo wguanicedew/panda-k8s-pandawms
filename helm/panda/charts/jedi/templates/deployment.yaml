@@ -1,4 +1,5 @@
 # pv
+{{- if .Values.persistentvolume.create }}
 kind: PersistentVolume
 apiVersion: v1
 metadata:
@@ -6,7 +7,7 @@ metadata:
   labels:
       {{- include "jedi.labels" . | nindent 4 }}
 spec:
-  storageClassName: manual
+  storageClassName: {{ .Values.persistentvolume.class }}
   capacity:
     storage: {{ .Values.persistentvolume.size }}
   accessModes:
@@ -14,6 +15,7 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
+{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -22,7 +24,7 @@ metadata:
   labels:
     {{- include "jedi.labels" . | nindent 4 }}
 spec:
-  storageClassName: manual
+  storageClassName: {{ .Values.persistentvolume.class }}
   accessModes:
     - ReadWriteMany
   resources:
@@ -67,28 +69,25 @@ spec:
           {{ if .Values.autoStart -}}
           command: ["/bin/sh", "-c"]
           args:
-            - /etc/rc.d/init.d/httpd-pandasrv start;
-              /etc/rc.d/init.d/panda-jedi start;
+            - /etc/rc.d/init.d/panda-jedi start;
               sleep infinity & wait
           {{ end -}}
-          ports:
-            - name: http
-              containerPort: 25080
-              protocol: TCP
-            - name: https
-              containerPort: 25443
-              protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-              # - name: {{ include "jedi.fullname" . }}-logs
-              #  mountPath: /var/log/jedi/
+              - name: {{ include "jedi.fullname" . }}-logs
+                mountPath: /var/log/panda
               - name: {{ include "jedi.fullname" . }}-configmap
                 mountPath: /opt/panda/etc/configmap
-              {{- if .Values.hostcerts.enabled -}}
-              - name: {{ include "jedi.fullname" . }}-certs
-                mountPath: /opt/panda/etc/cert
-              {{- end }}
+          {{- if .Values.database.password_get }}
+          envFrom:
+            - configMapRef:
+                {{- if .Values.database.password_ref }}
+                name: {{ .Values.database.password_ref }}
+                {{- else }}
+                name: {{ .Release.Name }}-postgres-configmap
+                {{- end }}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -106,10 +105,13 @@ spec:
           persistentVolumeClaim:
             claimName: {{ include "jedi.fullname" . }}
         - name: {{ include "jedi.fullname" . }}-configmap
-          configMap:
-              name: {{ include "jedi.fullname" . }}-configmap
-        {{- if .Values.hostcerts.enabled -}}
-        - name: {{ include "jedi.fullname" . }}-certs
-          configMap:
-              name: {{ include "jedi.fullname" . }}-certs
-        {{- end }}
+          projected:
+            sources:
+              - configMap:
+                name: {{ include "jedi.fullname" . }}-configmap
+              - configMap:
+                {{- if .Values.server_ref }}
+                name: {{ .Values.database.server_ref }}
+                {{- else }}
+                name: {{ .Release.Name }}-server-configmap
+                {{- end }}

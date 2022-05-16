@@ -14,16 +14,16 @@ image:
 autoStart: true
 
 persistentvolume:
+  create: false
+  class: nas
   path: "/mnt/panda-jedi-logs"
   size: 5Gi
-hostcerts:
-  enabled: false
 
 database:
-  panda_db: panda_db
-  panda_user: panda
-  panda_password: PandaPass0508
-  panda_schema: doma_panda
+  # Set true to get database password via database configmap
+  password_get: true
+  # Specify name of database configmap if different from server configmap
+  # password_ref: panda-postgres-configmap
 
 imagePullSecrets: []
 nameOverride: ""
