@@ -66,12 +66,12 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{ if .Values.autoStart -}}
+          {{- if .Values.autoStart }}
           command: ["/bin/sh", "-c"]
           args:
             - /etc/rc.d/init.d/panda-jedi start;
               sleep infinity & wait
-          {{ end -}}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
