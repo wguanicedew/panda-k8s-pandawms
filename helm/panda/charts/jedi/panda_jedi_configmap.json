@@ -1,5 +1,9 @@
 {
     "db": {
-        "backend": "postgres" 
+        "backend": "postgres"
+    }, 
+    "master": {
+        "gname": "", 
+        "uname": ""
     }
 }
