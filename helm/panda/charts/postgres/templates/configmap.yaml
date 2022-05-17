@@ -6,9 +6,9 @@ metadata:
   labels:
     {{- include "postgres.labels" . | nindent 4 }}
 data:
-  PANDA_PASSWORD: {{ .Values.database.panda_password }}
+  PANDA_PASSWORD: {{ .Values.database.password }}
   {{- if .Values.database.panda_dbhost }}
-  PANDA_DBHOST: {{ .Values.database.panda_dbhost }}
+  PANDA_DBHOST: {{ .Values.database.dbhost }}
   {{- else }}
   PANDA_DBHOST: {{ include "postgres.fullname" . }}
   {{- end }}

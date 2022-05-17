@@ -16,8 +16,10 @@ persistentvolume:
   size: 5Gi
 
 database:
-  # FIXME
-  panda_password: PwJdJWr7vY
+  # password
+  password: PwJdJWr7vY
+  # external database hostname
+  # dbhost: blah
 
 imagePullSecrets: []
 nameOverride: ""
