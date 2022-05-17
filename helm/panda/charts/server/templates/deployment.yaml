@@ -62,20 +62,6 @@ spec:
       serviceAccountName: {{ include "server.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      {{- if .Values.initContainer }}
-      initContainers:
-        - name: check-database
-          image: postgres
-          command: [ 'sh', '-c',
-            'until pg_isready -h ${PANDA_DBHOST} -p 5432; do echo waiting for database; sleep 2; done;' ]
-          envFrom:
-            - configMapRef:
-                {{- if .Values.database.password_ref }}
-                name: {{ .Values.database.password_ref }}
-                {{- else }}
-                name: {{ .Release.Name }}-postgres-configmap
-                {{- end }}
-      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -85,7 +71,8 @@ spec:
           {{- if .Values.autoStart }}
           command: [ "/bin/sh", "-c" ]
           args:
-            - /etc/rc.d/init.d/httpd-pandasrv start;
+            - until pg_isready -h ${PANDA_DBHOST} -p 5432; do echo waiting for database; sleep 2; done;
+              /etc/rc.d/init.d/httpd-pandasrv start;
               sleep infinity & wait
           {{- end }}
           ports:

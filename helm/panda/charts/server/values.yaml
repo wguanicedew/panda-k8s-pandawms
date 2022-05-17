@@ -30,8 +30,6 @@ database:
   # Specify name of database configmap if different from server configmap
   # password_ref: panda-postgres-configmap
 
-initContainer: true
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
