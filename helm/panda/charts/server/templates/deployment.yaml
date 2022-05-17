@@ -62,18 +62,32 @@ spec:
       serviceAccountName: {{ include "server.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- if .Values.initContainer }}
+      initContainers:
+        - name: check_database
+          image: postgres
+          command: [ 'sh', '-c',
+            'until pg_isready -h ${PANDA_DBHOST} -p 5432; do echo waiting for database; sleep 2; done;' ]
+          envFrom:
+            - configMapRef:
+                { { - if .Values.database.password_ref } }
+                name: { { .Values.database.password_ref } }
+                { { - else } }
+                name: { { .Release.Name } }-postgres-configmap
+                {{- end }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{ if .Values.autoStart -}}
+          {{- if .Values.autoStart }}
           command: [ "/bin/sh", "-c" ]
           args:
             - /etc/rc.d/init.d/httpd-pandasrv start;
               sleep infinity & wait
-          {{ end -}}
+          {{- end }}
           ports:
             - name: http
               containerPort: 25080
@@ -92,7 +106,6 @@ spec:
              - name: {{ include "server.fullname" . }}-certs
                mountPath: /opt/panda/etc/cert
              {{- end }}
-          {{- if .Values.database.password_get }}
           envFrom:
              - configMapRef:
                 {{- if .Values.database.password_ref }}
@@ -100,7 +113,6 @@ spec:
                 {{- else }}
                 name: {{ .Release.Name }}-postgres-configmap
                 {{- end }}
-          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
