@@ -1,8 +1,8 @@
-# JEDI and server configuration
+# server configuration
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "server.fullname" . }}-configmap
+  name: {{ include "server.fullname" . }}-configjson
 data:
   panda_server_configmap.json: |-
 {{ .Files.Get "panda_server_configmap.json" | indent 4}}

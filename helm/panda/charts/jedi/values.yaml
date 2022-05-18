@@ -22,8 +22,12 @@ persistentvolume:
 database:
   # Set true to get database password via database configmap
   password_get: true
-  # Specify name of database configmap if different from server configmap
-  # password_ref: panda-postgres-configmap
+  # Specify name of database configmap if any
+  # config_ref: panda-postgres-configmap
+
+server: []
+  # Specify reference name of server configmap if any
+  # config_ref: panda-server-configjson
 
 imagePullSecrets: []
 nameOverride: ""
@@ -51,36 +55,6 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-service:
-  type: ClusterIP
-  httpPort: 25080
-  httpsPort: 25443
-
-ingress:
-  enabled: false
-  className: ""
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - domain: cern.ch
-      hostOverride: ""
-      paths:
-        - path: /
-          pathType: Prefix
-
-  tls:
-    - secretName: ""
-      hosts:
-        - domain: cern.ch
-          hostOverride: ""
-  # tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

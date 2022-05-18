@@ -22,13 +22,13 @@ persistentvolume:
   size: 5Gi
 
 hostcerts:
-  enabled: false
+  enabled: true
 
 database:
   # Set true to get database password via database configmap
   password_get: true
-  # Specify name of database configmap if different from server configmap
-  # password_ref: panda-postgres-configmap
+  # Specify reference name of database configmap if different from server configmap
+  # config_ref: panda-postgres-configmap
 
 imagePullSecrets: []
 nameOverride: ""
@@ -63,12 +63,33 @@ service:
 
 ingress:
   enabled: false
+
+  ### configration for CERN k8s
   className: ""
-  annotations: {}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - domain: cern.ch
+      hostOverride: ""
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: ""
+      hosts:
+        - domain: cern.ch
+          hostOverride: ""
 
-  hosts: []
+route:
+  enabled: false
 
-  tls: []
+  ### configuration for BNL OKD
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: None
+
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
