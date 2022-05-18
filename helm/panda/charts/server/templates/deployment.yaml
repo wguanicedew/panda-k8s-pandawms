@@ -71,7 +71,7 @@ spec:
           {{- if .Values.autoStart }}
           command: [ "/bin/sh", "-c" ]
           args:
-            - until pg_isready -h ${PANDA_DBHOST} -p 5432; do echo waiting for database; sleep 2; done;
+            - until  /usr/pgsql-*/bin/pg_isready -h ${PANDA_DBHOST} -p 5432; do echo waiting for database; sleep 2; done;
               /etc/rc.d/init.d/httpd-pandasrv start;
               sleep infinity & wait
           {{- end }}

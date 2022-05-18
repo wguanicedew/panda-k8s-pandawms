@@ -11,7 +11,7 @@ image:
   tag: "latest"
 
 # start the service when pod gets started
-autoStart: false
+autoStart: true
 
 persistentvolume:
   # Set true to create PV
@@ -64,29 +64,11 @@ service:
 ingress:
   enabled: false
   className: ""
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - domain: cern.ch
-      hostOverride: ""
-      paths:
-        - path: /
-          pathType: Prefix
+  annotations: {}
 
-  tls:
-    - secretName: ""
-      hosts:
-        - domain: cern.ch
-          hostOverride: ""
+  hosts: []
 
-  # tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  tls: []
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
