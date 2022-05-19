@@ -102,6 +102,9 @@ spec:
                  {{- end }}
              - configMapRef:
                  name: {{ include "server.fullname" . }}-configmap
+          env:
+            - name: PANDA_SERVER_CONF_SERVERNAME
+              value: {{ include "server.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
