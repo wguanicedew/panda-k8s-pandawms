@@ -85,7 +85,7 @@ ingress:
 route:
   enabled: false
 
-  ### configuration for BNL OKD
+  ### configuration for OKD
   tls:
     termination: passthrough
     insecureEdgeTerminationPolicy: None

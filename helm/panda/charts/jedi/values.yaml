@@ -25,7 +25,7 @@ database:
   # Specify name of database configmap if any
   # config_ref: panda-postgres-configmap
 
-server: []
+server: {}
   # Specify reference name of server configmap if any
   # config_ref: panda-server-configjson
 
@@ -54,9 +54,6 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
-
-service:
-  type: ClusterIP
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
