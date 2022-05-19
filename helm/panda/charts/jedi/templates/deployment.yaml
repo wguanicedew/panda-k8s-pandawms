@@ -69,7 +69,8 @@ spec:
           {{- if .Values.autoStart }}
           command: ["/bin/sh", "-c"]
           args:
-            - /etc/rc.d/init.d/panda-jedi start;
+            - until  /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
+              /etc/rc.d/init.d/panda-jedi start;
               sleep infinity & wait
           {{- end }}
           resources:
