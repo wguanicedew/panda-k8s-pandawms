@@ -7,7 +7,6 @@ replicaCount: 1
 image:
   repository: ghcr.io/pandawms/panda-server
   pullPolicy: Always
-  # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
 # start the service when pod gets started

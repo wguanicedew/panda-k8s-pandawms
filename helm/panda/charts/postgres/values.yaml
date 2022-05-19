@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/pandawms/panda-database
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: latest
 
 persistentvolume:
