@@ -30,7 +30,7 @@ kind: ConfigMap
 metadata:
   name: {{ include "server.fullname" . }}-configmap
 data:
-  PANDA_SERVER_HOST: {{ include "server.fullname" . }}
-  PANDA_SERVER_PORT: {{ .Values.service.httpsPort }}
-  PANDA_URL: print "https://%s:%d/server/panda{{ include "server.fullname" .}}:{{ .Values.service.httpsPort }}/server/panda"
-  PANDA_URL_SSL: print "https://%s:%d/server/panda{{ include "server.fullname" .}}:{{ .Values.service.httpsPort }}/server/panda"
+  PANDA_SERVER_HOST: "{{ include "server.fullname" . }}"
+  PANDA_SERVER_PORT: "{{ .Values.service.httpsPort }}"
+  PANDA_URL: "https://{{ include "server.fullname" .}}:{{ .Values.service.httpsPort }}/server/panda"
+  PANDA_URL_SSL: "https://{{ include "server.fullname" .}}:{{ .Values.service.httpsPort }}/server/panda"
