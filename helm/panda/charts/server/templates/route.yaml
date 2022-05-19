@@ -12,7 +12,7 @@ spec:
     kind: Service
     name: {{ include "server.fullname" . }}
   port:
-    targetPort: {{ .Values.service.httpsPort }}
+    targetPort: https
   {{- with .Values.route.tls }}
   tls:
     {{- toYaml . | nindent 4 }}

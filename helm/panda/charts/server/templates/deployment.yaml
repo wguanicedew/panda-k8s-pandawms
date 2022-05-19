@@ -71,7 +71,7 @@ spec:
           {{- if .Values.autoStart }}
           command: [ "/bin/sh", "-c" ]
           args:
-            - until  /usr/pgsql-*/bin/pg_isready -h ${PANDA_DBHOST} -p 5432; do echo waiting for database; sleep 2; done;
+            - until  /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
               /etc/rc.d/init.d/httpd-pandasrv start;
               sleep infinity & wait
           {{- end }}
@@ -95,11 +95,13 @@ spec:
              {{- end }}
           envFrom:
              - configMapRef:
-                {{- if .Values.database.config_ref }}
-                name: {{ .Values.database.config_ref }}
-                {{- else }}
-                name: {{ .Release.Name }}-postgres-configmap
-                {{- end }}
+                 {{- if .Values.database.config_ref }}
+                 name: {{ .Values.database.config_ref }}
+                 {{- else }}
+                 name: {{ .Release.Name }}-postgres-configmap
+                 {{- end }}
+             - configMapRef:
+                 name: {{ include "server.fullname" . }}-configmap
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

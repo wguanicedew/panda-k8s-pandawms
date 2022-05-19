@@ -21,3 +21,16 @@ data:
     hostkey.pem: |-
 {{ .Files.Get "hostkey.pem" | indent 8}}
 {{- end }}
+
+---
+
+# server configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "server.fullname" . }}-configmap
+data:
+  PANDA_SERVER_HOST: {{ include "server.fullname" . }}
+  PANDA_SERVER_PORT: {{ .Values.service.httpsPort }}
+  PANDA_URL: https://{{ include "server.fullname" . }}:{{ .Values.service.httpsPort }}/server/panda
+  PANDA_URL_SSL: https://{{ include "server.fullname" . }}:{{ .Values.service.httpsPort }}/server/panda
