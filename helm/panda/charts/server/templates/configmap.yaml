@@ -23,7 +23,6 @@ data:
 {{- end }}
 
 ---
-
 # server configuration
 apiVersion: v1
 kind: ConfigMap
@@ -32,3 +31,17 @@ metadata:
 data:
   PANDA_URL: "https://{{ include "server.fullname" .}}:{{ .Values.service.httpsPort }}/server/panda"
   PANDA_URL_SSL: "https://{{ include "server.fullname" .}}:{{ .Values.service.httpsPort }}/server/panda"
+
+{{- $authconfig := .Files.Glob "auth/**.auth_config.json" }}
+{{- if $authconfig }}
+----
+# auth config
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "server.fullname" . }}-authconfig
+data:
+  {{ range $path, $_ :=  $authconfig }}
+    {{ $.Files.Get $path } indent 4 }}
+  {{ end }}
+{{- end }}
