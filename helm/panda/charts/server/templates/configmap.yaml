@@ -39,13 +39,13 @@ data:
   {{- end }}
   {{- if .Values.httpProxy }}
   http_proxy: {{ .Values.httpProxy }}
-  no_proxy: localhost,{{ include "server.fullname" .}}
+  no_proxy: localhost,{{ include "server.fullname" . }}
   {{- if .Values.httpsProxy }}
   https_proxy: {{ .Values.httpProxy }}
   {{- end }}
   {{- else if .Values.httpsProxy }}
   https_proxy: {{ .Values.httpsProxy }}
-  no_proxy: localhost,{{ include "server.fullname" .}}
+  no_proxy: localhost,{{ include "server.fullname" . }}
   {{- end }}
   {{- end }}
 
