@@ -82,7 +82,7 @@ spec:
                 mountPath: /opt/panda/etc/configmap
           envFrom:
             - configMapRef:
-                name: {{ .Release.Name }}-server-configmap
+                name: {{ .Release.Name }}-server-env
             {{- if .Values.database.password_get }}
             - configMapRef:
                 {{- if .Values.database.config_ref }}

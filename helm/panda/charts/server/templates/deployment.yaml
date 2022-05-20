@@ -103,7 +103,7 @@ spec:
                  name: {{ .Release.Name }}-postgres-configmap
                  {{- end }}
              - configMapRef:
-                 name: {{ include "server.fullname" . }}-configmap
+                 name: {{ include "server.fullname" . }}-env
           env:
             - name: PANDA_SERVER_CONF_SERVERNAME
               value: {{ include "server.fullname" . }}
