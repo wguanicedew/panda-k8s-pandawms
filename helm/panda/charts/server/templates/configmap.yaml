@@ -31,6 +31,12 @@ metadata:
 data:
   PANDA_URL: "https://{{ include "server.fullname" .}}:{{ .Values.service.httpsPort }}/server/panda"
   PANDA_URL_SSL: "https://{{ include "server.fullname" .}}:{{ .Values.service.httpsPort }}/server/panda"
+  {{- if .Values.authIdToken }}
+  PANDA_VERIFY_HOST: "off"
+  PANDA_AUTH: "oidc"
+  PANDA_AUTH_ID_TOKEN: {{ Values.authIdToken }}
+  PANDA_AUTH_VO: {{ Values.authVO }}
+  {{- end }}
 
 ---
 # auth

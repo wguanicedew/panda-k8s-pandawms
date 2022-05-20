@@ -12,6 +12,11 @@ image:
 # start the service when pod gets started
 autoStart: true
 
+# ID token and VO for OIDC/OAuth
+authIdToken: ""
+authVO = ""
+
+
 persistentvolume:
   # Set true to create PV
   create: false
