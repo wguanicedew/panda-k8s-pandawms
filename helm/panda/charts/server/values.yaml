@@ -16,6 +16,9 @@ autoStart: true
 authIdToken: ""
 authVO: ""
 
+# http proxy
+httpProxy: ""
+httpsProxy: ""
 
 persistentvolume:
   # Set true to create PV

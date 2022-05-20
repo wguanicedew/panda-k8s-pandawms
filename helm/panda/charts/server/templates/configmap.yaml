@@ -37,6 +37,17 @@ data:
   PANDA_AUTH_ID_TOKEN: {{ .Values.authIdToken }}
   PANDA_AUTH_VO: {{ .Values.authVO }}
   {{- end }}
+  {{- if .Values.httpProxy }}
+  http_proxy: {{ .Values.httpProxy }}
+  no_proxy: localhost,{{ include "server.fullname" .}}
+  {{- if .Values.httpsProxy }}
+  https_proxy: {{ .Values.httpProxy }}
+  {{- end }}
+  {{- else if .Values.httpsProxy }}
+  https_proxy: {{ .Values.httpsProxy }}
+  no_proxy: localhost,{{ include "server.fullname" .}}
+  {{- end }}
+  {{- end }}
 
 ---
 # auth
