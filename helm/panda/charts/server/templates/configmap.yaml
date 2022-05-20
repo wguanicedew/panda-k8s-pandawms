@@ -47,7 +47,6 @@ data:
   https_proxy: {{ .Values.httpsProxy }}
   no_proxy: localhost,{{ include "server.fullname" . }}
   {{- end }}
-  {{- end }}
 
 ---
 # auth
