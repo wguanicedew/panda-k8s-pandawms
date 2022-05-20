@@ -89,7 +89,7 @@ spec:
                mountPath: /var/log/panda
              - name: {{ include "server.fullname" . }}-configjson
                mountPath: /opt/panda/etc/configmap
-             - name: { { include "server.fullname" . } }-auth
+             - name: {{ include "server.fullname" . }}-auth
                mountPath: /opt/panda/etc/panda/auth
              {{- if .Values.hostcerts.enabled }}
              - name: {{ include "server.fullname" . }}-certs
@@ -126,9 +126,9 @@ spec:
         - name: {{ include "server.fullname" . }}-configjson
           configMap:
               name: {{ include "server.fullname" . }}-configjson
-        - name: { { include "server.fullname" . } }-auth
+        - name: {{ include "server.fullname" . }}-auth
           configMap:
-              name: { { include "server.fullname" . } }-auth
+              name: {{ include "server.fullname" . }}-auth
         {{- if .Values.hostcerts.enabled }}
         - name: {{ include "server.fullname" . }}-certs
           configMap:
