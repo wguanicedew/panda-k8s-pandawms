@@ -39,7 +39,7 @@ kind: ConfigMap
 metadata:
   name: {{ include "server.fullname" . }}-auth
 data:
-  {{- range $path, $_ :=  $authconfig }}
+  {{- range $path, $_ := .Files.Glob "auth/**_auth_config.json" }}
   {{ base $path }}: |-
     {{ $.Files.Get $path }}
   {{- end }}
