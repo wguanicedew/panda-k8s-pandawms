@@ -14,7 +14,7 @@ autoStart: true
 
 # ID token and VO for OIDC/OAuth
 authIdToken: ""
-authVO = ""
+authVO: ""
 
 
 persistentvolume:
