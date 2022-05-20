@@ -20,6 +20,9 @@ authVO: ""
 httpProxy: ""
 httpsProxy: ""
 
+# run with non-root PID
+noRoot: false
+
 persistentvolume:
   # Set true to create PV
   create: false

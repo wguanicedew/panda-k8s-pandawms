@@ -47,6 +47,9 @@ data:
   https_proxy: "{{ .Values.httpsProxy }}"
   no_proxy: "localhost,{{ include "server.fullname" . }}"
   {{- end }}
+  {{- if .Values.noRoot }}
+  PANDA_NO_ROOT: "1"
+  {{- end }}
 
 ---
 # auth
