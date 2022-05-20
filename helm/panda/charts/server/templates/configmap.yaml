@@ -32,8 +32,6 @@ data:
   PANDA_URL: "https://{{ include "server.fullname" .}}:{{ .Values.service.httpsPort }}/server/panda"
   PANDA_URL_SSL: "https://{{ include "server.fullname" .}}:{{ .Values.service.httpsPort }}/server/panda"
 
-{{ $authconfig := .Files.Glob "auth/**_auth_config.json" }}
-{{- if $authconfig }}
 ---
 # auth
 apiVersion: v1
@@ -45,4 +43,3 @@ data:
   {{ base $path }}: |-
     {{ $.Files.Get $path }}
   {{- end }}
-{{ end }}
