@@ -22,9 +22,9 @@ server:
   route:
     enabled: true
     # host name of the PanDA server
-    hostName: sphenix-pandaserver.apps.rcf.bnl.gov
+    hostName: "FIXME"
   # ID token of the PanDA service account
-  authIdToken: "..."
+  authIdToken: "FIXME"
   # VO (+ role)
   authVO: "panda_dev.production"
   # https proxy if containers need it to access external services
