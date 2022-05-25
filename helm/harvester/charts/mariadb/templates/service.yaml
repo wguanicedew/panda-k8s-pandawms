@@ -7,7 +7,7 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.mariadb.port }}
+    - port: {{ .Values.service.port }}
       targetPort: mariadb-port
       protocol: TCP
       name: mariadb-port
