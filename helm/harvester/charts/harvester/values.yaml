@@ -19,6 +19,9 @@ noRoot: false
 httpProxy: ""
 httpsProxy: ""
 
+# harvester id
+harvesterID: "my-harvester"
+
 persistentvolume:
   create: false
   class: nas

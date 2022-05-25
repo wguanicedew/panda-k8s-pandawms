@@ -1,0 +1,25 @@
+{
+    "db": {
+        "engine": "mariadb",
+        "verbose": true
+    }, 
+    "master": {
+        "gname": "zp", 
+        "harvester_id": "FROM_ENV",
+        "uname": "atlpan"
+    }, 
+    "pandacon": {
+        "ca_cert": null,
+        "auth_type": "oidc",
+        "auth_token": "FIXME",
+        "auth_origin": "FIXME",
+        "pandaURL": "http://pandaserver-doma.cern.ch:25080/server/panda",
+        "pandaURLSSL": "https://pandaserver-doma.cern.ch/server/panda", 
+        "verbose": true
+    }, 
+    "qconf": {
+        "queueList": [
+            "ALL"
+        ]
+    }
+}
