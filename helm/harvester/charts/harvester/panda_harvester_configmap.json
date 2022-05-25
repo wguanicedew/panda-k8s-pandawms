@@ -7,16 +7,16 @@
   },
   "master": {
     "gname": "zp",
-    "harvester_id": "FROM_ENV",
+    "harvester_id": "${HARVESTER_ID}",
     "uname": "atlpan"
   },
   "pandacon": {
-    "ca_cert": null,
+    "ca_cert": false,
     "auth_type": "oidc",
-    "auth_token": "FIXME",
-    "auth_origin": "FIXME",
-    "pandaURL": "http://pandaserver-doma.cern.ch:25080/server/panda",
-    "pandaURLSSL": "https://pandaserver-doma.cern.ch/server/panda",
+    "auth_token": "${PANDA_AUTH_ID_TOKEN}",
+    "auth_origin": "${PANDA_AUTH_VO}",
+    "pandaURL": "${PANDA_URL_SSL}",
+    "pandaURLSSL": "${PANDA_URL_SSL}",
     "verbose": true
   },
   "qconf": {

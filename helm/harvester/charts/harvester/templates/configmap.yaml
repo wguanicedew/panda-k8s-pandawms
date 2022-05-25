@@ -28,10 +28,11 @@ data:
   PANDA_URL: "https://{{ .Values.panda.host }}/server/panda"
   PANDA_URL_SSL: "https://{{ .Values.panda.host }}/server/panda"
   {{- if .Values.panda.authIdToken }}
-  PANDA_VERIFY_HOST: "off"
-  PANDA_AUTH: "oidc"
   PANDA_AUTH_ID_TOKEN: {{ .Values.panda.authIdToken }}
   PANDA_AUTH_VO: {{ .Values.panda.authVO }}
+  {{- end }}
+  {{- if .Values.panda.behindRealLB }}
+  PANDA_BEHIND_REAL_LB: "1"
   {{- end }}
   {{- if .Values.httpProxy }}
   http_proxy: "{{ .Values.httpProxy }}"
