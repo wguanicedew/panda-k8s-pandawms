@@ -15,6 +15,7 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
+{{-end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -35,7 +36,6 @@ spec:
       {{- include "harvester.selectorLabels" . | nindent 6 }}
   {{- end }}
 ---
-{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -81,19 +81,19 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-              - name: {{ include "harvester.fullname" . }}-logs
+            - name: {{ include "harvester.fullname" . }}-logs
                 mountPath: /var/log/panda/
-              - name: {{ include "harvester.fullname" . }}-configjson
+            - name: {{ include "harvester.fullname" . }}-configjson
                 mountPath: /opt/harvester/etc/configmap
           envFrom:
-             - configMapRef:
-                 {{- if .Values.database.config_ref }}
-                 name: {{ .Values.database.config_ref }}
-                 {{- else }}
-                 name: {{ .Release.Name }}-mariadb-configmap
-                 {{- end }}
-             - configMapRef:
-                 name: { { include "harvester.fullname" . } }-env
+            - configMapRef:
+                {{- if .Values.database.config_ref }}
+                name: {{ .Values.database.config_ref }}
+                {{- else }}
+                name: {{ .Release.Name }}-mariadb-configmap
+                {{- end }}
+            - configMapRef:
+                name: { { include "harvester.fullname" . } }-env
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -111,8 +111,8 @@ spec:
           persistentVolumeClaim:
             claimName: {{ include "harvester.fullname" . }}
         - name: {{ include "harvester.fullname" . }}-configjson
-          configMap:
+            configMap:
               name: {{ include "harvester.fullname" . }}-configjson
         - name: {{ include "harvester.fullname" . }}-queueconfig
-          configMap:
+            configMap:
               name: {{ include "harvester.fullname" . }}-queueconfig
