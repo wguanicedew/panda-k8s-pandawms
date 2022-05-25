@@ -3,9 +3,9 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: {{ include "server.fullname" . }}
+  name: {{ include "harvester.fullname" . }}
   labels:
-      {{- include "server.labels" . | nindent 4 }}
+      {{- include "harvester.labels" . | nindent 4 }}
 spec:
   storageClassName: {{ .Values.persistentvolume.class }}
   capacity:
@@ -15,14 +15,13 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
-{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ include "server.fullname" . }}
+  name: {{ include "harvester.fullname" . }}
   labels:
-    {{- include "server.labels" . | nindent 4 }}
+    {{- include "harvester.labels" . | nindent 4 }}
 spec:
   storageClassName: {{ .Values.persistentvolume.class }}
   accessModes:
@@ -33,38 +32,37 @@ spec:
   {{- if .Values.persistentvolume.selector }}
   selector:
     matchLabels:
-      {{- include "server.selectorLabels" . | nindent 6 }}
+      {{- include "harvester.selectorLabels" . | nindent 6 }}
   {{- end }}
 ---
-
+{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "server.fullname" . }}
+  name: {{ include "harvester.fullname" . }}
   labels:
-    {{- include "server.labels" . | nindent 4 }}
+    {{- include "harvester.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "server.selectorLabels" . | nindent 6 }}
+      {{- include "harvester.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-
       {{- with .Values.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "server.selectorLabels" . | nindent 8 }}
+        {{- include "harvester.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "server.serviceAccountName" . }}
+      serviceAccountName: {{ include "harvester.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -73,45 +71,29 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- if .Values.autoStart }}
-          command: [ "/bin/sh", "-c" ]
+          {{ if .Values.autoStart -}}
+          command: ["/bin/sh", "-c"]
           args:
-            - until /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
-              /etc/rc.d/init.d/httpd-pandasrv start;
+            - until mysqladmin ping -h ${HARVESTER_DB_HOST} --silent; do sleep 1; done;
+              /opt/harvester/etc/rc.d/init.d/panda_harvester-uwsgi start;
               sleep infinity & wait
-          {{- end }}
-          ports:
-            - name: http
-              containerPort: 25080
-              protocol: TCP
-            - name: https
-              containerPort: 25443
-              protocol: TCP
+          {{ end -}}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-             - name: {{ include "server.fullname" . }}-logs
-               mountPath: /var/log/panda
-             - name: {{ include "server.fullname" . }}-configjson
-               mountPath: /opt/panda/etc/configmap
-             - name: {{ include "server.fullname" . }}-auth
-               mountPath: /opt/panda/etc/panda/auth
-             {{- if .Values.hostcerts.enabled }}
-             - name: {{ include "server.fullname" . }}-certs
-               mountPath: /opt/panda/etc/cert
-             {{- end }}
+              - name: {{ include "harvester.fullname" . }}-logs
+                mountPath: /var/log/panda/
+              - name: {{ include "harvester.fullname" . }}-configjson
+                mountPath: /opt/harvester/etc/configmap
           envFrom:
              - configMapRef:
                  {{- if .Values.database.config_ref }}
                  name: {{ .Values.database.config_ref }}
                  {{- else }}
-                 name: {{ .Release.Name }}-postgres-configmap
+                 name: {{ .Release.Name }}-mariadb-configmap
                  {{- end }}
              - configMapRef:
-                 name: {{ include "server.fullname" . }}-env
-          env:
-            - name: PANDA_SERVER_CONF_SERVERNAME
-              value: {{ include "server.fullname" . }}
+                 name: { { include "harvester.fullname" . } }-env
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -125,17 +107,12 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: {{ include "server.fullname" . }}-logs
+        - name: {{ include "harvester.fullname" . }}-logs
           persistentVolumeClaim:
-            claimName: {{ include "server.fullname" . }}
-        - name: {{ include "server.fullname" . }}-configjson
+            claimName: {{ include "harvester.fullname" . }}
+        - name: {{ include "harvester.fullname" . }}-configjson
           configMap:
-              name: {{ include "server.fullname" . }}-configjson
-        - name: {{ include "server.fullname" . }}-auth
+              name: {{ include "harvester.fullname" . }}-configjson
+        - name: {{ include "harvester.fullname" . }}-queueconfig
           configMap:
-              name: {{ include "server.fullname" . }}-auth
-        {{- if .Values.hostcerts.enabled }}
-        - name: {{ include "server.fullname" . }}-certs
-          configMap:
-              name: {{ include "server.fullname" . }}-certs
-        {{ end }}
+              name: {{ include "harvester.fullname" . }}-queueconfig

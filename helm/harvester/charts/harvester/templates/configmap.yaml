@@ -1,0 +1,46 @@
+# harvester configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "harvester.fullname" . }}-configjson
+data:
+  panda_harvester_configmap.json: |-
+{{ .Files.Get "panda_harvester_configmap.json" | indent 4}}
+---
+# queue config
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "harvester.fullname" . }}-queueconfig
+data:
+  panda_queueconfig.json: |-
+{{ .Files.Get "panda_queueconfig.json" | indent 4}}
+
+  pilot_wrapper.sh: |-
+{{ .Files.Get "pilot_wrapper.sh" | indent 4}}
+---
+# server env variables
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "harvester.fullname" . }}-env
+data:
+  PANDA_URL: "https://{{ .Values.panda.host }}/server/panda"
+  PANDA_URL_SSL: "https://{{ .Values.panda.host }}/server/panda"
+  {{- if .Values.panda.authIdToken }}
+  PANDA_VERIFY_HOST: "off"
+  PANDA_AUTH: "oidc"
+  PANDA_AUTH_ID_TOKEN: {{ .Values.panda.authIdToken }}
+  PANDA_AUTH_VO: {{ .Values.panda.authVO }}
+  {{- end }}
+  {{- if .Values.httpProxy }}
+  http_proxy: "{{ .Values.httpProxy }}"
+  {{- if .Values.httpsProxy }}
+  https_proxy: "{{ .Values.httpProxy }}"
+  {{- end }}
+  {{- else if .Values.httpsProxy }}
+  https_proxy: "{{ .Values.httpsProxy }}"
+  {{- end }}
+  {{- if .Values.noRoot }}
+  HARVESTER_NO_ROOT: "1"
+  {{- end }}
