@@ -15,7 +15,7 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
-{{-end }}
+{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -71,13 +71,13 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{ if .Values.autoStart -}}
+          {{- if .Values.autoStart }}
           command: ["/bin/sh", "-c"]
           args:
             - until mysqladmin ping -h ${HARVESTER_DB_HOST} --silent; do sleep 1; done;
               /opt/harvester/etc/rc.d/init.d/panda_harvester-uwsgi start;
               sleep infinity & wait
-          {{ end -}}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
