@@ -74,7 +74,7 @@ spec:
           {{- if .Values.autoStart }}
           command: ["/bin/sh", "-c"]
           args:
-            - until mysqladmin ping -h ${HARVESTER_DB_HOST} --silent; do sleep 1; done;
+            - until curl -o - ${HARVESTER_DB_HOST}:3306; do sleep 1; done;
               /opt/harvester/etc/rc.d/init.d/panda_harvester-uwsgi start;
               sleep infinity & wait
           {{- end }}
