@@ -29,7 +29,7 @@ server:
   authVO: "panda_dev.production"
   # https proxy if containers need it to access external services
   #httpsProxy: "..."
-  # run containers with no-root PID
+  # run containers with no-root PID e.g. for OKD
   #noRoot: true
 
 postgres:

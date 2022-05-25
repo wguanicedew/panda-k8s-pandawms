@@ -7,6 +7,7 @@
         "CRIC_URL_SITES": "https://datalake-cric.cern.ch/api/atlas/site/query/?json", 
         "adder_plugins": "wlcg:dataservice.AdderDummyPlugin:AdderDummyPlugin", 
         "backend": "postgres",
+        "configurator_use_cert": "False",
         "production_dns": "FIXME: a comma-separated list of privileged user names",
         "pserveralias": "FIXME: a common name of httpd",
         "setupper_plugins": "wlcg:dataservice.SetupperDummyPlugin:SetupperDummyPlugin", 
