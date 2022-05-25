@@ -1,0 +1,14 @@
+# Default values for harvester.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+harvester:
+  # enable harvester
+  enabled: true
+  # container image and tag
+  image:
+    tag: latest
+
+mariadb:
+  # enable database
+  enabled: true
