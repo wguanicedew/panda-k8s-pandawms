@@ -1,0 +1,17 @@
+# config map
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "mariadb.fullname" . }}-configmap
+  labels:
+    {{- include "mariadb.labels" . | nindent 4 }}
+data:
+  MARIADB_DATABASE: "harvester"
+  MARIADB_USER: "harvester"
+  MARIADB_PASSWORD: {{ .Values.database.password }}
+  MARIADB_ROOT_PASSWORD: {{ .Values.database.admin_password }}
+  {{- if .Values.database.dbhost }}
+  HARVESTER_DB_HOST: {{ .Values.database.dbhost }}
+  {{- else }}
+  HARVESTER_DB_HOST: {{ include "maradb.fullname" . }}
+  {{- end }}
