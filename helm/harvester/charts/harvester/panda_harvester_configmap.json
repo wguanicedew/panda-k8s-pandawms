@@ -3,6 +3,7 @@
     "engine": "mariadb",
     "useMySQLdb": true,
     "schema": "harvester",
+    "host": "${HARVESTER_DB_HOST}",
     "verbose": true
   },
   "master": {
