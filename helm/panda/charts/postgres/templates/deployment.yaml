@@ -30,9 +30,11 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistentvolume.size }}
+  {{- if .Values.persistentvolume.selector }}
   selector:
     matchLabels:
       {{- include "postgres.selectorLabels" . | nindent 6 }}
+  {{- end }}
 ---
 apiVersion: apps/v1
 kind: Deployment
