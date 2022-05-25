@@ -82,18 +82,18 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: {{ include "harvester.fullname" . }}-logs
-                mountPath: /var/log/panda/
+              mountPath: /var/log/panda/
             - name: {{ include "harvester.fullname" . }}-configjson
-                mountPath: /opt/harvester/etc/configmap
+              mountPath: /opt/harvester/etc/configmap
           envFrom:
             - configMapRef:
-                {{- if .Values.database.config_ref }}
-                name: {{ .Values.database.config_ref }}
-                {{- else }}
-                name: {{ .Release.Name }}-mariadb-configmap
-                {{- end }}
+              {{- if .Values.database.config_ref }}
+              name: {{ .Values.database.config_ref }}
+              {{- else }}
+              name: {{ .Release.Name }}-mariadb-configmap
+              {{- end }}
             - configMapRef:
-                name: {{ include "harvester.fullname" . }}-env
+              name: {{ include "harvester.fullname" . }}-env
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
