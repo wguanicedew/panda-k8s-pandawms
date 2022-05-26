@@ -12,9 +12,6 @@ image:
 # start the service when pod gets started
 autoStart: true
 
-# run with non-root PID
-noRoot: false
-
 # http proxy
 httpProxy: ""
 httpsProxy: ""

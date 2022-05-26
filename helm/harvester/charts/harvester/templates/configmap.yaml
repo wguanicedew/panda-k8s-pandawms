@@ -43,6 +43,3 @@ data:
   https_proxy: "{{ .Values.httpsProxy }}"
   {{- end }}
   HARVESTER_ID: "{{ .Values.harvesterID }}"
-  {{- if .Values.noRoot }}
-  HARVESTER_NO_ROOT: "1"
-  {{- end }}
