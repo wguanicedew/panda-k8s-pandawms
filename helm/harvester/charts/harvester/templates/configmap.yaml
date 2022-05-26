@@ -44,13 +44,13 @@ data:
   {{- end }}
   HARVESTER_ID: "{{ .Values.harvesterID }}"
 ---
-# scripts
+# stuff
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "harvester.fullname" . }}-scripts
+  name: {{ include "harvester.fullname" . }}-stuff
 data:
-  {{- range $path, $_ := .Files.Glob "scripts/*" }}
+  {{- range $path, $_ := .Files.Glob "stuff/*" }}
   {{ base $path }}: |-
     {{ $.Files.Get $path }}
   {{- end }}

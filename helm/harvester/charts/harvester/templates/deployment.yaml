@@ -85,8 +85,8 @@ spec:
               mountPath: /var/log/panda/
             - name: {{ include "harvester.fullname" . }}-configjson
               mountPath: /opt/harvester/etc/configmap
-            - name: {{ include "harvester.fullname" . }}-scripts
-              mountPath: /opt/harvester/scripts
+            - name: {{ include "harvester.fullname" . }}-stuff
+              mountPath: /opt/harvester/stuff
           envFrom:
             - configMapRef:
                 {{- if .Values.database.config_ref }}
