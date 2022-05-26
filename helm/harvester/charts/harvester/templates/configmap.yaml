@@ -19,7 +19,7 @@ data:
   pilot_wrapper.sh: |-
 {{ .Files.Get "pilot_wrapper.sh" | indent 4}}
 ---
-# server env variables
+# env variables
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -43,3 +43,15 @@ data:
   https_proxy: "{{ .Values.httpsProxy }}"
   {{- end }}
   HARVESTER_ID: "{{ .Values.harvesterID }}"
+---
+# scripts
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "harvester.fullname" . }}-scripts
+data:
+  {{- range $path, $_ := .Files.Glob "scripts/*" }}
+  {{ base $path }}: |-
+    {{ $.Files.Get $path }}
+  {{- end }}
+
