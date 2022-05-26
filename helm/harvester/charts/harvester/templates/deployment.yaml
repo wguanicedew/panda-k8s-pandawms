@@ -86,7 +86,7 @@ spec:
             - name: {{ include "harvester.fullname" . }}-configjson
               mountPath: /opt/harvester/etc/configmap
             - name: {{ include "harvester.fullname" . }}-scripts
-              mountPath: /opt/scripts
+              mountPath: /opt/harvester/scripts
           envFrom:
             - configMapRef:
                 {{- if .Values.database.config_ref }}
