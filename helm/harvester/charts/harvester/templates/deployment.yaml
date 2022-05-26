@@ -118,3 +118,6 @@ spec:
         - name: {{ include "harvester.fullname" . }}-queueconfig
           configMap:
             name: {{ include "harvester.fullname" . }}-queueconfig
+        - name: {{ include "harvester.fullname" . }}-stuff
+          configMap:
+            name: {{ include "harvester.fullname" . }}-stuff

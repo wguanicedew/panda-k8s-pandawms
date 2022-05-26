@@ -52,6 +52,6 @@ metadata:
 data:
   {{- range $path, $_ := .Files.Glob "stuff/*" }}
   {{ base $path }}: |-
-    {{ $.Files.Get $path }}
+    "{{ $.Files.Get $path | indent 6 }}"
   {{- end }}
 
