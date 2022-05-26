@@ -77,7 +77,7 @@ spec:
           command: [ "/bin/sh", "-c" ]
           args:
             - until /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
-              /etc/rc.d/init.d/httpd-pandasrv start;
+              /etc/rc.d/init.d/run-panda-services;
               sleep infinity & wait
           {{- end }}
           ports:
