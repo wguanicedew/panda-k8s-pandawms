@@ -75,7 +75,8 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - while ! mysqladmin ping -h ${HARVESTER_DB_HOST} --silent; do sleep 1; done;
-              /opt/harvester/etc/rc.d/init.d/panda_harvester-uwsgi start;
+              cp /opt/harvester/stuff/*.pem /data/harvester/;
+              /opt/harvester/etc/rc.d/init.d/run-harvester-services;
               sleep infinity & wait
           {{- end }}
           resources:
