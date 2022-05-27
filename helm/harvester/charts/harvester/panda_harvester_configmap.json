@@ -12,6 +12,10 @@
     "harvester_id": "${HARVESTER_ID}",
     "uname": "atlpan"
   },
+  "credmanager": {
+    "moduleName": [],
+    "pluginConfigs": []
+  },
   "pandacon": {
     "ca_cert": false,
     "auth_type": "oidc",
@@ -22,8 +26,9 @@
     "verbose": true
   },
   "qconf": {
+    "configFile": "/etc/harvester/queueconfig/panda_queueconfig.json",
     "queueList": [
       "ALL"
     ]
   }
-}
+},
