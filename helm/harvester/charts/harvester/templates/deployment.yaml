@@ -80,7 +80,7 @@ spec:
               cp /opt/harvester/stuff/run-harvester-crons /data/harvester/;
               chmod +x /data/harvester/run-harvester-crons;
               cp /opt/harvester/stuff/condor_config.local /data/harvester/;
-              /opt/harvester/etc/rc.d/init.d/run-harvester-services;
+              su atlpan -c /opt/harvester/etc/rc.d/init.d/run-harvester-services;
               sleep infinity & wait
           {{- end }}
           resources:
