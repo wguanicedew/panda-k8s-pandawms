@@ -74,7 +74,7 @@ spec:
           {{- if .Values.autoStart }}
           command: ["/bin/sh", "-c"]
           args:
-            - while ! mysqladmin ping -h ${HARVESTER_DB_HOST} --silent; do sleep 1; done;
+            - while ! mysqladmin ping -h ${HARVESTER_DB_HOST} -p${MARIADB_PASSWORD} --silent; do sleep 1; done;
               cp /opt/harvester/stuff/init-harvester /data/harvester/;
               chmod +x /data/harvester/init-harvester;
               cp /opt/harvester/stuff/run-harvester-crons /data/harvester/;
