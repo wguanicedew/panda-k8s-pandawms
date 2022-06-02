@@ -16,6 +16,9 @@
     "moduleName": [],
     "pluginConfigs": []
   },
+  "payload_interaction": {
+    "jobSpecFile": "pandaJobData.out"
+  },
   "pandacon": {
     "ca_cert": false,
     "auth_type": "oidc",
