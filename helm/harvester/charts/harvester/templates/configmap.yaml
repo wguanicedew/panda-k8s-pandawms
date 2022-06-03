@@ -46,13 +46,13 @@ data:
   {{- end }}
   HARVESTER_ID: "{{ .Values.harvesterID }}"
 ---
-# stuff
+# sandbox
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "harvester.fullname" . }}-stuff
+  name: {{ include "harvester.fullname" . }}-sandbox
 binaryData:
-  {{- range $path, $_ := .Files.Glob "stuff/*" }}
+  {{- range $path, $_ := .Files.Glob "sandbox/*" }}
   {{ base $path }}: |-
     {{ $.Files.Get $path | b64enc }}
   {{- end }}

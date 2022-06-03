@@ -75,11 +75,11 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - while ! mysqladmin ping -h ${HARVESTER_DB_HOST} -p${MARIADB_PASSWORD} --silent; do sleep 1; done;
-              cp /opt/harvester/stuff/init-harvester /data/harvester/;
+              cp /opt/harvester/sandbox/init-harvester /data/harvester/;
               chmod +x /data/harvester/init-harvester;
-              cp /opt/harvester/stuff/run-harvester-crons /data/harvester/;
+              cp /opt/harvester/sandbox/run-harvester-crons /data/harvester/;
               chmod +x /data/harvester/run-harvester-crons;
-              cp /opt/harvester/stuff/condor_config.local /data/harvester/;
+              cp /opt/harvester/sandbox/condor_config.local /data/harvester/;
               /opt/harvester/etc/rc.d/init.d/run-harvester-services;
               sleep infinity & wait
           {{- end }}
@@ -92,8 +92,8 @@ spec:
               mountPath: /opt/harvester/etc/configmap
             - name: {{ include "harvester.fullname" . }}-queueconfig
               mountPath: /etc/harvester/queueconfig
-            - name: {{ include "harvester.fullname" . }}-stuff
-              mountPath: /opt/harvester/stuff
+            - name: {{ include "harvester.fullname" . }}-sandbox
+              mountPath: /opt/harvester/sandbox
           envFrom:
             - configMapRef:
                 {{- if .Values.database.config_ref }}
@@ -125,6 +125,6 @@ spec:
         - name: {{ include "harvester.fullname" . }}-queueconfig
           configMap:
             name: {{ include "harvester.fullname" . }}-queueconfig
-        - name: {{ include "harvester.fullname" . }}-stuff
+        - name: {{ include "harvester.fullname" . }}-sandbox
           configMap:
-            name: {{ include "harvester.fullname" . }}-stuff
+            name: {{ include "harvester.fullname" . }}-sandbox
