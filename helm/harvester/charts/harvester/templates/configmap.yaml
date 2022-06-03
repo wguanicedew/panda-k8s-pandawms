@@ -42,7 +42,7 @@ data:
   {{- end }}
   {{- else if .Values.httpsProxy }}
   https_proxy: "{{ .Values.httpsProxy }}"
-  no_proxy: "localhost,{{ .Values.panda.host }}"
+  no_proxy: "localhost,{{ .Values.panda.host }},http-{{ .Values.panda.host }}"
   {{- end }}
   HARVESTER_ID: "{{ .Values.harvesterID }}"
 ---
