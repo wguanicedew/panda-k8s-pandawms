@@ -75,7 +75,11 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - until  /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
-              /etc/rc.d/init.d/panda-jedi start;
+              cp /opt/panda/sandbox/init-jedi /data/panda/;
+              chmod +x /data/panda/init-jedi;
+              cp /opt/panda/sandbox/run-jedi-crons /data/panda/;
+              chmod +x /data/panda/run-jedi-crons;
+              /etc/rc.d/init.d/run-jedi-services;
               sleep infinity & wait
           {{- end }}
           resources:
@@ -85,6 +89,8 @@ spec:
                 mountPath: /var/log/panda
               - name: {{ include "jedi.fullname" . }}-configjson
                 mountPath: /opt/panda/etc/configmap
+              - name: {{ include "jedi.fullname" . }}-sandbox
+                mountPath: /opt/panda/sandbox
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-server-env
@@ -112,6 +118,9 @@ spec:
         - name: {{ include "jedi.fullname" . }}-logs
           persistentVolumeClaim:
             claimName: {{ include "jedi.fullname" . }}
+        - name: {{ include "jedi.fullname" . }}-sandbox
+          configMap:
+            name: {{ include "jedi.fullname" . }}-sandbox
         - name: {{ include "jedi.fullname" . }}-configjson
           projected:
             sources:
