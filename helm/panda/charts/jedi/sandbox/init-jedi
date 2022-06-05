@@ -1,2 +1,3 @@
 # fetch info from CRIC before running services
+/opt/panda/usr/bin/panda_server-schedconfig_json
 /opt/panda/usr/bin/panda_server-configurator
