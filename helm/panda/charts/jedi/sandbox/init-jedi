@@ -1,1 +1,2 @@
+# fetch info from CRIC before running services
 /opt/panda/usr/bin/panda_server-configurator
