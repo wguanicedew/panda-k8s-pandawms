@@ -1,5 +1,12 @@
 {
     "db": {
         "backend": "postgres"
+    },
+    "ddm": {
+        "modConfig": "wlcg:4:pandajedi.jediddm.GenDDMClient:GenDDMClient::off,wlcg:2:pandajedi.jediddm.AtlasDDMClient:AtlasDDMClient:sphenix",
+        "endpoints_json_path": "https://datalake-cric.cern.ch/api/atlas/ddmendpoint/query/?json"
+    },
+    "tasksetup": {
+        "modConfig": "wlcg:any:pandajedi.jedisetup.SimpleTaskSetupper:SimpleTaskSetupper"
     }
 }

@@ -27,10 +27,13 @@ server:
   authIdToken: "FIXME"
   # VO (+ role)
   authVO: "panda_dev.production"
-  # https proxy if containers need it to access external services
-  #httpsProxy: "..."
+  # http/s proxy if containers need it to access external services
+  #httpsProxy: "http://proxy.sdcc.bnl.local:3128"
+  #httpProxy: "http://proxy.sdcc.bnl.local:3128"
   # run containers with no-root PID e.g. for OKD
   #noRoot: true
+  # rucio account
+  # rucioAccount: iddsv1
 
 postgres:
   # enable the database
