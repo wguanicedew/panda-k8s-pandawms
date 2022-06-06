@@ -9,12 +9,20 @@ jedi:
   image:
     tag: "0.0.31"
 
+  # PV with selector support
+  #persistentvolume:
+  #    selector: false
+
 server:
   # enable the PanDA server
   enabled: true
   # container image and tag
   image:
     tag: "0.0.7"
+
+  # PV with selector support
+  #persistentvolume:
+  #    selector: false
 
   # copy host certs from local
   #hostcerts:
@@ -48,3 +56,7 @@ postgres:
   # container image and tag
   image:
     tag: "0.0.8"
+
+  # PV with selector support
+  #persistentvolume:
+  #    selector: false
