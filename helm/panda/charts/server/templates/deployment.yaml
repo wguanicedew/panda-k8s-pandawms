@@ -81,6 +81,7 @@ spec:
               chmod +x /data/panda/init-panda;
               cp /opt/panda/sandbox/run-panda-crons /data/panda/;
               chmod +x /data/panda/run-panda-crons;
+              cp /opt/panda/sandbox/*.cfg /data/panda/;
               /etc/rc.d/init.d/run-panda-services;
               sleep infinity & wait
           {{- end }}
@@ -97,7 +98,7 @@ spec:
              - name: {{ include "server.fullname" . }}-logs
                mountPath: /var/log/panda
              - name: {{ include "server.fullname" . }}-configjson
-               mountPath: /opt/panda/etc/configmap
+               mountPath: /opt/panda/etc/config_json
              - name: {{ include "server.fullname" . }}-auth
                mountPath: /opt/panda/etc/panda/auth
              - name: {{ include "server.fullname" . }}-sandbox

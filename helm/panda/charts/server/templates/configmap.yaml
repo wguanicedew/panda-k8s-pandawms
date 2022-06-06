@@ -4,8 +4,8 @@ kind: ConfigMap
 metadata:
   name: {{ include "server.fullname" . }}-configjson
 data:
-  panda_server_configmap.json: |-
-{{ .Files.Get "panda_server_configmap.json" | indent 4}}
+  panda_server_config.json: |-
+{{ .Files.Get "panda_server_config.json" | indent 4}}
 
 {{- if .Values.hostcerts.enabled }}
 ---
