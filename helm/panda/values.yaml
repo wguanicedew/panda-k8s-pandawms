@@ -7,31 +7,38 @@ jedi:
   enabled: true
   # container image and tag
   image:
-    tag: latest
+    tag: "0.0.31"
 
 server:
   # enable the PanDA server
   enabled: true
   # container image and tag
   image:
-    tag: latest
+    tag: "0.0.7"
+
   # copy host certs from local
-  hostcerts:
-    enabled: true
+  #hostcerts:
+  #  enabled: false
+
   # use Route class for ingress
   route:
     enabled: true
     # host name of the PanDA server
     hostName: "FIXME"
+
   # ID token of the PanDA service account
   authIdToken: "FIXME"
+
   # VO (+ role)
   authVO: "panda_dev.production"
+
   # http/s proxy if containers need it to access external services
   #httpsProxy: "http://proxy.sdcc.bnl.local:3128"
   #httpProxy: "http://proxy.sdcc.bnl.local:3128"
+
   # run containers with no-root PID e.g. for OKD
   #noRoot: true
+
   # rucio account
   # rucioAccount: iddsv1
 
@@ -40,4 +47,4 @@ postgres:
   enabled: true
   # container image and tag
   image:
-    tag: latest
+    tag: "0.0.8"
