@@ -119,8 +119,12 @@ spec:
           persistentVolumeClaim:
             claimName: {{ include "jedi.fullname" . }}
         - name: {{ include "jedi.fullname" . }}-sandbox
-          configMap:
-            name: {{ include "jedi.fullname" . }}-sandbox
+          projected:
+            sources:
+              - configMap:
+                  name: {{ include "jedi.fullname" . }}-sandbox
+              - configMap:
+                  name: {{ .Release.Name }}-external-sandbox
         - name: {{ include "jedi.fullname" . }}-configjson
           projected:
             sources:

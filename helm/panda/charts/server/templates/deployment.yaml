@@ -141,8 +141,12 @@ spec:
           configMap:
               name: {{ include "server.fullname" . }}-auth
         - name: {{ include "server.fullname" . }}-sandbox
-          configMap:
-              name: {{ include "server.fullname" . }}-sandbox
+          projected:
+            sources:
+              - configMap:
+                  name: {{ include "server.fullname" . }}-sandbox
+              - configMap:
+                  name: {{ .Release.Name }}-external-sandbox
         {{- if .Values.hostcerts.enabled }}
         - name: {{ include "server.fullname" . }}-certs
           configMap:
