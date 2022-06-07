@@ -37,7 +37,7 @@ server:
   # ID token of the PanDA service account
   authIdToken: "FIXME"
 
-  # VO (+ role)
+  # VO (. role) of the ID token
   authVO: "panda_dev.production"
 
   # http/s proxy if containers need it to access external services

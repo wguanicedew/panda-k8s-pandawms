@@ -41,7 +41,7 @@ panda:
   authVO: ""
 
   # panda server behind real load balancer
-  behindRealLB: false
+  behindRealLB: true
 
 
 imagePullSecrets: []

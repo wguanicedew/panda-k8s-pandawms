@@ -7,8 +7,38 @@ harvester:
   enabled: true
   # container image and tag
   image:
-    tag: latest
+    tag: "v0.2.11"
+
+  # PV with selector support
+  #persistentvolume:
+  #    selector: false
+
+  panda:
+    # panda server host and https port
+    host: "FIXME"
+
+    # ID token to access the PanDA service
+    authIdToken: "FIXME"
+
+    # VO (. role) of the ID token
+    authVO: "panda_dev.production"
+
+  # http/s proxy if containers need it to access external services
+  #httpProxy: "http://proxy.sdcc.bnl.local:3128"
+  #httpsProxy: "http://proxy.sdcc.bnl.local:3128"
+
+  # run containers with no-root PID e.g. for OKD
+  #noRoot: true
+
+  # set GID to 0 if necessary
+  #securityContext:
+  #  runAsGroup: 15678
+
 
 mariadb:
   # enable database
   enabled: true
+
+  # PV with selector support
+  #persistentvolume:
+  #    selector: false
