@@ -1,0 +1,135 @@
+{{- if .Values.persistentvolume.enabled -}}
+# pv
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ include "daemon.fullname" . }}-data
+  labels:
+      # dataType: data
+      {{- include "daemon.labels" . | nindent 4 }}
+spec:
+  storageClassName: manual
+  capacity:
+    storage: {{ .Values.persistentvolume.size }}
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: {{ .Values.persistentvolume.path }}
+---
+# pv claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "daemon.fullname" . }}-data
+  labels:
+    # dataType: data
+    {{- include "daemon.labels" . | nindent 4 }}
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.persistentvolume.size }}
+  selector:
+    matchLabels:
+      {{- include "daemon.selectorLabels" . | nindent 6 }}
+---
+{{- end }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "daemon.fullname" . }}
+  labels:
+    {{- include "daemon.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "daemon.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "daemon.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "daemon.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: port8161
+              containerPort: 8161
+              protocol: TCP
+            - name: port5672
+              containerPort: 5672
+              protocol: TCP
+            - name: port1883
+              containerPort: 1883
+              protocol: TCP
+            - name: port61616
+              containerPort: 61616
+              protocol: TCP
+            - name: port61613
+              containerPort: 61613
+              protocol: TCP
+            - name: port61614
+              containerPort: 61614
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{ include "daemon.fullname" . }}-configmap
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+              # - name: {{ include "daemon.fullname" . }}-logs
+              #  mountPath: /var/log/activemq/
+              {{- if .Values.persistentvolume.enabled }}
+              - name: {{ include "daemon.fullname" . }}-data
+                mountPath: /data/activemq
+              {{- end }}
+              # - name: {{ include "daemon.fullname" . }}-config
+              #   mountPath: /opt/activemq/conf
+              # - name: {{ include "daemon.fullname" . }}-configmap
+              #   mountPath: /activemq/configmap
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        # - name: {{ include "daemon.fullname" . }}-logs
+        #   persistentVolumeClaim:
+        #     claimName: {{ include "daemon.fullname" . }}-logs
+        {{- if .Values.persistentvolume.enabled}}
+        - name: {{ include "daemon.fullname" . }}-data
+          persistentVolumeClaim:
+            claimName: {{ include "daemon.fullname" . }}-data
+        {{- end }}
+        # - name: {{ include "daemon.fullname" . }}-conf
+        #   persistentVolumeClaim:
+        #     claimName: {{ include "daemon.fullname" . }}-conf
+        # - name: {{ include "daemon.fullname" . }}-configmap
+        #   configMap:
+        #       name: {{ include "daemon.fullname" . }}-configmap

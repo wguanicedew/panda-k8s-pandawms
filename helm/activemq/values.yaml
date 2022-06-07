@@ -1,0 +1,53 @@
+# Default values for activemq.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# activemq_db, activemq_user and activemq_schema should not be changed currently
+
+daemon:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: webcenter/activemq
+    pullPolicy: "IfNotPresent"
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "5.14.3"
+  autoStart: true
+
+  persistentvolume:
+    enabled: false
+    # false for SLAC
+    path: "/mnt/activemq-data"
+    size: 5Gi
+  hostcerts:
+    enabled: false
+
+  minmemory: 1024
+  maxmemory: 2048
+  scheduler:
+    enabled: true
+  auth:
+    enabled: false
+
+  topics: "iddspanda;pandaidds"
+  queues: "iddspanda;pandaidds"
+
+  admin:
+    name: admin
+    password: MyActiveMQPass0508
+  user:
+    name: idds
+    password: MyPass0508
+  owner:
+    name: iddsowner
+    password: MyPass0508
+  read:
+    name: iddsread
+    password: MyPass0508
+  write:
+    name: iddswrite
+    password: MyPass0508
+
+
+  service:
+    type: ClusterIP
