@@ -7,17 +7,27 @@ jedi:
   enabled: true
   # container image and tag
   image:
-    tag: latest
+    tag: "0.0.31"
+
+  # PV with selector support
+  #persistentvolume:
+  #    selector: false
 
 server:
   # enable the PanDA server
   enabled: true
   # container image and tag
   image:
-    tag: latest
+    tag: "0.0.7"
+
+  # PV with selector support
+  #persistentvolume:
+  #    selector: false
+
   # copy host certs from local
-  hostcerts:
-    enabled: true
+  #hostcerts:
+  #  enabled: false
+
   # use Route class for ingress
   route:
     enabled: false
@@ -36,18 +46,30 @@ server:
         hosts:
           - domain: cern.ch
             # hostOverride: panda-k8s-dev-jedi.cern.ch
+
   # ID token of the PanDA service account
   authIdToken: "FIXME"
-  # VO (+ role)
+
+  # VO (. role) of the ID token
   authVO: "panda_dev.production"
-  # https proxy if containers need it to access external services
-  #httpsProxy: "..."
+
+  # http/s proxy if containers need it to access external services
+  #httpsProxy: "http://proxy.sdcc.bnl.local:3128"
+  #httpProxy: "http://proxy.sdcc.bnl.local:3128"
+
   # run containers with no-root PID e.g. for OKD
   #noRoot: true
+
+  # rucio account
+  # rucioAccount: iddsv1
 
 postgres:
   # enable the database
   enabled: true
   # container image and tag
   image:
-    tag: latest
+    tag: "0.0.8"
+
+  # PV with selector support
+  #persistentvolume:
+  #    selector: false

@@ -1,0 +1,59 @@
+# harvester configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "harvester.fullname" . }}-configjson
+data:
+  panda_harvester_configmap.json: |-
+{{ .Files.Get "panda_harvester_configmap.json" | indent 4}}
+---
+# queue config
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "harvester.fullname" . }}-queueconfig
+data:
+  panda_queueconfig.json: |-
+{{ .Files.Get "panda_queueconfig.json" | indent 4}}
+
+  pilot_wrapper.sh: |-
+{{ .Files.Get "pilot_wrapper.sh" | indent 4}}
+---
+# env variables
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "harvester.fullname" . }}-env
+data:
+  PANDA_URL: "https://{{ .Values.panda.host }}/server/panda"
+  PANDA_URL_SSL: "https://{{ .Values.panda.host }}/server/panda"
+  {{- if .Values.panda.authIdToken }}
+  PANDA_AUTH_ID_TOKEN: {{ .Values.panda.authIdToken }}
+  PANDA_AUTH_VO: {{ .Values.panda.authVO }}
+  {{- end }}
+  {{- if .Values.panda.behindRealLB }}
+  PANDA_BEHIND_REAL_LB: "1"
+  {{- end }}
+  {{- if .Values.httpProxy }}
+  http_proxy: "{{ .Values.httpProxy }}"
+  no_proxy: "localhost,{{ .Values.panda.host }}"
+  {{- if .Values.httpsProxy }}
+  https_proxy: "{{ .Values.httpProxy }}"
+  {{- end }}
+  {{- else if .Values.httpsProxy }}
+  https_proxy: "{{ .Values.httpsProxy }}"
+  no_proxy: "localhost,{{ .Values.panda.host }},http-{{ .Values.panda.host }}"
+  {{- end }}
+  HARVESTER_ID: "{{ .Values.harvesterID }}"
+---
+# sandbox
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "harvester.fullname" . }}-sandbox
+binaryData:
+  {{- range $path, $_ := .Files.Glob "sandbox/*" }}
+  {{ base $path }}: |-
+    {{ $.Files.Get $path | b64enc }}
+  {{- end }}
+

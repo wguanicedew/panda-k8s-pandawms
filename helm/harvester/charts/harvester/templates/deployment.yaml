@@ -3,9 +3,9 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: {{ include "jedi.fullname" . }}
+  name: {{ include "harvester.fullname" . }}
   labels:
-      {{- include "jedi.labels" . | nindent 4 }}
+      {{- include "harvester.labels" . | nindent 4 }}
 spec:
   storageClassName: {{ .Values.persistentvolume.class }}
   capacity:
@@ -20,9 +20,9 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ include "jedi.fullname" . }}
+  name: {{ include "harvester.fullname" . }}
   labels:
-    {{- include "jedi.labels" . | nindent 4 }}
+    {{- include "harvester.labels" . | nindent 4 }}
 spec:
   storageClassName: {{ .Values.persistentvolume.class }}
   accessModes:
@@ -33,22 +33,22 @@ spec:
   {{- if .Values.persistentvolume.selector }}
   selector:
     matchLabels:
-      {{- include "jedi.selectorLabels" . | nindent 6 }}
+      {{- include "harvester.selectorLabels" . | nindent 6 }}
   {{- end }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "jedi.fullname" . }}
+  name: {{ include "harvester.fullname" . }}
   labels:
-    {{- include "jedi.labels" . | nindent 4 }}
+    {{- include "harvester.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "jedi.selectorLabels" . | nindent 6 }}
+      {{- include "harvester.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -56,13 +56,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "jedi.selectorLabels" . | nindent 8 }}
+        {{- include "harvester.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "jedi.serviceAccountName" . }}
+      serviceAccountName: {{ include "harvester.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -74,35 +74,35 @@ spec:
           {{- if .Values.autoStart }}
           command: ["/bin/sh", "-c"]
           args:
-            - until  /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
-              cp /opt/panda/sandbox/init-jedi /data/panda/;
-              chmod +x /data/panda/init-jedi;
-              cp /opt/panda/sandbox/run-jedi-crons /data/panda/;
-              chmod +x /data/panda/run-jedi-crons;
-              cp /opt/panda/sandbox/*.cfg /data/panda/;
-              /etc/rc.d/init.d/run-jedi-services;
+            - while ! mysqladmin ping -h ${HARVESTER_DB_HOST} -p${MARIADB_PASSWORD} --silent; do sleep 1; done;
+              cp /opt/harvester/sandbox/init-harvester /data/harvester/;
+              chmod +x /data/harvester/init-harvester;
+              cp /opt/harvester/sandbox/run-harvester-crons /data/harvester/;
+              chmod +x /data/harvester/run-harvester-crons;
+              cp /opt/harvester/sandbox/condor_config.local /data/harvester/;
+              /opt/harvester/etc/rc.d/init.d/run-harvester-services;
               sleep infinity & wait
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-              - name: {{ include "jedi.fullname" . }}-logs
-                mountPath: /var/log/panda
-              - name: {{ include "jedi.fullname" . }}-configjson
-                mountPath: /opt/panda/etc/config_json
-              - name: {{ include "jedi.fullname" . }}-sandbox
-                mountPath: /opt/panda/sandbox
+            - name: {{ include "harvester.fullname" . }}-logs
+              mountPath: /var/log/panda/
+            - name: {{ include "harvester.fullname" . }}-configjson
+              mountPath: /opt/harvester/etc/configmap
+            - name: {{ include "harvester.fullname" . }}-queueconfig
+              mountPath: /etc/harvester/queueconfig
+            - name: {{ include "harvester.fullname" . }}-sandbox
+              mountPath: /opt/harvester/sandbox
           envFrom:
-            - configMapRef:
-                name: {{ .Release.Name }}-server-env
-            {{- if .Values.database.password_get }}
             - configMapRef:
                 {{- if .Values.database.config_ref }}
                 name: {{ .Values.database.config_ref }}
                 {{- else }}
-                name: {{ .Release.Name }}-postgres-configmap
+                name: {{ .Release.Name }}-mariadb-configmap
                 {{- end }}
-            {{- end }}
+            - configMapRef:
+                name: {{ include "harvester.fullname" . }}-env
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -116,24 +116,15 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: {{ include "jedi.fullname" . }}-logs
+        - name: {{ include "harvester.fullname" . }}-logs
           persistentVolumeClaim:
-            claimName: {{ include "jedi.fullname" . }}
-        - name: {{ include "jedi.fullname" . }}-sandbox
-          projected:
-            sources:
-              - configMap:
-                  name: {{ include "jedi.fullname" . }}-sandbox
-              - configMap:
-                  name: {{ .Release.Name }}-external-sandbox
-        - name: {{ include "jedi.fullname" . }}-configjson
-          projected:
-            sources:
-              - configMap:
-                  name: {{ include "jedi.fullname" . }}-configjson
-              - configMap:
-                  {{- if .Values.server.config_ref }}
-                  name: {{ .Values.server.config_ref }}
-                  {{- else }}
-                  name: {{ .Release.Name }}-server-configjson
-                  {{- end }}
+            claimName: {{ include "harvester.fullname" . }}
+        - name: {{ include "harvester.fullname" . }}-configjson
+          configMap:
+            name: {{ include "harvester.fullname" . }}-configjson
+        - name: {{ include "harvester.fullname" . }}-queueconfig
+          configMap:
+            name: {{ include "harvester.fullname" . }}-queueconfig
+        - name: {{ include "harvester.fullname" . }}-sandbox
+          configMap:
+            name: {{ include "harvester.fullname" . }}-sandbox

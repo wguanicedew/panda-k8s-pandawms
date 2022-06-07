@@ -1,26 +1,48 @@
-# Default values for postgres.
+# Default values for harvester.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: ghcr.io/pandawms/panda-database
+  repository: ghcr.io/hsf/harvester
   pullPolicy: Always
   tag: latest
+
+# start the service when pod gets started
+autoStart: true
+
+# http proxy
+httpProxy: ""
+httpsProxy: ""
+
+# harvester id
+harvesterID: "my-harvester"
 
 persistentvolume:
   create: false
   class: nas
-  path: "/mnt/panda-data"
+  path: "/mnt/harvester-logs"
   size: 5Gi
   selector: true
 
 database:
-  # password
-  password: PwJdJWr7vY
-  # external database hostname
-  # dbhost: blah
+  # Set true to get database password via database configmap
+  password_get: true
+  # Specify name of database configmap if any
+  # config_ref: harvester-mariadb-configmap
+
+panda:
+  # panda server host and https port
+  host: "pandaserver-doma.cern.ch"
+
+  # ID token and VO for OIDC/OAuth
+  authIdToken: ""
+  authVO: ""
+
+  # panda server behind real load balancer
+  behindRealLB: true
+
 
 imagePullSecrets: []
 nameOverride: ""
@@ -47,10 +69,6 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
-
-service:
-  type: ClusterIP
-  port: 5432
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

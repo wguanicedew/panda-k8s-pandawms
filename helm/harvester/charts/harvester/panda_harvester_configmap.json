@@ -1,0 +1,37 @@
+{
+  "db": {
+    "engine": "mariadb",
+    "useMySQLdb": true,
+    "schema": "harvester",
+    "host": "${HARVESTER_DB_HOST}",
+    "password": "${MARIADB_PASSWORD}",
+    "verbose": true
+  },
+  "master": {
+    "gname": "zp",
+    "harvester_id": "${HARVESTER_ID}",
+    "uname": "atlpan"
+  },
+  "credmanager": {
+    "moduleName": [],
+    "pluginConfigs": []
+  },
+  "payload_interaction": {
+    "jobSpecFile": "pandaJobData.out"
+  },
+  "pandacon": {
+    "ca_cert": false,
+    "auth_type": "oidc",
+    "auth_token": "${PANDA_AUTH_ID_TOKEN}",
+    "auth_origin": "${PANDA_AUTH_VO}",
+    "pandaURL": "${PANDA_URL_SSL}",
+    "pandaURLSSL": "${PANDA_URL_SSL}",
+    "verbose": true
+  },
+  "qconf": {
+    "configFile": "/etc/harvester/queueconfig/panda_queueconfig.json",
+    "queueList": [
+      "ALL"
+    ]
+  }
+}
