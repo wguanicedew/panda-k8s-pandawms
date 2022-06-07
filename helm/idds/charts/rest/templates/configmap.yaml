@@ -1,0 +1,120 @@
+# iDDS configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "rest.fullname" . }}-configmap
+data:
+  idds_configmap.json: |-
+    {"/opt/idds/config/idds/idds.cfg":
+        {"common":
+            {"loglevel": "DEBUG"},
+         "database":
+            {"default": "postgresql://{{.Values.database.user}}:{{.Values.database.password}}@{{.Release.Name}}-postgres/{{.Values.database.name}}",
+             "schema": "{{.Values.database.schema}}",
+             "pool_size": 20,
+             "pool_recycle": 3600,
+             "echo": 0,
+             "pool_reset_on_return": "rollback"
+            },
+         "conductor":
+            {"threshold_to_release_messages": 1000,
+             "random_delay": 60,
+              "plugin.notifier": "idds.agents.conductor.plugins.messaging.MessagingSender",
+              "plugin.notifier.brokers": "{{.Values.conductor.brokers}}",
+              "plugin.notifier.port": {{.Values.conductor.port}},
+              "plugin.notifier.destination": "{{.Values.conductor.destination}}",
+              "plugin.notifier.username": "{{.Values.conductor.username}}",
+              "plugin.notifier.password": "{{.Values.conductor.password}}",
+              "plugin.notifier.broker_timeout": 10
+            }
+        },
+    "/opt/idds/config/idds/auth.cfg":
+        {"common":
+            {"allow_vos": "atlas,panda_dev,Rubin,Rubin:production"
+        },
+         "atlas":
+            {"client_secret": "{{.Values.oidc.atlas.client_secret}}",
+             "audience": "https://pandaserver-doma.cern.ch",
+             "client_id": "{{.Values.oidc.atlas.client_id}}",
+             "oidc_config_url": "https://panda-iam-doma.cern.ch/.well-known/openid-configuration",
+             "vo": "atlas"
+            },
+         "Rubin":
+            {"client_secret": "{{.Values.oidc.rubin.client_secret}}",
+             "audience": "https://pandaserver-doma.cern.ch",
+             "client_id": "{{.Values.oidc.rubin.client_id}}",
+             "oidc_config_url": "https://panda-iam-doma.cern.ch/.well-known/openid-configuration",
+             "vo": "Rubin"
+            },
+         "Rubin:production":
+            {"client_secret": "{{.Values.oidc.rubin_production.client_secret}}",
+             "audience": "https://pandaserver-doma.cern.ch",
+             "client_id": "{{.Values.oidc.rubin_production.client_id}}",
+             "oidc_config_url": "https://panda-iam-doma.cern.ch/.well-known/openid-configuration",
+             "vo": "Rubin:production"
+            },
+          "panda_dev":
+            {"client_secret": "{{.Values.oidc.panda_dev.client_secret}}",
+             "audience": "https://pandaserver-doma.cern.ch",
+             "client_id": "{{.Values.oidc.panda_dev.client_id}}",
+             "oidc_config_url": "https://panda-iam-doma.cern.ch/.well-known/openid-configuration",
+             "vo": "panda_dev"
+            }
+        },
+    "/opt/idds/config/panda.cfg":
+        {"panda":
+            {"panda_url_ssl": "https://pandaserver-doma.cern.ch:25443/server/panda",
+             "panda_url": "http://pandaserver-doma.cern.ch:25080/server/panda",
+             "panda_monitor_url": "https://panda-doma.cern.ch",
+             "# PANDA_AUTH_VO": "panda_dev",
+             "panda_auth": "oidc",
+             "panda_auth_vo": "Rubin:production",
+             "panda_config_root": "/opt/idds/config/"
+        }
+        },
+    "/opt/idds/config/rucio.cfg":
+        {"client":
+            {"rucio_host": "https://voatlasrucio-server-prod.cern.ch:443",
+             "auth_host": "https://voatlasrucio-auth-prod.cern.ch:443",
+             "ca_cert": "$RUCIO_HOME/etc/ca.crt",
+             "client_cert": "~/.globus/usercert.pem",
+             "client_key": "~/.globus/userkey.pem",
+             "client_x509_proxy": "$X509_USER_PROXY",
+             "auth_type": "x509_proxy",
+             "request_retries": 3
+        }
+        },
+    "rest/config/idds.cfg":
+        {"testsection":
+            {"testkey": "testvalue"}
+        }
+    }
+
+  idds2panda_token: |-
+{{ .Files.Get "idds2panda_token" | indent 8}}
+
+  idds_configmap_back.json: |-
+{{ .Files.Get "idds_configmap.json" | indent 8}}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "rest.fullname" . }}-envs
+data:
+  IDDS_SERVER: {{.Values.iddsServer}}
+
+{{- if .Values.hostcerts.enabled -}}
+---
+# host cert and key
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: {{ include "rest.fullname" . }}-certs
+data:
+    hostcert.pem: |-
+{{ .Files.Get "hostcert.pem" | indent 8}}
+
+    hostkey.pem: |-
+{{ .Files.Get "hostkey.pem" | indent 8}}
+{{- end }}
