@@ -80,6 +80,17 @@ ingress:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: 'true'
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: 'optional'
+    nginx.ingress.kubernetes.io/auth-proxy-set-headers: Authorization,Origin
+    nginx.ingress.kubernetes.io/proxy-pass-headers: Authorization,Origin
+    nginx.ingress.kubernetes.io/configuration-snippet: |-
+        proxy_set_header Authorization $http_authorization;
+        proxy_set_header Origin $http_origin;
+        add_header Authorization $http_authorization;
+        add_header Origin $http_origin;
   hosts:
     - domain: cern.ch
       hostOverride: ""
