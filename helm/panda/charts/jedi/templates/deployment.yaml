@@ -15,7 +15,6 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
-{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -36,6 +35,8 @@ spec:
       {{- include "jedi.selectorLabels" . | nindent 6 }}
   {{- end }}
 ---
+{{- end }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -86,8 +87,10 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
+              {{- if .Values.persistentvolume.create }}
               - name: {{ include "jedi.fullname" . }}-logs
                 mountPath: /var/log/panda
+              {{- end}}
               - name: {{ include "jedi.fullname" . }}-configjson
                 mountPath: /opt/panda/etc/config_json
               - name: {{ include "jedi.fullname" . }}-sandbox
@@ -116,9 +119,11 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
+        {{- if .Values.persistentvolume.create }}
         - name: {{ include "jedi.fullname" . }}-logs
           persistentVolumeClaim:
             claimName: {{ include "jedi.fullname" . }}
+        {{- end}}
         - name: {{ include "jedi.fullname" . }}-sandbox
           projected:
             sources:

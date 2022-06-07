@@ -15,7 +15,6 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
-{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -36,6 +35,7 @@ spec:
       {{- include "harvester.selectorLabels" . | nindent 6 }}
   {{- end }}
 ---
+{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -86,8 +86,10 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
+            {{- if .Values.persistentvolume.create }}
             - name: {{ include "harvester.fullname" . }}-logs
               mountPath: /var/log/panda/
+            {{- end }}
             - name: {{ include "harvester.fullname" . }}-configjson
               mountPath: /opt/harvester/etc/configmap
             - name: {{ include "harvester.fullname" . }}-queueconfig
@@ -116,9 +118,11 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
+        {{- if .Values.persistentvolume.create }}
         - name: {{ include "harvester.fullname" . }}-logs
           persistentVolumeClaim:
             claimName: {{ include "harvester.fullname" . }}
+        {{- end }}
         - name: {{ include "harvester.fullname" . }}-configjson
           configMap:
             name: {{ include "harvester.fullname" . }}-configjson

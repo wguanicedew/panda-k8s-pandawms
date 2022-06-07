@@ -15,7 +15,6 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
-{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -36,6 +35,7 @@ spec:
       {{- include "mariadb.selectorLabels" . | nindent 6 }}
   {{- end }}
 ---
+{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -81,8 +81,10 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
+            {{- if .Values.persistentvolume.create }}
             - mountPath: /var/lib/mysql
               name: {{ include "mariadb.fullname" . }}-data
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -96,6 +98,8 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
+        {{- if .Values.persistentvolume.create }}
         - name: {{ include "mariadb.fullname" . }}-data
           persistentVolumeClaim:
             claimName: {{ include "mariadb.fullname" . }}
+        {{- end }}
