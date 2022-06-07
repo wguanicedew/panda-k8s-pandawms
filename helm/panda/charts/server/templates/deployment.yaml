@@ -30,9 +30,11 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistentvolume.size }}
+  {{- if .Values.persistentvolume.selector }}
   selector:
     matchLabels:
       {{- include "server.selectorLabels" . | nindent 6 }}
+  {{- end }}
 ---
 
 apiVersion: apps/v1
@@ -74,8 +76,13 @@ spec:
           {{- if .Values.autoStart }}
           command: [ "/bin/sh", "-c" ]
           args:
-            - until  /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
-              /etc/rc.d/init.d/httpd-pandasrv start;
+            - until /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
+              cp /opt/panda/sandbox/init-panda /data/panda/;
+              chmod +x /data/panda/init-panda;
+              cp /opt/panda/sandbox/run-panda-crons /data/panda/;
+              chmod +x /data/panda/run-panda-crons;
+              cp /opt/panda/sandbox/*.cfg /data/panda/;
+              /etc/rc.d/init.d/run-panda-services;
               sleep infinity & wait
           {{- end }}
           ports:
@@ -91,9 +98,11 @@ spec:
              - name: {{ include "server.fullname" . }}-logs
                mountPath: /var/log/panda
              - name: {{ include "server.fullname" . }}-configjson
-               mountPath: /opt/panda/etc/configmap
+               mountPath: /opt/panda/etc/config_json
              - name: {{ include "server.fullname" . }}-auth
                mountPath: /opt/panda/etc/panda/auth
+             - name: {{ include "server.fullname" . }}-sandbox
+               mountPath: /opt/panda/sandbox
              {{- if .Values.hostcerts.enabled }}
              - name: {{ include "server.fullname" . }}-certs
                mountPath: /opt/panda/etc/cert
@@ -132,6 +141,13 @@ spec:
         - name: {{ include "server.fullname" . }}-auth
           configMap:
               name: {{ include "server.fullname" . }}-auth
+        - name: {{ include "server.fullname" . }}-sandbox
+          projected:
+            sources:
+              - configMap:
+                  name: {{ include "server.fullname" . }}-sandbox
+              - configMap:
+                  name: {{ .Release.Name }}-external-sandbox
         {{- if .Values.hostcerts.enabled }}
         - name: {{ include "server.fullname" . }}-certs
           configMap:
