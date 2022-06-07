@@ -51,33 +51,6 @@ service:
   type: ClusterIP
   port: 5432
 
-ingress:
-  enabled: false
-  className: ""
-  annotations: 
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - domain: cern.ch
-      hostOverride: ""
-      paths:
-        - path: /
-          pathType: Prefix
-
-  tls: 
-    - secretName: ""
-      hosts:
-        - domain: cern.ch
-          hostOverride: ""
-  #  - hosts:
-  #       - panda-k8s-postgres.cern.ch
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
