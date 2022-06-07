@@ -1,0 +1,5 @@
+# refresh CA files
+while true; do sleep 36000; /opt/harvester/bin/panda_common-install_igtf_ca > /var/log/panda/install_igtf_ca.log 2>&1; done &
+
+# gererate fake VOMS proxy
+while true; do voms-proxy-fake -rfc -voms sphenix -out /data/harvester/sphenix.proxy -hours 96 -cert=/data/harvester/usercert.pem -key=/data/harvester/userkey.pem -hostcert /opt/harvester/sandbox/hcvoms.sdcc.bnl.gov.crt -hostkey /opt/harvester/sandbox/hcvoms.sdcc.bnl.gov-key.pem -fqan "/sphenix/Role=pilot/Capability=NULL" -uri hcvoms.sdcc.bnl.gov:15001 > /var/log/panda/proxy.log 2>&1; sleep 3600; done &
