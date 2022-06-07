@@ -7,7 +7,7 @@ jedi:
   enabled: true
   # container image and tag
   image:
-    tag: "0.0.31"
+    tag: "0.0.7"
 
   # PV with selector support
   #persistentvolume:
@@ -18,7 +18,7 @@ server:
   enabled: true
   # container image and tag
   image:
-    tag: "0.0.7"
+    tag: "0.0.31"
 
   # PV with selector support
   #persistentvolume:
