@@ -8,8 +8,11 @@ daemon:
   image:
     tag: "5.14.3"
 
+  # PV: For use cases that users are not allowed to create PV,
+  # please update class to corresponding storageclass and update create to false.
   persistentvolume:
     class: manual
+    create: true
 
   # to create topics and queues
   topics: "iddspanda;pandaidds"
