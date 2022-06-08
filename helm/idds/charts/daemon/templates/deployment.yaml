@@ -1,4 +1,4 @@
-{{- if .Values.persistentvolume.enabled -}}
+{{- if .Values.persistentvolume.create -}}
 # pv
 kind: PersistentVolume
 apiVersion: v1
@@ -7,7 +7,7 @@ metadata:
   labels:
       {{- include "daemon.labels" . | nindent 4 }}
 spec:
-  storageClassName: manual
+  storageClassName: {{ .Values.persistentvolume.class }}
   capacity:
     storage: {{ .Values.persistentvolume.size }}
   accessModes:
@@ -15,6 +15,7 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
+{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -23,17 +24,18 @@ metadata:
   labels:
     {{- include "daemon.labels" . | nindent 4 }}
 spec:
-  storageClassName: manual
+  storageClassName: {{ .Values.persistentvolume.class }}
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: {{ .Values.persistentvolume.size }}
+  {{- if .Values.persistentvolume.create }}
   selector:
     matchLabels:
       {{- include "daemon.selectorLabels" . | nindent 6 }}
+  {{- end }}
 ---
-{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -42,7 +44,7 @@ metadata:
     {{- include "daemon.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.daemonReplicaCount }}
+  replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
@@ -78,10 +80,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-              {{- if .Values.persistentvolume.enabled }}
-              # - name: {{ include "daemon.fullname" . }}-logs
-              #  mountPath: /var/log/idds/
-              {{- end }}
+              - name: {{ include "daemon.fullname" . }}-logs
+                mountPath: /var/log/idds/
               - name: {{ include "daemon.fullname" . }}-configmap
                 mountPath: /opt/idds/configmap
               {{- if .Values.hostcerts.enabled -}}
@@ -101,11 +101,9 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        {{- if .Values.persistentvolume.enabled}}
         - name: {{ include "daemon.fullname" . }}-logs
           persistentVolumeClaim:
             claimName: {{ include "daemon.fullname" . }}
-        {{- end }}
         - name: {{ include "daemon.fullname" . }}-configmap
           configMap:
               name: {{ include "daemon.fullname" . }}-configmap

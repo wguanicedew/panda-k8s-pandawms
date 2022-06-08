@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# idds_db, idds_user and idds_schema should not be changed currently
+# idds_db, idds_user and idds_schema can be changed currently
 database:
   idds_db: &idds_db "idds_db"
   idds_user: &idds_user "idds"
@@ -11,82 +11,29 @@ database:
 
 daemon:
   enabled: true
-  replicaCount: 1
-  daemonReplicaCount: 1
   image:
-    repository: wguanicedew/idds
-    pullPolicy: "IfNotPresent"
-    # Overrides the image tag whose default is the chart appVersion.
-    # tag: "0.10.17.2"
     tag: "0.10.23.2"
-  autoStart: true
 
-  persistentvolume:
-    enabled: false
-  hostcerts:
-    enabled: false
   database:
     name: *idds_db
     user: *idds_user
     password: *idds_password
     schema: *idds_schema
-  service:
-    type: ClusterIP
-    httpsPort: 443
-  ingress:
-    enabled: false
 
 rest:
   enabled: true
-  replicaCount: 1
-  daemonReplicaCount: 1
   image:
-    repository: wguanicedew/idds
-    pullPolicy: "IfNotPresent"
-    # Overrides the image tag whose default is the chart appVersion.
-    #     # tag: "0.10.17.2"
     tag: "0.10.23.2"
-  autoStart: true
 
-  iddsServer: idds-dev.slac.stanford.edu
-
-  persistentvolume:
-    enabled: false
-  hostcerts:
-    enabled: false
   database:
     name: *idds_db
     user: *idds_user
     password: *idds_password
     schema: *idds_schema
-  service:
-    type: ClusterIP
-    httpsPort: 443
-  ingress:
-    enabled: true
-    hosts:
-      - domain: slac.stanford.edu
-        hostOverride: idds-dev.slac.stanford.edu
-        paths:
-          - path: /
-            pathType: Prefix
-    tls:
-      - secretName: idds-dev-main-tlssan-cert
-        hosts:
-          - domain: slac.stanford.edu
-            hostOverride: idds-dev.slac.stanford.edu
 
 postgres:
-  # nameOverride: {{ .Release.Name }}-postgres
-  # fullnameOverride: {{ .Release.Name }}-postgres
   enabled: true
-  persistentvolume:
-    enabled: false
-    path: "/mnt/idds-database"
-    size: 5Gi
   image:
-    repository: postgres
-    pullPolicy: IfNotPresent
     tag: "13.6"
 
   database:
@@ -94,5 +41,3 @@ postgres:
     user: *idds_user
     password: *idds_password
     schema: *idds_schema
-  ingress:
-    enabled: false

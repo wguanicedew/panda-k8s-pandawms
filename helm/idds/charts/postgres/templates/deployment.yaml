@@ -1,4 +1,4 @@
-{{- if .Values.persistentvolume.enabled -}}
+{{- if .Values.persistentvolume.create -}}
 # pv
 kind: PersistentVolume
 apiVersion: v1
@@ -7,7 +7,7 @@ metadata:
   labels:
       {{- include "postgres.labels" . | nindent 4 }}
 spec:
-  storageClassName: manual
+  storageClassName: {{ .Values.persistentvolume.class }}
   capacity:
     storage: {{ .Values.persistentvolume.size }}
   accessModes:
@@ -15,6 +15,7 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
+{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -23,17 +24,18 @@ metadata:
   labels:
     {{- include "postgres.labels" . | nindent 4 }}
 spec:
-  storageClassName: manual
+  storageClassName: {{ .Values.persistentvolume.class }}
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: {{ .Values.persistentvolume.size }}
+  {{- if .Values.persistentvolume.create }}
   selector:
     matchLabels:
       {{- include "postgres.selectorLabels" . | nindent 6 }}
+  {{- end }}
 ---
-{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -79,10 +81,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            {{- if .Values.persistentvolume.enabled }}
             - mountPath: /var/lib/postgresql/data
               name: {{ include "postgres.fullname" . }}-data
-            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -96,8 +96,6 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        {{- if .Values.persistentvolume.enabled}}
         - name: {{ include "postgres.fullname" . }}-data
           persistentVolumeClaim:
             claimName: {{ include "postgres.fullname" . }}
-        {{- end }}
