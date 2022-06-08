@@ -1,0 +1,25 @@
+# Default values for harvester.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+harvester:
+  persistentvolume:
+    class: wekafs--sdf-k8s01
+    create: false
+    selector: false
+
+  panda:
+    # panda server host and https port
+    host: "panda-dev-server"
+
+    # ID token to access the PanDA service
+    authIdToken: "FIXME"
+
+    # VO (. role) of the ID token
+    authVO: "panda_dev.production"
+
+mariadb:
+  persistentvolume:
+    class: wekafs--sdf-k8s01
+    create: false
+    selector: false
