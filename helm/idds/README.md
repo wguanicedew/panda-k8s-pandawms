@@ -10,4 +10,4 @@
 helm install -n panda --values ./helm/idds/values-secret.yaml idds-dev helm/idds
 
 (3.1) install iDDS for SLAC
-helm install -n panda --values ./helm/idds/values-secret.yaml --values ./helm/idds/values-slac.yaml idds-dev helm/idds/
+helm install -n panda --values ./helm/idds/values-secret.yaml --values ./helm/idds/values-lsst.yaml idds-dev helm/idds/
