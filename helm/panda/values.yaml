@@ -28,11 +28,26 @@ server:
   #hostcerts:
   #  enabled: false
 
-  # use Route class for ingress
+  # use Route class to expose the service
   route:
-    enabled: true
+    enabled: false
     # host name of the PanDA server
     hostName: "FIXME"
+    
+  # use Ingress class to expose the service  
+  ingress:
+    enabled: false
+    hosts:
+      - domain: "FIXME"
+        hostOverride: ""
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: "FIXME"
+        hosts:
+          - domain: "FIXME
+            hostOverride: "FIXME"
 
   # ID token of the PanDA service account
   authIdToken: "FIXME"

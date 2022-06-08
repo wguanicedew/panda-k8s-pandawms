@@ -1,0 +1,36 @@
+# Default values for activemq.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+daemon:
+  enabled: true
+  image:
+    tag: "5.14.3"
+
+  # PV: For use cases that users are not allowed to create PV,
+  # please update class to corresponding storageclass and update create to false.
+  persistentvolume:
+    class: manual
+    create: true
+
+  # to create topics and queues
+  topics: "iddspanda;pandaidds"
+  queues: "iddspanda;pandaidds"
+
+  # define the user and password
+  admin:
+    name: admin
+    password: "FIXME_PASS"
+  user:
+    name: "FIXME_USER"
+    password: "FIXME_PASS"
+  owner:
+    name: "FIXME_OWNER"
+    password: "FIXME_PASS"
+  read:
+    name: "FIXME_READER"
+    password: "FIXME_PASS"
+  write:
+    name: "FIXME_WRITER"
+    password: "FIXME_PASS"

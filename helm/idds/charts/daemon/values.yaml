@@ -1,0 +1,105 @@
+# Default values for daemon.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: wguanicedew/idds
+  pullPolicy: "IfNotPresent"
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "0.10.18"
+
+# start the service when pod gets started
+autoStart: true
+
+iddsServer: localhost
+
+persistentvolume:
+  enabled: true
+  path: "/mnt/idds-main-logs"
+  size: 5Gi
+hostcerts:
+  enabled: false
+
+database:
+  name: postgresdb
+  user: admin
+  password: MyPandaPass0508
+  schema: public
+
+oidc:
+  atlas:
+    client_id: abc
+    client_secret: abc
+  rubin:
+    client_id: abc
+    client_secret: abc
+  rubin_production:
+    client_id: abc
+    client_secret: abc
+  panda_dev:
+    client_id: abc
+    client_secret: abc
+
+conductor:
+  brokers: atlas-mb.cern.ch
+  port: 61013
+  destination: /topic/doma.idds
+  username: username
+  password: password
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  httpsPort: 8443
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
