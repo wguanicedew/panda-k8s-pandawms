@@ -18,7 +18,6 @@ persistentvolume:
   class: manual
   path: "/mnt/activemq-main-data"
   size: 5Gi
-  selector: false
 
 hostcerts:
   enabled: false

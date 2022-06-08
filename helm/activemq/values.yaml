@@ -9,7 +9,7 @@ daemon:
     tag: "5.14.3"
 
   persistentvolume:
-    class: default
+    class: manual
 
   # to create topics and queues
   topics: "iddspanda;pandaidds"
@@ -18,16 +18,16 @@ daemon:
   # define the user and password
   admin:
     name: admin
-    password: MyActiveMQPass0508
+    password: "FIXME_PASS"
   user:
-    name: idds
-    password: MyPass0508
+    name: "FIXME_USER"
+    password: "FIXME_PASS"
   owner:
-    name: iddsowner
-    password: MyPass0508
+    name: "FIXME_OWNER"
+    password: "FIXME_PASS"
   read:
-    name: iddsread
-    password: MyPass0508
+    name: "FIXME_READER"
+    password: "FIXME_PASS"
   write:
-    name: iddswrite
-    password: MyPass0508
+    name: "FIXME_WRITER"
+    password: "FIXME_PASS"
