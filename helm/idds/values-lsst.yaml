@@ -1,0 +1,43 @@
+# Default values for idds.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+daemon:
+
+  # PV: For use cases that users are not allowed to create PV,
+  # please update class to corresponding storageclass and update create to false.
+  persistentvolume:
+    class: wekafs--sdf-k8s01
+    create: false
+
+rest:
+
+  iddsServer: idds-dev.slac.stanford.edu
+
+  # PV: For use cases that users are not allowed to create PV,
+  # please update class to corresponding storageclass and update create to false.
+  persistentvolume:
+    class: wekafs--sdf-k8s01
+    create: false
+
+  ingress:
+    enabled: true
+    hosts:
+      - domain: slac.stanford.edu
+        hostOverride: idds-dev.slac.stanford.edu
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: idds-dev-main-tlssan-cert
+        hosts:
+          - domain: slac.stanford.edu
+            hostOverride: idds-dev.slac.stanford.edu
+
+postgres:
+
+  # PV: For use cases that users are not allowed to create PV,
+  # please update class to corresponding storageclass and update create to false.
+  persistentvolume:
+    class: wekafs--sdf-k8s01
+    create: false
