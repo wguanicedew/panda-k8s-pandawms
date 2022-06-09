@@ -1,4 +1,4 @@
-{{- if .Values.persistentvolume.enabled -}}
+{{- if .Values.persistentvolume.create -}}
 # pv
 kind: PersistentVolume
 apiVersion: v1
@@ -7,7 +7,7 @@ metadata:
   labels:
       {{- include "rest.labels" . | nindent 4 }}
 spec:
-  storageClassName: manual
+  storageClassName: {{ .Values.persistentvolume.class }}
   capacity:
     storage: {{ .Values.persistentvolume.size }}
   accessModes:
@@ -15,6 +15,7 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
+{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -23,17 +24,18 @@ metadata:
   labels:
     {{- include "rest.labels" . | nindent 4 }}
 spec:
-  storageClassName: manual
+  storageClassName: {{ .Values.persistentvolume.class }}
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: {{ .Values.persistentvolume.size }}
+  {{- if .Values.persistentvolume.create }}
   selector:
     matchLabels:
       {{- include "rest.selectorLabels" . | nindent 6 }}
+  {{- end }}
 ---
-{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -85,8 +87,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-              # - name: {{ include "rest.fullname" . }}-logs
-              #  mountPath: /var/log/idds/
+              - name: {{ include "rest.fullname" . }}-logs
+                mountPath: /var/log/idds/
               - name: {{ include "rest.fullname" . }}-configmap
                 mountPath: /opt/idds/configmap
               {{- if .Values.hostcerts.enabled -}}
@@ -106,11 +108,9 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        {{- if .Values.persistentvolume.enabled}}
-        # - name: {{ include "rest.fullname" . }}-logs
-        #   persistentVolumeClaim:
-        #     claimName: {{ include "rest.fullname" . }}
-        {{- end }}
+        - name: {{ include "rest.fullname" . }}-logs
+          persistentVolumeClaim:
+            claimName: {{ include "rest.fullname" . }}
         - name: {{ include "rest.fullname" . }}-configmap
           configMap:
               name: {{ include "rest.fullname" . }}-configmap
