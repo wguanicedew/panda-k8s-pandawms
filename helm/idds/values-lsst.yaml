@@ -10,6 +10,13 @@ daemon:
     class: wekafs--sdf-k8s01
     create: false
 
+  conductor:
+    brokers: activemq-dev
+    port: 61013
+    destination: /topic/iddspanda
+    username: FIXME_WRITER
+    password: FIXME_PASS
+
 rest:
 
   iddsServer: idds-dev.slac.stanford.edu

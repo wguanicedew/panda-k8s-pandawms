@@ -11,7 +11,7 @@
         "schemaMETA": "doma_pandameta",
         "configurator_use_cert": "False",
         "production_dns": "iddssv1",
-        "pserveralias": "FIXME: a common name of httpd",
+        "pserveralias": "panda-dev-server",
         "adder_plugins": "wlcg:dataservice.AdderDummyPlugin:AdderDummyPlugin,wlcg:dataservice.AdderSimplePlugin:AdderSimplePlugin:sphenix",
         "setupper_plugins": "wlcg:dataservice.SetupperDummyPlugin:SetupperDummyPlugin", 
         "token_authType": "oidc"
