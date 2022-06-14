@@ -1,0 +1,502 @@
+---
+# Source: panda/charts/jedi/templates/configmap.yaml
+# JEDI and server configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: panda-dev-jedi-configjson
+data:
+  panda_jedi_config.json: |-
+    {
+        "db": {
+            "backend": "postgres"
+        },
+        "ddm": {
+            "modConfig": "wlcg:4:pandajedi.jediddm.GenDDMClient:GenDDMClient::off,wlcg:2:pandajedi.jediddm.AtlasDDMClient:AtlasDDMClient:sphenix",
+            "endpoints_json_path": "https://datalake-cric.cern.ch/api/atlas/ddmendpoint/query/?json"
+        },
+        "tasksetup": {
+            "modConfig": "wlcg:any:pandajedi.jedisetup.SimpleTaskSetupper:SimpleTaskSetupper"
+        }
+    }
+---
+# Source: panda/charts/jedi/templates/configmap.yaml
+# sandbox
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: panda-dev-jedi-sandbox
+binaryData:
+  init-jedi: |-
+    IyBpbnN0YWxsIENBIGZpbGVzCi9vcHQvcGFuZGEvYmluL3BhbmRhX2NvbW1vbi1pbnN0YWxsX2lndGZfY2EgPiAvdmFyL2xvZy9wYW5kYS9pbnN0YWxsX2lndGZfY2EubG9nIDI+JjEKCmlmIFsgLWYgL29wdC9wYW5kYS9ldGMvY2VydC9ob3N0Y2VydC5wZW0gXTsgdGhlbgogICAgZWNobyAiSG9zdCBjZXJ0aWZpY2F0ZSBhbHJlYWR5IG1vdW50ZWQuIgplbHNlCiAgICBlY2hvICJIb3N0IGNlcnRpZmljYXRlIG5vdCBmb3VuZC4gd2lsbCBnZW5lcmF0ZSBhIHNlbGYtc2lnbmVkIG9uZS4iCiAgICB1bmxpbmsgL2V0Yy9ncmlkLXNlY3VyaXR5L2hvc3RrZXkucGVtCiAgICB1bmxpbmsgL2V0Yy9ncmlkLXNlY3VyaXR5L2hvc3RjZXJ0LnBlbQogICAgbWtkaXIgL29wdC9wYW5kYS9jb25maWcKICAgIG9wZW5zc2wgcmVxIC14NTA5IC1ub2RlcyAtZGF5cyAzNjUgLW5ld2tleSByc2E6MjA0OCBcCiAgICAgICAgLXN1YmogIi9DPVVTL0RDPUlERFMvT1U9Y29tcHV0ZXJzL0NOPSQoaG9zdG5hbWUgLWYpIiBcCiAgICAgICAgLWtleW91dCAvb3B0L3BhbmRhL2NvbmZpZy9ob3N0a2V5LnBlbSBcCiAgICAgICAgLW91dCAvb3B0L3BhbmRhL2NvbmZpZy9ob3N0Y2VydC5wZW0KICAgIGxuIC1mcyAvb3B0L3BhbmRhL2NvbmZpZy9ob3N0Y2VydC5wZW0gL2V0Yy9ncmlkLXNlY3VyaXR5L2hvc3RjZXJ0LnBlbQogICAgbG4gLWZzIC9vcHQvcGFuZGEvY29uZmlnL2hvc3RrZXkucGVtIC9ldGMvZ3JpZC1zZWN1cml0eS9ob3N0a2V5LnBlbQpmaQoKIyBmZXRjaCBpbmZvIGZyb20gQ1JJQyBiZWZvcmUgcnVubmluZyBzZXJ2aWNlcwovb3B0L3BhbmRhL3Vzci9iaW4vcGFuZGFfc2VydmVyLXNjaGVkY29uZmlnX2pzb24KL29wdC9wYW5kYS91c3IvYmluL3BhbmRhX3NlcnZlci1jb25maWd1cmF0b3IK
+  run-jedi-crons: |-
+    IyByZWZyZXNoIENBIGZpbGVzCndoaWxlIHRydWU7IGRvIHNsZWVwIDM2MDAwOyAvb3B0L3BhbmRhL2Jpbi9wYW5kYV9jb21tb24taW5zdGFsbF9pZ3RmX2NhID4gL3Zhci9sb2cvcGFuZGEvaW5zdGFsbF9pZ3RmX2NhLmxvZyAyPiYxOyBkb25lICYK
+---
+# Source: panda/charts/postgres/templates/configmap.yaml
+# config map
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: panda-dev-postgres-configmap
+  labels:
+    helm.sh/chart: postgres-0.1.0
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/instance: panda-dev
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  PANDA_DB_PASSWORD: PwJdJWr7vY
+  PANDA_DB_HOST: panda-dev-postgres
+---
+# Source: panda/charts/server/templates/configmap.yaml
+# server configuration json
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: panda-dev-server-configjson
+data:
+  panda_server_config.json: |-
+    {
+        "server": {
+            "CRIC_URL_CM": "https://atlas-cric.cern.ch/api/core/sitematrix/query/?json&json_pretty=0", 
+            "CRIC_URL_DDMBLACKLIST": "https://datalake-cric.cern.ch/api/atlas/ddmendpointstatus/query/?json&activity=write_wan&fstate=OFF", 
+            "CRIC_URL_DDMENDPOINTS": "https://datalake-cric.cern.ch/api/atlas/ddmendpoint/query/?json", 
+            "CRIC_URL_SCHEDCONFIG": "https://datalake-cric.cern.ch/api/atlas/pandaqueue/query/?json", 
+            "CRIC_URL_SITES": "https://datalake-cric.cern.ch/api/atlas/site/query/?json", 
+            "adder_plugins": "wlcg:dataservice.AdderDummyPlugin:AdderDummyPlugin", 
+            "backend": "postgres",
+            "schemaPANDA": "doma_panda",
+            "schemaMETA": "doma_pandameta",
+            "configurator_use_cert": "False",
+            "production_dns": "iddssv1",
+            "pserveralias": "panda-dev-server",
+            "adder_plugins": "wlcg:dataservice.AdderDummyPlugin:AdderDummyPlugin,wlcg:dataservice.AdderSimplePlugin:AdderSimplePlugin:sphenix",
+            "setupper_plugins": "wlcg:dataservice.SetupperDummyPlugin:SetupperDummyPlugin", 
+            "token_authType": "oidc"
+        },
+        "daemon": {
+            "enable": "True"
+        }
+    }
+---
+# Source: panda/charts/server/templates/configmap.yaml
+# host cert and key
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: panda-dev-server-certs
+binaryData:
+  chain.pem: |-
+    LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUdHVENDQkFHZ0F3SUJBZ0lRRTMxVG5LcDhNYW1rTTNBWmFJUjZqVEFOQmdrcWhraUc5dzBCQVF3RkFEQ0IKaURFTE1Ba0dBMVVFQmhNQ1ZWTXhFekFSQmdOVkJBZ1RDazVsZHlCS1pYSnpaWGt4RkRBU0JnTlZCQWNUQzBwbApjbk5sZVNCRGFYUjVNUjR3SEFZRFZRUUtFeFZVYUdVZ1ZWTkZVbFJTVlZOVUlFNWxkSGR2Y21zeExqQXNCZ05WCkJBTVRKVlZUUlZKVWNuVnpkQ0JTVTBFZ1EyVnlkR2xtYVdOaGRHbHZiaUJCZFhSb2IzSnBkSGt3SGhjTk1UZ3gKTVRBeU1EQXdNREF3V2hjTk16QXhNak14TWpNMU9UVTVXakNCbFRFTE1Ba0dBMVVFQmhNQ1IwSXhHekFaQmdOVgpCQWdURWtkeVpXRjBaWElnVFdGdVkyaGxjM1JsY2pFUU1BNEdBMVVFQnhNSFUyRnNabTl5WkRFWU1CWUdBMVVFCkNoTVBVMlZqZEdsbmJ5Qk1hVzFwZEdWa01UMHdPd1lEVlFRREV6UlRaV04wYVdkdklGSlRRU0JQY21kaGJtbDYKWVhScGIyNGdWbUZzYVdSaGRHbHZiaUJUWldOMWNtVWdVMlZ5ZG1WeUlFTkJNSUlCSWpBTkJna3Foa2lHOXcwQgpBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUFuSk1DUmtWS1VraVMvRmVOK1MzcVU3NnpMTlhZcUtYc1cya0R3QjBRCjlsa3ozdjRIU0tqb2pIcG5TdkgxamNNM1p0QXlrZmZFblFSZ3hMVks0b09McDY0bTFGMDZYdmpSRm5HN2lyMXgKb24zSXpxSmdKTEJTb0RwRlVkNTRrMnhpWVBIa1ZweTNPL2M4VmRqZjFYb3hmRFYvRWxGdzRTeStCS3pMK2svaApmR1Zxd0VDbjJYeWxZNFFaNGZmSzc2cTA2RmhhMlpuakp0K09Fcks0M0RPeU50b1VIWlpZUWtCdUN5S0ZIRkVpCnJzVElCa1Z0a3VabnR4a2o1TmcyYTRYUWY4ZFM0OCt3ZFFIZ2liU292NG8yVHFQZ2JPdUVRYzZsTDBnaUU1ZFEKWWtVZUNhWE1uMnhYY0VBRzJ5RG9HOWJ6azR1bk1wNjNSQlVKMTYvOWZBRWMyd0lEQVFBQm80SUJiakNDQVdvdwpId1lEVlIwakJCZ3dGb0FVVTNtL1dxb3JTczlVZ09IWW04Q2Q4cklEWnNzd0hRWURWUjBPQkJZRUZCZloxaVVuClova3h3a2xEMlRBMlJJeHNxVS9yTUE0R0ExVWREd0VCL3dRRUF3SUJoakFTQmdOVkhSTUJBZjhFQ0RBR0FRSC8KQWdFQU1CMEdBMVVkSlFRV01CUUdDQ3NHQVFVRkJ3TUJCZ2dyQmdFRkJRY0RBakFiQmdOVkhTQUVGREFTTUFZRwpCRlVkSUFBd0NBWUdaNEVNQVFJQ01GQUdBMVVkSHdSSk1FY3dSYUJEb0VHR1AyaDBkSEE2THk5amNtd3VkWE5sCmNuUnlkWE4wTG1OdmJTOVZVMFZTVkhKMWMzUlNVMEZEWlhKMGFXWnBZMkYwYVc5dVFYVjBhRzl5YVhSNUxtTnkKYkRCMkJnZ3JCZ0VGQlFjQkFRUnFNR2d3UHdZSUt3WUJCUVVITUFLR00yaDBkSEE2THk5amNuUXVkWE5sY25SeQpkWE4wTG1OdmJTOVZVMFZTVkhKMWMzUlNVMEZCWkdSVWNuVnpkRU5CTG1OeWREQWxCZ2dyQmdFRkJRY3dBWVlaCmFIUjBjRG92TDI5amMzQXVkWE5sY25SeWRYTjBMbU52YlRBTkJna3Foa2lHOXcwQkFRd0ZBQU9DQWdFQVRoTkEKbHNuRDVtNWJ3T082OUJmaHJna2Z5Yi9MRENVVzhuTlRzM1lhdDZ0SUJ0Yk5BSHdnUlVORmJCWmFHeE5oMTBtNgpwQUtrck9qT3ppM0pLblNqM042dXE5Qm9OdmlScnp3QjkzZlZDOCtYcSt1SDV4V28rakJhWVhFZ3NjQkR4TG1QCmJZb3g2eFUySlB0aTFRdWNqK2xtdmVaaFVaZVR0aDJIdmJDMWJQNm1FU2tHWVRReE1EMGdKM05SME42Rmc5TjMKT1NCR2x0cW54bG9XSjRXeXowNFBUb3hjdnI0NEFQaEwrWEo3MVBKNjE2SXBoZEFFdXROQ0xGR0lVaTdSUFNSbgpSK3hWekJ2MHlqVHFKc0hlM2NRaGlmYTZlekllanBaZWhFVTR6NENxTjJtTFlCZDBGVWlSbkczd1RxTjN5aHNjClNQcjV6MG5vWDArRkN1S1BrQnVyY0V5YTY3ZW1QN1NzWGFSZnorYllpcGFROTA4bWdXQjJYUThrZDVHektqR2YKRmxxeVhZd2NLYXBJbkk1djAzaEFjTnQzN04zajBWY0ZjQzNtU1ppSUJZUmlCWEJXZG9ZNVR0TWlieDMrYmZFTwpzMkxFUE12QWhibGhIcnJoRllCWmxBeXVCYnVNZjFhK0hOSmF2NWZ5YWt5d3huQjJzSkNOd1FzMnVSSFkxaWhjCjZrLytKTGNZQ3BzTTBNRjhYUHRwdmN5aVRjYVF2S1pOOHJHNjFwcG5XNVlDVXRDQytjUUtYQTBvNEQvSStwV1YKaWRXa3ZrbHNRTEkrcUd1NDFTV3l4UDd4MDlmbjF0eERBWFl3K3p1TFhmZEtpWHlhTmI3OHl2QlhBZkNOUDZDSApNbnRIV3BkTGd0Sm13c1F0Nmo4azlLZjVxTG5qYXRrWVlhQTdqQlU9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZnVENDQkdtZ0F3SUJBZ0lRT1hKRU92a2l0MUhYMDJ3UTNURTFsVEFOQmdrcWhraUc5dzBCQVF3RkFEQjcKTVFzd0NRWURWUVFHRXdKSFFqRWJNQmtHQTFVRUNBd1NSM0psWVhSbGNpQk5ZVzVqYUdWemRHVnlNUkF3RGdZRApWUVFIREFkVFlXeG1iM0prTVJvd0dBWURWUVFLREJGRGIyMXZaRzhnUTBFZ1RHbHRhWFJsWkRFaE1COEdBMVVFCkF3d1lRVUZCSUVObGNuUnBabWxqWVhSbElGTmxjblpwWTJWek1CNFhEVEU1TURNeE1qQXdNREF3TUZvWERUSTQKTVRJek1USXpOVGsxT1Zvd2dZZ3hDekFKQmdOVkJBWVRBbFZUTVJNd0VRWURWUVFJRXdwT1pYY2dTbVZ5YzJWNQpNUlF3RWdZRFZRUUhFd3RLWlhKelpYa2dRMmwwZVRFZU1Cd0dBMVVFQ2hNVlZHaGxJRlZUUlZKVVVsVlRWQ0JPClpYUjNiM0pyTVM0d0xBWURWUVFERXlWVlUwVlNWSEoxYzNRZ1VsTkJJRU5sY25ScFptbGpZWFJwYjI0Z1FYVjAKYUc5eWFYUjVNSUlDSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQWc4QU1JSUNDZ0tDQWdFQWdCSmxGellPdzlzSQpzOUNzVncxMjdjMG4wMHl0VUlOaDRxb2dUUWt0WkFuY3pvbWZ6RDJwN1BiUHdkengwN0hXZXpjb0VTdEgyam5HCnZEb1p0RittdlgyZG8yTkN0bmJ5cVRzcmtmamliOURzRmlDUUNUN2k2SFRKR0xTUjFHSmsyMytqQnZHSUdHcVEKSWp5OC9oUHdoeFI3OXVRZmp0VGtVY1lSWjBZSVVjdUdGRlEvdkRQK2ZteWMveGFkR0wxUmpqV21wMmJJY21mYgpJV2F4MUp0NEE4QlFPdWpNOE55OG5reityd1dXTlI5WFdyZi96dms5dHl5MjlsVGR5T2NTT2sydVRJcTNYSnEwCnR5QTl5bjhpTks1K08yaG1BVVRuQVU1R1U1c3pZUGVVdmxNM2tITkQ4ekxEVSsvYnF2NTBUbW5IYTR4Z2s5N0UKeHd6ZjRUS3V6Sk03VVhpVlo0dnVQVmIrRE5CcER4c1A4eVVtYXpOdDkyNUgrbk5ENVg0T3BXYXhLWHd5aEdOVgppY1FOd1pOVU1Ca1RyTk45TjZmclhUcHNOVnpiUWRjUzJxbEpDOS9ZZ0lvSmsyS090V2JQSllqTmhMaXhQNlE1CkQ5a0NudXNTVEpWODgyc0ZxVjRXZzh5NForTG9FNTNNVzRMVFRMUHRXLy9lNVhPc0l6c3RBTDgxVlhRSlNkaEoKV0JwL2tqYm1VWklPOHlaOUhFMFh2TW5zUXliUXYwRmZRS2xFUlBTWjUxZUhubEFmVjFTb1B2MTBZeSt4VUdVSgo1bGhDTGtNYVRMVHdKVWRaK2dRZWs5UW1Sa3BRZ2JMZXZuaTMvR2NWNGNsWGhCNFBZOWJwWXJyV1gxVXU2bHpHCktBZ0VKVG00RGl1cDhreVhIQWMvRFZMMTdlOHZnZzhDQXdFQUFhT0I4akNCN3pBZkJnTlZIU01FR0RBV2dCU2cKRVFvalBwYnhCK3ppcnludmdxVi8wRENrdERBZEJnTlZIUTRFRmdRVVUzbS9XcW9yU3M5VWdPSFltOENkOHJJRApac3N3RGdZRFZSMFBBUUgvQkFRREFnR0dNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdFUVlEVlIwZ0JBb3dDREFHCkJnUlZIU0FBTUVNR0ExVWRId1E4TURvd09LQTJvRFNHTW1oMGRIQTZMeTlqY213dVkyOXRiMlJ2WTJFdVkyOXQKTDBGQlFVTmxjblJwWm1sallYUmxVMlZ5ZG1salpYTXVZM0pzTURRR0NDc0dBUVVGQndFQkJDZ3dKakFrQmdncgpCZ0VGQlFjd0FZWVlhSFIwY0RvdkwyOWpjM0F1WTI5dGIyUnZZMkV1WTI5dE1BMEdDU3FHU0liM0RRRUJEQVVBCkE0SUJBUUFZaDFIY2RDRTluSXJnSjdjejBDN003UERteTE0UjNpSnZtM1dPbm5MKzVOYitxaCtjbGkzdkEwcCsKcnZTTmIzSThRenZBUCt1NDMxeXFxY2F1OHZ6WTdxTjdRL2FHTm53VTRNMzA5ei8rM3JpMGl2Q1Jsdjc5UTJSKwovY3pTQWFGOWZmZ1pHY2xDS3hPL1dJdTZwS0ptQkhhSWtVNE1pUlRPb2szSk1yTzY2QlFhdkhIeFcvQkJDNWdBCkNpSURFT1VNc2ZuTmtqY1o3VHZ4NURxMitVVVRKbld2dTZydlAzdDNPOUxFQXBFOUdRRFRGMXc1Mno5N0dBMUYKelpPRmxpOWQzMWtXVHo5UnZkVkZHRC90U283b0JtRjBJeGExRFZCekowUkhmeEJkaVNwcmhURVV4T2lwYWt5QQp2R3A0ejdoL2puWnltUXlkL3RlUkNCYWhvMStWCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+---
+# Source: panda/charts/server/templates/configmap.yaml
+# server env variables
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: panda-dev-server-env
+data:
+  PANDA_URL: "https://panda-dev-server:25443/server/panda"
+  PANDA_URL_SSL: "https://panda-dev-server:25443/server/panda"
+  PANDA_VERIFY_HOST: "off"
+  PANDA_AUTH: "oidc"
+  PANDA_AUTH_ID_TOKEN: FIXME
+  PANDA_AUTH_VO: panda_dev.production
+  http_proxy: "http://osgserv13.slac.stanford.edu:3128"
+  no_proxy: "localhost,panda-dev-server"
+  https_proxy: "http://osgserv13.slac.stanford.edu:3128"
+---
+# Source: panda/charts/server/templates/configmap.yaml
+# auth
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: panda-dev-server-auth
+data:
+  Rubin.production_auth_config.json: |-
+     
+  Rubin_auth_config.json: |-
+    
+  panda_dev.production_auth_config.json: |-
+
+  panda_dev_auth_config.json: |-
+
+---
+# Source: panda/charts/server/templates/configmap.yaml
+# sandbox
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: panda-dev-server-sandbox
+binaryData:
+  init-panda: |-
+    IyBpbnN0YWxsIENBIGZpbGVzCi9vcHQvcGFuZGEvYmluL3BhbmRhX2NvbW1vbi1pbnN0YWxsX2lndGZfY2EgPiAvdmFyL2xvZy9wYW5kYS9pbnN0YWxsX2lndGZfY2EubG9nIDI+JjEKCmlmIFsgLWYgL29wdC9wYW5kYS9ldGMvY2VydC9ob3N0Y2VydC5wZW0gXTsgdGhlbgogICAgZWNobyAiSG9zdCBjZXJ0aWZpY2F0ZSBhbHJlYWR5IG1vdW50ZWQuIgplbHNlCiAgICBlY2hvICJIb3N0IGNlcnRpZmljYXRlIG5vdCBmb3VuZC4gd2lsbCBnZW5lcmF0ZSBhIHNlbGYtc2lnbmVkIG9uZS4iCiAgICB1bmxpbmsgL2V0Yy9ncmlkLXNlY3VyaXR5L2hvc3RrZXkucGVtCiAgICB1bmxpbmsgL2V0Yy9ncmlkLXNlY3VyaXR5L2hvc3RjZXJ0LnBlbQogICAgbWtkaXIgL29wdC9wYW5kYS9jb25maWcKICAgIG9wZW5zc2wgcmVxIC14NTA5IC1ub2RlcyAtZGF5cyAzNjUgLW5ld2tleSByc2E6MjA0OCBcCiAgICAgICAgLXN1YmogIi9DPVVTL0RDPUlERFMvT1U9Y29tcHV0ZXJzL0NOPSQoaG9zdG5hbWUgLWYpIiBcCiAgICAgICAgLWtleW91dCAvb3B0L3BhbmRhL2NvbmZpZy9ob3N0a2V5LnBlbSBcCiAgICAgICAgLW91dCAvb3B0L3BhbmRhL2NvbmZpZy9ob3N0Y2VydC5wZW0KICAgIGxuIC1mcyAvb3B0L3BhbmRhL2NvbmZpZy9ob3N0Y2VydC5wZW0gL2V0Yy9ncmlkLXNlY3VyaXR5L2hvc3RjZXJ0LnBlbQogICAgbG4gLWZzIC9vcHQvcGFuZGEvY29uZmlnL2hvc3RrZXkucGVtIC9ldGMvZ3JpZC1zZWN1cml0eS9ob3N0a2V5LnBlbQpmaQoKIyBmZXRjaCBpbmZvIGZyb20gQ1JJQyBiZWZvcmUgcnVubmluZyBzZXJ2aWNlcwovb3B0L3BhbmRhL3Vzci9iaW4vcGFuZGFfc2VydmVyLXNjaGVkY29uZmlnX2pzb24KL29wdC9wYW5kYS91c3IvYmluL3BhbmRhX3NlcnZlci1jb25maWd1cmF0b3IK
+  run-panda-crons: |-
+    IyByZWZyZXNoIENBIGZpbGVzCndoaWxlIHRydWU7IGRvIHNsZWVwIDM2MDAwOyAvb3B0L3BhbmRhL2Jpbi9wYW5kYV9jb21tb24taW5zdGFsbF9pZ3RmX2NhID4gL3Zhci9sb2cvcGFuZGEvaW5zdGFsbF9pZ3RmX2NhLmxvZyAyPiYxOyBkb25lICYKCiMgcmVmcmVzaCBzY2hlZGNvbmZpZyBqc29uCndoaWxlIHRydWU7IGRvIC9vcHQvY2FjaGVzY2hlZGNvbmZpZy9iaW4vY2FjaGVTQy5zaCA+PiAvdmFyL2xvZy9wYW5kYS9jYWNoZVNDLm91dCAyPiYxOyBzbGVlcCA2MDsgZG9uZSAmCg==
+---
+# Source: panda/templates/configmap.yaml
+# sandbox
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: panda-dev-external-sandbox
+binaryData:
+  .gitkeep: |-
+---
+# Source: panda/charts/jedi/templates/deployment.yaml
+# pv
+# pv claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: panda-dev-jedi
+  labels:
+    helm.sh/chart: jedi-0.1.0
+    app.kubernetes.io/name: jedi
+    app.kubernetes.io/instance: panda-dev
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  storageClassName: wekafs--sdf-k8s01
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: panda/charts/postgres/templates/deployment.yaml
+# pv
+# pv claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: panda-dev-postgres
+  labels:
+    helm.sh/chart: postgres-0.1.0
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/instance: panda-dev
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  storageClassName: wekafs--sdf-k8s01
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: panda/charts/server/templates/deployment.yaml
+# pv
+# pv claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: panda-dev-server
+  labels:
+    helm.sh/chart: server-0.1.0
+    app.kubernetes.io/name: server
+    app.kubernetes.io/instance: panda-dev
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  storageClassName: wekafs--sdf-k8s01
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: panda/charts/postgres/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: panda-dev-postgres
+  labels:
+    helm.sh/chart: postgres-0.1.0
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/instance: panda-dev
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: postgres-port
+      protocol: TCP
+      name: postgres-port
+  selector:
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/instance: panda-dev
+---
+# Source: panda/charts/server/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: panda-dev-server
+  labels:
+    helm.sh/chart: server-0.1.0
+    app.kubernetes.io/name: server
+    app.kubernetes.io/instance: panda-dev
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 25080
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: 25443
+      targetPort: https
+      protocol: TCP
+      name: https
+  selector:
+    app.kubernetes.io/name: server
+    app.kubernetes.io/instance: panda-dev
+---
+# Source: panda/charts/jedi/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: panda-dev-jedi
+  labels:
+    helm.sh/chart: jedi-0.1.0
+    app.kubernetes.io/name: jedi
+    app.kubernetes.io/instance: panda-dev
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jedi
+      app.kubernetes.io/instance: panda-dev
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: jedi
+        app.kubernetes.io/instance: panda-dev
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      containers:
+        - name: jedi
+          securityContext:
+            {}
+          image: "ghcr.io/pandawms/panda-jedi:0.0.7"
+          imagePullPolicy: Always
+          command: ["/bin/sh", "-c"]
+          args:
+            - until  /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
+              cp /opt/panda/sandbox/init-jedi /data/panda/;
+              chmod +x /data/panda/init-jedi;
+              cp /opt/panda/sandbox/run-jedi-crons /data/panda/;
+              chmod +x /data/panda/run-jedi-crons;
+              cp /opt/panda/sandbox/*.cfg /data/panda/;
+              /etc/rc.d/init.d/run-jedi-services;
+              sleep infinity & wait
+          resources:
+            {}
+          volumeMounts:
+              - name: panda-dev-jedi-logs
+                mountPath: /var/log/panda
+              - name: panda-dev-jedi-configjson
+                mountPath: /opt/panda/etc/config_json
+              - name: panda-dev-jedi-sandbox
+                mountPath: /opt/panda/sandbox
+          envFrom:
+            - configMapRef:
+                name: panda-dev-server-env
+            - configMapRef:
+                name: panda-dev-postgres-configmap
+      volumes:
+        - name: panda-dev-jedi-logs
+          persistentVolumeClaim:
+            claimName: panda-dev-jedi
+        - name: panda-dev-jedi-sandbox
+          projected:
+            sources:
+              - configMap:
+                  name: panda-dev-jedi-sandbox
+              - configMap:
+                  name: panda-dev-external-sandbox
+        - name: panda-dev-jedi-configjson
+          projected:
+            sources:
+              - configMap:
+                  name: panda-dev-jedi-configjson
+              - configMap:
+                  name: panda-dev-server-configjson
+---
+# Source: panda/charts/postgres/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: panda-dev-postgres
+  labels:
+    helm.sh/chart: postgres-0.1.0
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/instance: panda-dev
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: postgres
+      app.kubernetes.io/instance: panda-dev
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: postgres
+        app.kubernetes.io/instance: panda-dev
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      containers:
+        - name: postgres
+          securityContext:
+            {}
+          image: "ghcr.io/pandawms/panda-database:0.0.8"
+          imagePullPolicy: Always
+          ports:
+            - name: postgres-port
+              containerPort: 5432
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: panda-dev-postgres-configmap
+          resources:
+            {}
+          volumeMounts:
+            - mountPath: /temp
+              name: panda-dev-postgres-data
+      volumes:
+        - name: panda-dev-postgres-data
+          persistentVolumeClaim:
+            claimName: panda-dev-postgres
+---
+# Source: panda/charts/server/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: panda-dev-server
+  labels:
+    helm.sh/chart: server-0.1.0
+    app.kubernetes.io/name: server
+    app.kubernetes.io/instance: panda-dev
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: server
+      app.kubernetes.io/instance: panda-dev
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: server
+        app.kubernetes.io/instance: panda-dev
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      containers:
+        - name: server
+          securityContext:
+            {}
+          image: "ghcr.io/pandawms/panda-server:master"
+          imagePullPolicy: Always
+          command: [ "/bin/sh", "-c" ]
+          args:
+            - until /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
+              cp /opt/panda/sandbox/init-panda /data/panda/;
+              chmod +x /data/panda/init-panda;
+              cp /opt/panda/sandbox/run-panda-crons /data/panda/;
+              chmod +x /data/panda/run-panda-crons;
+              cp /opt/panda/sandbox/*.cfg /data/panda/;
+              /etc/rc.d/init.d/run-panda-services;
+              sleep infinity & wait
+          ports:
+            - name: http
+              containerPort: 25080
+              protocol: TCP
+            - name: https
+              containerPort: 25443
+              protocol: TCP
+          resources:
+            {}
+          volumeMounts:
+             - name: panda-dev-server-logs
+               mountPath: /var/log/panda
+             - name: panda-dev-server-configjson
+               mountPath: /opt/panda/etc/config_json
+             - name: panda-dev-server-auth
+               mountPath: /opt/panda/etc/panda/auth
+             - name: panda-dev-server-sandbox
+               mountPath: /opt/panda/sandbox
+             - name: panda-dev-server-certs
+               mountPath: /opt/panda/etc/cert
+          envFrom:
+             - configMapRef:
+                 name: panda-dev-postgres-configmap
+             - configMapRef:
+                 name: panda-dev-server-env
+          env:
+            - name: PANDA_SERVER_CONF_SERVERNAME
+              value: panda-dev-server
+      volumes:
+        - name: panda-dev-server-logs
+          persistentVolumeClaim:
+            claimName: panda-dev-server
+        - name: panda-dev-server-configjson
+          configMap:
+              name: panda-dev-server-configjson
+        - name: panda-dev-server-auth
+          configMap:
+              name: panda-dev-server-auth
+        - name: panda-dev-server-sandbox
+          projected:
+            sources:
+              - configMap:
+                  name: panda-dev-server-sandbox
+              - configMap:
+                  name: panda-dev-external-sandbox
+        - name: panda-dev-server-certs
+          configMap:
+              name: panda-dev-server-certs
+---
+# Source: panda/charts/server/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: panda-dev-server
+  labels:
+    helm.sh/chart: server-0.1.0
+    app.kubernetes.io/name: server
+    app.kubernetes.io/instance: panda-dev
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  tls:
+    - hosts:
+        - "panda-dev.slac.stanford.edu"
+      secretName: panda-k8s-dev-jedi-tls-cert
+  rules:
+    - host: "panda-dev.slac.stanford.edu"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: panda-dev-server
+                port:
+                  number: 25443

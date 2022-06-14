@@ -1,0 +1,168 @@
+---
+# Source: activemq/charts/daemon/templates/configmap.yaml
+# JEDI and server configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: activemq-dev-daemon-configmap
+data:
+  ACTIVEMQ_NAME: activemq-dev-daemon
+  ACTIVEMQ_CONFIG_DEFAULTACCOUNT: "false"
+  ACTIVEMQ_ADMIN_LOGIN: admin
+  ACTIVEMQ_ADMIN_PASSWORD: FIXME_PASS
+  ACTIVEMQ_ENABLED_SCHEDULER: "true"
+  ACTIVEMQ_ENABLED_AUTH: "false"
+  ACTIVEMQ_STATIC_TOPICS: iddspanda;pandaidds
+  ACTIVEMQ_STATIC_QUEUES: iddspanda;pandaidds
+  ACTIVEMQ_MIN_MEMORY: "1024"
+  ACTIVEMQ_MAX_MEMORY: "2048"
+  ACTIVEMQ_USER_LOGIN: FIXME_USER
+  ACTIVEMQ_USER_PASSWORD: FIXME_PASS
+  ACTIVEMQ_OWNER_LOGIN: FIXME_OWNER
+  ACTIVEMQ_OWNER_PASSWORD: FIXME_PASS
+  ACTIVEMQ_WRITE_LOGIN: FIXME_WRITER
+  ACTIVEMQ_WRITE_PASSWORD: FIXME_PASS
+  ACTIVEMQ_READ_LOGIN: FIXME_READER
+  ACTIVEMQ_READ_PASSWORD: FIXME_PASS
+---
+# Source: activemq/charts/daemon/templates/deployment.yaml
+# pv claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: activemq-dev-daemon-data
+  labels:
+    # dataType: data
+    helm.sh/chart: daemon-0.1.0
+    app.kubernetes.io/name: daemon
+    app.kubernetes.io/instance: activemq-dev
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  storageClassName: wekafs--sdf-k8s01
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: activemq/charts/daemon/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: activemq-dev-daemon
+  labels:
+    helm.sh/chart: daemon-0.1.0
+    app.kubernetes.io/name: daemon
+    app.kubernetes.io/instance: activemq-dev
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8161
+      targetPort: port8161
+      protocol: TCP
+      name: port8161
+    - port: 5672
+      targetPort: port5672
+      protocol: TCP
+      name: port5672
+    - port: 1883
+      targetPort: port1883
+      protocol: TCP
+      name: port1883
+    - port: 61616
+      targetPort: port61616
+      protocol: TCP
+      name: port61616
+    - port: 61613
+      targetPort: port61613
+      protocol: TCP
+      name: port61613
+    - port: 61614
+      targetPort: port61614
+      protocol: TCP
+      name: port61614
+  selector:
+    app.kubernetes.io/name: daemon
+    app.kubernetes.io/instance: activemq-dev
+---
+# Source: activemq/charts/daemon/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: activemq-dev-daemon
+  labels:
+    helm.sh/chart: daemon-0.1.0
+    app.kubernetes.io/name: daemon
+    app.kubernetes.io/instance: activemq-dev
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: daemon
+      app.kubernetes.io/instance: activemq-dev
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: daemon
+        app.kubernetes.io/instance: activemq-dev
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      containers:
+        - name: daemon
+          securityContext:
+            {}
+          image: "webcenter/activemq:5.14.3"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: port8161
+              containerPort: 8161
+              protocol: TCP
+            - name: port5672
+              containerPort: 5672
+              protocol: TCP
+            - name: port1883
+              containerPort: 1883
+              protocol: TCP
+            - name: port61616
+              containerPort: 61616
+              protocol: TCP
+            - name: port61613
+              containerPort: 61613
+              protocol: TCP
+            - name: port61614
+              containerPort: 61614
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: activemq-dev-daemon-configmap
+          resources:
+            {}
+          volumeMounts:
+              # - name: activemq-dev-daemon-logs
+              #  mountPath: /var/log/activemq/
+              - name: activemq-dev-daemon-data
+                mountPath: /data/activemq
+              # - name: activemq-dev-daemon-config
+              #   mountPath: /opt/activemq/conf
+              # - name: activemq-dev-daemon-configmap
+              #   mountPath: /activemq/configmap
+      volumes:
+        # - name: activemq-dev-daemon-logs
+        #   persistentVolumeClaim:
+        #     claimName: activemq-dev-daemon-logs
+        - name: activemq-dev-daemon-data
+          persistentVolumeClaim:
+            claimName: activemq-dev-daemon-data
+        # - name: activemq-dev-daemon-conf
+        #   persistentVolumeClaim:
+        #     claimName: activemq-dev-daemon-conf
+        # - name: activemq-dev-daemon-configmap
+        #   configMap:
+        #       name: activemq-dev-daemon-configmap
