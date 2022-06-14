@@ -18,7 +18,8 @@ server:
   enabled: true
   # container image and tag
   image:
-    tag: "0.0.31"
+    # tag: "0.0.31"
+    tag: "master"
 
   # PV with selector support
   #persistentvolume:
@@ -46,7 +47,7 @@ server:
     tls:
       - secretName: "FIXME"
         hosts:
-          - domain: "FIXME
+          - domain: "FIXME"
             hostOverride: "FIXME"
 
   # ID token of the PanDA service account

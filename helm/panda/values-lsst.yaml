@@ -8,11 +8,17 @@ jedi:
     create: false
     selector: false
 
+  httpProxy: "http://osgserv13.slac.stanford.edu:3128"
+  httpsProxy: "http://osgserv13.slac.stanford.edu:3128"
+
 server:
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
     selector: false
+
+  httpProxy: "http://osgserv13.slac.stanford.edu:3128"
+  httpsProxy: "http://osgserv13.slac.stanford.edu:3128"
 
   # use Route class for ingress
   route:
