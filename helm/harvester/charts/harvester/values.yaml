@@ -19,6 +19,9 @@ httpsProxy: ""
 # harvester id
 harvesterID: "my-harvester"
 
+# run with non-root pid
+noRoot: false
+
 persistentvolume:
   create: false
   class: nas

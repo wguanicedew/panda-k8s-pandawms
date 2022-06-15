@@ -80,7 +80,11 @@ spec:
               cp /opt/harvester/sandbox/run-harvester-crons /data/harvester/;
               chmod +x /data/harvester/run-harvester-crons;
               cp /opt/harvester/sandbox/condor_config.local /data/harvester/;
+              {{- if .Values.noRoot }}
               /opt/harvester/etc/rc.d/init.d/run-harvester-services;
+              {{- else }}
+              runuser -u atlpan -g zp -- /opt/harvester/etc/rc.d/init.d/run-harvester-services;
+              {{- end }}
               sleep infinity & wait
           {{- end }}
           resources:
