@@ -103,6 +103,16 @@ metadata:
   name: {{ include "daemon.fullname" . }}-envs
 data:
   IDDS_SERVER: {{.Values.iddsServer}}
+  {{- if .Values.httpProxy }}
+  http_proxy: "{{ .Values.httpProxy }}"
+  no_proxy: "localhost,{{ include "daemon.fullname" . }}"
+  {{- if .Values.httpsProxy }}
+  https_proxy: "{{ .Values.httpProxy }}"
+  {{- end }}
+  {{- else if .Values.httpsProxy }}
+  https_proxy: "{{ .Values.httpsProxy }}"
+  no_proxy: "localhost,{{ include "daemon.fullname" . }}"
+  {{- end }}
 
 {{- if .Values.hostcerts.enabled -}}
 ---

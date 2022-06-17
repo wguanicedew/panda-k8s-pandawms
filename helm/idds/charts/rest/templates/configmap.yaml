@@ -63,9 +63,9 @@ data:
         },
     "/opt/idds/config/panda.cfg":
         {"panda":
-            {"panda_url_ssl": "https://pandaserver-doma.cern.ch:25443/server/panda",
-             "panda_url": "http://pandaserver-doma.cern.ch:25080/server/panda",
-             "panda_monitor_url": "https://panda-doma.cern.ch",
+            {"panda_url_ssl": "https://panda-dev-server:25443/server/panda",
+             "panda_url": "http://panda-dev-server:25080/server/panda",
+             "panda_monitor_url": "https://panda-dev-server",
              "# PANDA_AUTH_VO": "panda_dev",
              "panda_auth": "oidc",
              "panda_auth_vo": "Rubin:production",
@@ -100,6 +100,16 @@ metadata:
   name: {{ include "rest.fullname" . }}-envs
 data:
   IDDS_SERVER: {{.Values.iddsServer}}
+  {{- if .Values.httpProxy }}
+  http_proxy: "{{ .Values.httpProxy }}"
+  no_proxy: "localhost,{{ include "rest.fullname" . }}"
+  {{- if .Values.httpsProxy }}
+  https_proxy: "{{ .Values.httpProxy }}"
+  {{- end }}
+  {{- else if .Values.httpsProxy }}
+  https_proxy: "{{ .Values.httpsProxy }}"
+  no_proxy: "localhost,{{ include "rest.fullname" . }}"
+  {{- end }}
 
 {{- if .Values.hostcerts.enabled -}}
 ---
