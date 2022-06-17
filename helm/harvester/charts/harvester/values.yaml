@@ -12,6 +12,9 @@ image:
 # start the service when pod gets started
 autoStart: true
 
+# experiment to use to init and setup crons
+experiment: ""
+
 # http proxy
 httpProxy: ""
 httpsProxy: ""

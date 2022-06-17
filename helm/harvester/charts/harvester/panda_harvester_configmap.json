@@ -28,6 +28,9 @@
     "pandaURLSSL": "${PANDA_URL_SSL}",
     "verbose": true
   },
+  "frontend": {
+     "type": "apache"
+   },
   "qconf": {
     "configFile": "/etc/harvester/queueconfig/panda_queueconfig.json",
     "queueList": [
