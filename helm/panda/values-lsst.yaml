@@ -8,8 +8,8 @@ jedi:
     create: false
     selector: false
 
-  httpProxy: "http://osgserv13.slac.stanford.edu:3128"
-  httpsProxy: "http://osgserv13.slac.stanford.edu:3128"
+  httpProxy: "http://squid.slac.stanford.edu:3128"
+  httpsProxy: "http://squid.slac.stanford.edu:3128"
 
 server:
   persistentvolume:
@@ -17,8 +17,8 @@ server:
     create: false
     selector: false
 
-  httpProxy: "http://osgserv13.slac.stanford.edu:3128"
-  httpsProxy: "http://osgserv13.slac.stanford.edu:3128"
+  httpProxy: "http://squid.slac.stanford.edu:3128"
+  httpsProxy: "http://squid.slac.stanford.edu:3128"
 
   # use Route class for ingress
   route:
