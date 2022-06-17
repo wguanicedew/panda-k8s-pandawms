@@ -13,8 +13,12 @@ kind: ConfigMap
 metadata:
   name: {{ include "harvester.fullname" . }}-queueconfig
 data:
+  {{- if .Values.experiment }}
   panda_queueconfig.json: |-
+{{ .Files.Get "{{ .Values.experiment }}.panda_queueconfig.json" | indent 4}}
+  {{- else}}
 {{ .Files.Get "panda_queueconfig.json" | indent 4}}
+  {{- end}}
 
   pilot_wrapper.sh: |-
 {{ .Files.Get "pilot_wrapper.sh" | indent 4}}
@@ -25,6 +29,7 @@ kind: ConfigMap
 metadata:
   name: {{ include "harvester.fullname" . }}-env
 data:
+  EXPERIMENT: {{ .Values.experiment }}
   PANDA_URL: "https://{{ .Values.panda.host }}/server/panda"
   PANDA_URL_SSL: "https://{{ .Values.panda.host }}/server/panda"
   {{- if .Values.panda.authIdToken }}

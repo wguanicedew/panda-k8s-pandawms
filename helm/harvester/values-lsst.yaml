@@ -8,15 +8,10 @@ harvester:
     create: false
     selector: false
 
-  panda:
-    # panda server host and https port
-    host: "panda-dev-server"
+  httpProxy: "http://squid.slac.stanford.edu:3128"
+  httpsProxy: "http://squid.slac.stanford.edu:3128"
 
-    # ID token to access the PanDA service
-    authIdToken: "FIXME"
-
-    # VO (. role) of the ID token
-    authVO: "panda_dev.production"
+  experiment: "lsst"
 
 mariadb:
   persistentvolume:
