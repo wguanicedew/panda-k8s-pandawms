@@ -12,7 +12,7 @@ database:
 daemon:
   enabled: true
   image:
-    tag: "0.10.23.2"
+    tag: "0.11.2"
 
   database:
     name: *idds_db
@@ -23,7 +23,7 @@ daemon:
 rest:
   enabled: true
   image:
-    tag: "0.10.23.2"
+    tag: "0.11.2"
 
   database:
     name: *idds_db

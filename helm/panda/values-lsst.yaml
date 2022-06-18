@@ -10,6 +10,7 @@ jedi:
 
   httpProxy: "http://squid.slac.stanford.edu:3128"
   httpsProxy: "http://squid.slac.stanford.edu:3128"
+  noProxy: "localhost,idds-dev-rest,panda-dev-server"
 
 server:
   persistentvolume:
@@ -19,6 +20,7 @@ server:
 
   httpProxy: "http://squid.slac.stanford.edu:3128"
   httpsProxy: "http://squid.slac.stanford.edu:3128"
+  noProxy: "localhost,idds-dev-rest,panda-dev-server"
 
   # use Route class for ingress
   route:
