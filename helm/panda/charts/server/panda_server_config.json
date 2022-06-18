@@ -14,7 +14,8 @@
         "pserveralias": "panda-dev-server",
         "adder_plugins": "wlcg:dataservice.AdderDummyPlugin:AdderDummyPlugin,wlcg:dataservice.AdderSimplePlugin:AdderSimplePlugin:sphenix",
         "setupper_plugins": "wlcg:dataservice.SetupperDummyPlugin:SetupperDummyPlugin", 
-        "token_authType": "oidc"
+        "token_authType": "oidc",
+        "cache_dir": "/var/log/panda/pandacache"
     },
     "daemon": {
         "enable": "True"
