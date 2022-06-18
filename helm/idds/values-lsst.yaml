@@ -12,6 +12,13 @@ daemon:
 
   httpProxy: "http://squid.slac.stanford.edu:3128"
   httpsProxy: "http://squid.slac.stanford.edu:3128"
+  noProxy: "localhost,idds-dev-rest,idds-dev-daemon,panda-dev-server,panda-dev-jedi"
+
+  panda:
+    panda_url_ssl: https://panda-dev-server:25443/server/panda
+    panda_url: http://panda-dev-server:25080/server/panda
+    panda_monitor_url: "https://panda-dev-server"
+    pandacache_url: https://panda-dev-server:25443/server/panda
 
   conductor:
     brokers: activemq-dev
@@ -32,6 +39,13 @@ rest:
 
   httpProxy: "http://squid.slac.stanford.edu:3128"
   httpsProxy: "http://squid.slac.stanford.edu:3128"
+  noProxy: "localhost,idds-dev-rest,idds-dev-daemon,panda-dev-server,panda-dev-jedi"
+
+  panda:
+    panda_url_ssl: https://panda-dev-server:25443/server/panda
+    panda_url: http://panda-dev-server:25080/server/panda
+    panda_monitor_url: "https://panda-dev-server"
+    pandacache_url: https://panda-dev-server:25443/server/panda
 
   ingress:
     enabled: true

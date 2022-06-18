@@ -63,13 +63,15 @@ data:
         },
     "/opt/idds/config/panda.cfg":
         {"panda":
-            {"panda_url_ssl": "https://pandaserver-doma.cern.ch:25443/server/panda",
-             "panda_url": "http://pandaserver-doma.cern.ch:25080/server/panda",
-             "panda_monitor_url": "https://panda-doma.cern.ch",
+            {"panda_url_ssl": "{{ .Values.panda.panda_url_ssl}}",
+             "panda_url": "{{ .Values.panda.panda_url}}",
+             "panda_monitor_url": "{{ .Values.panda.panda_monitor_url}}",
              "# PANDA_AUTH_VO": "panda_dev",
-             "panda_auth": "oidc",
-             "panda_auth_vo": "Rubin:production",
-             "panda_config_root": "/opt/idds/config/"
+             "panda_auth": "{{ .Values.panda.panda_auth}}",
+             "panda_auth_vo": "{{ .Values.panda.panda_auth_vo}}",
+             "panda_config_root": "{{ .Values.panda.panda_config_root}}",
+             "pandacache_url": "{{ .Values.panda.pandacache_url}}",
+             "panda_verify_host": "{{ .Values.panda.panda_verify_host}}"
         }
         },
     "/opt/idds/config/rucio.cfg":
@@ -103,15 +105,24 @@ metadata:
   name: {{ include "daemon.fullname" . }}-envs
 data:
   IDDS_SERVER: {{.Values.iddsServer}}
+  PANDA_BEHIND_REAL_LB: "true"
   {{- if .Values.httpProxy }}
   http_proxy: "{{ .Values.httpProxy }}"
+  {{- if .Values.noProxy }}
+  no_proxy: "{{ .Values.noProxy }}"
+  {{- else}}
   no_proxy: "localhost,{{ include "daemon.fullname" . }}"
+  {{- end}}
   {{- if .Values.httpsProxy }}
   https_proxy: "{{ .Values.httpProxy }}"
   {{- end }}
   {{- else if .Values.httpsProxy }}
   https_proxy: "{{ .Values.httpsProxy }}"
+  {{- if .Values.noProxy }}
+  no_proxy: "{{ .Values.noProxy }}"
+  {{- else}}
   no_proxy: "localhost,{{ include "daemon.fullname" . }}"
+  {{- end}}
   {{- end }}
 
 {{- if .Values.hostcerts.enabled -}}
