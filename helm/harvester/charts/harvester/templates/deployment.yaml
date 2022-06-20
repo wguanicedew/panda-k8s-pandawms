@@ -43,6 +43,7 @@ metadata:
   labels:
     {{- include "harvester.labels" . | nindent 4 }}
 spec:
+  hostname:  {{ include "harvester.fullname" . }}
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
