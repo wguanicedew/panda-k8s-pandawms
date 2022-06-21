@@ -9,8 +9,8 @@ daemon:
     tag: "5.14.3"
 
   # to create topics and queues
-  topics: "iddspanda;pandaidds"
-  queues: "iddspanda;pandaidds"
+  topics: "iddspanda;pandaidds;self.jedi_taskstatus"
+  queues: "iddspanda;pandaidds;self.jedi_taskstatus"
 
   # define the user and password
   admin:

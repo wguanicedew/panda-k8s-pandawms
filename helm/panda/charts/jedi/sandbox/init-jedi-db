@@ -1,0 +1,12 @@
+source /opt/panda/bin/activate
+
+if [ -r /etc/sysconfig/panda_server ]; then
+   . /etc/sysconfig/panda_server
+fi
+
+# Source panda JEDI env variables
+if [ -r /etc/sysconfig/panda_jedi ]; then
+   . /etc/sysconfig/panda_jedi
+fi
+
+python /opt/panda/sandbox/init-jedi-db.py
