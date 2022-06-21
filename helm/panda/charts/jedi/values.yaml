@@ -12,6 +12,9 @@ image:
 # start the service when pod gets started
 autoStart: true
 
+# run panda with non-root account
+noRoot: true
+
 persistentvolume:
   create: false
   class: nas

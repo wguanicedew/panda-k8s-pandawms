@@ -24,7 +24,7 @@ httpsProxy: ""
 rucioAccount: ""
 
 # run with non-root PID
-noRoot: false
+noRoot: true
 
 persistentvolume:
   # Set true to create PV

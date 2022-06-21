@@ -17,15 +17,21 @@ else
 fi
 
 # fetch info from CRIC before running services
-tmpExe=`mktemp`
-cat <<EOT >> ${tmpExe}
-/opt/panda/usr/bin/panda_server-schedconfig_json
-/opt/panda/usr/bin/panda_server-configurator
-EOT
-chmod +x ${tmpExe}
-
 if [[ -z "${PANDA_NO_ROOT}" ]]; then
-  runuser -u atlpan -g zp -- ${tmpExe}
+  /opt/panda/usr/bin/panda_server-schedconfig_json
+  /opt/panda/usr/bin/panda_server-configurator
 else
-  ${tmpExe}
+  runuser -u atlpan -g zp -- /opt/panda/usr/bin/panda_server-schedconfig_json
+  runuser -u atlpan -g zp -- /opt/panda/usr/bin/panda_server-configurator
 fi
+
+# init jedi db to setup queues
+bash /opt/panda/sandbox/init-jedi-db
+
+# setup msg
+ln -s /opt/panda/sandbox/jedi_mq_config.json /etc/panda/jedi_mq_config.json
+ln -s /opt/panda/sandbox/jedi_msg_proc_config.json /etc/panda/jedi_msg_proc_config.json
+
+# setup rucio.cfg
+mv /opt/panda/etc/rucio.cfg /opt/panda/etc/rucio.cfg.back
+ln -s /opt/panda/sandbox/rucio.cfg /opt/panda/etc/rucio.cfg
