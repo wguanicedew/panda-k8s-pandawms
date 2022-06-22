@@ -25,9 +25,6 @@ else
   /opt/panda/usr/bin/panda_server-configurator
 fi
 
-# init jedi db to setup queues
-bash /opt/panda/sandbox/init-jedi-db
-
 # setup msg
 ln -s /opt/panda/sandbox/jedi_mq_config.json /etc/panda/jedi_mq_config.json
 ln -s /opt/panda/sandbox/jedi_msg_proc_config.json /etc/panda/jedi_msg_proc_config.json
