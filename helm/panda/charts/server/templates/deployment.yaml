@@ -81,7 +81,7 @@ spec:
               chmod +x /data/panda/init-panda;
               cp /opt/panda/sandbox/run-panda-crons /data/panda/;
               chmod +x /data/panda/run-panda-crons;
-              cp /opt/panda/sandbox/*.cfg /data/panda/;
+              cp /opt/panda/sandbox/* /data/panda/;
               /etc/rc.d/init.d/run-panda-services;
               sleep infinity & wait
           {{- end }}

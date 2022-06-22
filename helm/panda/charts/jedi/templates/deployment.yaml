@@ -79,7 +79,7 @@ spec:
               chmod +x /data/panda/init-jedi;
               cp /opt/panda/sandbox/run-jedi-crons /data/panda/;
               chmod +x /data/panda/run-jedi-crons;
-              cp /opt/panda/sandbox/*.cfg /data/panda/;
+              cp /opt/panda/sandbox/* /data/panda/;
               /etc/rc.d/init.d/run-jedi-services;
               sleep infinity & wait
           {{- end }}
