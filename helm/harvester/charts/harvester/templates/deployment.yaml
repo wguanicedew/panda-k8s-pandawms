@@ -82,9 +82,9 @@ spec:
               chmod +x /data/harvester/run-harvester-crons;
               cp /opt/harvester/sandbox/* /data/harvester/;
               {{- if .Values.noRoot }}
-              runuser -u atlpan -g zp -- /opt/harvester/etc/rc.d/init.d/run-harvester-services;
-              {{- else }}
               /opt/harvester/etc/rc.d/init.d/run-harvester-services;
+              {{- else }}
+              runuser -u atlpan -g zp -- /opt/harvester/etc/rc.d/init.d/run-harvester-services;
               {{- end }}
               sleep infinity & wait
           {{- end }}
