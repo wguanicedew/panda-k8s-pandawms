@@ -26,7 +26,7 @@ httpsProxy: ""
 harvesterID: "my-harvester"
 
 # run with non-root pid
-noRoot: true
+noRoot: false
 
 persistentvolume:
   create: false
