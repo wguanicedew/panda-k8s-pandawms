@@ -14,9 +14,11 @@ metadata:
   name: {{ include "harvester.fullname" . }}-queueconfig
 data:
   {{- if .Values.experiment }}
+  {{ $pq_file :=  printf "%s.%s" .Values.experiment "panda_queueconfig.json" }}
   panda_queueconfig.json: |-
-{{ .Files.Get "{{ .Values.experiment }}.panda_queueconfig.json" | indent 4}}
+{{ .Files.Get $pq_file | indent 4}}
   {{- else}}
+  panda_queueconfig.json: |-
 {{ .Files.Get "panda_queueconfig.json" | indent 4}}
   {{- end}}
 
@@ -29,7 +31,9 @@ kind: ConfigMap
 metadata:
   name: {{ include "harvester.fullname" . }}-env
 data:
+  {{- if .Values.experiment }}
   EXPERIMENT: {{ .Values.experiment }}
+  {{- end}}
   PANDA_URL: "https://{{ .Values.panda.host }}/server/panda"
   PANDA_URL_SSL: "https://{{ .Values.panda.host }}/server/panda"
   {{- if .Values.panda.authIdToken }}
@@ -70,3 +74,16 @@ binaryData:
     {{ $.Files.Get $path | b64enc }}
   {{- end }}
 
+{{- if .Values.pilotcerts.enabled }}
+---
+# host cert and key
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: {{ include "harvester.fullname" . }}-certs
+binaryData:
+  {{- range $path, $_ := .Files.Glob "cert/**.pem" }}
+  {{ base $path }}: |-
+    {{ $.Files.Get $path | b64enc }}
+  {{- end }}
+{{- end }}

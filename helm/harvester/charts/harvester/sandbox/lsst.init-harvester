@@ -6,5 +6,9 @@ mkdir -p /var/log/panda/condor_logs
 chmod 777 /var/log/panda/condor_logs
 
 # copy certs and set permission
-cp /opt/harvester/sandbox/*.pem /data/harvester/
-chmod 600 /data/harvester/*.pem
+# cp /opt/harvester/sandbox/*.pem /data/harvester/
+# chmod 600 /data/harvester/*.pem
+mkdir -p /data/harvester/run
+chmod 777 /data/harvester/run
+bash /opt/harvester/sandbox/lsst.vomsproxy-renew
+

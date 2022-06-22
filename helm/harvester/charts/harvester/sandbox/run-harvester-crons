@@ -2,11 +2,11 @@
 #
 use_default=1
 
-if [[ -z "${EXPERIMENT}" ]]; then
-    run_script = /opt/harvester/sandbox/${EXPERIMENT}.run-harvester-crons
+if [[ ! -z "${EXPERIMENT}" ]]; then
+    run_script=/opt/harvester/sandbox/${EXPERIMENT}.run-harvester-crons
     if [ -f ${run_script} ]; then
         echo "Executing ${run_script}"
-        $run_script
+        bash $run_script
         use_default=0
     fi
 fi

@@ -13,6 +13,8 @@ harvester:
   noProxy: "localhost,idds-dev-rest,panda-dev-server"
 
   experiment: "lsst"
+  pilotcerts:
+    enabled: true
 
 mariadb:
   persistentvolume:

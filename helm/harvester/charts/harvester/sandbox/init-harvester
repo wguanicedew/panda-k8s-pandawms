@@ -2,11 +2,11 @@
 
 use_default=1
 
-if [[ -z "${EXPERIMENT}" ]]; then
-    init_script = /opt/harvester/sandbox/${EXPERIMENT}.init-harvester
+if [[ ! -z "${EXPERIMENT}" ]]; then
+    init_script=/opt/harvester/sandbox/${EXPERIMENT}.init-harvester
     if [ -f ${init_script} ]; then
         echo "Executing ${init_script}"
-        $init_script
+        bash $init_script
         use_default=0
     fi
 fi
