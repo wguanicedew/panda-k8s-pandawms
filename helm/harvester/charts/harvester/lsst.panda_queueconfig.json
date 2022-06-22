@@ -23,9 +23,9 @@
       "useSpool": false,
       "useAtlasGridCE": false,
       "useAtlasAGIS": true,
-      "templateFile": "/opt/harvester/sandbox/lsst.submit-pilot.sdf",
+      "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot.sdf",
       "executableFile": "/opt/harvester/sandbox/lsst.runpilot2-wrapper.sh",
-      "x509UserProxy": "/data/run/harvester/x509up_u25606",
+      "x509UserProxy": "/data/harvester/run/x509up_u25606",
       "logDir": "/var/log/panda/condor_logs",
       "logBaseURL": "https://panda-dev-server/condor_logs",
       "nProcesses": 8
@@ -87,9 +87,9 @@
       "useSpool": false,
       "useAtlasGridCE": false,
       "useAtlasAGIS": true,
-      "templateFile": "/opt/harvester/sandbox/lsst.submit-pilot.sdf",
+      "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot.sdf",
       "executableFile": "/opt/harvester/sandbox/lsst.runpilot2-wrapper.sh",
-      "x509UserProxy": "/data/run/harvester/x509up_u25606",
+      "x509UserProxy": "/data/harvester/run/x509up_u25606",
       "logDir": "/var/log/panda/condor_logs",
       "logBaseURL": "https://panda-dev-server/condor_logs",
       "nProcesses": 8
@@ -170,8 +170,8 @@
       "submitter":{
           "name": "K8sSubmitter",
           "module": "pandaharvester.harvestersubmitter.k8s_submitter",
-          "x509UserProxy": "/data/run/harvester/x509up_u25606",    
-          "proxySecretPath": "/data/run/harvester/x509up_u25606",
+          "x509UserProxy": "/data/harvester/run/x509up_u25606",    
+          "proxySecretPath": "/data/harvester/run/x509up_u25606",
           "logDir": "/var/log/panda/condor_logs",
           "logBaseURL": "https://panda-dev-server/condor_logs",
           "cpuAdjustRatio": 90,
@@ -192,7 +192,7 @@
           "name": "K8sSecretCredManager",
           "k8s_namespace": "${common.k8s_namespace}",
           "k8s_config_file": "${common.k8s_config_file}",
-          "proxy_files": ["/data/run/harvester/x509up_u25606"]
+          "proxy_files": ["/data/harvester/run/x509up_u25606"]
         }
       ],
       "common": {
@@ -222,8 +222,8 @@
       "submitter":{
           "name": "K8sSubmitter",
           "module": "pandaharvester.harvestersubmitter.k8s_submitter",
-          "x509UserProxy": "/data/run/harvester/x509up_u25606",
-          "proxySecretPath": "/data/run/harvester/x509up_u25606",
+          "x509UserProxy": "/data/harvester/run/x509up_u25606",
+          "proxySecretPath": "/data/harvester/run/x509up_u25606",
           "logDir": "/var/log/panda/condor_logs",
           "logBaseURL": "https://panda-dev-server/condor_logs",
           "cpuAdjustRatio": 90,
@@ -261,7 +261,7 @@
           "name": "K8sSecretCredManager",
           "k8s_namespace": "${common.k8s_namespace}",
           "k8s_config_file": "${common.k8s_config_file}",
-          "proxy_files": ["/data/run/harvester/x509up_u25606"]
+          "proxy_files": ["/data/harvester/run/x509up_u25606"]
         }
       ],
       "common": {
@@ -287,7 +287,7 @@
       "nQueueLimitWorker":10000,
 
       "submitter": {
-          "templateFile": "/opt/harvester/sandbox/lsst.submit-pilot.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_slac.sdf"
       }
   },
 
@@ -306,7 +306,7 @@
       "nQueueLimitWorker":10000,
 
       "submitter": {
-          "templateFile": "/opt/harvester/sandbox/lsst.submit-pilot.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot.sdf"
       }
   },
 
@@ -326,8 +326,8 @@
 
       "submitter": {
           "useAtlasGridCE": true,
-          "templateFile": "/opt/harvester/sandbox/lsst.submit-pilot.sdf",
-          "x509UserProxy": "/data/run/harvester/x509up_u25606_lsst"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot.sdf",
+          "x509UserProxy": "/data/harvester/run/x509up_u25606_lsst"
       }
   },
 
@@ -347,8 +347,8 @@
 
       "submitter": {
           "useAtlasGridCE": true,
-          "templateFile": "/opt/harvester/sandbox/lsst.submit-pilot.sdf",
-          "x509UserProxy": "/data/run/harvester/x509up_u25606"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot.sdf",
+          "x509UserProxy": "/data/harvester/run/x509up_u25606"
       }
   }
 

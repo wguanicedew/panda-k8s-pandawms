@@ -15,12 +15,18 @@ autoStart: true
 # experiment to use to init and setup crons
 experiment: ""
 
+pilotcerts:
+  enabled: false
+
 # http proxy
 httpProxy: ""
 httpsProxy: ""
 
 # harvester id
 harvesterID: "my-harvester"
+
+# run with non-root pid
+noRoot: true
 
 persistentvolume:
   create: false

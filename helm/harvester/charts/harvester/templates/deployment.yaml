@@ -43,7 +43,6 @@ metadata:
   labels:
     {{- include "harvester.labels" . | nindent 4 }}
 spec:
-  hostname:  {{ include "harvester.fullname" . }}
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -59,6 +58,7 @@ spec:
       labels:
         {{- include "harvester.selectorLabels" . | nindent 8 }}
     spec:
+      hostname:  {{ include "harvester.fullname" . }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -81,7 +81,11 @@ spec:
               cp /opt/harvester/sandbox/run-harvester-crons /data/harvester/;
               chmod +x /data/harvester/run-harvester-crons;
               cp /opt/harvester/sandbox/condor_config.local /data/harvester/;
+              {{- if .Values.noRoot }}
               runuser -u atlpan -g zp -- /opt/harvester/etc/rc.d/init.d/run-harvester-services;
+              {{- else }}
+              /opt/harvester/etc/rc.d/init.d/run-harvester-services;
+              {{- end }}
               sleep infinity & wait
           {{- end }}
           resources:
@@ -92,9 +96,13 @@ spec:
             - name: {{ include "harvester.fullname" . }}-configjson
               mountPath: /opt/harvester/etc/configmap
             - name: {{ include "harvester.fullname" . }}-queueconfig
-              mountPath: /etc/harvester/queueconfig
+              mountPath: /opt/harvester/etc/queue_config
             - name: {{ include "harvester.fullname" . }}-sandbox
               mountPath: /opt/harvester/sandbox
+            {{- if .Values.pilotcerts.enabled }}
+            - name: {{ include "harvester.fullname" . }}-certs
+              mountPath: /opt/harvester/etc/cert
+            {{- end }}
           envFrom:
             - configMapRef:
                 {{- if .Values.database.config_ref }}
@@ -129,3 +137,8 @@ spec:
         - name: {{ include "harvester.fullname" . }}-sandbox
           configMap:
             name: {{ include "harvester.fullname" . }}-sandbox
+        {{- if .Values.pilotcerts.enabled }}
+        - name: {{ include "harvester.fullname" . }}-certs
+          configMap:
+              name: {{ include "harvester.fullname" . }}-certs
+        {{ end }}

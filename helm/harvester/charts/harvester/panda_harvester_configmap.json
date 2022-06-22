@@ -32,7 +32,7 @@
      "type": "apache"
    },
   "qconf": {
-    "configFile": "/etc/harvester/queueconfig/panda_queueconfig.json",
+    "configFile": "/opt/harvester/etc/panda/panda_queueconfig.json",
     "queueList": [
       "ALL"
     ]
