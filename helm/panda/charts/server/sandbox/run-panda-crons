@@ -9,7 +9,7 @@ EOT
 chmod +x ${tmpExe}
 
 if [[ -z "${PANDA_NO_ROOT}" ]]; then
-  runuser -u atlpan -g zp -- ${tmpExe} &
-else
   ${tmpExe} &
+else
+  runuser -u atlpan -g zp -- ${tmpExe} &
 fi
