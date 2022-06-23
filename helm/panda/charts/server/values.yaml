@@ -24,7 +24,7 @@ httpsProxy: ""
 rucioAccount: ""
 
 # run with non-root PID
-noRoot: true
+noRoot: false
 
 persistentvolume:
   # Set true to create PV
@@ -72,8 +72,8 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  httpPort: 25080
-  httpsPort: 25443
+  httpPort: 80
+  httpsPort: 443
 
 ingress:
   enabled: false

@@ -60,7 +60,7 @@ spec:
       labels:
         {{- include "server.selectorLabels" . | nindent 8 }}
     spec:
-      hostname:  {{ include "server.fullname" . }}
+      hostname:  {{ include "server.fullname" . }}-local
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

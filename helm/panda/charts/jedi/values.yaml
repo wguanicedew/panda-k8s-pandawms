@@ -13,7 +13,7 @@ image:
 autoStart: true
 
 # run panda with non-root account
-noRoot: true
+noRoot: false
 
 persistentvolume:
   create: false

@@ -58,7 +58,7 @@ spec:
       labels:
         {{- include "jedi.selectorLabels" . | nindent 8 }}
     spec:
-      hostname:  {{ include "jedi.fullname" . }}
+      hostname:  {{ include "jedi.fullname" . }}-local
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
