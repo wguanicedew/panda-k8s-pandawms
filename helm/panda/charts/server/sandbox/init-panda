@@ -16,6 +16,10 @@ else
     ln -fs /opt/panda/config/hostkey.pem /etc/grid-security/hostkey.pem
 fi
 
+# make dir for pandacache
+mkdir /var/log/panda/pandacache
+chmod 777 /var/log/panda/pandacache/
+
 # fetch info from CRIC before running services
 if [[ -z "${PANDA_NO_ROOT}" ]]; then
   runuser -u atlpan -g zp -- /opt/panda/usr/bin/panda_server-schedconfig_json
