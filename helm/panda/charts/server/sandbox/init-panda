@@ -21,10 +21,15 @@ mkdir /var/log/panda/pandacache
 chmod 777 /var/log/panda/pandacache
 
 # fetch info from CRIC before running services
+tmpExe=/data/panda/init-panda-tmp-exe
+cat <<EOT >> ${tmpExe}
+/opt/panda/usr/bin/panda_server-schedconfig_json
+/opt/panda/usr/bin/panda_server-configurator
+EOT
+chmod +x ${tmpExe}
+
 if [[ -z "${PANDA_NO_ROOT}" ]]; then
-  runuser -u atlpan -g zp -- /opt/panda/usr/bin/panda_server-schedconfig_json
-  runuser -u atlpan -g zp -- /opt/panda/usr/bin/panda_server-configurator
+  runuser -u atlpan -g zp -- ${tmpExe}
 else
-  /opt/panda/usr/bin/panda_server-schedconfig_json
-  /opt/panda/usr/bin/panda_server-configurator
+  ${tmpExe}
 fi
