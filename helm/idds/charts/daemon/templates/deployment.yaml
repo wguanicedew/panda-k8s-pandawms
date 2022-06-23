@@ -58,7 +58,7 @@ spec:
       labels:
         {{- include "daemon.selectorLabels" . | nindent 8 }}
     spec:
-      hostname:  {{ include "daemon.fullname" . }}
+      hostname:  {{ include "daemon.fullname" . }}-local
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
