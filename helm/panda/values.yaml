@@ -7,8 +7,8 @@ jedi:
   enabled: true
   # container image and tag
   image:
-    # tag: "0.0.7"
-    tag: "master"
+    tag: "0.0.8"
+    # tag: "master"
 
   # PV with selector support
   #persistentvolume:
@@ -19,8 +19,8 @@ server:
   enabled: true
   # container image and tag
   image:
-    # tag: "0.0.31"
-    tag: "master"
+    tag: "0.0.32"
+    # tag: "master"
 
   # PV with selector support
   #persistentvolume:
@@ -72,8 +72,8 @@ postgres:
   enabled: true
   # container image and tag
   image:
-    # tag: "0.0.8"
-    tag: "main"
+    tag: "0.0.9"
+    #tag: "main"
 
   # PV with selector support
   #persistentvolume:
