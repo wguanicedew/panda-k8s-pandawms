@@ -14,7 +14,7 @@ image:
 autoStart: true
 
 persistentvolume:
-  create: false
+  create: true
   class: manual
   path: "/mnt/activemq-main-data"
   size: 5Gi

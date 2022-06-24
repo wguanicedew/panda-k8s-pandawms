@@ -32,9 +32,16 @@
     "type": "apache"
   },
   "qconf": {
-    "configFile": "/etc/harvester/queueconfig/panda_queueconfig.json",
+    "configFile": "/opt/harvester/etc/panda/panda_queueconfig.json",
     "queueList": [
       "ALL"
+    ]
+  },
+  "cacher": {
+    "data": [
+      "ddmendpoints_objectstores.json||https://datalake-cric.cern.ch/api/atlas/ddmendpoint/query/?json&state=ACTIVE&site_state=ACTIVE&preset=dict&json_pretty=1&type[]=OS_LOGS&type[]=OS_ES",
+      "panda_queues.json||https://datalake-cric.cern.ch/api/atlas/pandaqueue/query/?json",
+      "agis_ddmendpoints.json||https://datalake-cric.cern.ch/api/atlas/ddmendpoint/query/list/?json&state=ACTIVE&site_state=ACTIVE&preset=dict&json_pretty=1"
     ]
   }
 }

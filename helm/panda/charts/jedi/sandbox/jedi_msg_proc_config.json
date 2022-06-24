@@ -1,0 +1,51 @@
+{
+    "mb_servers": {
+        "iDDS_mb": {
+            "host_port_list": ["activemq-dev-daemon:61613"],
+            "use_ssl": false,
+            "cert_file": null,
+            "key_file": null,
+            "username": "FIXME_WRITER",
+            "passcode": "FIXME_PASS",
+            "verbose": true
+        },
+        "internal_mb": {
+            "host_port_list": ["activemq-dev-daemon:61613"],
+            "use_ssl": false,
+            "cert_file": null,
+            "key_file": null,
+            "username": "FIXME_WRITER",
+            "passcode": "FIXME_PASS",
+            "verbose": true
+        }
+    },
+    "queues": {
+        "idds": {
+            "server": "iDDS_mb",
+            "destination": "/queue/iddspanda"
+        },
+        "jedi_taskstatus": {
+            "server": "internal_mb",
+            "destination": "/queue/self.jedi_taskstatus"
+        },
+        "to-idds": {
+            "server": "iDDS_mb",
+            "destination": "/queue/pandaidds"
+        }
+    },
+    "processors": {
+        "atlas-idds": {
+            "module": "pandajedi.jedimsgprocessor.atlas_idds_msg_processor",
+            "name": "AtlasIddsMsgProcPlugin",
+            "in_queue": "idds",
+            "verbose": true
+        },
+        "push_task_status": {
+            "module": "pandajedi.jedimsgprocessor.forwarding_msg_processor",
+            "name": "ForwardingMsgProcPlugin",
+            "in_queue": "jedi_taskstatus",
+            "out_queue": "to-idds",
+            "verbose": true
+        }
+    }
+}

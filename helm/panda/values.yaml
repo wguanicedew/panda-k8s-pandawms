@@ -7,7 +7,8 @@ jedi:
   enabled: true
   # container image and tag
   image:
-    tag: "0.0.7"
+    tag: "0.0.8"
+    # tag: "master"
 
   # PV with selector support
   #persistentvolume:
@@ -18,7 +19,8 @@ server:
   enabled: true
   # container image and tag
   image:
-    tag: "0.0.31"
+    tag: "0.0.32"
+    # tag: "master"
 
   # PV with selector support
   #persistentvolume:
@@ -46,7 +48,7 @@ server:
     tls:
       - secretName: "FIXME"
         hosts:
-          - domain: "FIXME
+          - domain: "FIXME"
             hostOverride: "FIXME"
 
   # ID token of the PanDA service account
@@ -70,7 +72,8 @@ postgres:
   enabled: true
   # container image and tag
   image:
-    tag: "0.0.8"
+    tag: "0.0.9"
+    #tag: "main"
 
   # PV with selector support
   #persistentvolume:

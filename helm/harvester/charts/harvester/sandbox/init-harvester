@@ -1,6 +1,18 @@
+#!/bin/bash
+
 # install CA files
 /opt/harvester/bin/panda_common-install_igtf_ca > /var/log/panda/install_igtf_ca.log 2>&1
 
 # condor logs
 mkdir -p /var/log/panda/condor_logs
 chmod 777 /var/log/panda/condor_logs
+
+
+if [[ ! -z "${EXPERIMENT}" ]]; then
+    CurrentDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    init_script=${CurrentDir}/${EXPERIMENT}.init-harvester
+    if [ -f ${init_script} ]; then
+        echo "Executing ${init_script}"
+        bash $init_script
+    fi
+fi

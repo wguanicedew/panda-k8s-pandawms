@@ -12,6 +12,12 @@ image:
 # start the service when pod gets started
 autoStart: true
 
+# experiment to use to init and setup crons
+experiment: ""
+
+pilotcerts:
+  enabled: false
+
 # http proxy
 httpProxy: ""
 httpsProxy: ""
@@ -37,7 +43,7 @@ database:
 
 panda:
   # panda server host and https port
-  host: "pandaserver-doma.cern.ch"
+  host: "panda-dev-server:443"
 
   # ID token and VO for OIDC/OAuth
   authIdToken: ""

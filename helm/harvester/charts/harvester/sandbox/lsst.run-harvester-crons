@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# renew vomsproxy
+while true; bash /opt/harvester/sandbox/lsst.vomsproxy-renew; sleep 3600; done &
+

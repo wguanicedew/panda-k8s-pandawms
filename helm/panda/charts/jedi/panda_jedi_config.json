@@ -8,5 +8,11 @@
     },
     "tasksetup": {
         "modConfig": "wlcg:any:pandajedi.jedisetup.SimpleTaskSetupper:SimpleTaskSetupper"
+    },
+    "msgprocessor": {
+        "configFile": "/opt/panda/etc/panda/jedi_msg_proc_config.json"
+    },
+    "mq": {
+        "configFile": "/opt/panda/etc/panda/jedi_mq_config.json"
     }
 }

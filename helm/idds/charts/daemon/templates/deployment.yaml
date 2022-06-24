@@ -58,6 +58,7 @@ spec:
       labels:
         {{- include "daemon.selectorLabels" . | nindent 8 }}
     spec:
+      hostname:  {{ include "daemon.fullname" . }}-local
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -79,6 +80,9 @@ spec:
           {{ end -}}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "rest.fullname" . }}-envs
           volumeMounts:
               - name: {{ include "daemon.fullname" . }}-logs
                 mountPath: /var/log/idds/

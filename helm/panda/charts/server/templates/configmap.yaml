@@ -38,13 +38,21 @@ data:
   {{- end }}
   {{- if .Values.httpProxy }}
   http_proxy: "{{ .Values.httpProxy }}"
+  {{- if .Values.noProxy }}
+  no_proxy: "{{ .Values.noProxy }}"
+  {{- else }}
   no_proxy: "localhost,{{ include "server.fullname" . }}"
+  {{- end }}
   {{- if .Values.httpsProxy }}
   https_proxy: "{{ .Values.httpProxy }}"
   {{- end }}
   {{- else if .Values.httpsProxy }}
   https_proxy: "{{ .Values.httpsProxy }}"
+  {{- if .Values.noProxy }}
+  no_proxy: "{{ .Values.noProxy }}"
+  {{- else }}
   no_proxy: "localhost,{{ include "server.fullname" . }}"
+  {{- end }}
   {{- end }}
   {{- if .Values.noRoot }}
   PANDA_NO_ROOT: "1"
