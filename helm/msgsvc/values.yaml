@@ -1,0 +1,11 @@
+# Default values for messaging service
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+activemq:
+  # enable 
+  enabled: true
+
+  # PV with selector support
+  #persistentvolume:
+  #    selector: false

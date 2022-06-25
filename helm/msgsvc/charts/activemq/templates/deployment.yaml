@@ -1,0 +1,111 @@
+{{- if .Values.persistentvolume.create }}
+# pv
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ include "activemq.fullname" . }}
+  labels:
+      {{- include "activemq.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.persistentvolume.class }}
+  capacity:
+    storage: {{ .Values.persistentvolume.size }}
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: {{ .Values.persistentvolume.path }}
+---
+{{- end }}
+# pv claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "activemq.fullname" . }}
+  labels:
+    {{- include "activemq.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.persistentvolume.class }}
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.persistentvolume.size }}
+  {{- if .Values.persistentvolume.selector }}
+  selector:
+    matchLabels:
+      {{- include "activemq.selectorLabels" . | nindent 6 }}
+  {{- end }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "activemq.fullname" . }}
+  labels:
+    {{- include "activemq.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "activemq.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "activemq.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "activemq.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command: [ "/bin/sh", "-c" ]
+          args:
+            - cp /opt/activemq/sandbox/* /data/activemq/;
+              /opt/activemq/bin/run-activemq-services;
+              sleep infinity & wait
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: activemq-port
+              containerPort: 61613
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{ include "activemq.fullname" . }}-configmap
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: {{ include "activemq.fullname" . }}-data
+              mountPath: /appdata/activemq
+            - name: {{ include "server.fullname" . }}-sandbox
+              mountPath: /opt/activemq/sandbox
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: {{ include "activemq.fullname" . }}-data
+          persistentVolumeClaim:
+            claimName: {{ include "activemq.fullname" . }}
+        - name: {{ include "activemq.fullname" . }}-sandbox
+          configMap:
+              name: {{ include "activemq.fullname" . }}-sandbox
