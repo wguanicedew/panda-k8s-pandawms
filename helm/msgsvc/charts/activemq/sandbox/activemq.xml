@@ -104,11 +104,7 @@
         -->
         <transportConnectors>
             <!-- DOS protection, limit concurrent connections to 1000 and frame size to 100MB -->
-            <transportConnector name="openwire" uri="tcp://0.0.0.0:61616?maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>
-            <transportConnector name="amqp" uri="amqp://0.0.0.0:5672?maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>
             <transportConnector name="stomp" uri="stomp://0.0.0.0:61613?maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>
-            <transportConnector name="mqtt" uri="mqtt://0.0.0.0:1883?maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>
-            <transportConnector name="ws" uri="ws://0.0.0.0:61614?maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>
         </transportConnectors>
 
         <!-- destroy the spring context on shutdown to stop jetty -->
@@ -123,11 +119,7 @@
                 <map>
                     <authorizationMap>
                         <authorizationEntries>
-                            <authorizationEntry queue=">" read="admins" write="admins" admin="admins" />
-                            <authorizationEntry queue="panda_to_jedi.>" read="panda_to_jedi_r" write="panda_to_jedi_w" admin="panda_to_jedi_w" />
-
-                            <authorizationEntry topic=">" read="admins" write="admins" admin="admins" />
-                            <authorizationEntry topic="panda_to_jedi.>" read="panda_to_jedi_r" write="panda_to_jedi_w" admin="panda_to_jedi_w" />
+                            ___AUTH_ENTRIES___
                         </authorizationEntries>
                     </authorizationMap>
                 </map>

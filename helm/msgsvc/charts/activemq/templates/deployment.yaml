@@ -72,7 +72,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           command: [ "/bin/sh", "-c" ]
           args:
-            - cp /opt/activemq/sandbox/* /data/activemq/;
+            - python /opt/activemq/sandbox/install_conf.py;
               /opt/activemq/bin/run-activemq-services;
               sleep infinity & wait
           imagePullPolicy: {{ .Values.image.pullPolicy }}
