@@ -3,13 +3,13 @@
 import os
 import re
 
-dstPath = os.path.join(environ['ACTIVEMQ_HOME'], 'conf')
+dstPath = os.path.join(os.environ['ACTIVEMQ_HOME'], 'conf')
 
 # base password
 basePasswd = os.environ.get('ACTIVEMQ_BASE_PASSWD', 'password')
 
 # channels
-channels = os.environ.get('ACTIVEMQ_CHANNELS', '').split()
+channels = os.environ.get('ACTIVEMQ_CHANNELS', '').split(';')
 channels = [i for i in channels if i]
 
 # properties files

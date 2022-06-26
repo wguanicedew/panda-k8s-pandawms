@@ -87,6 +87,9 @@ spec:
               mountPath: /appdata/activemq
             - name: {{ include "activemq.fullname" . }}-sandbox
               mountPath: /opt/activemq/sandbox
+          envFrom:
+            - configMapRef:
+                name: {{ include "activemq.fullname" . }}-env
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

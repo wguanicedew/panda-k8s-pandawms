@@ -20,7 +20,11 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-activemq:
+# message channels
+channels: "iddspanda;pandaidds;self.jedi_taskstatus"
+
+# base password for active MQ
+basePasswd: "ITzqWRCd"
 
 serviceAccount:
   # Specifies whether a service account should be created
