@@ -35,9 +35,9 @@ for channel in channels:
     g_file.write('{0}_w=system,{0},{0}_w\n'.format(channel))
     g_file.write('{0}_r=system,{0}_w,{0}_r\n'.format(channel))
 
-    auth_entries += """<authorizationEntry queue="{0}.>" read="{0}_r" write="{0}_w" admin="{0}_w,admins" />\n""".\
+    auth_entries += """<authorizationEntry queue="{0}.>" read="{0}_r" write="{0}_w" admin="{0}_w,{0}_r" />\n""".\
         format(channel)
-    auth_entries += """<authorizationEntry topic="{0}.>" read="{0}_r" write="{0}_w" admin="{0}_w,admins" />\n""".\
+    auth_entries += """<authorizationEntry topic="{0}.>" read="{0}_r" write="{0}_w" admin="{0}_w,{0}_r" />\n""".\
         format(channel)
 
 # activemq.xml
