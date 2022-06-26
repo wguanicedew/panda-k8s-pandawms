@@ -46,7 +46,8 @@ with open(os.path.join(script_dir, 'activemq.xml')) as src_f:
     activemq_xml = src_f.read()
     m = re.search(r'(\s+)___AUTH_ENTRIES___', activemq_xml)
     if m:
-        auth_entries = auth_entries.replace('\n', '\n' + m.group(1)).replace('___AUTH_ENTRIES___', activemq_xml)
+        auth_entries = auth_entries.replace('\n', m.group(1))
+        activemq_xml = activemq_xml.replace('___AUTH_ENTRIES___', auth_entries)
     with open(os.path.join(dstPath, 'activemq.xml'), 'w') as dst_f:
         dst_f.write(activemq_xml)
 
