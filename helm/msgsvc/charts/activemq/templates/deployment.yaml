@@ -80,9 +80,6 @@ spec:
             - name: activemq-port
               containerPort: 61613
               protocol: TCP
-          envFrom:
-            - configMapRef:
-                name: {{ include "activemq.fullname" . }}-configmap
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
