@@ -118,6 +118,7 @@
 
 
         <plugins>
+            <jaasAuthenticationPlugin configuration="activemq"/>
             <authorizationPlugin>
                 <map>
                     <authorizationMap>
