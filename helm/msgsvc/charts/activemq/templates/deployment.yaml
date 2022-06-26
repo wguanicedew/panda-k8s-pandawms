@@ -85,7 +85,7 @@ spec:
           volumeMounts:
             - name: {{ include "activemq.fullname" . }}-data
               mountPath: /appdata/activemq
-            - name: {{ include "server.fullname" . }}-sandbox
+            - name: {{ include "activemq.fullname" . }}-sandbox
               mountPath: /opt/activemq/sandbox
       {{- with .Values.nodeSelector }}
       nodeSelector:
