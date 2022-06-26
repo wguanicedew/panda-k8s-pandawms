@@ -21,7 +21,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 # message channels
-channels: "iddspanda;pandaidds;jedi_taskstatus"
+channels: "iddspanda;pandaidds;jedi_taskstatus;panda_jedi;panda_pilot"
 
 # base password for active MQ
 basePasswd: "ITzqWRCd"
