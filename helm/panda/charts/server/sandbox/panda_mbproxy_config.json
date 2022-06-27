@@ -26,11 +26,11 @@
         },
         "panda_jedi": {
             "server": "panda_mb",
-            "destination": "/topic/panda_jedi"
+            "destination": "/queue/panda_jedi"
         },
         "panda_pilot": {
             "server": "panda_mb",
-            "destination": "/topic/panda_pilot"
+            "destination": "/queue/panda_pilot"
         }
     }
 }
