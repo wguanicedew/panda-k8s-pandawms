@@ -42,9 +42,9 @@ for channel_def in channels:
     a_accs = set(w_accs.split(','))
     a_accs.update(r_accs.split(','))
     a_accs = ','.join(list(a_accs))
-    auth_entries += """<authorizationEntry queue="{}.>" read="{}" write="{}" admin="{}" />\n""".\
+    auth_entries += """<authorizationEntry queue="{}>" read="{}" write="{}" admin="{}" />\n""".\
         format(channel, r_accs, w_accs, a_accs)
-    auth_entries += """<authorizationEntry topic="{}.>" read="{}" write="{}" admin="{}" />\n""". \
+    auth_entries += """<authorizationEntry topic="{}>" read="{}" write="{}" admin="{}" />\n""". \
         format(channel, r_accs, w_accs, a_accs)
 
 # activemq.xml
