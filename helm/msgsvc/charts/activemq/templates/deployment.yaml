@@ -72,7 +72,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           command: [ "/bin/sh", "-c" ]
           args:
-            - cp /opt/activemq/sandbox/* /data/activemq/;
+            - python3 /opt/activemq/sandbox/install_conf.py;
               /opt/activemq/bin/run-activemq-services;
               sleep infinity & wait
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -80,16 +80,16 @@ spec:
             - name: activemq-port
               containerPort: 61613
               protocol: TCP
-          envFrom:
-            - configMapRef:
-                name: {{ include "activemq.fullname" . }}-configmap
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: {{ include "activemq.fullname" . }}-data
               mountPath: /appdata/activemq
-            - name: {{ include "server.fullname" . }}-sandbox
+            - name: {{ include "activemq.fullname" . }}-sandbox
               mountPath: /opt/activemq/sandbox
+          envFrom:
+            - configMapRef:
+                name: {{ include "activemq.fullname" . }}-env
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

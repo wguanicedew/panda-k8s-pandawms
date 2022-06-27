@@ -6,6 +6,11 @@ activemq:
   # enable 
   enabled: true
 
+  # container image and tag
+  image:
+    tag: "0.0.2"
+    # tag: "main"
+
   # PV with selector support
   #persistentvolume:
   #    selector: false
