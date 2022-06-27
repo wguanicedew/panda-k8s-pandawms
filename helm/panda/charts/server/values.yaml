@@ -27,7 +27,7 @@ rucioAccount: ""
 noRoot: false
 
 # activeMQ
-activemq
+activemq:
   # hosts and ports
   serverList:
     - "activemq-dev-daemon:61613"
