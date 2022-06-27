@@ -25,9 +25,11 @@ auth_entries = """
 <authorizationEntry topic="ActiveMQ.Advisory.>" read="users" write="users" admin="users"/>
 """
 
-# admin
+# admin and users
 u_file.write('system={}\n'.format(basePasswd))
 g_file.write('admins=system\n')
+g_file.write('users={}\n'.format(','.join(accounts)))
+
 
 # define accounts
 for account in accounts:
