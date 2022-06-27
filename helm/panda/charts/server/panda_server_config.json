@@ -16,7 +16,7 @@
         "setupper_plugins": "wlcg:dataservice.SetupperDummyPlugin:SetupperDummyPlugin", 
         "token_authType": "oidc",
         "cache_dir": "/var/log/panda/pandacache",
-        "configFile": "/opt/panda/etc/panda/panda_mbproxy_config.json"
+        "mbproxy_configFile": "/opt/panda/etc/panda/panda_mbproxy_config.json"
     },
     "daemon": {
         "enable": "True"
