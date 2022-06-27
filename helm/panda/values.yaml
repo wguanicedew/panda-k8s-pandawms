@@ -5,6 +5,7 @@
 jedi:
   # enable JEDI
   enabled: true
+
   # container image and tag
   image:
     tag: "0.0.8"
@@ -17,6 +18,7 @@ jedi:
 server:
   # enable the PanDA server
   enabled: true
+
   # container image and tag
   image:
     tag: "0.0.32"
@@ -70,6 +72,7 @@ server:
 postgres:
   # enable the database
   enabled: true
+
   # container image and tag
   image:
     tag: "0.0.9"
