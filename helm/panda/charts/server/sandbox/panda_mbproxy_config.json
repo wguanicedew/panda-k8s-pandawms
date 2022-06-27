@@ -5,7 +5,7 @@
             "use_ssl": false,
             "cert_file": null,
             "key_file": null,
-            "username": "${PANDA_ACTIVEMQ_USER_panda}",
+            "username": "panda",
             "passcode": "${PANDA_ACTIVEMQ_PASSWD_panda}",
             "verbose": true
         }

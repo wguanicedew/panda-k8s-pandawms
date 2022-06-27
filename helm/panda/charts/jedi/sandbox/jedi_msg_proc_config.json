@@ -5,7 +5,7 @@
             "use_ssl": false,
             "cert_file": null,
             "key_file": null,
-            "username": "${PANDA_ACTIVEMQ_USER_jedi}",
+            "username": "jedi",
             "passcode": "${PANDA_ACTIVEMQ_PASSWD_jedi}",
             "verbose": true
         },
@@ -14,7 +14,7 @@
             "use_ssl": false,
             "cert_file": null,
             "key_file": null,
-            "username": "${PANDA_ACTIVEMQ_USER_jedi}",
+            "username": "jedi",
             "passcode": "${PANDA_ACTIVEMQ_PASSWD_jedi}",
             "verbose": true
         }

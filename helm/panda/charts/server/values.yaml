@@ -26,6 +26,15 @@ rucioAccount: ""
 # run with non-root PID
 noRoot: false
 
+# activeMQ
+activemq
+  # hosts and ports
+  serverList:
+    - "activemq-dev-daemon:61613"
+
+  # base password
+  basePasswd: "ITzqWRCd"
+
 persistentvolume:
   # Set true to create PV
   create: false
