@@ -17,4 +17,5 @@ metadata:
   name: {{ include "activemq.fullname" . }}-env
 data:
   ACTIVEMQ_BASE_PASSWD: {{ .Values.basePasswd }}
-  ACTIVEMQ_CHANNELS: {{ .Values.channels }}
+  ACTIVEMQ_CHANNELS: {{ join ";" .Values.channels }}
+  ACTIVEMQ_ACCOUNTS: {{ join ";" .Values.accounts }}

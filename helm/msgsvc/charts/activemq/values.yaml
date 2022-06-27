@@ -20,8 +20,20 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-# message channels
-channels: "iddspanda;pandaidds;jedi_taskstatus;panda_jedi;panda_pilot"
+# accounts
+accounts:
+  - "panda"
+  - "jedi"
+  - "idds"
+  - "pilot"
+
+# message channels. name:write_accounts,read_account
+channels:
+  - "idds_panda:idds:panda,jedi"
+  - "panda_idds:panda,jedi:idds"
+  - "taskstatus:jedi:jedi"
+  - "panda_jedi:panda:jedi"
+  - "panda_pilot:panda:pilot"
 
 # base password for active MQ
 basePasswd: "ITzqWRCd"

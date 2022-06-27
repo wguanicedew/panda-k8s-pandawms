@@ -1,18 +1,18 @@
 {
     "mb_servers": {
         "internal_mb": {
-            "host_port_list": ["activemq-dev-daemon:61613"],
+            "host_port_list": ["${PANDA_ACTIVEMQ_LIST}"],
             "use_ssl": false,
             "cert_file": null,
             "key_file": null,
-            "username": "FIXME_WRITER",
-            "passcode": "FIXME_PASS"
+            "username": "${PANDA_ACTIVEMQ_USER_jedi}",
+            "passcode": "${PANDA_ACTIVEMQ_PASSWD_jedi}"
         }
     },
     "queues": {
         "jedi_taskstatus": {
             "server": "internal_mb",
-            "destination": "/queue/self.jedi_taskstatus"
+            "destination": "/queue/jedi_taskstatus"
         }
     }
 }
