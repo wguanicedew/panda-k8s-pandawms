@@ -22,15 +22,15 @@
     "queues": {
         "idds": {
             "server": "iDDS_mb",
-            "destination": "/queue/idds_panda"
+            "destination": "/queue/iddspanda"
         },
         "jedi_taskstatus": {
             "server": "internal_mb",
-            "destination": "/queue/taskstatus"
+            "destination": "/queue/self.jedi_taskstatus"
         },
         "to-idds": {
             "server": "iDDS_mb",
-            "destination": "/queue/panda_idds"
+            "destination": "/queue/pandaidds"
         }
     },
     "processors": {

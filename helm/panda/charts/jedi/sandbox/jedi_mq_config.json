@@ -12,7 +12,7 @@
     "queues": {
         "jedi_taskstatus": {
             "server": "internal_mb",
-            "destination": "/queue/jedi_taskstatus"
+            "destination": "/queue/self.jedi_taskstatus"
         }
     }
 }

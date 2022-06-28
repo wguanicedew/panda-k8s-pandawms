@@ -29,9 +29,9 @@ accounts:
 
 # message channels. name:write_accounts,read_account
 channels:
-  - "idds_panda:idds:panda,jedi"
-  - "panda_idds:panda,jedi:idds"
-  - "taskstatus:jedi:jedi"
+  - "iddspanda:idds:panda,jedi"
+  - "pandaidds:panda,jedi:idds"
+  - "self.jedi_taskstatus:jedi:jedi"
   - "panda_jedi:panda:jedi"
   - "panda_pilot:panda:pilot"
 
