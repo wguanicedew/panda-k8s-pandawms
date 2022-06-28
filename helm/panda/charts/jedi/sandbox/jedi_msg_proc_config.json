@@ -1,21 +1,21 @@
 {
     "mb_servers": {
         "iDDS_mb": {
-            "host_port_list": ["activemq-dev-daemon:61613"],
+            "host_port_list": ["${PANDA_ACTIVEMQ_LIST}"],
             "use_ssl": false,
             "cert_file": null,
             "key_file": null,
-            "username": "FIXME_WRITER",
-            "passcode": "FIXME_PASS",
+            "username": "jedi",
+            "passcode": "${PANDA_ACTIVEMQ_PASSWD_jedi}",
             "verbose": true
         },
         "internal_mb": {
-            "host_port_list": ["activemq-dev-daemon:61613"],
+            "host_port_list": ["${PANDA_ACTIVEMQ_LIST}"],
             "use_ssl": false,
             "cert_file": null,
             "key_file": null,
-            "username": "FIXME_WRITER",
-            "passcode": "FIXME_PASS",
+            "username": "jedi",
+            "passcode": "${PANDA_ACTIVEMQ_PASSWD_jedi}",
             "verbose": true
         }
     },

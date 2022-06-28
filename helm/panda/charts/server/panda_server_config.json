@@ -15,7 +15,8 @@
         "adder_plugins": "wlcg:dataservice.AdderDummyPlugin:AdderDummyPlugin,wlcg:dataservice.AdderSimplePlugin:AdderSimplePlugin:sphenix",
         "setupper_plugins": "wlcg:dataservice.SetupperDummyPlugin:SetupperDummyPlugin", 
         "token_authType": "oidc",
-        "cache_dir": "/var/log/panda/pandacache"
+        "cache_dir": "/var/log/panda/pandacache",
+        "mbproxy_configFile": "/opt/panda/etc/panda/panda_mbproxy_config.json"
     },
     "daemon": {
         "enable": "True"
