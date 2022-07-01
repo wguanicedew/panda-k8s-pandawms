@@ -1,0 +1,26 @@
+# JEDI and server configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "main.fullname" . }}-configmap
+data:
+  config.py: |-
+{{ .Files.Get "config.py" | indent 8}}
+
+  local.py: |-
+{{ .Files.Get "local.py" | indent 8}}
+
+{{- if .Values.hostcerts.enabled -}}
+---
+# host cert and key
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: {{ include "main.fullname" . }}-certs
+data:
+    hostcert.pem: |-
+{{ .Files.Get "hostcert.pem" | indent 8}}
+
+    hostkey.pem: |-
+{{ .Files.Get "hostkey.pem" | indent 8}}
+{{- end }}
