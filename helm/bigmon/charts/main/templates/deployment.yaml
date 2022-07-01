@@ -1,0 +1,111 @@
+# pv
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ include "main.fullname" . }}
+  labels:
+      {{- include "main.labels" . | nindent 4 }}
+spec:
+  storageClassName: manual
+  capacity:
+    storage: {{ .Values.persistentvolume.size }}
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: {{ .Values.persistentvolume.path }}
+---
+# pv claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "main.fullname" . }}
+  labels:
+    {{- include "main.labels" . | nindent 4 }}
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.persistentvolume.size }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "main.fullname" . }}
+  labels:
+    {{- include "main.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "main.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "main.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "main.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{ if .Values.autoStart -}}
+          command: ["/bin/sh", "-c"]
+          args:
+            - sleep 30;
+              start-daemon.sh all
+          {{ end -}}
+          ports:
+            - name: https
+              containerPort: 443
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+              # - name: {{ include "main.fullname" . }}-logs
+              #  mountPath: /var/log/main/
+              - name: {{ include "main.fullname" . }}-configmap
+                mountPath: /data/idds/configmap
+              {{- if .Values.hostcerts.enabled -}}
+              - name: {{ include "main.fullname" . }}-certs
+                mountPath: /opt/panda/etc/cert
+              {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: {{ include "main.fullname" . }}-logs
+          persistentVolumeClaim:
+            claimName: {{ include "main.fullname" . }}
+        - name: {{ include "main.fullname" . }}-configmap
+          configMap:
+              name: {{ include "main.fullname" . }}-configmap
+        {{- if .Values.hostcerts.enabled -}}
+        - name: {{ include "main.fullname" . }}-certs
+          configMap:
+              name: {{ include "main.fullname" . }}-certs
+        {{- end }}
