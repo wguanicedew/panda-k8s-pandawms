@@ -76,11 +76,16 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - sleep 30;
-              start-daemon.sh rest
+              {{- if .Values.noRoot }}
+              /opt/idds/bin/start-daemon.sh rest
+              {{- else }}
+              chmod 777 /var/log/idds;
+              runuser -u atlpan -g zp -- /opt/idds/bin/start-daemon.sh rest
+              {{- end}}
           {{ end -}}
           ports:
             - name: https
-              containerPort: 443
+              containerPort: 8443
               protocol: TCP
           envFrom:
             - configMapRef:

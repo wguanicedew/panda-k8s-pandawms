@@ -16,6 +16,9 @@ noRoot: false
 # start the service when pod gets started
 autoStart: true
 
+# run with non-root pid
+noRoot: false
+
 iddsServer: localhost
 
 persistentvolume:
