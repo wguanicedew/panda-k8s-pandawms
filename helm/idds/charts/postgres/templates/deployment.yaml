@@ -81,7 +81,11 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
+            {{- if .Values.noRoot }}
+            - mountPath: /tmp/pg_volume
+            {{- else }}
             - mountPath: /var/lib/postgresql/data
+            {{- end }}
               name: {{ include "postgres.fullname" . }}-data
       {{- with .Values.nodeSelector }}
       nodeSelector:

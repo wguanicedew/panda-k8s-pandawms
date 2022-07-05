@@ -22,6 +22,9 @@ database:
   password: MyPandaPass0508
   schema: public
 
+# run with non-root account
+noRoot: false
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
