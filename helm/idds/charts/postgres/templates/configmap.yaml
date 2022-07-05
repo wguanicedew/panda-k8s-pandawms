@@ -13,3 +13,4 @@ data:
   {{- if .Values.noRoot }}
   PGDATA: "/tmp/pg_volume/data"
   {{- end }}
+  
