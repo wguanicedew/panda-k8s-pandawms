@@ -76,6 +76,10 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - sleep 30;
+              {{- if .Values.noRoot }}
+              grep -v user= /opt/idds/config_default/supervisord_idds.ini > /opt/idds/config_default/supervisord_idds.ini.tmp
+              mv /opt/idds/config_default/supervisord_idds.ini.tmp /opt/idds/config_default/supervisord_idds.ini
+              {{- end }}
               start-daemon.sh daemon
           {{ end -}}
           resources:
