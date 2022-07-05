@@ -81,6 +81,7 @@ spec:
               mv /opt/idds/config_default/supervisord_idds.ini.tmp /opt/idds/config_default/supervisord_idds.ini
               {{- end }}
               start-daemon.sh daemon
+              sleep infinity & wait
           {{ end -}}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
