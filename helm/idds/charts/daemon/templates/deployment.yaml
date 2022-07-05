@@ -76,7 +76,12 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - sleep 30;
-              start-daemon.sh daemon
+              {{- if .Values.noRoot }}
+              /opt/idds/bin/start-daemon.sh daemon
+              {{- else }}
+              chmod 777 /var/log/idds;
+              runuser -u atlpan -g zp -- /opt/idds/bin/start-daemon.sh daemon
+              {{- end}}
           {{ end -}}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
