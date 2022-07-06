@@ -22,7 +22,7 @@ g_file = open(os.path.join(dstPath, 'groups.properties'), 'w')
 auth_entries = """
 <authorizationEntry queue=">" read="admins" write="admins" admin="admins" />
 <authorizationEntry topic=">" read="admins" write="admins" admin="admins" />
-<authorizationEntry topic="ActiveMQ.Advisory.>" read="users" write="users" admin="users"/>
+<authorizationEntry topic="ActiveMQ.Advisory.>" read="users" write="users" admin="users" />
 """
 
 # admin and users
@@ -34,17 +34,15 @@ g_file.write('users={}\n'.format(','.join(accounts)))
 # define accounts
 for account in accounts:
     u_file.write('{0}={1}_{0}\n'.format(account, basePasswd))
-    g_file.write('{0}=system,{0}\n'.format(account))
+    g_file.write('{0}_s=system,{0}\n'.format(account))
 
 # define read/write/owner users per channel
 for channel_def in channels:
     channel, w_accs, r_accs = channel_def.split(':')
-    a_accs = set(w_accs.split(','))
-    a_accs.update(r_accs.split(','))
-    a_accs = ','.join(list(a_accs))
-    auth_entries += """<authorizationEntry queue="{}>" read="{}" write="{}" admin="{}" />\n""".\
+    a_accs = "users"
+    auth_entries += """<authorizationEntry queue="{}>" read="{}_s" write="{}_s" admin="{}" />\n""".\
         format(channel, r_accs, w_accs, a_accs)
-    auth_entries += """<authorizationEntry topic="{}>" read="{}" write="{}" admin="{}" />\n""". \
+    auth_entries += """<authorizationEntry topic="{}>" read="{}_s" write="{}_s" admin="{}" />\n""". \
         format(channel, r_accs, w_accs, a_accs)
 
 # activemq.xml
