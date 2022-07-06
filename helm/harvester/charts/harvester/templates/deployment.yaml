@@ -69,11 +69,15 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
-            # use non-zero GID to run condor with non-root
             {{- if .Values.noRoot }}
+            # set non-zero GUID to run conder with non-root PID
             runAsGroup: 15678
+            {{- if .Values.securityContext }}
+  	        {{- toYaml .Values.securityContext | nindent 12 }}
             {{- end }}
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- else }}
+      	    {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.autoStart }}
