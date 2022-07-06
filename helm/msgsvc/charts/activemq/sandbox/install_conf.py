@@ -40,9 +40,9 @@ for account in accounts:
 for channel_def in channels:
     channel, w_accs, r_accs = channel_def.split(':')
     a_accs = "users"
-    auth_entries += """<authorizationEntry queue="{}>" read="{}_s" write="{}_s" admin="{}" />\n""".\
+    auth_entries += """<authorizationEntry queue="{}.>" read="{}_s" write="{}_s" admin="{}" />\n""".\
         format(channel, r_accs, w_accs, a_accs)
-    auth_entries += """<authorizationEntry topic="{}>" read="{}_s" write="{}_s" admin="{}" />\n""". \
+    auth_entries += """<authorizationEntry topic="{}.>" read="{}_s" write="{}_s" admin="{}" />\n""". \
         format(channel, r_accs, w_accs, a_accs)
 
 # activemq.xml
