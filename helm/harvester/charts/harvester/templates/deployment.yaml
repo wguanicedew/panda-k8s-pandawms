@@ -73,10 +73,10 @@ spec:
             # set non-zero GUID to run conder with non-root PID
             runAsGroup: 15678
             {{- if .Values.securityContext }}
-  	        {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml .Values.securityContext | nindent 12 }}
             {{- end }}
             {{- else }}
-      	    {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml .Values.securityContext | nindent 12 }}
             {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
