@@ -62,6 +62,10 @@ data:
   {{- end}}
   {{- end }}
   HARVESTER_ID: "{{ .Values.harvesterID }}"
+  {{ if .Values.useStableCondor }}
+  CONDOR_CHANNEL: ".stable"
+  {{- end }}
+
 ---
 # sandbox
 apiVersion: v1
