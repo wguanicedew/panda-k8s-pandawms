@@ -31,6 +31,10 @@
         "to-idds": {
             "server": "iDDS_mb",
             "destination": "/queue/pandaidds"
+        },
+        "panda_jedi": {
+            "server": "internal_mb",
+            "destination": "/queue/panda_jedi"
         }
     },
     "processors": {
@@ -45,6 +49,12 @@
             "name": "ForwardingMsgProcPlugin",
             "in_queue": "jedi_taskstatus",
             "out_queue": "to-idds",
+            "verbose": true
+        },
+        "proc_msg_from_panda": {
+            "module": "pandajedi.jedimsgprocessor.panda_to_jedi_msg_processor",
+            "name": "PandaToJediMsgProcPlugin",
+            "in_queue": "panda_jedi",
             "verbose": true
         }
     }

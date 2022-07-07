@@ -127,6 +127,8 @@ spec:
                   name: {{ include "jedi.fullname" . }}-sandbox
               - configMap:
                   name: {{ .Release.Name }}-external-sandbox
+              - configMap:
+                  name: {{ .Release.Name }}-server-sandbox
         - name: {{ include "jedi.fullname" . }}-configjson
           projected:
             sources:

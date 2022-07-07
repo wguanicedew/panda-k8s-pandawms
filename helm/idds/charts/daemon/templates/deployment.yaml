@@ -76,12 +76,14 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - sleep 30;
-              chmod 777 /var/log/idds;
               {{- if .Values.noRoot }}
-              grep -v user= /opt/idds/config_default/supervisord_idds.ini > /opt/idds/config_default/supervisord_idds.ini.tmp;
-              mv /opt/idds/config_default/supervisord_idds.ini.tmp /opt/idds/config_default/supervisord_idds.ini;
+              cd /opt/idds/config_default;
+              grep -v user= supervisord_idds.ini > supervisord_idds.ini.tmp;
+              mv supervisord_idds.ini.tmp supervisord_idds.ini;
+              cd -;
               /opt/idds/bin/start-daemon.sh daemon
               {{- else }}
+              chmod 777 /var/log/idds;
               runuser -u atlpan -g zp -- /opt/idds/bin/start-daemon.sh daemon
               {{- end }}
           {{ end -}}

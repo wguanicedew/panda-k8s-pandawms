@@ -34,10 +34,6 @@ harvester:
   # run containers with no-root PID e.g. for OKD
   #noRoot: true
 
-  # set GID to 0 if necessary
-  #securityContext:
-  #  runAsGroup: 15678
-
 
 mariadb:
   # enable database

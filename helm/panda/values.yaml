@@ -8,7 +8,7 @@ jedi:
 
   # container image and tag
   image:
-    tag: "0.0.8"
+    tag: "0.0.11"
     # tag: "master"
 
   # PV with selector support
@@ -21,7 +21,7 @@ server:
 
   # container image and tag
   image:
-    tag: "0.0.32"
+    tag: "0.0.35"
     # tag: "master"
 
   # PV with selector support
@@ -75,7 +75,7 @@ postgres:
 
   # container image and tag
   image:
-    tag: "0.0.9"
+    tag: "0.0.10"
     #tag: "main"
 
   # PV with selector support
