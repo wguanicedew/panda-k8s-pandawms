@@ -47,9 +47,9 @@ data:
   http_proxy: "{{ .Values.httpProxy }}"
   {{- if .Values.noProxy }}
   no_proxy: "{{ .Values.noProxy }},{{ .Values.panda.host }}"
-  {{- else}}
+  {{- else }}
   no_proxy: "localhost,{{ include "harvester.fullname" . }},{{ .Values.panda.host }}"
-  {{- end}}
+  {{- end }}
   {{- if .Values.httpsProxy }}
   https_proxy: "{{ .Values.httpProxy }}"
   {{- end }}
@@ -57,9 +57,9 @@ data:
   https_proxy: "{{ .Values.httpsProxy }}"
   {{- if .Values.noProxy }}
   no_proxy: "{{ .Values.noProxy }},{{ .Values.panda.host }},http-{{ .Values.panda.host }}"
-  {{- else}}
+  {{- else }}
   no_proxy: "localhost,{{ include "harvester.fullname" . }},{{ .Values.panda.host }},http-{{ .Values.panda.host }}"
-  {{- end}}
+  {{- end }}
   {{- end }}
   HARVESTER_ID: "{{ .Values.harvesterID }}"
   {{ if .Values.useStableCondor }}
