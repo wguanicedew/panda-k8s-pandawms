@@ -1,0 +1,10 @@
+# Default values for bigmon.
+# # This is a YAML-formatted file.
+# # Declare variables to be passed into your templates.
+#
+
+daemon:
+  persistentvolume:
+    class: wekafs--sdf-k8s01
+    create: false
+

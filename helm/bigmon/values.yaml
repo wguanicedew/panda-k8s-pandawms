@@ -21,6 +21,7 @@ main:
   autoStart: true
 
   persistentvolume:
+    create: false         
     path: "/mnt/panda-bigmon-logs"
     size: 5Gi
   hostcerts:
