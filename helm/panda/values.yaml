@@ -81,3 +81,21 @@ postgres:
   # PV with selector support
   #persistentvolume:
   #    selector: false
+
+### External service config
+
+# activeMQ
+activemq:
+  # hosts and ports
+  serverList:
+    - "activemq-dev-daemon:61613"
+
+  # base password
+  basePasswd: "ITzqWRCd"
+
+# idds
+idds:
+  # REST hostname
+  restHost: "idds-rest"
+  # REST port
+  restPort: 443

@@ -35,16 +35,13 @@ data:
   PANDA_AUTH: "oidc"
   PANDA_AUTH_ID_TOKEN: {{ .Values.authIdToken }}
   PANDA_AUTH_VO: {{ .Values.authVO }}
-  PANDA_ACTIVEMQ_LIST: {{ join "," .Values.activemq.serverList }}
-  PANDA_ACTIVEMQ_PASSWD_panda: {{ .Values.activemq.basePasswd }}_panda
-  PANDA_ACTIVEMQ_PASSWD_jedi: {{ .Values.activemq.basePasswd }}_jedi
   {{- end }}
   {{- if .Values.httpProxy }}
   http_proxy: "{{ .Values.httpProxy }}"
   {{- if .Values.noProxy }}
   no_proxy: "{{ .Values.noProxy }}"
   {{- else }}
-  no_proxy: "localhost,{{ include "server.fullname" . }}"
+  no_proxy: "localhost,{{ include "server.fullname" . }},$PANDA_IDDS_HOST"
   {{- end }}
   {{- if .Values.httpsProxy }}
   https_proxy: "{{ .Values.httpProxy }}"
@@ -54,7 +51,7 @@ data:
   {{- if .Values.noProxy }}
   no_proxy: "{{ .Values.noProxy }}"
   {{- else }}
-  no_proxy: "localhost,{{ include "server.fullname" . }},{{ .Values.idds.restHost }}"
+  no_proxy: "localhost,{{ include "server.fullname" . }},$PANDA_IDDS_HOST"
   {{- end }}
   {{- end }}
   {{- if .Values.noRoot }}

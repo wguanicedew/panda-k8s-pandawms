@@ -26,21 +26,7 @@ rucioAccount: ""
 # run with non-root PID
 noRoot: false
 
-# activeMQ
-activemq:
-  # hosts and ports
-  serverList:
-    - "activemq-dev-daemon:61613"
 
-  # base password
-  basePasswd: "ITzqWRCd"
-
-# idds
-idds:
-  # REST hostname
-  restHost: "idds-rest"
-  # REST port
-  restPort: 443
 
 persistentvolume:
   # Set true to create PV

@@ -95,6 +95,8 @@ spec:
                 mountPath: /opt/panda/sandbox
           envFrom:
             - configMapRef:
+                name: {{ .Release.Name }}-external-env
+            - configMapRef:
                 name: {{ .Release.Name }}-server-env
             {{- if .Values.database.password_get }}
             - configMapRef:

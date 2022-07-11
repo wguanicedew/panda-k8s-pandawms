@@ -8,3 +8,19 @@ binaryData:
   {{ base $path }}: |-
     {{ $.Files.Get $path | b64enc }}
   {{- end }}
+
+---
+
+# external env variables
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-external-env
+data:
+  # ActiveMQ
+  PANDA_ACTIVEMQ_LIST: "{{ join "," .Values.activemq.serverList }}"
+  PANDA_ACTIVEMQ_PASSWD_panda: "{{ .Values.activemq.basePasswd }}_panda"
+  PANDA_ACTIVEMQ_PASSWD_jedi: "{{ .Values.activemq.basePasswd }}_jedi"
+  # iDDS
+  PANDA_IDDS_HOST: "{{ .Values.idds.restHost }}"
+  PANDA_IDDS_PORT: "{{ .Values.idds.restPort }}"
