@@ -122,6 +122,9 @@ spec:
           env:
             - name: PANDA_SERVER_CONF_SERVERNAME
               value: {{ include "server.fullname" . }}
+            # set no_proxy since $() is resolved not in envFrom section
+            - name: no_proxy
+              value: $(no_proxy),$(PANDA_IDDS_HOST)
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
