@@ -12,6 +12,8 @@
         "configurator_use_cert": "False",
         "production_dns": "iddssv1",
         "pserveralias": "panda-dev-server",
+        "dbhost": "$PANDA_DB_HOST",
+        "dbpasswd": "$PANDA_DB_PASSWORD",
         "adder_plugins": "wlcg:dataservice.AdderDummyPlugin:AdderDummyPlugin,wlcg:dataservice.AdderSimplePlugin:AdderSimplePlugin:sphenix",
         "setupper_plugins": "wlcg:dataservice.SetupperDummyPlugin:SetupperDummyPlugin", 
         "token_authType": "oidc",

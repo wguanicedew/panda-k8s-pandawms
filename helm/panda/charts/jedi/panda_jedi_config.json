@@ -1,6 +1,8 @@
 {
     "db": {
-        "backend": "postgres"
+        "backend": "postgres",
+        "dbhost": "$PANDA_DB_HOST",
+        "dbpasswd": "$PANDA_DB_PASSWORD"
     },
     "ddm": {
         "modConfig": "wlcg:4:pandajedi.jediddm.GenDDMClient:GenDDMClient::off,wlcg:2:pandajedi.jediddm.AtlasDDMClient:AtlasDDMClient:sphenix",
