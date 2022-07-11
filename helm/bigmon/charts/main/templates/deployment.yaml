@@ -1,4 +1,5 @@
 # pv
+{{- if .Values.persistentvolume.create }}
 kind: PersistentVolume
 apiVersion: v1
 metadata:
@@ -14,6 +15,7 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
+{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
