@@ -1,0 +1,6 @@
+[common]
+loglevel = DEBUG
+
+[rest]
+host = https://${PANDA_IDDS_HOST}:${PANDA_IDDS_PORT}/idds
+
