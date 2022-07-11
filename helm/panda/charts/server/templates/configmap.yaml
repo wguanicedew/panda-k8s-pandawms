@@ -54,7 +54,7 @@ data:
   {{- if .Values.noProxy }}
   no_proxy: "{{ .Values.noProxy }}"
   {{- else }}
-  no_proxy: "localhost,{{ include "server.fullname" . }}"
+  no_proxy: "localhost,{{ include "server.fullname" . }},{{ .Values.idds.restHost }}"
   {{- end }}
   {{- end }}
   {{- if .Values.noRoot }}

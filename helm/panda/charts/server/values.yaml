@@ -35,6 +35,13 @@ activemq:
   # base password
   basePasswd: "ITzqWRCd"
 
+# idds
+idds:
+  # REST hostname
+  restHost: "idds-rest"
+  # REST port
+  restPort: 443
+
 persistentvolume:
   # Set true to create PV
   create: false
