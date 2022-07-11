@@ -8,7 +8,7 @@ for name in glob.glob(os.path.join(sandbox_dir, '*.template')):
     with open(name) as f:
         template = f.read()
         # replace placeholders with env vars
-        items = re.findall(r'${(\w+)\}', template)
+        items = re.findall(r'\$\{(\w+)\}', template)
         done_list = set()
         for item in items:
             if item in done_list:
