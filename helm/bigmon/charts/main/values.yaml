@@ -14,6 +14,7 @@ image:
 autoStart: true
 
 persistentvolume:
+  create: false  
   path: "/mnt/bigmon-main-logs"
   size: 5Gi
 hostcerts:
