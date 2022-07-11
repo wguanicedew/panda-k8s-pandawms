@@ -39,7 +39,7 @@ data:
   {{- if .Values.httpProxy }}
   http_proxy: "{{ .Values.httpProxy }}"
   {{- if .Values.noProxy }}
-  no_proxy_base: "{{ .Values.noProxy }}"
+  no_proxy: "{{ .Values.noProxy }}"
   {{- else }}
   no_proxy: "localhost,{{ include "server.fullname" . }}"
   {{- end }}
@@ -49,9 +49,9 @@ data:
   {{- else if .Values.httpsProxy }}
   https_proxy: "{{ .Values.httpsProxy }}"
   {{- if .Values.noProxy }}
-  no_proxy_base: "{{ .Values.noProxy }}"
+  no_proxy: "{{ .Values.noProxy }}"
   {{- else }}
-  no_proxy_base: "localhost,{{ include "server.fullname" . }}"
+  no_proxy: "localhost,{{ include "server.fullname" . }}"
   {{- end }}
   {{- end }}
   {{- if .Values.noRoot }}
