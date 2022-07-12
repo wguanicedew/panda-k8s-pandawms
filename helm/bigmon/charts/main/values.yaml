@@ -17,6 +17,7 @@ persistentvolume:
   create: false  
   path: "/mnt/bigmon-main-logs"
   size: 5Gi
+  selector: true
 hostcerts:
   enabled: false
 
