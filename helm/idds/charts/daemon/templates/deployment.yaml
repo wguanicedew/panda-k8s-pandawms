@@ -77,10 +77,6 @@ spec:
           args:
             - sleep 30;
               {{- if .Values.noRoot }}
-              cd /opt/idds/config_default;
-              grep -v user= supervisord_idds.ini > supervisord_idds.ini.tmp;
-              mv supervisord_idds.ini.tmp supervisord_idds.ini;
-              cd -;
               /opt/idds/bin/start-daemon.sh daemon
               {{- else }}
               chmod 777 /var/log/idds;

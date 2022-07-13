@@ -82,6 +82,7 @@ postgres:
   #persistentvolume:
   #    selector: false
 
+
 ### External service config
 
 # activeMQ
@@ -93,9 +94,35 @@ activemq:
   # base password
   basePasswd: "ITzqWRCd"
 
-# idds
+
+# iDDS
 idds:
   # REST hostname
   restHost: "idds-rest"
+
   # REST port
   restPort: 443
+
+  # ID token of the iDDS account
+  authIdToken: "FIXME"
+
+  # VO of the ID token
+  authVO: "panda_dev"
+
+
+# rucio
+rucio:
+  # rucio host and port
+  rucioHost: "sprucio01.sdcc.bnl.gov:443"
+
+  # auth host and port
+  authHost: "sprucio01.sdcc.bnl.gov:443"
+
+  # username
+  username: "iddsv1"
+
+  # password
+  password: "FIXME"
+
+  # account
+  account: "iddsv1"

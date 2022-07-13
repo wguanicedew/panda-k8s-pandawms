@@ -20,9 +20,6 @@ authVO: ""
 httpProxy: ""
 httpsProxy: ""
 
-# rucio account
-rucioAccount: ""
-
 # run with non-root PID
 noRoot: false
 

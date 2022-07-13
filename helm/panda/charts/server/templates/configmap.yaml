@@ -57,9 +57,6 @@ data:
   {{- if .Values.noRoot }}
   PANDA_NO_ROOT: "1"
   {{- end }}
-  {{- if .Values.rucioAccount }}
-  PANDA_RUCIO_ACCOUNT: "{{ .Values.rucioAccount }}"
-  {{- end }}
 ---
 # auth
 apiVersion: v1
