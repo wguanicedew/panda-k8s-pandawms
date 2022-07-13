@@ -24,4 +24,3 @@ for name in glob.glob(os.path.join(sandbox_dir, '*.template')):
     # dump
     with open(new_filename, 'w') as f:
         f.write(template)
-
