@@ -33,7 +33,7 @@ server:
   #  enabled: false
 
   # host name of the PanDA server for external access
-    hostName: "FIXME"
+  hostName: "FIXME"
 
   # use Route class to expose the service
   route:
