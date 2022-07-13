@@ -32,11 +32,13 @@ server:
   #hostcerts:
   #  enabled: false
 
+  # host name of the PanDA server for external access
+    hostName: "FIXME"
+
   # use Route class to expose the service
   route:
     enabled: false
-    # host name of the PanDA server
-    hostName: "FIXME"
+
     
   # use Ingress class to expose the service  
   ingress:
