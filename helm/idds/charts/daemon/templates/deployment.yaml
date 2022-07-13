@@ -87,7 +87,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
             - configMapRef:
-                name: {{ include "rest.fullname" . }}-envs
+                name: {{ include "daemon.fullname" . }}-envs
           volumeMounts:
               - name: {{ include "daemon.fullname" . }}-logs
                 mountPath: /var/log/idds/
