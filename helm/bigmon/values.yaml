@@ -51,3 +51,7 @@ main:
         hosts:
           - domain: cern.ch
             # hostOverride: panda-k8s-dev-jedi.cern.ch
+
+  # use Route class to expose the service
+  route:
+    enabled: false
