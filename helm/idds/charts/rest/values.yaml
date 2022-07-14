@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: wguanicedew/idds
+  repository: ghcr.io/hsf/idds
   pullPolicy: "IfNotPresent"
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.10.18"
+  tag: "latest"
 
 # start the service when pod gets started
 autoStart: true
