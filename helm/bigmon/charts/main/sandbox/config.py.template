@@ -20,10 +20,10 @@ ALLOWED_HOSTS = [
 ]
 
 ### VIRTUALENV
-VIRTUALENV_PATH = '/data/bigmon'
+VIRTUALENV_PATH = '/opt/bigmon'
 
 ### WSGI
-#WSGI_PATH = VIRTUALENV_PATH + '/pythonpath'
+WSGI_PATH = '/data/bigmon'
 
 ### DB_ROUTERS for atlas's prodtask
 DATABASE_ROUTERS = [
@@ -131,7 +131,7 @@ elif DEPLOYMENT == 'POSTGRES':
     DB_SCHEMA_IDDS = 'DOMA_IDDS'
     DATABASES = dbaccess_postgres
     CRIC_API_URL = 'https://datalake-cric.cern.ch/api/atlas/pandaqueue/query/?json'
-    IDDS_HOST = 'https://ids-rest:443/idds'
+    IDDS_HOST = '${IDDS_HOST}'
 elif DEPLOYMENT == 'ORACLE_DOMA':
     DB_SCHEMA = 'DOMA_PANDABIGMON'
     DB_SCHEMA_PANDA = 'DOMA_PANDA'
@@ -149,7 +149,7 @@ DB_N_MAX_IN_QUERY = 100  # number of items in IN (*,*..) query. if more - use tm
 CACHES = {
     "default": {
     'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-    'LOCATION': f'"{DB_SCHEMA}"."DJANGOCACHE"',
+    'LOCATION': '"{DB_SCHEMA}"."DJANGOCACHE"',
     'TIMEOUT': 31536000,
     'OPTIONS': {
         'MAX_ENTRIES': 1000000000
@@ -158,7 +158,7 @@ CACHES = {
 }
 
 if DEPLOYMENT == 'POSTGRES':
-    CACHES['default']['LOCATION'] = f'"{DB_SCHEMA}"."djangocache"'
+    CACHES['default']['LOCATION'] = '"{DB_SCHEMA}"."djangocache"'
 
 
 ### URL_PATH_PREFIX for multi-developer apache/wsgi instance
