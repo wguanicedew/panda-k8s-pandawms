@@ -74,7 +74,7 @@ spec:
 
           command: ["/bin/sh", "-c"]
           args:
-            - cp /data/bigmon/configmap/* /data/bigmon/config/* ;
+            - cp /data/bigmon/configmap/* /data/bigmon/config/ ;
               python /data/bigmon/config/process_template.py ;
               {{- if .Values.autoStart }}
               sleep 30;
@@ -97,6 +97,9 @@ spec:
               - name: {{ include "main.fullname" . }}-certs
                 mountPath: /opt/bigmon/etc/cert
               {{- end }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "server.fullname" . }}-env
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
