@@ -21,7 +21,7 @@ server:
 
   # container image and tag
   image:
-    tag: "0.0.37"
+    tag: "0.0.38"
     # tag: "master"
 
   # PV with selector support
