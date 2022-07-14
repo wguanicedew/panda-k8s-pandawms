@@ -77,7 +77,7 @@ spec:
             - cp /data/bigmon/configmap/* /data/bigmon/config/ ;
               python /data/bigmon/config/process_template.py ;
               {{- if .Values.autoStart }}
-              sleep 30;
+              until /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
               start-daemon.sh all
               {{- else }}
               sleep infinity & wait
