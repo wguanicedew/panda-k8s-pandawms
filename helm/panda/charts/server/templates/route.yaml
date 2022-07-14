@@ -8,7 +8,7 @@ metadata:
       {{- include "server.labels" . | nindent 4 }}
 
 spec:
-  host: {{ .Values.route.hostName}}
+  host: {{ .Values.hostName }}
   to:
     kind: Service
     name: {{ include "server.fullname" . }}
@@ -28,7 +28,7 @@ metadata:
       {{- include "server.labels" . | nindent 4 }}
 
 spec:
-  host: http-{{ .Values.route.hostName}}
+  host: http-{{ .Values.hostName }}
   to:
     kind: Service
     name: {{ include "server.fullname" . }}

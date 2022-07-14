@@ -20,6 +20,10 @@ fi
 mkdir /var/log/panda/pandacache
 chmod 777 /var/log/panda/pandacache
 
+# copy idds conf
+mkdir -p /home/atlpan/.idds
+cp /data/panda/idds.cfg /home/atlpan/.idds/idds_local.cfg
+
 # fetch info from CRIC before running services
 tmpExe=/data/panda/init-panda-tmp-exe
 cat <<EOT >> ${tmpExe}

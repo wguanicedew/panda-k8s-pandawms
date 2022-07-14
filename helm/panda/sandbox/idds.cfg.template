@@ -1,0 +1,10 @@
+[common]
+loglevel = DEBUG
+auth_type = oidc
+
+[rest]
+host = https://${PANDA_IDDS_HOST}:${PANDA_IDDS_PORT}/idds
+
+[oidc]
+oidc_token = /data/panda/idds_token.json
+vo = ${PANDA_IDDS_AUTH_VO}

@@ -21,7 +21,7 @@ server:
 
   # container image and tag
   image:
-    tag: "0.0.37"
+    tag: "0.0.38"
     # tag: "master"
 
   # PV with selector support
@@ -32,11 +32,13 @@ server:
   #hostcerts:
   #  enabled: false
 
+  # host name of the PanDA server for external access
+  hostName: "FIXME"
+
   # use Route class to expose the service
   route:
     enabled: false
-    # host name of the PanDA server
-    hostName: "FIXME"
+
     
   # use Ingress class to expose the service  
   ingress:
@@ -81,3 +83,48 @@ postgres:
   # PV with selector support
   #persistentvolume:
   #    selector: false
+
+
+### External service config
+
+# activeMQ
+activemq:
+  # hosts and ports
+  serverList:
+    - "activemq-dev-daemon:61613"
+
+  # base password
+  basePasswd: "ITzqWRCd"
+
+
+# iDDS
+idds:
+  # REST hostname
+  restHost: "idds-rest"
+
+  # REST port
+  restPort: 443
+
+  # ID token of the iDDS account
+  authIdToken: "FIXME"
+
+  # VO of the ID token
+  authVO: "panda_dev"
+
+
+# rucio
+rucio:
+  # rucio host and port
+  rucioHost: "sprucio01.sdcc.bnl.gov:443"
+
+  # auth host and port
+  authHost: "sprucio01.sdcc.bnl.gov:443"
+
+  # username
+  username: "iddsv1"
+
+  # password
+  password: "FIXME"
+
+  # account
+  account: "iddsv1"

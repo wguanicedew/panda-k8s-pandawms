@@ -28,16 +28,14 @@ kind: ConfigMap
 metadata:
   name: {{ include "server.fullname" . }}-env
 data:
-  PANDA_URL: "https://{{ include "server.fullname" .}}:{{ .Values.service.httpsPort }}/server/panda"
-  PANDA_URL_SSL: "https://{{ include "server.fullname" .}}:{{ .Values.service.httpsPort }}/server/panda"
+  PANDA_URL: "https://{{ include "server.fullname" . }}:{{ .Values.service.httpsPort }}/server/panda"
+  PANDA_URL_SSL: "https://{{ include "server.fullname" . }}:{{ .Values.service.httpsPort }}/server/panda"
+  PANDA_SANDBOX_HOST: "{{ .Values.hostName }}"
   {{- if .Values.authIdToken }}
   PANDA_VERIFY_HOST: "off"
   PANDA_AUTH: "oidc"
   PANDA_AUTH_ID_TOKEN: {{ .Values.authIdToken }}
   PANDA_AUTH_VO: {{ .Values.authVO }}
-  PANDA_ACTIVEMQ_LIST: {{ join "," .Values.activemq.serverList }}
-  PANDA_ACTIVEMQ_PASSWD_panda: {{ .Values.activemq.basePasswd }}_panda
-  PANDA_ACTIVEMQ_PASSWD_jedi: {{ .Values.activemq.basePasswd }}_jedi
   {{- end }}
   {{- if .Values.httpProxy }}
   http_proxy: "{{ .Values.httpProxy }}"
@@ -59,9 +57,6 @@ data:
   {{- end }}
   {{- if .Values.noRoot }}
   PANDA_NO_ROOT: "1"
-  {{- end }}
-  {{- if .Values.rucioAccount }}
-  PANDA_RUCIO_ACCOUNT: "{{ .Values.rucioAccount }}"
   {{- end }}
 ---
 # auth
