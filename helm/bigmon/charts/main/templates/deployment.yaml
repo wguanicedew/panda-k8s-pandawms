@@ -99,7 +99,7 @@ spec:
               {{- end }}
           envFrom:
             - configMapRef:
-                name: {{ include "server.fullname" . }}-env
+                name: {{ include "main.fullname" . }}-env
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

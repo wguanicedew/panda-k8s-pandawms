@@ -27,7 +27,7 @@ main:
   secretKey: "FIXME"
 
   database:
-    hostName: "panda-server"
+    hostName: "panda-postgres"
     password: "FIXME"
 
   rucio:
