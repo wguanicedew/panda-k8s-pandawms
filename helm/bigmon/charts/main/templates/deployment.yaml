@@ -71,12 +71,16 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{ if .Values.autoStart -}}
+          {{- if .Values.autoStart }}
           command: ["/bin/sh", "-c"]
           args:
             - sleep 30;
               start-daemon.sh all
-          {{ end -}}
+          {{- else }}
+          command: ["/bin/sh", "-c"]
+          args:
+            - trap : TERM INT; sleep infinity & wait
+          {{- end }}
           ports:
             - name: https
               containerPort: 443
