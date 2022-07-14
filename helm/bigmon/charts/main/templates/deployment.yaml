@@ -71,16 +71,17 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- if .Values.autoStart }}
+
           command: ["/bin/sh", "-c"]
           args:
-            - sleep 30;
+            - cp /data/bigmon/configmap/* /data/bigmon/config/* ;
+              python /data/bigmon/config/process_template.py ;
+              {{- if .Values.autoStart }}
+              sleep 30;
               start-daemon.sh all
-          {{- else }}
-          command: ["/bin/sh", "-c"]
-          args:
-            - trap : TERM INT; sleep infinity & wait
-          {{- end }}
+              {{- else }}
+              sleep infinity & wait
+              {{- end }}
           ports:
             - name: https
               containerPort: 443

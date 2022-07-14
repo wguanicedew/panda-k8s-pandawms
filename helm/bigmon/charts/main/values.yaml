@@ -5,10 +5,9 @@
 replicaCount: 1
 
 image:
-  repository: ekaravak/bigmon
+  repository: ghcr.io/pandawms/panda-bigmon-core
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.2"
+  tag: "latest"
 
 # start the service when pod gets started
 autoStart: true
@@ -18,14 +17,27 @@ persistentvolume:
   path: "/mnt/bigmon-main-logs"
   size: 5Gi
   selector: true
+
 hostcerts:
   enabled: false
 
+# hostname for external access
+hostName: "FIXME"
+
+# secret key for configuration
+secretKey: "FIXME"
+
 database:
-  panda_db: FIXME
-  panda_user: FIXME
-  panda_password: FIXME
-  panda_schema: FIXME
+  databaseName: panda_db
+  port: 5432
+  userName: panda
+  hostName: "FIXME"
+  password: "FIXME"
+
+rucio:
+  rucioHost: "https://rucio-lb-prod.cern.ch"
+  authHost: "https://rucio-auth-prod.cern.ch"
+  account: "iddsv1"
 
 imagePullSecrets: []
 nameOverride: ""

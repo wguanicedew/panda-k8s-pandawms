@@ -3,12 +3,11 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "main.fullname" . }}-configmap
-data:
-  config.py: |-
-{{ .Files.Get "config.py" | indent 8}}
-
-  local.py: |-
-{{ .Files.Get "local.py" | indent 8}}
+binaryData:
+  {{- range $path, $_ := .Files.Glob "sandbox/*" }}
+  {{ base $path }}: |-
+    {{ $.Files.Get $path | b64enc }}
+  {{- end }}
 
 {{- if .Values.hostcerts.enabled -}}
 ---
@@ -24,3 +23,24 @@ data:
     hostkey.pem: |-
 {{ .Files.Get "hostkey.pem" | indent 8}}
 {{- end }}
+
+---
+# env variables
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "main.fullname" . }}-env
+data:
+  # bigmon
+  BIGMON_HOST: "{{ .Values.hostName }}"
+  MY_SECRET_KEY: "{{ .Values.secretKey }}"
+  # PandaDB
+  PANDA_DB_NAME: "{{ .Values.database.databaseName }}"
+  PANDA_DB_HOST: "{{ .Values.database.hostName }}"
+  PANDA_DB_PORT: "{{ .Values.database.port }}"
+  PANDA_DB_USER: "{{ .Values.database.userName }}"
+  PANDA_DB_PASSWORD: "{{ .Values.database.password }}"
+  # Rucio
+  RUCIO_SERVER_HOST: "{{ .Values.rucio.rucioHost }}"
+  RUCIO_AUTH_HOST: "{{ .Values.rucio.authHost }}"
+  RUCIO_ACCOUNT: "{{ .Values.rucio.account }}"
