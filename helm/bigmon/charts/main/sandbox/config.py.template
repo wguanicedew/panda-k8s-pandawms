@@ -149,7 +149,7 @@ DB_N_MAX_IN_QUERY = 100  # number of items in IN (*,*..) query. if more - use tm
 CACHES = {
     "default": {
     'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-    'LOCATION': '"{DB_SCHEMA}"."DJANGOCACHE"',
+    'LOCATION': '"{settings.DB_SCHEMA}"."DJANGOCACHE"',
     'TIMEOUT': 31536000,
     'OPTIONS': {
         'MAX_ENTRIES': 1000000000
