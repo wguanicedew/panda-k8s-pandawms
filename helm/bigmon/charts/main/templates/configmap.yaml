@@ -45,3 +45,22 @@ data:
   RUCIO_SERVER_HOST: "{{ .Values.rucio.rucioHost }}"
   RUCIO_AUTH_HOST: "{{ .Values.rucio.authHost }}"
   RUCIO_ACCOUNT: "{{ .Values.rucio.account }}"
+  # proxy
+  {{- if .Values.httpProxy }}
+  http_proxy: "{{ .Values.httpProxy }}"
+  {{- if .Values.noProxy }}
+  no_proxy: "{{ .Values.noProxy }}"
+  {{- else }}
+  no_proxy: "localhost"
+  {{- end }}
+  {{- if .Values.httpsProxy }}
+  https_proxy: "{{ .Values.httpProxy }}"
+  {{- end }}
+  {{- else if .Values.httpsProxy }}
+  https_proxy: "{{ .Values.httpsProxy }}"
+  {{- if .Values.noProxy }}
+  no_proxy: "{{ .Values.noProxy }}"
+  {{- else }}
+  no_proxy: "localhost"
+  {{- end }}
+  {{- end }}

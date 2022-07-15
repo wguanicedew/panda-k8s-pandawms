@@ -21,6 +21,11 @@ persistentvolume:
 hostcerts:
   enabled: false
 
+# http/s proxy if containers need it to access external services
+httpsProxy: ""
+httpProxy: ""
+noProxy: ""
+
 # hostname for external access
 hostName: "FIXME"
 
