@@ -19,9 +19,8 @@ metadata:
 binaryData:
   hostcert.pem: |-
     {{ .Files.Get "cert/hostcert.pem" | b64enc }}
-
   hostkey.pem: |-
-　  {{ .Files.Get "cert/hostkey.pem" | b64enc }}
+    {{ .Files.Get "cert/hostkey.pem" | b64enc }}
 {{- end }}
 
 ---
