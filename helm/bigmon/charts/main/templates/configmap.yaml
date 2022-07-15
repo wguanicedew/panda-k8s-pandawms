@@ -15,13 +15,13 @@ binaryData:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: {{ include "main.fullname" . }}-certs
+  name: {{ include "main.fullname" . }}-certs
 data:
-    hostcert.pem: |-
-{{ .Files.Get "cert/hostcert.pem" | indent 8}}
+  hostcert.pem: |-
+    {{ .Files.Get "cert/hostcert.pem" }}
 
-    hostkey.pem: |-
-{{ .Files.Get "cert/hostkey.pem" | indent 8}}
+  hostkey.pem: |-
+　  {{ .Files.Get "cert/hostkey.pem" }}
 {{- end }}
 
 ---
