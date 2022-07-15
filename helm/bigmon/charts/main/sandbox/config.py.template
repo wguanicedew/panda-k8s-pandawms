@@ -15,7 +15,7 @@ ALLOWED_HOSTS = [
     ### pandawms.org
     '.pandawms.org',  # Allow domain and subdomains
     '.pandawms.org.',  # Also allow FQDN and subdomains
-
+    '${BIGMON_HOST}',
     '127.0.0.1', '.localhost'
 ]
 
