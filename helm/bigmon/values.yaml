@@ -34,10 +34,6 @@ main:
     rucioHost: "https://rucio-lb-prod.cern.ch"
     authHost: "https://rucio-auth-prod.cern.ch"
 
-  service:
-    type: ClusterIP
-    httpsPort: 443
-
   ingress:
     enabled: true
     hosts:

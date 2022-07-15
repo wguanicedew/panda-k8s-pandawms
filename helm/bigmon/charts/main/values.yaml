@@ -51,6 +51,17 @@ rucio:
   authHost: "https://rucio-auth-prod.cern.ch"
   account: "iddsv1"
 
+auth:
+  googleKey: "FIXME"
+  googleSecret: "FIXME"
+
+  cernKey: "FIXME"
+  cernSecret: "FIXME"
+
+  githubKey: "FIXME"
+  githubSecret: "FIXME"
+
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
