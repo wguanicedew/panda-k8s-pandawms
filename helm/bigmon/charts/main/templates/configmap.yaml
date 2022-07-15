@@ -9,7 +9,7 @@ binaryData:
     {{ $.Files.Get $path | b64enc }}
   {{- end }}
 
-{{- if .Values.hostcerts.enabled -}}
+{{- if .Values.hostcerts.enabled }}
 ---
 # host cert and key
 apiVersion: v1
