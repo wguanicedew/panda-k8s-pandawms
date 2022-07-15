@@ -89,8 +89,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-              # - name: {{ include "main.fullname" . }}-logs
-              #  mountPath: /var/log/main/
+              - name: {{ include "main.fullname" . }}-logs
+                mountPath: /data/bigmon/logs
               - name: {{ include "main.fullname" . }}-configmap
                 mountPath: /data/bigmon/configmap
               {{- if .Values.hostcerts.enabled }}
