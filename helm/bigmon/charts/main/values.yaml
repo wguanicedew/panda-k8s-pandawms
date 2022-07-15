@@ -27,6 +27,10 @@ hostName: "FIXME"
 # secret key for configuration
 secretKey: "FIXME"
 
+httpd:
+  # number of WSGI processes
+  numWSGI: 10
+
 database:
   databaseName: panda_db
   port: 5432
