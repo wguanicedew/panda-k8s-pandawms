@@ -3,7 +3,7 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: {{ include "main.fullname" . }}-https-route
+  name: {{ include "main.fullname" . }}-route
   labels:
       {{- include "main.labels" . | nindent 4 }}
 
@@ -18,23 +18,5 @@ spec:
   tls:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-
----
-
-# for HTTP
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  name: {{ include "main.fullname" . }}-http-route
-  labels:
-      {{- include "main.labels" . | nindent 4 }}
-
-spec:
-  host: {{ .Values.hostName }}
-  to:
-    kind: Service
-    name: {{ include "main.fullname" . }}
-  port:
-    targetPort: http
 
 {{ end }}
