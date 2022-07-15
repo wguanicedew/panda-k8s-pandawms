@@ -93,7 +93,7 @@ spec:
               #  mountPath: /var/log/main/
               - name: {{ include "main.fullname" . }}-configmap
                 mountPath: /data/bigmon/configmap
-              {{- if .Values.hostcerts.enabled -}}
+              {{- if .Values.hostcerts.enabled }}
               - name: {{ include "main.fullname" . }}-certs
                 mountPath: /opt/bigmon/etc/cert
               {{- end }}
