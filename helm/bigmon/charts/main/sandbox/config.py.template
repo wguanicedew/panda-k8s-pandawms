@@ -28,6 +28,8 @@ VIRTUALENV_PATH = '/opt/bigmon'
 ### WSGI
 WSGI_PATH = '/data/bigmon'
 
+MON_VO = '${BIGMON_VO}'
+
 ### DB_ROUTERS for atlas's prodtask
 DATABASE_ROUTERS = [
     'core.dbrouter.ProdMonDBRouter',

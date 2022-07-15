@@ -32,6 +32,9 @@ hostName: "FIXME"
 # secret key for configuration
 secretKey: "FIXME"
 
+# Organization
+vo: "FIXME"
+
 httpd:
   # number of WSGI processes
   numWSGI: 10

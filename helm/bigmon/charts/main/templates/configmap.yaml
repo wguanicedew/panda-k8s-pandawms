@@ -36,6 +36,7 @@ data:
   BIGMON_HOST: "{{ .Values.hostName }}"
   BIGMON_NUM_WSGI_PROC: "{{ .Values.httpd.numWSGI }}"
   MY_SECRET_KEY: "{{ .Values.secretKey }}"
+  BIGMON_VO: "{{ .Values.vo }}"
   # PandaDB
   PANDA_DB_NAME: "{{ .Values.database.databaseName }}"
   PANDA_DB_HOST: "{{ .Values.database.hostName }}"
