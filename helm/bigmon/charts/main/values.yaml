@@ -35,10 +35,15 @@ secretKey: "FIXME"
 # Organization
 vo: "FIXME"
 
+# deployment
+deployment: "POSTGRES"
+
+# httpd config
 httpd:
   # number of WSGI processes
   numWSGI: 10
 
+# database config
 database:
   databaseName: panda_db
   port: 5432
@@ -46,21 +51,31 @@ database:
   hostName: "FIXME"
   password: "FIXME"
 
+# rucio
 rucio:
   rucioHost: "https://rucio-lb-prod.cern.ch"
   authHost: "https://rucio-auth-prod.cern.ch"
   account: "iddsv1"
 
+# Authentication
 auth:
+  # Google OAuth2
   googleKey: "FIXME"
   googleSecret: "FIXME"
-
+  # CERN
   cernKey: "FIXME"
   cernSecret: "FIXME"
-
+  # Github
   githubKey: "FIXME"
   githubSecret: "FIXME"
 
+# cric
+cric:
+  apiUrl: "https://datalake-cric.cern.ch/api/atlas/pandaqueue/query/?json"
+
+# iDDS
+iDDS:
+  host: 'https://idds-rest:443/idds'
 
 imagePullSecrets: []
 nameOverride: ""
