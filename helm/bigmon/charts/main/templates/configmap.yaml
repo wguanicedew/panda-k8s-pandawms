@@ -35,13 +35,9 @@ data:
   # bigmon
   BIGMON_HOST: "{{ .Values.hostName }}"
   BIGMON_NUM_WSGI_PROC: "{{ .Values.httpd.numWSGI }}"
-  MY_SECRET_KEY: "{{ .Values.secretKey }}"
+  BIGMON_SECRET_KEY: "{{ .Values.secretKey }}"
   BIGMON_VO: "{{ .Values.vo }}"
   BIGMON_DEPLOYMENT: "{{ .Values.deployment }}"
-  # CRIC
-  BIGMON_CRIC_API_URL: "{{ .Values.cric.apiUrl }}"
-  # iDDS
-  BIGMON_IDDS_HOST: "{{ .Values.idds.host }}"
   # Auth
   SOCIAL_AUTH_GOOGLE_OAUTH2_KEY: "{{ .Values.auth.googleKey }}"
   SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET: "{{ .Values.auth.googleSecret }}"
@@ -59,6 +55,10 @@ data:
   RUCIO_SERVER_HOST: "{{ .Values.rucio.rucioHost }}"
   RUCIO_AUTH_HOST: "{{ .Values.rucio.authHost }}"
   RUCIO_ACCOUNT: "{{ .Values.rucio.account }}"
+  # CRIC
+  CRIC_API_URL: "{{ .Values.cric.apiUrl }}"
+  # iDDS
+  IDDS_HOST: "{{ .Values.idds.host }}"
   # HTTP proxy
   {{- if .Values.httpProxy }}
   http_proxy: "{{ .Values.httpProxy }}"

@@ -1,6 +1,6 @@
 # Database settings
 # Make this unique, and don't share it with anybody.
-MY_SECRET_KEY = '${MY_SECRET_KEY}'
+MY_SECRET_KEY = '${BIGMON_SECRET_KEY}'
 
 dbaccess_postgres = {
          'default':
