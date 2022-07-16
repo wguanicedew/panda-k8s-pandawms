@@ -59,6 +59,10 @@ data:
   CRIC_API_URL: "{{ .Values.cric.apiUrl }}"
   # iDDS
   IDDS_HOST: "{{ .Values.idds.host }}"
+  # AWS
+  AWS_ACCESS_KEY_ATLAS: "{{ .Values.aws.accessKey }}"
+  AWS_SECRET_KEY_ATLAS: "{{ .Values.aws.secretKey }}"
+
   # HTTP proxy
   {{- if .Values.httpProxy }}
   http_proxy: "{{ .Values.httpProxy }}"
