@@ -74,8 +74,13 @@ cric:
   apiUrl: "https://datalake-cric.cern.ch/api/atlas/pandaqueue/query/?json"
 
 # iDDS
-iDDS:
+idds:
   host: 'https://idds-rest:443/idds'
+
+# AWS
+aws:
+  accessKey: "FIXME"
+  secretKey: "FIXME"
 
 imagePullSecrets: []
 nameOverride: ""
