@@ -39,12 +39,18 @@ data:
   BIGMON_VO: "{{ .Values.vo }}"
   BIGMON_DEPLOYMENT: "{{ .Values.deployment }}"
   # Auth
-  SOCIAL_AUTH_GOOGLE_OAUTH2_KEY: "{{ .Values.auth.googleKey }}"
-  SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET: "{{ .Values.auth.googleSecret }}"
-  SOCIAL_AUTH_CERNOIDC_KEY: "{{ .Values.auth.cernKey }}"
-  SOCIAL_AUTH_CERNOIDC_SECRET: "{{ .Values.auth.cernSecret }}"
-  SOCIAL_AUTH_GITHUB_KEY: "{{ .Values.auth.githubKey }}"
-  SOCIAL_AUTH_GITHUB_SECRET: "{{ .Values.auth.githubSecret }}"
+  {{- if .Values.auth.providers }}
+  BIGMON_AUTH_PROVIDER_LIST: {{ join "," .Values.auth.providers }}
+  {{- end }}
+  SOCIAL_AUTH_GOOGLE_OAUTH2_KEY: "{{ .Values.auth.google.key }}"
+  SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET: "{{ .Values.auth.google.secret }}"
+  SOCIAL_AUTH_CERNOIDC_KEY: "{{ .Values.auth.cern.key }}"
+  SOCIAL_AUTH_CERNOIDC_SECRET: "{{ .Values.auth.cern.secret }}"
+  SOCIAL_AUTH_GITHUB_KEY: "{{ .Values.auth.github.key }}"
+  SOCIAL_AUTH_GITHUB_SECRET: "{{ .Values.auth.github.secret }}"
+  SOCIAL_AUTH_INDIGOIAMOIDC_KEY: "{{ .Values.auth.indigoiam.key }}"
+  SOCIAL_AUTH_INDIGOIAMOIDC_SECRET: "{{ .Values.auth.indigoiam.secret }}"
+  SOCIAL_AUTH_INDIGOIAMOIDC_BASEPATH: "{{ .Values.auth.indigoiam.basePath }}"
   # PandaDB
   PANDA_DB_NAME: "{{ .Values.database.databaseName }}"
   PANDA_DB_HOST: "{{ .Values.database.hostName }}"

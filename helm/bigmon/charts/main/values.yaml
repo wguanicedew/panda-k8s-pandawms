@@ -59,15 +59,25 @@ rucio:
 
 # Authentication
 auth:
+  # list of authentication providers
+  providers: []
   # Google OAuth2
-  googleKey: "FIXME"
-  googleSecret: "FIXME"
+  google:
+    key: "FIXME"
+    secret: "FIXME"
   # CERN
-  cernKey: "FIXME"
-  cernSecret: "FIXME"
+  cern:
+    key: "FIXME"
+    secret: "FIXME"
   # Github
-  githubKey: "FIXME"
-  githubSecret: "FIXME"
+  githu
+    key: "FIXME"
+    secret: "FIXME"
+  # Indigo IAM
+  indigoiam:
+    key: "FIXME"
+    secret: "FIXME"
+    basePath: "FIXME"
 
 # cric
 cric:
