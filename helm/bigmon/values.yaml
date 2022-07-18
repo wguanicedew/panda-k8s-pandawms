@@ -4,11 +4,8 @@
 
 main:
   enabled: true
-  replicaCount: 1
+
   image:
-    repository: ghcr.io/pandawms/panda-bigmon-core
-    pullPolicy: IfNotPresent
-    # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
 
   autoStart: true
