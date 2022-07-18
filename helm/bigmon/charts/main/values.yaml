@@ -73,7 +73,7 @@ auth:
     secret: "FIXME"
 
   # Github
-  githu
+  github:
     key: "FIXME"
     secret: "FIXME"
 
