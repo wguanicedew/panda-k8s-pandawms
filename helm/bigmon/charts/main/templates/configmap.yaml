@@ -38,6 +38,11 @@ data:
   BIGMON_SECRET_KEY: "{{ .Values.secretKey }}"
   BIGMON_VO: "{{ .Values.vo }}"
   BIGMON_DEPLOYMENT: "{{ .Values.deployment }}"
+  {{- if .Values.debugMode }}
+  BIGMON_DEBUG: "True"
+  {{- else }}
+  BIGMON_DEBUG: "False"
+  {{- end }}
   # Auth
   {{- if .Values.auth.providers }}
   BIGMON_AUTH_PROVIDER_LIST: {{ join "," .Values.auth.providers }}

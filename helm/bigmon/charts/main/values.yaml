@@ -38,6 +38,9 @@ vo: "FIXME"
 # deployment
 deployment: "POSTGRES"
 
+# debug mode
+debugMode: false
+
 # httpd config
 httpd:
   # number of WSGI processes
