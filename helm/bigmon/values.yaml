@@ -6,7 +6,7 @@ main:
   enabled: true
 
   image:
-    tag: "master"
+    tag: "v0.3.0"
 
   autoStart: true
 
