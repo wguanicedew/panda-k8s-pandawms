@@ -2,21 +2,11 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# panda_db, panda_user and panda_schema should not be changed currently
-database:
-  panda_db: &panda_db "FIXME"
-  panda_user: &panda_user "FIXME"
-  panda_password: &panda_password "FIXME"
-  panda_schema: &panda_schema "FIXME"
-
 main:
   enabled: true
-  replicaCount: 1
+
   image:
-    repository: ekaravak/bigmon
-    pullPolicy: IfNotPresent
-    # Overrides the image tag whose default is the chart appVersion.
-    tag: "0.0.2"
+    tag: "latest"
 
   autoStart: true
 
@@ -26,14 +16,21 @@ main:
   #  size: 5Gi
   hostcerts:
     enabled: false
+
+  # hostname for external access
+  hostName: "FIXME"
+
+  # secret key for configuration
+  secretKey: "FIXME"
+
   database:
-    panda_db: *panda_db
-    panda_user: *panda_user
-    panda_password: *panda_password
-    panda_schema: *panda_schema
-  service:
-    type: ClusterIP
-    httpsPort: 443
+    hostName: "panda-postgres"
+    password: "FIXME"
+
+  rucio:
+    rucioHost: "https://rucio-lb-prod.cern.ch"
+    authHost: "https://rucio-auth-prod.cern.ch"
+
   ingress:
     enabled: true
     hosts:
@@ -47,3 +44,7 @@ main:
         hosts:
           - domain: cern.ch
             # hostOverride: panda-k8s-dev-jedi.cern.ch
+
+  # use Route class to expose the service
+  route:
+    enabled: false

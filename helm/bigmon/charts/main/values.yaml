@@ -5,10 +5,9 @@
 replicaCount: 1
 
 image:
-  repository: ekaravak/bigmon
+  repository: ghcr.io/pandawms/panda-bigmon-core
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.2"
+  tag: "master"
 
 # start the service when pod gets started
 autoStart: true
@@ -18,14 +17,88 @@ persistentvolume:
   path: "/mnt/bigmon-main-logs"
   size: 5Gi
   selector: true
+
 hostcerts:
   enabled: false
 
+# http/s proxy if containers need it to access external services
+httpsProxy: ""
+httpProxy: ""
+noProxy: ""
+
+# hostname for external access
+hostName: "FIXME"
+
+# secret key for configuration
+secretKey: "FIXME"
+
+# Organization
+vo: "FIXME"
+
+# deployment
+deployment: "POSTGRES"
+
+# debug mode
+debugMode: false
+
+# httpd config
+httpd:
+  # number of WSGI processes
+  numWSGI: 10
+
+# database config
 database:
-  panda_db: FIXME
-  panda_user: FIXME
-  panda_password: FIXME
-  panda_schema: FIXME
+  databaseName: panda_db
+  port: 5432
+  userName: panda
+  hostName: "FIXME"
+  password: "FIXME"
+
+# rucio
+rucio:
+  rucioHost: "https://rucio-lb-prod.cern.ch"
+  authHost: "https://rucio-auth-prod.cern.ch"
+  account: "iddsv1"
+
+# Authentication
+auth:
+  # list of authentication providers. Possible values are google, cern, github, indigoiam
+  providers: []
+
+  # Google OAuth2
+  google:
+    key: "FIXME"
+    secret: "FIXME"
+
+  # CERN
+  cern:
+    key: "FIXME"
+    secret: "FIXME"
+
+  # Github
+  github:
+    key: "FIXME"
+    secret: "FIXME"
+
+  # Indigo IAM
+  indigoiam:
+    key: "FIXME"
+    secret: "FIXME"
+    # base URL of IAM. e.g. https://panda-iam-doma.cern.ch
+    basePath: "FIXME"
+
+# cric
+cric:
+  apiUrl: "https://datalake-cric.cern.ch/api/atlas/pandaqueue/query/?json"
+
+# iDDS
+idds:
+  host: 'https://idds-rest:443/idds'
+
+# AWS
+aws:
+  accessKey: "FIXME"
+  secretKey: "FIXME"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -86,6 +159,15 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+route:
+  enabled: false
+
+  ### configuration for OKD
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: None
+
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

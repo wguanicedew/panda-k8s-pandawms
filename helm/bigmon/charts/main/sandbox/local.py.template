@@ -1,0 +1,89 @@
+# Database settings
+# Make this unique, and don't share it with anybody.
+MY_SECRET_KEY = '${BIGMON_SECRET_KEY}'
+
+dbaccess_postgres = {
+         'default':
+         {
+         'ENGINE':'django.db.backends.postgresql_psycopg2',
+         'OPTIONS': {
+                 'options': '-c search_path=doma_pandabigmon,doma_pandameta,doma_panda,doma_pandaarch,public'
+         },
+         'NAME': '${PANDA_DB_NAME}',
+         'HOST': '${PANDA_DB_HOST}',
+         'PORT': '${PANDA_DB_PORT}',
+         'USER': '${PANDA_DB_USER}',
+         'PASSWORD': "${PANDA_DB_PASSWORD}",
+         },
+}
+
+dbaccess = dbaccess_postgres
+
+#aws
+aws = {
+    "AWS_ACCESS_KEY_ATLAS" : "${AWS_ACCESS_KEY_ATLAS}",
+    "AWS_SECRET_KEY_ATLAS" : "${AWS_SECRET_KEY_ATLAS}"
+}
+
+
+SESSION_COOKIE_SAMESITE = None
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
+SESSION_COOKIE_SECURE=False
+
+# set default datetime format for datetime.datetime.strftime()
+defaultDatetimeFormatMySQL = "%Y-%m-%d %H:%M:%SZ"
+defaultDatetimeFormatOracle = "%Y-%m-%d %H:%M:%S"
+defaultDatetimeFormat = defaultDatetimeFormatOracle
+
+
+FILEBROWSER_DIRECTORY = "filebrowser"
+RUCIO_ACCOUNT = "${RUCIO_ACCOUNT}"
+CAPATH = "/etc/grid-security/certificates"
+RUCIO_REDIRECT_HOST = "${RUCIO_SERVER_HOST}"
+RUCIO_AUTH_HOST = "${RUCIO_AUTH_HOST}"
+RUCIO_SERVER_HOST = "${RUCIO_SERVER_HOST}"
+MEDIA_URL = '/media/'
+
+
+# log directory
+LOG_ROOT = "/data/bigmon/logs"
+DEBUG = ${BIGMON_DEBUG}
+#USE_TZ = True
+USE_TZ = False
+PRODSYS = {
+"prodsysHost": 'prodtask-dev.cern.ch',
+"prodsysToken": "${PRODSYS_TOKEN}",
+"prodsysUrl": '/prodtask/task_action_ext/finish/',
+}
+ES = {
+"esHost":'es-atlas.cern.ch',
+"esPort":'9203',
+"esUser":'${ES_USER}',
+"esPassword":'${ES_PASSWORD}',
+}
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "${SOCIAL_AUTH_GOOGLE_OAUTH2_KEY}"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "${SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET}"
+
+SOCIAL_AUTH_CERNOIDC_KEY = '${SOCIAL_AUTH_CERNOIDC_KEY}'
+SOCIAL_AUTH_CERNOIDC_SECRET = '${SOCIAL_AUTH_CERNOIDC_SECRET}'
+
+SOCIAL_AUTH_GITHUB_KEY = '${SOCIAL_AUTH_GITHUB_KEY}'
+SOCIAL_AUTH_GITHUB_SECRET = '${SOCIAL_AUTH_GITHUB_SECRET}'
+
+SOCIAL_AUTH_INDIGOIAM_KEY = '${SOCIAL_AUTH_INDIGOIAMOIDC_KEY}'
+SOCIAL_AUTH_INDIGOIAM_SECRET = '${SOCIAL_AUTH_INDIGOIAMOIDC_SECRET}'
+SOCIAL_AUTH_INDIGOIAM_BASEPATH = '${SOCIAL_AUTH_INDIGOIAMOIDC_BASEPATH}'
+
+EMAIL_HOST = "smtp.cern.ch"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "${EMAIL_HOST_USER}"
+EMAIL_HOST_PASSWORD = "${EMAIL_HOST_PASSWORD}8"
+EMAIL_USE_TLS = True
+GRAFANA = {
+    "Authorization": "Bearer ${GRAFANA_AUTH_TOKEN}"
+   }
+OC_TOKEN = "${OC_TOKEN}"
+OC_ENDPOINT = "openshift.cern.ch"
+OC_NAMESPACE = "bigpanda-mlflow"
+
