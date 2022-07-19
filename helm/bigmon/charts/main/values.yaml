@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/pandawms/panda-bigmon-core
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "master"
 
 # start the service when pod gets started
 autoStart: true
