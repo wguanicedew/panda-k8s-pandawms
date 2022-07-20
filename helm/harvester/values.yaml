@@ -15,11 +15,13 @@ harvester:
   #    selector: false
 
   # Experiment
-  experiment: ""
+  # experiment: ""
+  experiment: "lsst"
 
   panda:
     # panda server host and https port
-    host: "FIXME"
+    # host: "FIXME"
+    host: "panda-dev-server:443"
 
     # ID token to access the PanDA service
     authIdToken: "FIXME"

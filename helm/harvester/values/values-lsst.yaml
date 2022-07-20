@@ -1,0 +1,31 @@
+# Default values for harvester.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+harvester:
+  persistentvolume:
+    class: wekafs--sdf-k8s01
+    create: false
+    selector: false
+
+  secret:
+    enabled: false
+    name: harvester-dev-secret
+
+  httpProxy: "http://atlsquid.slac.stanford.edu:3128"
+  httpsProxy: "http://atlsquid.slac.stanford.edu:3128"
+  noProxy: "localhost,idds-dev-rest,panda-dev-server"
+
+  experiment: "lsst"
+  pilotcerts:
+    enabled: true
+
+mariadb:
+  secret:
+    enabled: false
+    name: harvester-dev-secret
+
+  persistentvolume:
+    class: wekafs--sdf-k8s01
+    create: false
+    selector: false

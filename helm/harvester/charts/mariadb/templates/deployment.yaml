@@ -76,8 +76,13 @@ spec:
               containerPort: 3306
               protocol: TCP
           envFrom:
+            {{- if .Values.secret.enabled }}
+            - secretRef:
+                name: {{ .Values.secret.name }}-envs
+            {{- else }}
             - configMapRef:
                 name: {{ include "mariadb.fullname" . }}-configmap
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

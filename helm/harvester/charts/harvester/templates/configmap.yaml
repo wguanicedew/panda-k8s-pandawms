@@ -36,9 +36,11 @@ data:
   {{- end}}
   PANDA_URL: "https://{{ .Values.panda.host }}/server/panda"
   PANDA_URL_SSL: "https://{{ .Values.panda.host }}/server/panda"
+  {{- if not .Values.secret.enabled }}
   {{- if .Values.panda.authIdToken }}
   PANDA_AUTH_ID_TOKEN: {{ .Values.panda.authIdToken }}
   PANDA_AUTH_VO: {{ .Values.panda.authVO }}
+  {{- end }}
   {{- end }}
   {{- if .Values.panda.behindRealLB }}
   PANDA_BEHIND_REAL_LB: "1"

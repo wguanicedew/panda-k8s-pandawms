@@ -18,6 +18,11 @@ experiment: ""
 pilotcerts:
   enabled: false
 
+# use secret
+secret:
+  enabled: false
+  name: ""
+
 # http proxy
 httpProxy: ""
 httpsProxy: ""
@@ -32,8 +37,8 @@ noRoot: false
 useStableCondor: false
 
 persistentvolume:
-  create: false
-  class: nas
+  create: true
+  class: manual
   path: "/mnt/harvester-logs"
   size: 5Gi
   selector: true

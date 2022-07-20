@@ -10,11 +10,16 @@ image:
   tag: "latest"
 
 persistentvolume:
-  create: false
-  class: nas
+  create: true
+  class: manual
   path: "/mnt/harvester-data"
   size: 5Gi
   selector: true
+
+# use secret
+secret:
+  enabled: false
+  name: ""
 
 database:
   # harvester password
