@@ -6,7 +6,7 @@ harvester:
   persistentvolume:
     class: nas
     create: false
-    selector: true
+    selector: false
 
   experiment: "sphenix"
   pilotcerts:
@@ -16,4 +16,4 @@ mariadb:
   persistentvolume:
     class: nas
     create: false
-    selector: true
+    selector: false
