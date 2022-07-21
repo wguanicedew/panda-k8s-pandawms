@@ -19,8 +19,7 @@ harvester:
 
   panda:
     # panda server host and https port
-    # host: "FIXME"
-    host: "panda-dev-server:443"
+    host: "FIXME"
 
     # ID token to access the PanDA service
     authIdToken: "FIXME"
