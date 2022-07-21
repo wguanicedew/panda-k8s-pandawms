@@ -37,9 +37,8 @@ initContainers:
 
 podAnnotations: {}
 
-# podSecurityContext: {}
-podSecurityContext:
-  fsGroup: 101
+podSecurityContext: {}
+  # fsGroup: 2000
 
 securityContext: {}
   # capabilities:
