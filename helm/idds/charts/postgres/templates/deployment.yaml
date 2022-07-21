@@ -78,6 +78,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "postgres.fullname" . }}-configmap
+            {{- if .Values.secret.enabled }}
+            - secretRef:
+                name: {{ .Values.secret.name }}-db-envs
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -85,8 +89,8 @@ spec:
             - mountPath: /tmp/pg_volume
             {{- else }}
             - mountPath: /var/lib/postgresql/data
-            {{- end }}
               name: {{ include "postgres.fullname" . }}-data
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -13,4 +13,13 @@ data:
   {{- if .Values.noRoot }}
   PGDATA: "/tmp/pg_volume/data"
   {{- end }}
-  
+
+  IDDS_DATABASE_NAME: "{{ .Values.database.name}}"
+  IDDS_DATABASE_USER: "{{ .Values.database.user}}"
+  IDDS_DATABASE_PASSWORD: "{{ .Values.database.password}}"
+  IDDS_DATABASE_SCHEMA: "{{ .Values.database.schema}}"
+  {{- if .Values.database.host }}
+  IDDS_DATABASE_HOST: "{{ .Values.database.host}}"
+  {{- else }}
+  IDDS_DATABASE_HOST: {{.Release.Name}}-postgres
+  {{- end }}

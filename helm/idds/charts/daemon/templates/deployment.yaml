@@ -58,7 +58,7 @@ spec:
       labels:
         {{- include "daemon.selectorLabels" . | nindent 8 }}
     spec:
-      hostname:  {{ include "daemon.fullname" . }}-local
+      hostname:  {{ .Release.Name }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -87,15 +87,25 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
             - configMapRef:
-                name: {{ include "daemon.fullname" . }}-envs
+                name: {{ .Release.Name }}-rest-envs
+            - configMapRef:
+                {{- if .Values.database.config_ref }}
+                name: {{ .Values.database.config_ref }}
+                {{- else }}
+                name: {{ .Release.Name }}-postgres-configmap
+                {{- end }}
+            {{- if .Values.secret.enabled }}
+            - secretRef:
+                name: {{ .Values.secret.name }}-envs
+            {{- end }}
           volumeMounts:
               - name: {{ include "daemon.fullname" . }}-logs
                 mountPath: /var/log/idds/
               - name: {{ include "daemon.fullname" . }}-configmap
                 mountPath: /opt/idds/configmap
-              {{- if .Values.hostcerts.enabled -}}
+              {{- if or .Values.secret.enabled .Values.hostcerts.enabled }}
               - name: {{ include "daemon.fullname" . }}-certs
-                mountPath: /opt/idds/configmap
+                mountPath: /opt/idds/certs
               {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -115,9 +125,15 @@ spec:
             claimName: {{ include "daemon.fullname" . }}
         - name: {{ include "daemon.fullname" . }}-configmap
           configMap:
-              name: {{ include "daemon.fullname" . }}-configmap
+              name: {{ .Release.Name }}-rest-configmap
+        {{- if .Values.secret.enabled }}
+        - name: {{ include "daemon.fullname" . }}-certs
+          secret:
+              secretName: {{ .Values.secret.name }}-certs
+        {{- else }}
         {{- if .Values.hostcerts.enabled -}}
         - name: {{ include "daemon.fullname" . }}-certs
           configMap:
-              name: {{ include "daemon.fullname" . }}-certs
+              name: {{ .Release.Name }}-rest-certs
+        {{- end }}
         {{- end }}
