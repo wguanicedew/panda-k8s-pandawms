@@ -1,0 +1,25 @@
+main:
+  # PV: For use cases that users are not allowed to create PV,
+  # please update class to corresponding storageclass and update create to false.
+  persistentvolume:
+    class: wekafs--sdf-k8s01
+    create: false
+
+  ingress:
+    enabled: true
+    hosts:
+      - domain: slac.stanford.edu
+        hostOverride: panda-iam-dev.slac.stanford.edu
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: ""
+        hosts:
+          - domain: slac.stanford.edu
+            hostOverride: panda-iam-dev.slac.stanford.edu
+
+mariadb:
+  persistentvolume:
+    class: wekafs--sdf-k8s01
+    create: false

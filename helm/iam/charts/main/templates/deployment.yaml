@@ -1,0 +1,112 @@
+{{- if .Values.persistentvolume.create -}}
+# pv
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ include "main.fullname" . }}
+  labels:
+      {{- include "main.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.persistentvolume.class }}
+  capacity:
+    storage: {{ .Values.persistentvolume.size }}
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: {{ .Values.persistentvolume.path }}
+---
+{{- end }}
+# pv claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "main.fullname" . }}
+  labels:
+    {{- include "main.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.persistentvolume.class }}
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.persistentvolume.size }}
+  {{- if .Values.persistentvolume.create }}
+  selector:
+    matchLabels:
+      {{- include "main.selectorLabels" . | nindent 6 }}
+  {{- end }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "main.fullname" . }}
+  labels:
+    {{- include "main.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "main.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "main.selectorLabels" . | nindent 8 }}
+    spec:
+      hostname:  {{ .Release.Name}}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "main.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{ include "main.fullname" . }}-envs
+            - configMapRef:
+                {{- if .Values.database.config_ref }}
+                name: {{ .Values.database.config_ref }}
+                {{- else }}
+                name: {{ .Release.Name }}-mariadb-configmap
+                {{- end }}
+            {{- if .Values.secret.enabled }}
+            - secretRef:
+                name: {{ .Values.secret.name }}-iam-envs
+            {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+              - name: {{ include "main.fullname" . }}-configmap
+                mountPath: /indigo-iam/config/
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: {{ include "main.fullname" . }}-configmap
+          configMap:
+            name: {{ include "main.fullname" . }}-configmap
