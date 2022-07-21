@@ -1,11 +1,12 @@
-# panda-k8s
+PanDA System Kuberneters Deployment
+===================================
 
 Main Components
-===============
+---------------
 * PanDA: Workload manager, manages/schedules tasks and jobs.
-  * panda-server
-  * panda-JEDI
-  * panda-database (postgresql)
+  - panda-server
+  - panda-JEDI
+  - panda-database (postgresql)
 * Harvester: Resource facing service to submit pilots to Grid/Cloud.
   * Harvester
   * Harvester-db (mariadb)
@@ -20,7 +21,7 @@ Main Components
   * database (mariadb)
 
 Deployment order
-==================
+-----------------
 * PanDA, Harvester and iDDS depend on activemq.
 * PanDA, Harvester, iDDS and bigmon depend on IAM.
 * Harvester, iDDS and BigMon need to communicate with PanDA.
@@ -30,7 +31,7 @@ Deployment order
   * Harvester, iDDS, BigMon
 
 Deployment info
-===============
+-----------------
 There are different installations:
 * Basic installation: In this installation, all information are configured in *helm/<service>/values.yaml* file.
 * Secret installation: In this installation, secret information are kept in *secrets/<service>*. You need to keep the secret file in a diferent place (such as applying *helm secrets*). For the secret deployment, you can keep them for long time and only update it when it's needed. After deploying the secrets, you can deploy the service.
@@ -38,7 +39,7 @@ There are different installations:
 * *In the example, secrets are kept in the same location as service files. For a production instance, it's good to encrypt them or put them in a different location.*
 
 Dev deployment
-================
+---------------
 For a dev instance, we assume that the user has permission to create a persistent volume. So in the dev deployment, it set the persistent volume class to 'manual'. We aslo assume that no secrets here. However, for the Dev instance, you need to upddate some parts with 'FIXME' to make the whole system work.
 (*values-secret.yaml is configured in .gitignore. It will not be uploaded to git. You can create one by yourself.*)
 
@@ -62,7 +63,7 @@ For a dev instance, we assume that the user has permission to create a persisten
 
 
 Deployment with secrets
-=======================
+------------------------
 * Deploy secrets. The secrets files can be kept in a private repository or use 'helm secrets' to encrypt them. Different experiments many have different solutions to keep the secrets. Here we separate the secrets part because we can keep them for long time after they are deployed. The updating frequence for secrets can be much less than updating the instance.
 
 Deploy secrets:
@@ -98,7 +99,7 @@ When the secrets are deployed. Someone else or some daemons can automatically de
   $> helm install bigmon-dev helm/bigmon
 
 LSST deployment
-================
+-----------------
 For LSST deployment (at SLAC), the persistent volume is 'wekafs--sdf-k8s01'.
 *NOTE: values-use-secret.yaml will overwrite some values in values-lsst.yaml. So the order of value files is important*
 
@@ -122,7 +123,7 @@ For LSST deployment (at SLAC), the persistent volume is 'wekafs--sdf-k8s01'.
 
 
 Sphenix deployment
-================
+------------------
 For Sphenix deployment (at BNL), the persistent volume is 'nas'.
 *NOTE: values-use-secret.yaml will overwrite some values in values-sphenix.yaml. So the order of value files is important*
 
