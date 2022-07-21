@@ -76,12 +76,11 @@ spec:
               containerPort: 5432
               protocol: TCP
           envFrom:
+            - configMapRef:
+                name: {{ include "postgres.fullname" . }}-configmap
             {{- if .Values.secret.enabled }}
             - secretRef:
                 name: {{ .Values.secret.name }}-envs
-            {{- else }}
-            - configMapRef:
-                name: {{ include "postgres.fullname" . }}-configmap
             {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

@@ -116,19 +116,18 @@ spec:
               mountPath: /opt/harvester/etc/cert
             {{- end }}
           envFrom:
-            {{- if .Values.secret.enabled }}
-            - secretRef:
-                name: {{ .Values.secret.name }}-envs
-            {{- else }}
             - configMapRef:
                 {{- if .Values.database.config_ref }}
                 name: {{ .Values.database.config_ref }}
                 {{- else }}
                 name: {{ .Release.Name }}-mariadb-configmap
                 {{- end }}
-            {{- end }}
             - configMapRef:
                 name: {{ include "harvester.fullname" . }}-env
+            {{- if .Values.secret.enabled }}
+            - secretRef:
+                name: {{ .Values.secret.name }}-envs
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

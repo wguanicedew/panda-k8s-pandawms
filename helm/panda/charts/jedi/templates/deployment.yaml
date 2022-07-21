@@ -100,10 +100,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-server-env
-            {{- if .Values.secret.enabled }}
-            - secretRef:
-                name: {{ .Values.secret.name }}-envs
-            {{- else }}
             - configMapRef:
                 name: {{ .Release.Name }}-external-env
             {{- if .Values.database.password_get }}
@@ -114,6 +110,9 @@ spec:
                 name: {{ .Release.Name }}-postgres-configmap
                 {{- end }}
             {{- end }}
+            {{- if .Values.secret.enabled }}
+            - secretRef:
+                name: {{ .Values.secret.name }}-envs
             {{- end }}
           env:
             # set no_proxy since $() is resolved not in envFrom section

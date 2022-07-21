@@ -114,10 +114,6 @@ spec:
                mountPath: /opt/panda/etc/cert
              {{- end }}
           envFrom:
-            {{- if .Values.secret.enabled }}
-            - secretRef:
-                name: {{ .Values.secret.name }}-envs
-            {{- else }}
             - configMapRef:
                 {{- if .Values.database.config_ref }}
                 name: {{ .Values.database.config_ref }}
@@ -126,6 +122,9 @@ spec:
                 {{- end }}
             - configMapRef:
                 name: {{ .Release.Name }}-external-env
+            {{- if .Values.secret.enabled }}
+            - secretRef:
+                name: {{ .Values.secret.name }}-envs
             {{- end }}
             - configMapRef:
                 name: {{ include "server.fullname" . }}-env
