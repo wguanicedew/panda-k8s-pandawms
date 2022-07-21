@@ -15,8 +15,7 @@ harvester:
   #    selector: false
 
   # Experiment
-  # experiment: ""
-  experiment: "lsst"
+  experiment: ""
 
   panda:
     # panda server host and https port
