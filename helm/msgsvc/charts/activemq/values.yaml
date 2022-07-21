@@ -33,7 +33,7 @@ serviceAccount:
   name: ""
 
 initContainers:
-  enabled: true
+  enabled: false
 
 podAnnotations: {}
 
