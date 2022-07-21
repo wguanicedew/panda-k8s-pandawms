@@ -4,19 +4,28 @@ PanDA System Kuberneters Deployment
 Main Components
 ---------------
 * PanDA: Workload manager, manages/schedules tasks and jobs.
+
   - panda-server
   - panda-JEDI
   - panda-database (postgresql)
+
 * Harvester: Resource facing service to submit pilots to Grid/Cloud.
+
   * Harvester
   * Harvester-db (mariadb)
+
 * iDDS: Workflow manager, manages the dependencies of tasks and jobs.
+
   * rest
   * daemon
   * database (postgresql)
+
 * bigmon: panda monitor
+
 * activemq: messaging service
+
 * IAM: OIDC authentication service
+
   * indigo-iam-login_service
   * database (mariadb)
 
