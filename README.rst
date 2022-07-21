@@ -45,45 +45,11 @@ Deployment info
 
 There are different installations:
 
-  * Basic installation: In this installation, all information are configured in *helm/<service>/values.yaml* file.
-  
   * Secret installation: In this installation, secret information are kept in *secrets/<service>*. You need to keep the secret file in a diferent place (such as applying *helm secrets*). For the secret deployment, you can keep them for long time and only update it when it's needed. After deploying the secrets, you can deploy the service.
 
   * Experiment based installation: For different experiments, there maybe special requirements, for example different namespaces or different persistent volumens. In this case, an experiment specific file *values-<experiment>.yaml* is required.
 
   * *In the example, secrets are kept in the same location as service files. For a production instance, it's good to encrypt them or put them in a different location.*
-
-Dev deployment
----------------
-
-For a dev instance, we assume that the user has permission to create a persistent volume. So in the dev deployment, it set the persistent volume class to 'manual'. We aslo assume that no secrets here. However, for the Dev instance, you need to upddate some parts with 'FIXME' to make the whole system work.
-
-(*values-secret.yaml is configured in .gitignore. It will not be uploaded to git. You can create one by yourself.*)
-
-* Deploy ActiveMQ::
-
-  $> helm install activemq-dev helm/msgsvc/ -f helm/msgsvc/values.yaml -f helm/msgsvc/values/values-secret.yaml
-
-* Deploy IAM::
-
-  $> helm install iam-dev helm/iam -f helm/iam/values.yaml -f helm/iam/values/values-secret.yaml
-
-* Deploy PanDA::
-
-  $> helm install panda-dev helm/panda/ -f helm/panda/values.yaml -f helm/panda/values/values-secret.yaml
-
-* Deploy iDDS::
-
-  $> helm install idds-dev helm/idds/ -f helm/idds/values.yaml -f helm/idds/values/values-secret.yaml
-
-* Deploy Harvester::
-
-  $> helm install harvester-dev helm/harvester/ -f helm/harvester/values.yaml  -f helm/harvester/values/values-secret.yaml
-
-* Deploy BigMon (tobedone)::
-
-  $> helm install bigmon-dev helm/bigmon
-
 
 Deployment with secrets
 ------------------------
