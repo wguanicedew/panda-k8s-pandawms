@@ -58,7 +58,7 @@ spec:
       labels:
         {{- include "jedi.selectorLabels" . | nindent 8 }}
     spec:
-      hostname:  {{ include "jedi.fullname" . }}-local
+      hostname:  {{ .Release.Name }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -76,6 +76,9 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - until  /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
+              chmod -R 777 /var/log/panda;
+              rm -fr /var/log/panda/panda_jedi.pid*;
+              rm -fr /var/lock/subsys/panda_jedi;
               cp /opt/panda/sandbox/init-jedi /data/panda/;
               chmod +x /data/panda/init-jedi;
               cp /opt/panda/sandbox/run-jedi-crons /data/panda/;
@@ -96,9 +99,13 @@ spec:
                 mountPath: /opt/panda/sandbox
           envFrom:
             - configMapRef:
-                name: {{ .Release.Name }}-external-env
-            - configMapRef:
                 name: {{ .Release.Name }}-server-env
+            {{- if .Values.secret.enabled }}
+            - secretRef:
+                name: {{ .Values.secret.name }}-envs
+            {{- else }}
+            - configMapRef:
+                name: {{ .Release.Name }}-external-env
             {{- if .Values.database.password_get }}
             - configMapRef:
                 {{- if .Values.database.config_ref }}
@@ -106,6 +113,7 @@ spec:
                 {{- else }}
                 name: {{ .Release.Name }}-postgres-configmap
                 {{- end }}
+            {{- end }}
             {{- end }}
           env:
             # set no_proxy since $() is resolved not in envFrom section

@@ -23,16 +23,26 @@ httpsProxy: ""
 # run with non-root PID
 noRoot: false
 
+# activeMQ
+activemq:
+  # hosts and ports
+  serverList:
+    - "activemq-dev:61613"
 
 
 persistentvolume:
   # Set true to create PV
-  create: false
+  create: true
   # StorageClass
-  class: nas
+  class: manual
   path: "/mnt/panda-server-logs"
   size: 5Gi
   selector: true
+
+# use secret
+secret:
+  enabled: false
+  name: ""
 
 hostcerts:
   enabled: true

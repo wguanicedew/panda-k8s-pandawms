@@ -91,11 +91,15 @@ postgres:
 activemq:
   # hosts and ports
   serverList:
-    - "activemq-dev-daemon:61613"
+    - "activemq-dev:61613"
 
   # base password
   basePasswd: "ITzqWRCd"
 
+  # use secret
+  secret:
+    enabled: false
+    name: "panda-dev-secret"
 
 # iDDS
 idds:
@@ -110,6 +114,11 @@ idds:
 
   # VO of the ID token
   authVO: "panda_dev"
+
+  # use secret
+  secret:
+    enabled: false
+    name: "panda-dev-secret"
 
 
 # rucio
@@ -128,3 +137,8 @@ rucio:
 
   # account
   account: "iddsv1"
+
+    # use secret
+  secret:
+    enabled: false
+    name: "panda-dev-secret"

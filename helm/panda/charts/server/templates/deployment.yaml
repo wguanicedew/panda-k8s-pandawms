@@ -60,7 +60,7 @@ spec:
       labels:
         {{- include "server.selectorLabels" . | nindent 8 }}
     spec:
-      hostname:  {{ include "server.fullname" . }}-local
+      hostname:  {{ .Release.Name }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -77,7 +77,11 @@ spec:
           {{- if .Values.autoStart }}
           command: [ "/bin/sh", "-c" ]
           args:
-            - until /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
+            - rm -fr /var/log/panda/panda_daemon.pid*;
+              rm -fr /var/lock/subsys/panda_daemon;
+
+              until /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
+              chmod -R 777 /var/log/panda;
               cp /opt/panda/sandbox/init-panda /data/panda/;
               chmod +x /data/panda/init-panda;
               cp /opt/panda/sandbox/run-panda-crons /data/panda/;
@@ -105,21 +109,26 @@ spec:
                mountPath: /opt/panda/etc/panda/auth
              - name: {{ include "server.fullname" . }}-sandbox
                mountPath: /opt/panda/sandbox
-             {{- if .Values.hostcerts.enabled }}
+             {{- if or .Values.secret.enabled .Values.hostcerts.enabled }}
              - name: {{ include "server.fullname" . }}-certs
                mountPath: /opt/panda/etc/cert
              {{- end }}
           envFrom:
-             - configMapRef:
-                 {{- if .Values.database.config_ref }}
-                 name: {{ .Values.database.config_ref }}
-                 {{- else }}
-                 name: {{ .Release.Name }}-postgres-configmap
-                 {{- end }}
-             - configMapRef:
-                 name: {{ .Release.Name }}-external-env
-             - configMapRef:
-                 name: {{ include "server.fullname" . }}-env
+            {{- if .Values.secret.enabled }}
+            - secretRef:
+                name: {{ .Values.secret.name }}-envs
+            {{- else }}
+            - configMapRef:
+                {{- if .Values.database.config_ref }}
+                name: {{ .Values.database.config_ref }}
+                {{- else }}
+                name: {{ .Release.Name }}-postgres-configmap
+                {{- end }}
+            - configMapRef:
+                name: {{ .Release.Name }}-external-env
+            {{- end }}
+            - configMapRef:
+                name: {{ include "server.fullname" . }}-env
           env:
             - name: PANDA_SERVER_CONF_SERVERNAME
               value: {{ include "server.fullname" . }}
@@ -146,8 +155,13 @@ spec:
           configMap:
               name: {{ include "server.fullname" . }}-configjson
         - name: {{ include "server.fullname" . }}-auth
+          {{- if .Values.secret.enabled }}
+          secret:
+              secretName: {{ .Values.secret.name }}-auth
+          {{- else }}
           configMap:
               name: {{ include "server.fullname" . }}-auth
+          {{- end }}
         - name: {{ include "server.fullname" . }}-sandbox
           projected:
             sources:
@@ -155,8 +169,14 @@ spec:
                   name: {{ include "server.fullname" . }}-sandbox
               - configMap:
                   name: {{ .Release.Name }}-external-sandbox
+        {{- if .Values.secret.enabled }}
+        - name: {{ include "server.fullname" . }}-certs
+          secret:
+              secretName: {{ .Values.secret.name }}-certs
+        {{- else }}
         {{- if .Values.hostcerts.enabled }}
         - name: {{ include "server.fullname" . }}-certs
           configMap:
               name: {{ include "server.fullname" . }}-certs
-        {{ end }}
+        {{- end }}
+        {{- end }}

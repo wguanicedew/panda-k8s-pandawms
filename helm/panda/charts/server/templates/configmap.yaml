@@ -34,8 +34,10 @@ data:
   {{- if .Values.authIdToken }}
   PANDA_VERIFY_HOST: "off"
   PANDA_AUTH: "oidc"
+  {{- if not .Values.secret.enabled }}
   PANDA_AUTH_ID_TOKEN: {{ .Values.authIdToken }}
   PANDA_AUTH_VO: {{ .Values.authVO }}
+  {{- end }}
   {{- end }}
   {{- if .Values.httpProxy }}
   http_proxy: "{{ .Values.httpProxy }}"
