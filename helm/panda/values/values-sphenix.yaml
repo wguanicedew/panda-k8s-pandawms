@@ -6,16 +6,16 @@ jedi:
   persistentvolume:
     class: nas
     create: false
-    selector: true
+    selector: false
 
 server:
   persistentvolume:
     class: nas
     create: false
-    selector: true
+    selector: false
 
 postgres:
   persistentvolume:
     class: nas
     create: false
-    selector: true
+    selector: false

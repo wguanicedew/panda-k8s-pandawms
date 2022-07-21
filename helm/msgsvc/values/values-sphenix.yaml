@@ -4,4 +4,4 @@ persistentvolume:
   class: nas
   path: "/mnt/activemq-data"
   size: 5Gi
-  selector: true
+  selector: false
