@@ -13,12 +13,6 @@ rest:
   image:
     tag: "0.11.9"
 
-  podSecurityContext:
-    fsGroup: 1000
-  # securityContext:
-  #   fsGroup: 48
-
-
 postgres:
   enabled: true
   image:
