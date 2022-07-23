@@ -15,7 +15,7 @@ parser.add_argument('--enable', '-c', type=str, default=','.join(all_components)
                     help='Comma-separated list of components to be installed')
 parser.add_argument('--disable', '-d', type=str, default='', help='Comma-separated list of disabled components'
                                                                   ' and/or sub-components')
-parser.add_argument('--template', '-t', type=str, help='Dry-run')
+parser.add_argument('--template', '-t', default=False, action='store_true', help='Dry-run')
 
 options = parser.parse_args()
 
