@@ -8,7 +8,7 @@ from subprocess import Popen
 all_components = ['msgsvc', 'iam', 'panda', 'harvester', 'idds', 'bigmon']
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--affix', '-a', type=str, default='test-', required=True,
+parser.add_argument('--affix', '-a', type=str, default='test-',
                     help='Prefix (blah-) or suffix (-blah) of instance names')
 parser.add_argument('--experiment', '-e', type=str, help='Experiment name')
 parser.add_argument('--enable', '-c', type=str, default=','.join(all_components),
@@ -70,5 +70,6 @@ for component in options.enable.split(','):
             com += ['-f', tmp_yaml]
 
     # execute
+    print ('>> ', ' '.join(com))
     Popen(com).wait()
     os.remove(tmp_yaml)
