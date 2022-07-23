@@ -20,10 +20,8 @@ data:
   # IAM_JAVA_OPTS: "-Dspring.profiles.active={{ .Values.iam.profiles }} -Dspring.data.rest.basePath=/iam -Dserver.servlet.context-path=/iam -Dlog4j2.formatMsgNoLookups=true"
   IAM_JAVA_OPTS: "-Dspring.profiles.active={{ .Values.iam.profiles }} -Dlog4j2.formatMsgNoLookups=true"
 
-  {{- if not .Values.secret.enabled }}
   IAM_CILOGON_CLIENT_ID: {{ .Values.iam.cilogon_client_id}}
   IAM_CILOGON_CLIENT_SECRET: {{ .Values.iam.cilogon_client_secret}}
-  {{- end }}
 
   IAM_PORT: "8080"
 

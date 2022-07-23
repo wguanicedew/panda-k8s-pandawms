@@ -85,10 +85,8 @@ spec:
                 {{- else }}
                 name: {{ .Release.Name }}-mariadb-configmap
                 {{- end }}
-            {{- if .Values.secret.enabled }}
             - secretRef:
                 name: {{ .Values.secret.name }}-iam-envs
-            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

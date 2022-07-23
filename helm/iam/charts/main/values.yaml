@@ -23,8 +23,7 @@ hostcerts:
   enabled: false
 
 secret:
-  enabled: false
-  name: ""
+  name: "iam-secret"
 
 iam:
   # profiles: "prod,google,saml"
@@ -33,8 +32,8 @@ iam:
   profiles: "prod,registration,oidc"
 
   organization: 'Rubin'
-  cilogon_client_id: ""
-  cilogon_client_secret: ""
+  cilogon_client_id: "FIXME"
+  cilogon_client_secret: "FIXME"
   registration_oidc_issuer: "https://cilogon.org"
   base_url: "https://panda-iam-dev.cern.ch"
   issuer: "https://panda-iam-dev.cern.ch"

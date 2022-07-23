@@ -79,10 +79,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "mariadb.fullname" . }}-configmap
-            {{- if .Values.secret.enabled }}
             - secretRef:
                 name: {{ .Values.secret.name }}-db-envs
-            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -107,10 +105,5 @@ spec:
           persistentVolumeClaim:
             claimName: {{ include "mariadb.fullname" . }}
         - name: {{ include "mariadb.fullname" . }}-initdb
-          {{- if .Values.secret.enabled }}
           secret:
               secretName: {{ .Values.secret.name }}-initdb
-          {{- else }}
-          configMap:
-            name: {{ include "mariadb.fullname" . }}-initdb
-          {{- end }}
