@@ -80,9 +80,6 @@ spec:
             - until /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
               rm -fr /var/log/panda/panda_daemon.pid*;
               rm -fr /var/lock/subsys/panda_daemon;
-              rm -fr /var/cache/pandaserver;
-              ln -s /var/log/panda/pandacache /var/cache/pandaserver;
-              chmod -R 777 /var/cache/pandaserver;
               chmod -R 777 /var/log/panda;
               cp /opt/panda/sandbox/init-panda /data/panda/;
               chmod +x /data/panda/init-panda;
@@ -111,10 +108,8 @@ spec:
                mountPath: /opt/panda/etc/panda/auth
              - name: {{ include "server.fullname" . }}-sandbox
                mountPath: /opt/panda/sandbox
-             {{- if or .Values.secret.enabled .Values.hostcerts.enabled }}
              - name: {{ include "server.fullname" . }}-certs
                mountPath: /opt/panda/etc/cert
-             {{- end }}
           envFrom:
             - configMapRef:
                 {{- if .Values.database.config_ref }}
@@ -124,12 +119,10 @@ spec:
                 {{- end }}
             - configMapRef:
                 name: {{ .Release.Name }}-external-env
-            {{- if .Values.secret.enabled }}
-            - secretRef:
-                name: {{ .Values.secret.name }}-envs
-            {{- end }}
             - configMapRef:
                 name: {{ include "server.fullname" . }}-env
+            - secretRef:
+                name: {{ .Values.secret.name }}-envs
           env:
             - name: PANDA_SERVER_CONF_SERVERNAME
               value: {{ include "server.fullname" . }}
@@ -156,13 +149,8 @@ spec:
           configMap:
               name: {{ include "server.fullname" . }}-configjson
         - name: {{ include "server.fullname" . }}-auth
-          {{- if .Values.secret.enabled }}
           secret:
               secretName: {{ .Values.secret.name }}-auth
-          {{- else }}
-          configMap:
-              name: {{ include "server.fullname" . }}-auth
-          {{- end }}
         - name: {{ include "server.fullname" . }}-sandbox
           projected:
             sources:
@@ -170,14 +158,12 @@ spec:
                   name: {{ include "server.fullname" . }}-sandbox
               - configMap:
                   name: {{ .Release.Name }}-external-sandbox
-        {{- if .Values.secret.enabled }}
-        - name: {{ include "server.fullname" . }}-certs
-          secret:
-              secretName: {{ .Values.secret.name }}-certs
-        {{- else }}
         {{- if .Values.hostcerts.enabled }}
         - name: {{ include "server.fullname" . }}-certs
           configMap:
               name: {{ include "server.fullname" . }}-certs
-        {{- end }}
+        {{- else }}
+        - name: {{ include "server.fullname" . }}-certs
+          secret:
+              secretName: {{ .Values.secret.name }}-certs
         {{- end }}

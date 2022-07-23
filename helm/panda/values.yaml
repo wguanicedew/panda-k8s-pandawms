@@ -96,11 +96,6 @@ activemq:
   # base password
   basePasswd: "ITzqWRCd"
 
-  # use secret
-  secret:
-    enabled: false
-    name: "panda-dev-secret"
-
 # iDDS
 idds:
   # REST hostname
@@ -114,12 +109,6 @@ idds:
 
   # VO of the ID token
   authVO: "panda_dev"
-
-  # use secret
-  secret:
-    enabled: false
-    name: "panda-dev-secret"
-
 
 # rucio
 rucio:
@@ -137,8 +126,3 @@ rucio:
 
   # account
   account: "iddsv1"
-
-    # use secret
-  secret:
-    enabled: false
-    name: "panda-dev-secret"

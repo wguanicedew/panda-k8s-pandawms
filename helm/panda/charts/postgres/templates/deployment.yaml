@@ -78,10 +78,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "postgres.fullname" . }}-configmap
-            {{- if .Values.secret.enabled }}
             - secretRef:
                 name: {{ .Values.secret.name }}-envs
-            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

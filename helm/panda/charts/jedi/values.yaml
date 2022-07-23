@@ -24,8 +24,7 @@ persistentvolume:
 
 # use secret
 secret:
-  enabled: false
-  name: ""
+  name: "panda-secret"
 
 database:
   # Set true to get database password via database configmap

@@ -41,11 +41,10 @@ persistentvolume:
 
 # use secret
 secret:
-  enabled: false
-  name: ""
+  name: "panda-secret"
 
 hostcerts:
-  enabled: true
+  enabled: false
 
 database:
   # Set true to get database password via database configmap
