@@ -51,10 +51,11 @@ for component in options.enable.split(','):
     com += ['-f', os.path.join(helm_dir, component, "values.yaml")]
 
     # add experiment yaml
-    exp_yaml = os.path.join(helm_dir, component, "values", options.experiment,
-                            "values-{}.yaml".format(options.experiment))
-    if os.path.exists(exp_yaml):
-        com += ['-f', exp_yaml]
+    if options.experiment:
+        exp_yaml = os.path.join(helm_dir, component, "values", options.experiment,
+                                "values-{}.yaml".format(options.experiment))
+        if os.path.exists(exp_yaml):
+            com += ['-f', exp_yaml]
 
     # disable sub components
     tmp_yaml = None
