@@ -12,8 +12,7 @@ daemon:
 
   # use secret
   secret:
-    enabled: false
-    name: idds-dev-secret
+    name: idds-secret
 
   httpProxy: "http://squid.slac.stanford.edu:3128"
   httpsProxy: "http://squid.slac.stanford.edu:3128"
@@ -35,8 +34,7 @@ rest:
 
   # use secret
   secret:
-    enabled: false
-    name: idds-dev-secret
+    name: idds-secret
 
   ingress:
     enabled: true
@@ -56,8 +54,7 @@ postgres:
 
   # use secret
   secret:
-    enabled: false
-    name: idds-dev-secret
+    name: idds-secret
 
   # PV: For use cases that users are not allowed to create PV,
   # please update class to corresponding storageclass and update create to false.

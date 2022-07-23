@@ -17,8 +17,7 @@ persistentvolume:
   size: 5Gi
 
 secret:
-  enabled: false
-  name: ""
+  name: "idds-secret"
 
 database:
   name: postgresdb

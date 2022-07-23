@@ -99,10 +99,8 @@ spec:
                 {{- else }}
                 name: {{ .Release.Name }}-postgres-configmap
                 {{- end }}
-            {{- if .Values.secret.enabled }}
             - secretRef:
                 name: {{ .Values.secret.name }}-envs
-            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -110,10 +108,8 @@ spec:
                 mountPath: /var/log/idds/
               - name: {{ include "rest.fullname" . }}-configmap
                 mountPath: /opt/idds/configmap
-              {{- if or .Values.secret.enabled .Values.hostcerts.enabled }}
               - name: {{ include "rest.fullname" . }}-certs
                 mountPath: /opt/idds/certs
-              {{- end}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -133,14 +129,12 @@ spec:
         - name: {{ include "rest.fullname" . }}-configmap
           configMap:
               name: {{ include "rest.fullname" . }}-configmap
-        {{- if .Values.secret.enabled }}
-        - name: {{ include "rest.fullname" . }}-certs
-          secret:
-              secretName: {{ .Values.secret.name }}-certs
-        {{- else }}
         {{- if .Values.hostcerts.enabled -}}
         - name: {{ include "rest.fullname" . }}-certs
           configMap:
               name: {{ include "rest.fullname" . }}-certs
-        {{- end }}
+        {{- else }}
+        - name: {{ include "rest.fullname" . }}-certs
+          secret:
+              secretName: {{ .Values.secret.name }}-certs
         {{- end }}

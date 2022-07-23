@@ -37,8 +37,7 @@ panda:
   authIdToken: ""
 
 secret:
-  enabled: false
-  name: ""
+  name: "idds-secret"
 
 hostcerts:
   enabled: false
