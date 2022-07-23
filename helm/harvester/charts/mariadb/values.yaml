@@ -18,8 +18,7 @@ persistentvolume:
 
 # use secret
 secret:
-  enabled: false
-  name: ""
+  name: "harvester-secret"
 
 database:
   # harvester password

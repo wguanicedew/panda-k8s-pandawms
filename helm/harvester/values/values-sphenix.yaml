@@ -9,6 +9,8 @@ harvester:
     selector: false
 
   experiment: "sphenix"
+  panda:
+    host: "panda-dev-server:443"
   pilotcerts:
     enabled: true
 

@@ -111,10 +111,8 @@ spec:
               mountPath: /opt/harvester/etc/queue_config
             - name: {{ include "harvester.fullname" . }}-sandbox
               mountPath: /opt/harvester/sandbox
-            {{- if or .Values.secret.enabled .Values.pilotcerts.enabled }}
             - name: {{ include "harvester.fullname" . }}-certs
               mountPath: /opt/harvester/etc/cert
-            {{- end }}
           envFrom:
             - configMapRef:
                 {{- if .Values.database.config_ref }}
@@ -124,10 +122,8 @@ spec:
                 {{- end }}
             - configMapRef:
                 name: {{ include "harvester.fullname" . }}-env
-            {{- if .Values.secret.enabled }}
             - secretRef:
                 name: {{ .Values.secret.name }}-envs
-            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -153,14 +149,12 @@ spec:
         - name: {{ include "harvester.fullname" . }}-sandbox
           configMap:
             name: {{ include "harvester.fullname" . }}-sandbox
-        {{- if .Values.secret.enabled }}
-        - name: {{ include "harvester.fullname" . }}-certs
-          secret:
-              secretName: {{ .Values.secret.name }}-certs
-        {{- else }}
         {{- if .Values.pilotcerts.enabled }}
         - name: {{ include "harvester.fullname" . }}-certs
           configMap:
               name: {{ include "harvester.fullname" . }}-certs
-        {{- end }}
+        {{- else }}
+        - name: {{ include "harvester.fullname" . }}-certs
+          secret:
+              secretName: {{ .Values.secret.name }}-certs
         {{- end }}
