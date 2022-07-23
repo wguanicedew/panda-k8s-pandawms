@@ -27,10 +27,10 @@ for item in options.disable.split(','):
         main_name, sub_name = item, 'all'
     else:
         main_name, sub_name = item.split('.')
-    disabled[main_name].setdefault(set())
+    disabled.setdefault(main_name, set())
     disabled[main_name].add(sub_name)
 
-helm_dir = os.path.relpath('../helm', os.path.abspath(os.path.dirname( __file__ )))
+helm_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname( __file__ )), '../helm'))
 
 for component in options.enable.split(','):
     # disabled
