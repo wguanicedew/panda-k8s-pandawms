@@ -2,7 +2,6 @@
 
 import os
 import argparse
-import tempfile
 from subprocess import Popen
 
 all_components = ['msgsvc', 'iam', 'panda', 'harvester', 'idds', 'bigmon']
@@ -38,7 +37,7 @@ for component in options.enable.split(','):
         continue
 
     # define instant name
-    if options.affix.startswith('-'):
+    if options.affix.endswith('-'):
         inst_name = options.affix + component
     else:
         inst_name = component + options.affix
