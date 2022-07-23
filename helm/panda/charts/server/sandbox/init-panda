@@ -16,10 +16,6 @@ else
     ln -fs /opt/panda/config/hostkey.pem /etc/grid-security/hostkey.pem
 fi
 
-# make dir for pandacache
-mkdir /var/log/panda/pandacache
-chmod 777 /var/log/panda/pandacache
-
 # copy idds conf
 mkdir -p /home/atlpan/.idds
 cp /data/panda/idds.cfg /home/atlpan/.idds/idds_local.cfg
@@ -33,7 +29,12 @@ EOT
 chmod +x ${tmpExe}
 
 if [[ -z "${PANDA_NO_ROOT}" ]]; then
+  chmod -R 777 /var/log/panda
   runuser -u atlpan -g zp -- ${tmpExe}
 else
   ${tmpExe}
 fi
+
+# make pandacache dir
+mkdir /var/log/panda/pandacache
+chmod 777 /var/log/panda/pandacache

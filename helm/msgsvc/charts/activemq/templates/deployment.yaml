@@ -73,7 +73,12 @@ spec:
           command: [ "/bin/sh", "-c" ]
           args:
             - python3 /opt/activemq/sandbox/install_conf.py;
+              {{- if .Values.noRoot }}
               /opt/activemq/bin/run-activemq-services;
+              {{- else }}
+              chmod -R 777 ${ACTIVEMQ_DATA};
+              runuser -u activemq -g activemq /opt/activemq/bin/run-activemq-services;
+              {{- end }}
               sleep infinity & wait
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
