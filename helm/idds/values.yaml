@@ -6,12 +6,12 @@
 daemon:
   enabled: true
   image:
-    tag: "0.11.9"
+    tag: "0.11.10"
 
 rest:
   enabled: true
   image:
-    tag: "0.11.9"
+    tag: "0.11.10"
 
 postgres:
   enabled: true
