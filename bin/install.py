@@ -45,9 +45,9 @@ for component in options.enable.split(','):
 
     # construct command
     if options.template:
-        com = com = ['helm', 'template', '--debug']
+        com = com = ['helm', 'template', '--debug', os.path.join(helm_dir, component)]
     else:
-        com = ['helm', 'install', inst_name]
+        com = ['helm', 'install', inst_name, os.path.join(helm_dir, component)]
     com += ['-f', os.path.join(helm_dir, component, "values.yaml")]
 
     # add experiment yaml
@@ -58,19 +58,12 @@ for component in options.enable.split(','):
             com += ['-f', exp_yaml]
 
     # disable sub components
-    tmp_yaml = None
     if component in disabled:
-        data = {s: {"enabled": "false"} for s in disabled[component] if s != 'all'}
-        if data:
-            with tempfile.NamedTemporaryFile() as tmp:
-                tmp_yaml = tmp.name
-                for k, v in data.items():
-                    tmp.write("{}\n".format(k))
-                    for kk, vv in k.items():
-                        tmp.write('  {}: {}\n'.format(kk, vv))
-            com += ['-f', tmp_yaml]
+        for sub_name in disabled[component]:
+            if sub_name == 'all':
+                continue
+            com += ['--set', f"{sub_name}.enabled=false"]
 
     # execute
-    print ('>> ', ' '.join(com))
+    print('>>> ', ' '.join(com),'\n\n')
     Popen(com).wait()
-    os.remove(tmp_yaml)
