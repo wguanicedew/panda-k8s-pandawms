@@ -63,9 +63,9 @@ oidc:
     client_secret: abc
 
 conductor:
-  brokers: atlas-mb.cern.ch
-  port: 61013
-  destination: /topic/doma.idds
+  brokers: activemq-dev
+  port: 61613
+  destination: /queue/idds_panda
   username: username
   password: password
 
