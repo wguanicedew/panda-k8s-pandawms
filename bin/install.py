@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-import yaml
 import argparse
 import tempfile
 from subprocess import Popen
@@ -60,11 +59,14 @@ for component in options.enable.split(','):
     # disable sub components
     tmp_yaml = None
     if component in disabled:
-        data = {s: {"enabled": False} for s in disabled[component] if s != 'all'}
+        data = {s: {"enabled": "false"} for s in disabled[component] if s != 'all'}
         if data:
             with tempfile.NamedTemporaryFile() as tmp:
                 tmp_yaml = tmp.name
-                yaml.dump(data, tmp, default_flow_style=False)
+                for k, v in data.items():
+                    tmp.write("{}\n".format(k))
+                    for kk, vv in k.items():
+                        tmp.write('  {}: {}\n'.format(kk, vv))
             com += ['-f', tmp_yaml]
 
     # execute
