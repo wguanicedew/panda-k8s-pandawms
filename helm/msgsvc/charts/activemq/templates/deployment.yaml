@@ -107,10 +107,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "activemq.fullname" . }}-env
-            {{- if .Values.secret.enabled }}
             - secretRef:
                 name: {{ .Values.secret.name }}-envs
-            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

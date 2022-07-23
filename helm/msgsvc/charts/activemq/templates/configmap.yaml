@@ -16,8 +16,6 @@ kind: ConfigMap
 metadata:
   name: {{ include "activemq.fullname" . }}-env
 data:
-  {{- if not .Values.secret.enabled }}
   ACTIVEMQ_BASE_PASSWD: {{ .Values.basePasswd }}
-  {{- end }}
   ACTIVEMQ_CHANNELS: {{ join ";" .Values.channels }}
   ACTIVEMQ_ACCOUNTS: {{ join ";" .Values.accounts }}
