@@ -7,8 +7,10 @@ from subprocess import Popen
 all_components = ['msgsvc', 'iam', 'panda', 'harvester', 'idds', 'bigmon']
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--affix', '-a', type=str, default='test-',
-                    help='Prefix (blah-) or suffix (-blah) of instance names')
+parser.add_argument('--affix', '-a', type=str, default='',
+                    help='Prefix (blah-) or suffix (-blah) of instance names. If this option is not specified, '
+                         'it looks for affix in secrets/values.yaml. "test-" is used if affix is not found '
+                         'in the values.yaml')
 parser.add_argument('--experiment', '-e', type=str, help='Experiment name')
 parser.add_argument('--enable', '-c', type=str, default=','.join(all_components),
                     help='Comma-separated list of components to be installed')
@@ -29,8 +31,23 @@ for item in options.disable.split(','):
     disabled.setdefault(main_name, set())
     disabled[main_name].add(sub_name)
 
-helm_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname( __file__ )), '../helm'))
+src_dir = os.path.abspath(os.path.dirname(__file__))
+helm_dir = os.path.abspath(os.path.join(src_dir, '../helm'))
 
+# look for affix in secrets yaml
+if not options.affix:
+    secrets_yaml = os.path.join(src_dir, '../secrets/values.yaml')
+    if os.path.exists(secrets_yaml):
+        with open(secrets_yaml) as f:
+            for line in f:
+                if line.startswith('affix:'):
+                    options.affix = line.strip().split()[-1]
+                    break
+    # default value
+    if not options.affix:
+        options.affix = 'test-'
+
+# loop over all components
 for component in options.enable.split(','):
     # disabled
     if component in disabled and 'all' in disabled[component]:
