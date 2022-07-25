@@ -48,11 +48,19 @@ httpd:
 
 # database config
 database:
-  databaseName: panda_db
-  port: 5432
-  userName: panda
-  hostName: "FIXME"
-  password: "FIXME"
+  panda:
+    databaseName: panda_db
+    port: 5432
+    userName: panda
+    hostName: "FIXME"
+    password: "FIXME"
+  idds:
+    databaseName: "FIXME"
+    port: 5432
+    userName: "FIXME"
+    hostName: "FIXME"
+    password: "FIXME"
+
 
 # rucio
 rucio:
