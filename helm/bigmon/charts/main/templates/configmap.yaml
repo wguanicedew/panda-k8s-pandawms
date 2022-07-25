@@ -57,11 +57,17 @@ data:
   SOCIAL_AUTH_INDIGOIAMOIDC_SECRET: "{{ .Values.auth.indigoiam.secret }}"
   SOCIAL_AUTH_INDIGOIAMOIDC_BASEPATH: "{{ .Values.auth.indigoiam.basePath }}"
   # PandaDB
-  PANDA_DB_NAME: "{{ .Values.database.databaseName }}"
-  PANDA_DB_HOST: "{{ .Values.database.hostName }}"
-  PANDA_DB_PORT: "{{ .Values.database.port }}"
-  PANDA_DB_USER: "{{ .Values.database.userName }}"
-  PANDA_DB_PASSWORD: "{{ .Values.database.password }}"
+  PANDA_DB_NAME: "{{ .Values.panda.databaseName }}"
+  PANDA_DB_HOST: "{{ .Values.panda.hostName }}"
+  PANDA_DB_PORT: "{{ .Values.panda.port }}"
+  PANDA_DB_USER: "{{ .Values.panda.userName }}"
+  PANDA_DB_PASSWORD: "{{ .Values.panda.password }}"
+  # iDDSDB
+  IDDS_DB_NAME: "{{ .Values.idds.databaseName }}"
+  IDDS_DB_HOST: "{{ .Values.idds.hostName }}"
+  IDDS_DB_PORT: "{{ .Values.idds.port }}"
+  IDDS_DB_USER: "{{ .Values.idds.userName }}"
+  IDDS_DB_PASSWORD: "{{ .Values.idds.password }}"
   # Rucio
   RUCIO_SERVER_HOST: "{{ .Values.rucio.rucioHost }}"
   RUCIO_AUTH_HOST: "{{ .Values.rucio.authHost }}"

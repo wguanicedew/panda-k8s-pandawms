@@ -23,8 +23,11 @@ main:
   # secret key for configuration
   secretKey: "FIXME"
 
-  database:
+  panda:
     hostName: "panda-postgres"
+    password: "FIXME"
+  idds:
+    hostName: "idds-postgres"
     password: "FIXME"
 
   rucio:
