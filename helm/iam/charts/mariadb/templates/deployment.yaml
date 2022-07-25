@@ -77,8 +77,6 @@ spec:
               containerPort: 3306
               protocol: TCP
           envFrom:
-            - configMapRef:
-                name: {{ include "mariadb.fullname" . }}-configmap
             - secretRef:
                 name: {{ .Values.secret.name }}-db-envs
           resources:

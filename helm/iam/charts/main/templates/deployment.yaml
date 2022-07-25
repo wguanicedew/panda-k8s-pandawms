@@ -77,14 +77,6 @@ spec:
               containerPort: 8080
               protocol: TCP
           envFrom:
-            - configMapRef:
-                name: {{ include "main.fullname" . }}-envs
-            - configMapRef:
-                {{- if .Values.database.config_ref }}
-                name: {{ .Values.database.config_ref }}
-                {{- else }}
-                name: {{ .Release.Name }}-mariadb-configmap
-                {{- end }}
             - secretRef:
                 name: {{ .Values.secret.name }}-iam-envs
           resources:
@@ -106,5 +98,5 @@ spec:
       {{- end }}
       volumes:
         - name: {{ include "main.fullname" . }}-configmap
-          configMap:
-            name: {{ include "main.fullname" . }}-configmap
+          secret:
+            secretName: {{ .Values.secret.name }}-conf
