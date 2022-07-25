@@ -38,6 +38,9 @@ channels:
 # base password for active MQ
 basePasswd: "ITzqWRCd"
 
+# run panda with non-root account
+noRoot: false
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: false

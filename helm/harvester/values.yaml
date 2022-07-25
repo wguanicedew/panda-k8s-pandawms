@@ -7,7 +7,7 @@ harvester:
   enabled: true
   # container image and tag
   image:
-    tag: "v0.2.13"
+    tag: "v0.2.14"
     # tag: "master"
 
   # PV with selector support
