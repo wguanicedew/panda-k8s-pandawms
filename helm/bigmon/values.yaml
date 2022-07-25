@@ -23,13 +23,12 @@ main:
   # secret key for configuration
   secretKey: "FIXME"
 
-  database:
-    panda:
-      hostName: "panda-postgres"
-      password: "FIXME"
-    idds:
-      hostName: "idds-postgres"
-      password: "FIXME"
+  panda:
+    hostName: "panda-postgres"
+    password: "FIXME"
+  idds:
+    hostName: "idds-postgres"
+    password: "FIXME"
 
   rucio:
     rucioHost: "https://rucio-lb-prod.cern.ch"
