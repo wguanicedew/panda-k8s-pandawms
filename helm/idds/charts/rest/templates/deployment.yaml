@@ -93,12 +93,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "rest.fullname" . }}-envs
-            - configMapRef:
-                {{- if .Values.database.config_ref }}
-                name: {{ .Values.database.config_ref }}
-                {{- else }}
-                name: {{ .Release.Name }}-postgres-configmap
-                {{- end }}
             - secretRef:
                 name: {{ .Values.secret.name }}-envs
           resources:
@@ -127,14 +121,12 @@ spec:
           persistentVolumeClaim:
             claimName: {{ include "rest.fullname" . }}
         - name: {{ include "rest.fullname" . }}-configmap
-          configMap:
-              name: {{ include "rest.fullname" . }}-configmap
-        {{- if .Values.hostcerts.enabled -}}
-        - name: {{ include "rest.fullname" . }}-certs
-          configMap:
-              name: {{ include "rest.fullname" . }}-certs
-        {{- else }}
+          projected:
+            sources:
+              - configMap:
+                  name: {{ include "rest.fullname" . }}-configmap
+              - secret:
+                  name: {{ .Values.secret.name }}-auth
         - name: {{ include "rest.fullname" . }}-certs
           secret:
               secretName: {{ .Values.secret.name }}-certs
-        {{- end }}

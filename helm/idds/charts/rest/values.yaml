@@ -16,8 +16,6 @@ autoStart: true
 # run with non-root pid
 noRoot: false
 
-iddsServer: localhost
-
 persistentvolume:
   create: true
   class: manual

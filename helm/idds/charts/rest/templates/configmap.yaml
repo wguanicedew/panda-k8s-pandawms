@@ -7,9 +7,6 @@ data:
   idds_configmap.json: |-
 {{ .Files.Get "idds_configmap.json" | indent 8}}
 
-  idds2panda_token: |-
-{{ .Files.Get "idds2panda_token" | indent 8}}
-
 
 ---
 apiVersion: v1
@@ -17,7 +14,6 @@ kind: ConfigMap
 metadata:
   name: {{ include "rest.fullname" . }}-envs
 data:
-  IDDS_SERVER: "{{.Values.iddsServer}}"
   {{- if .Values.httpProxy }}
   http_proxy: "{{ .Values.httpProxy }}"
   {{- if .Values.noProxy }}
@@ -37,49 +33,6 @@ data:
   {{- end}}
   {{- end }}
 
-  PANDA_MONITOR_URL: "{{ .Values.panda.monitorURL}}"
-  PANDA_URL: "{{ .Values.panda.url}}"
-  PANDA_URL_SSL: "{{ .Values.panda.urlSSL}}"
-  PANDACACHE_URL: "{{ .Values.panda.cacheURL}}"
-  PANDA_VERIFY_HOST: "{{ .Values.panda.verifyHost}}"
-  PANDA_CONFIG_ROOT: "{{ .Values.panda.configRoot}}"
-
-  {{- if .Values.panda.authIdToken }}
-  PANDA_AUTH_ID_TOKEN: "{{ .Values.panda.authIdToken }}"
-  PANDA_AUTH_VO: "{{ .Values.panda.authVO }}"
-  PANDA_AUTH: "{{ .Values.panda.auth }}"
-  {{- end }}
-  {{- if .Values.panda.behindRealLB }}
-  PANDA_BEHIND_REAL_LB: "1"
-  {{- end }}
-
-  IDDS_CONDUCTOR_BROKERS: "{{.Values.conductor.brokers}}"
-  IDDS_CONDUCTOR_PORT: "{{.Values.conductor.port}}"
-  IDDS_CONDUCTOR_DESTINATION: "{{.Values.conductor.destination}}"
-  IDDS_CONDUCTOR_USERNAME: "{{.Values.conductor.username}}"
-  IDDS_CONDUCTOR_PASSWORD: "{{.Values.conductor.password}}"
-
-  IDDS_OIDC_RUBIN_CLIENT_ID: "{{.Values.oidc.rubin.client_id}}"
-  IDDS_OIDC_RUBIN_CLIENT_SECRET: "{{.Values.oidc.rubin.client_secret}}"
-  IDDS_OIDC_RUBIN_PRODUCTION_CLIENT_ID: "{{.Values.oidc.rubin_production.client_id}}"
-  IDDS_OIDC_RUBIN_PRODUCTION_CLIENT_SECRET: "{{.Values.oidc.rubin_production.client_secret}}"
-  IDDS_OIDC_PANDA_DEV_CLIENT_ID: "{{.Values.oidc.panda_dev.client_id}}"
-  IDDS_OIDC_PANDA_DEV_CLIENT_SECRET: "{{.Values.oidc.panda_dev.client_secret}}"
-
-{{- if .Values.hostcerts.enabled -}}
----
-# host cert and key
-apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: {{ include "rest.fullname" . }}-certs
-data:
-    hostcert.pem: |-
-{{ .Files.Get "hostcert.pem" | indent 8}}
-
-    hostkey.pem: |-
-{{ .Files.Get "hostkey.pem" | indent 8}}
-{{- end }}
 
 ---
 # sandbox
