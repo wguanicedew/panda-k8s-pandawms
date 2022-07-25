@@ -15,6 +15,18 @@ dbaccess_postgres = {
          'USER': '${PANDA_DB_USER}',
          'PASSWORD': "${PANDA_DB_PASSWORD}",
          },
+        'doma_idds_gcp':
+        {
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'OPTIONS': {
+                 'options': '-c search_path=doma_idds,public'
+        },
+        'NAME': '${IDDS_DB_NAME}',
+        'HOST': '${IDDS_DB_HOST}',
+        'PORT': '${IDDS_DB_PORT}',
+        'USER': '${IDDS_DB_USER}',
+        'PASSWORD': "${IDDS_DB_PASSWORD}",
+         },        
 }
 
 dbaccess = dbaccess_postgres
