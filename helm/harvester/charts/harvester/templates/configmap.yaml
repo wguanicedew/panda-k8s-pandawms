@@ -31,18 +31,6 @@ kind: ConfigMap
 metadata:
   name: {{ include "harvester.fullname" . }}-env
 data:
-  {{- if .Values.experiment }}
-  EXPERIMENT: {{ .Values.experiment }}
-  {{- end}}
-  PANDA_URL: "https://{{ .Values.panda.host }}/server/panda"
-  PANDA_URL_SSL: "https://{{ .Values.panda.host }}/server/panda"
-  {{- if .Values.panda.authIdToken }}
-  PANDA_AUTH_ID_TOKEN: {{ .Values.panda.authIdToken }}
-  PANDA_AUTH_VO: {{ .Values.panda.authVO }}
-  {{- end }}
-  {{- if .Values.panda.behindRealLB }}
-  PANDA_BEHIND_REAL_LB: "1"
-  {{- end }}
   {{- if .Values.httpProxy }}
   http_proxy: "{{ .Values.httpProxy }}"
   {{- if .Values.noProxy }}
@@ -61,10 +49,6 @@ data:
   no_proxy: "localhost,{{ include "harvester.fullname" . }},{{ .Values.panda.host }},http-{{ .Values.panda.host }}"
   {{- end }}
   {{- end }}
-  HARVESTER_ID: "{{ .Values.harvesterID }}"
-  {{ if .Values.useStableCondor }}
-  CONDOR_CHANNEL: ".stable"
-  {{- end }}
 
 ---
 # sandbox
@@ -78,16 +62,3 @@ binaryData:
     {{ $.Files.Get $path | b64enc }}
   {{- end }}
 
-{{- if .Values.pilotcerts.enabled }}
----
-# host cert and key
-apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: {{ include "harvester.fullname" . }}-certs
-binaryData:
-  {{- range $path, $_ := .Files.Glob "cert/**.pem" }}
-  {{ base $path }}: |-
-    {{ $.Files.Get $path | b64enc }}
-  {{- end }}
-{{- end }}
