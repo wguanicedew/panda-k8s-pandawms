@@ -100,16 +100,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-server-env
-            - configMapRef:
-                name: {{ .Release.Name }}-external-env
-            {{- if .Values.database.password_get }}
-            - configMapRef:
-                {{- if .Values.database.config_ref }}
-                name: {{ .Values.database.config_ref }}
-                {{- else }}
-                name: {{ .Release.Name }}-postgres-configmap
-                {{- end }}
-            {{- end }}
             - secretRef:
                 name: {{ .Values.secret.name }}-envs
           env:

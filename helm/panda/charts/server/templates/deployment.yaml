@@ -112,14 +112,6 @@ spec:
                mountPath: /opt/panda/etc/cert
           envFrom:
             - configMapRef:
-                {{- if .Values.database.config_ref }}
-                name: {{ .Values.database.config_ref }}
-                {{- else }}
-                name: {{ .Release.Name }}-postgres-configmap
-                {{- end }}
-            - configMapRef:
-                name: {{ .Release.Name }}-external-env
-            - configMapRef:
                 name: {{ include "server.fullname" . }}-env
             - secretRef:
                 name: {{ .Values.secret.name }}-envs
@@ -158,12 +150,6 @@ spec:
                   name: {{ include "server.fullname" . }}-sandbox
               - configMap:
                   name: {{ .Release.Name }}-external-sandbox
-        {{- if .Values.hostcerts.enabled }}
-        - name: {{ include "server.fullname" . }}-certs
-          configMap:
-              name: {{ include "server.fullname" . }}-certs
-        {{- else }}
         - name: {{ include "server.fullname" . }}-certs
           secret:
               secretName: {{ .Values.secret.name }}-certs
-        {{- end }}
