@@ -60,3 +60,16 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Add affix to refer the instance names
+*/}}
+{{- define "add_affix" }}
+{{- $affix := index . 0 }}
+{{- $body := index . 1 }}
+{{- if hasPrefix "-" $affix }}
+{{- printf "%s%s" $body $affix }}
+{{- else }}
+{{- printf "%s%s" $affix $body }}
+{{- end }}
+{{- end }}
