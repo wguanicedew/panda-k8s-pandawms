@@ -146,4 +146,4 @@ For Sphenix deployment (at BNL), you need to specify `-e sphenix`
 
 * Deploy all components in one go::
 
-  $> ./bin/install -e sphenix
+  $> ./bin/install -e sphenix -d iam
