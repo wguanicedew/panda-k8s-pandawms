@@ -16,11 +16,6 @@ persistentvolume:
   size: 5Gi
   selector: true
 
-database:
-  # password
-  password: PwJdJWr7vY
-  # external database hostname
-  # dbhost: blah
 
 imagePullSecrets: []
 nameOverride: ""

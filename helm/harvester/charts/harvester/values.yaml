@@ -15,8 +15,6 @@ autoStart: true
 # experiment to use to init and setup crons
 experiment: ""
 
-pilotcerts:
-  enabled: false
 
 # http proxy
 httpProxy: ""
@@ -31,24 +29,6 @@ persistentvolume:
   path: "/mnt/harvester-logs"
   size: 5Gi
   selector: true
-
-database:
-  # Set true to get database password via database configmap
-  password_get: true
-  # Specify name of database configmap if any
-  # config_ref: harvester-mariadb-configmap
-
-panda:
-  # panda server host and https port
-  host: "panda-dev-server:443"
-
-  # ID token and VO for OIDC/OAuth
-  authIdToken: ""
-  authVO: ""
-
-  # panda server behind real load balancer
-  behindRealLB: true
-
 
 imagePullSecrets: []
 nameOverride: ""

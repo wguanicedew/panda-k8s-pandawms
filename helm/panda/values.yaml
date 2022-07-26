@@ -58,12 +58,6 @@ server:
           - domain: "FIXME"
             hostOverride: "FIXME"
 
-  # ID token of the PanDA service account
-  authIdToken: "FIXME"
-
-  # VO (. role) of the ID token
-  authVO: "panda_dev.production"
-
   # http/s proxy if containers need it to access external services
   #httpsProxy: "http://proxy.sdcc.bnl.local:3128"
   #httpProxy: "http://proxy.sdcc.bnl.local:3128"

@@ -9,10 +9,11 @@ harvester:
     selector: false
 
   experiment: "sphenix"
-  panda:
-    host: "panda-dev-server:443"
-  pilotcerts:
-    enabled: true
+
+  httpProxy: "http://proxy.sdcc.bnl.local:3128"
+  httpsProxy: "http://proxy.sdcc.bnl.local:3128"
+
+  noRoot: true
 
 mariadb:
   persistentvolume:

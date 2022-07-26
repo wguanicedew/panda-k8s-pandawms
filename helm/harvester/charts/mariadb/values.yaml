@@ -16,14 +16,6 @@ persistentvolume:
   size: 5Gi
   selector: true
 
-database:
-  # harvester password
-  password: NKdSRhjE
-  # admin password
-  admin_password: MbUceKpF
-  # external database hostname
-  # dbhost: blah
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
