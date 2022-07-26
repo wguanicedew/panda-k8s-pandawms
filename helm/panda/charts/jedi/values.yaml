@@ -16,17 +16,12 @@ autoStart: true
 noRoot: false
 
 persistentvolume:
-  create: false
-  class: nas
+  create: true
+  class: manual
   path: "/mnt/panda-jedi-logs"
   size: 5Gi
   selector: true
 
-database:
-  # Set true to get database password via database configmap
-  password_get: true
-  # Specify name of database configmap if any
-  # config_ref: panda-postgres-configmap
 
 server: {}
   # Specify reference name of server configmap if any

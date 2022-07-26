@@ -22,7 +22,7 @@
     "queues": {
         "idds": {
             "server": "iDDS_mb",
-            "destination": "/queue/iddspanda"
+            "destination": "/queue/idds_panda"
         },
         "jedi_taskstatus": {
             "server": "internal_mb",
@@ -30,7 +30,7 @@
         },
         "to-idds": {
             "server": "iDDS_mb",
-            "destination": "/queue/pandaidds"
+            "destination": "/queue/panda_idds"
         },
         "panda_jedi": {
             "server": "internal_mb",

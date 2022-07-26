@@ -22,18 +22,6 @@ persistentvolume:
   path: "/mnt/idds-rest-logs"
   size: 5Gi
 
-panda:
-  urlSSL: "https://panda-dev-server:443/server/panda"
-  url: "http://panda-dev-server:80/server/panda"
-  monitorURL: "https://panda-dev-server"
-  configRoot: "/opt/idds/config/"
-  cacheURL: "https://panda-dev-server:443/server/panda"
-  verifyHost: "off"
-
-  auth: "oidc"
-  authVO: "Rubin:production"
-  authIdToken: ""
-
 hostcerts:
   enabled: false
 

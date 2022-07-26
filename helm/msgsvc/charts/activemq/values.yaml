@@ -10,8 +10,8 @@ image:
   tag: "latest"
 
 persistentvolume:
-  create: false
-  class: nas
+  create: true
+  class: manual
   path: "/mnt/activemq-data"
   size: 5Gi
   selector: true
@@ -19,24 +19,6 @@ persistentvolume:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-
-# accounts
-accounts:
-  - "panda"
-  - "jedi"
-  - "idds"
-  - "pilot"
-
-# message channels. name:write_accounts,read_account
-channels:
-  - "iddspanda:idds:panda,jedi"
-  - "pandaidds:panda,jedi:idds"
-  - "self.jedi_taskstatus:jedi:jedi"
-  - "panda_jedi:panda:jedi"
-  - "panda_pilot:panda:pilot"
-
-# base password for active MQ
-basePasswd: "ITzqWRCd"
 
 # run panda with non-root account
 noRoot: false

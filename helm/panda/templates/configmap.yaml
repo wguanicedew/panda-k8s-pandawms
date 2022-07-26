@@ -8,27 +8,3 @@ binaryData:
   {{ base $path }}: |-
     {{ $.Files.Get $path | b64enc }}
   {{- end }}
-
----
-
-# external env variables
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Release.Name }}-external-env
-data:
-  # ActiveMQ
-  PANDA_ACTIVEMQ_LIST: "{{ join "," .Values.activemq.serverList }}"
-  PANDA_ACTIVEMQ_PASSWD_panda: "{{ .Values.activemq.basePasswd }}_panda"
-  PANDA_ACTIVEMQ_PASSWD_jedi: "{{ .Values.activemq.basePasswd }}_jedi"
-  # iDDS
-  PANDA_IDDS_HOST: "{{ .Values.idds.restHost }}"
-  PANDA_IDDS_PORT: "{{ .Values.idds.restPort }}"
-  PANDA_IDDS_AUTH_ID_TOKEN: "{{ .Values.idds.authIdToken }}"
-  PANDA_IDDS_AUTH_VO: "{{ .Values.idds.authVO }}"
-  # Rucio
-  PANDA_RUCIO_HOST: "{{ .Values.rucio.rucioHost }}"
-  PANDA_RUCIO_AUTH_HOST: "{{ .Values.rucio.authHost }}"
-  PANDA_RUCIO_USERNAME: "{{ .Values.rucio.username }}"
-  PANDA_RUCIO_PASSWORD: "{{ .Values.rucio.password }}"
-  PANDA_RUCIO_ACCOUNT: "{{ .Values.rucio.account }}"

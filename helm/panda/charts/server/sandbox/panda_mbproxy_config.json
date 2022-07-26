@@ -22,7 +22,7 @@
     "queues": {
         "panda_jobstatus": {
             "server": "iDDS_mb",
-            "destination": "/topic/pandaidds"
+            "destination": "/topic/panda_idds"
         },
         "panda_jedi": {
             "server": "panda_mb",

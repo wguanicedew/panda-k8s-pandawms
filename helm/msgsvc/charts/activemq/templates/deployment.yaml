@@ -93,8 +93,8 @@ spec:
             - name: {{ include "activemq.fullname" . }}-sandbox
               mountPath: /opt/activemq/sandbox
           envFrom:
-            - configMapRef:
-                name: {{ include "activemq.fullname" . }}-env
+            - secretRef:
+                name: {{ .Values.global.secret }}-msgsvc-envs
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

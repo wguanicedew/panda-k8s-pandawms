@@ -7,20 +7,6 @@ data:
   panda_server_config.json: |-
 {{ .Files.Get "panda_server_config.json" | indent 4}}
 
-{{- if .Values.hostcerts.enabled }}
----
-# host cert and key
-apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: {{ include "server.fullname" . }}-certs
-binaryData:
-  {{- range $path, $_ := .Files.Glob "cert/**.pem" }}
-  {{ base $path }}: |-
-    {{ $.Files.Get $path | b64enc }}
-  {{- end }}
-{{- end }}
-
 ---
 # server env variables
 apiVersion: v1
@@ -28,15 +14,6 @@ kind: ConfigMap
 metadata:
   name: {{ include "server.fullname" . }}-env
 data:
-  PANDA_URL: "https://{{ include "server.fullname" . }}:{{ .Values.service.httpsPort }}/server/panda"
-  PANDA_URL_SSL: "https://{{ include "server.fullname" . }}:{{ .Values.service.httpsPort }}/server/panda"
-  PANDA_SANDBOX_HOST: "{{ .Values.hostName }}"
-  {{- if .Values.authIdToken }}
-  PANDA_VERIFY_HOST: "off"
-  PANDA_AUTH: "oidc"
-  PANDA_AUTH_ID_TOKEN: {{ .Values.authIdToken }}
-  PANDA_AUTH_VO: {{ .Values.authVO }}
-  {{- end }}
   {{- if .Values.httpProxy }}
   http_proxy: "{{ .Values.httpProxy }}"
   {{- if .Values.noProxy }}
@@ -57,17 +34,6 @@ data:
   {{- end }}
   {{- if .Values.noRoot }}
   PANDA_NO_ROOT: "1"
-  {{- end }}
----
-# auth
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "server.fullname" . }}-auth
-data:
-  {{- range $path, $_ := .Files.Glob "auth/**_auth_config.json" }}
-  {{ base $path }}: |-
-    {{ $.Files.Get $path }}
   {{- end }}
 
 ---

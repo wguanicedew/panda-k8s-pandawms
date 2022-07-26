@@ -13,6 +13,8 @@ harvester:
   noProxy: "localhost,idds-dev-rest,panda-dev-server"
 
   experiment: "lsst"
+  panda:
+    host: "panda-dev-server:443"
   pilotcerts:
     enabled: true
 

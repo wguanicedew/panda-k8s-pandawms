@@ -10,17 +10,12 @@ image:
   tag: latest
 
 persistentvolume:
-  create: false
-  class: nas
+  create: true
+  class: manual
   path: "/mnt/panda-data"
   size: 5Gi
   selector: true
 
-database:
-  # password
-  password: PwJdJWr7vY
-  # external database hostname
-  # dbhost: blah
 
 imagePullSecrets: []
 nameOverride: ""

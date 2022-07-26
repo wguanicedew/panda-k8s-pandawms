@@ -2,6 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+global:
+  secret: "panda-secrets"
+
 jedi:
   # enable JEDI
   enabled: true
@@ -55,12 +58,6 @@ server:
           - domain: "FIXME"
             hostOverride: "FIXME"
 
-  # ID token of the PanDA service account
-  authIdToken: "FIXME"
-
-  # VO (. role) of the ID token
-  authVO: "panda_dev.production"
-
   # http/s proxy if containers need it to access external services
   #httpsProxy: "http://proxy.sdcc.bnl.local:3128"
   #httpProxy: "http://proxy.sdcc.bnl.local:3128"
@@ -83,48 +80,3 @@ postgres:
   # PV with selector support
   #persistentvolume:
   #    selector: false
-
-
-### External service config
-
-# activeMQ
-activemq:
-  # hosts and ports
-  serverList:
-    - "activemq-dev-daemon:61613"
-
-  # base password
-  basePasswd: "ITzqWRCd"
-
-
-# iDDS
-idds:
-  # REST hostname
-  restHost: "idds-rest"
-
-  # REST port
-  restPort: 443
-
-  # ID token of the iDDS account
-  authIdToken: "FIXME"
-
-  # VO of the ID token
-  authVO: "panda_dev"
-
-
-# rucio
-rucio:
-  # rucio host and port
-  rucioHost: "sprucio01.sdcc.bnl.gov:443"
-
-  # auth host and port
-  authHost: "sprucio01.sdcc.bnl.gov:443"
-
-  # username
-  username: "iddsv1"
-
-  # password
-  password: "FIXME"
-
-  # account
-  account: "iddsv1"

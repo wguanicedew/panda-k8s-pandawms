@@ -6,7 +6,7 @@ while true; do sleep 36000; /opt/harvester/bin/panda_common-install_igtf_ca > /v
 if [[ ! -z "${EXPERIMENT}" ]]; then
     CurrentDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     run_script=${CurrentDir}/${EXPERIMENT}.run-harvester-crons
-    if [ -f ${run_script} ]; then
+    if [[ -f ${run_script} ]]; then
         echo "Executing ${run_script}"
         bash $run_script &
     fi

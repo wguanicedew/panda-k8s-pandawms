@@ -2,6 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+global:
+  secret: "panda-secrets"
+
 harvester:
   # enable harvester
   enabled: true
@@ -16,16 +19,6 @@ harvester:
 
   # Experiment
   experiment: ""
-
-  panda:
-    # panda server host and https port
-    host: "FIXME"
-
-    # ID token to access the PanDA service
-    authIdToken: "FIXME"
-
-    # VO (. role) of the ID token
-    authVO: "panda_dev.production"
 
   # http/s proxy if containers need it to access external services
   #httpProxy: "http://proxy.sdcc.bnl.local:3128"

@@ -13,10 +13,10 @@ cp  $proxy_cert $new_proxy_path
 cp $proxy_key $new_proxy_path
 new_proxy_cert=${new_proxy_path}/pilot_usercert.pem
 new_proxy_key=${new_proxy_path}/pilot_userkey.pem
-chmod 400 $new_proxy_cert
-chmod 400 $new_proxy_key
+chmod 600 $new_proxy_cert
+chmod 600 $new_proxy_key
 
-voms-proxy-init2 -valid 96:00 -q -cert $new_proxy_cert -key $new_proxy_key -out $proxy >>/tmp/proxy_renew.debug
+voms-proxy-init2 -valid 96:00 -q -cert $new_proxy_cert -key $new_proxy_key -out $proxy 
 
 #check lifetime of certificate
 voms-proxy-info2 -exists -hours 11 -file $proxy

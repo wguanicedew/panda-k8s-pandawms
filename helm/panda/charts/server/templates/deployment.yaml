@@ -60,7 +60,7 @@ spec:
       labels:
         {{- include "server.selectorLabels" . | nindent 8 }}
     spec:
-      hostname:  {{ include "server.fullname" . }}-local
+      hostname:  {{ .Release.Name }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -105,21 +105,13 @@ spec:
                mountPath: /opt/panda/etc/panda/auth
              - name: {{ include "server.fullname" . }}-sandbox
                mountPath: /opt/panda/sandbox
-             {{- if .Values.hostcerts.enabled }}
              - name: {{ include "server.fullname" . }}-certs
                mountPath: /opt/panda/etc/cert
-             {{- end }}
           envFrom:
-             - configMapRef:
-                 {{- if .Values.database.config_ref }}
-                 name: {{ .Values.database.config_ref }}
-                 {{- else }}
-                 name: {{ .Release.Name }}-postgres-configmap
-                 {{- end }}
-             - configMapRef:
-                 name: {{ .Release.Name }}-external-env
-             - configMapRef:
-                 name: {{ include "server.fullname" . }}-env
+            - configMapRef:
+                name: {{ include "server.fullname" . }}-env
+            - secretRef:
+                name: {{ .Values.global.secret }}-panda-envs
           env:
             - name: PANDA_SERVER_CONF_SERVERNAME
               value: {{ include "server.fullname" . }}
@@ -146,8 +138,8 @@ spec:
           configMap:
               name: {{ include "server.fullname" . }}-configjson
         - name: {{ include "server.fullname" . }}-auth
-          configMap:
-              name: {{ include "server.fullname" . }}-auth
+          secret:
+              secretName: {{ .Values.global.secret }}-panda-auth
         - name: {{ include "server.fullname" . }}-sandbox
           projected:
             sources:
@@ -155,8 +147,6 @@ spec:
                   name: {{ include "server.fullname" . }}-sandbox
               - configMap:
                   name: {{ .Release.Name }}-external-sandbox
-        {{- if .Values.hostcerts.enabled }}
         - name: {{ include "server.fullname" . }}-certs
-          configMap:
-              name: {{ include "server.fullname" . }}-certs
-        {{ end }}
+          secret:
+              secretName: {{ .Values.global.secret }}-panda-certs

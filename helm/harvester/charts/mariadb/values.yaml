@@ -10,19 +10,11 @@ image:
   tag: "latest"
 
 persistentvolume:
-  create: false
-  class: nas
+  create: true
+  class: manual
   path: "/mnt/harvester-data"
   size: 5Gi
   selector: true
-
-database:
-  # harvester password
-  password: NKdSRhjE
-  # admin password
-  admin_password: MbUceKpF
-  # external database hostname
-  # dbhost: blah
 
 imagePullSecrets: []
 nameOverride: ""
