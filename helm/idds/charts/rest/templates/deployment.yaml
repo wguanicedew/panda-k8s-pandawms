@@ -94,7 +94,7 @@ spec:
             - configMapRef:
                 name: {{ include "rest.fullname" . }}-envs
             - secretRef:
-                name: {{ .Values.secret.name }}-envs
+                name: {{ .Values.global.secret }}-idds-envs
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -126,7 +126,7 @@ spec:
               - configMap:
                   name: {{ include "rest.fullname" . }}-configmap
               - secret:
-                  name: {{ .Values.secret.name }}-auth
+                  name: {{ .Values.global.secret }}-idds-auth
         - name: {{ include "rest.fullname" . }}-certs
           secret:
-              secretName: {{ .Values.secret.name }}-certs
+              secretName: {{ .Values.global.secret }}-idds-certs

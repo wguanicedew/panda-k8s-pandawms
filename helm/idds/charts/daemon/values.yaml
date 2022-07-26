@@ -24,9 +24,6 @@ persistentvolume:
 hostcerts:
   enabled: false
 
-secret:
-  name: "idds-secret"
-
 database:
   # Set the reference name of the database config
   # Default is the {{Release.Name}}-postgres-configmap

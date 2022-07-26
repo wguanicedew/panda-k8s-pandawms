@@ -16,9 +16,6 @@ persistentvolume:
   path: "/mnt/idds-database"
   size: 5Gi
 
-secret:
-  name: "idds-secret"
-
 database:
   name: postgresdb
   user: admin

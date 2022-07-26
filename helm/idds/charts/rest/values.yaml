@@ -34,9 +34,6 @@ panda:
   authVO: "Rubin:production"
   authIdToken: ""
 
-secret:
-  name: "idds-secret"
-
 hostcerts:
   enabled: false
 

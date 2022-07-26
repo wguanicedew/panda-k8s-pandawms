@@ -2,16 +2,18 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+global:
+  secret: "panda-secrets"
 
 daemon:
   enabled: true
   image:
-    tag: "0.11.10"
+    tag: "0.11.11"
 
 rest:
   enabled: true
   image:
-    tag: "0.11.10"
+    tag: "0.11.11"
 
 postgres:
   enabled: true
