@@ -78,7 +78,7 @@ for component in options.enable.split(','):
         for sub_name in disabled[component]:
             if sub_name == 'all':
                 continue
-            com += ['--set', f"{sub_name}.enabled=false"]
+            com += ['--set', "{}.enabled=false".format(sub_name)]
 
     # execute
     print('>>> ', ' '.join(com),'\n\n')
