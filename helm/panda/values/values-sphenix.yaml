@@ -18,8 +18,6 @@ server:
   route:
     enabled: true
 
-  httpsProxy: "http://proxy.sdcc.bnl.local:3128"
-  httpProxy: "http://proxy.sdcc.bnl.local:3128"
   noRoot: true
   hostName: "sphenix-pandaserver.apps.rcf.bnl.gov"
 
