@@ -6,3 +6,5 @@ activemq:
     path: "/mnt/activemq-data"
     size: 5Gi
     selector: false
+
+  noRoot: true
