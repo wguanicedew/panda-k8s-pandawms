@@ -108,7 +108,7 @@ spec:
             - name: {{ include "harvester.fullname" . }}-configjson
               mountPath: /opt/harvester/etc/configmap
             - name: {{ include "harvester.fullname" . }}-queueconfig
-              mountPath: /opt/harvester/etc/queue_config
+              mountPath: /opt/harvester/etc/queue_config_mount
             - name: {{ include "harvester.fullname" . }}-sandbox
               mountPath: /opt/harvester/sandbox
             - name: {{ include "harvester.fullname" . }}-certs

@@ -8,10 +8,18 @@ mkdir -p /var/log/panda/condor_logs
 chmod 777 /var/log/panda/condor_logs
 
 
+# setup the queueconfig
+mkdir -p /opt/harvester/etc/queue_config
+if [[ ! -f /opt/harvester/etc/queue_config/panda_queueconfig.json ]]; then
+    if [[ ! -z "${EXPERIMENT}" ]] && [[ -f /opt/harvester/etc/queue_config_mount/${EXPERIMENT}.panda_queueconfig.json ]]; then
+        ln -s /opt/harvester/etc/queue_config_mount/${EXPERIMENT}.panda_queueconfig.json /opt/harvester/etc/queue_config/panda_queueconfig.json
+    fi
+fi
+
 if [[ ! -z "${EXPERIMENT}" ]]; then
     CurrentDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     init_script=${CurrentDir}/${EXPERIMENT}.init-harvester
-    if [ -f ${init_script} ]; then
+    if [[ -f ${init_script} ]]; then
         echo "Executing ${init_script}"
         bash $init_script
     fi

@@ -13,17 +13,8 @@ kind: ConfigMap
 metadata:
   name: {{ include "harvester.fullname" . }}-queueconfig
 data:
-  {{- if .Values.experiment }}
-  {{ $pq_file :=  printf "%s.%s" .Values.experiment "panda_queueconfig.json" }}
-  panda_queueconfig.json: |-
-{{ .Files.Get $pq_file | indent 4}}
-  {{- else}}
-  panda_queueconfig.json: |-
-{{ .Files.Get "panda_queueconfig.json" | indent 4}}
-  {{- end}}
+{{- (.Files.Glob "queueconfig/*").AsConfig | nindent 2 }}
 
-  pilot_wrapper.sh: |-
-{{ .Files.Get "pilot_wrapper.sh" | indent 4}}
 ---
 # env variables
 apiVersion: v1
