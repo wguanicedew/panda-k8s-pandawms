@@ -54,12 +54,16 @@ There are different installations:
 Deployment with secrets
 ------------------------
 
-* Deploy secrets. The secrets files can be kept in a private repository or use 'helm secrets' to encrypt them. Different experiments many have different solutions to keep the secrets. Here we separate the secrets part because we can keep them for long time after they are deployed. The updating frequence for secrets can be much less than updating the instance.
+* Deploy secrets. The secrets files can be kept in a private repository or use 'helm secrets' to encrypt them.
+Different experiments many have different solutions to keep the secrets. Here we separate the secrets part because
+we can keep them for long time after they are deployed. The updating frequence for secrets can be much less
+than updating the instance.
 
 Deploy secrets:
 +++++++++++++++
 
-The secrets can be stored in a private repository or in the same repository but encrypted. They can be deployed one time and then used for long term (*Please set the values correctly in the secrets/<>/values.yaml*)::
+The secrets can be stored in a private repository or in the same repository but encrypted. They can be deployed
+one time and then used for long term (*Please set the values correctly in the secrets/<>/values.yaml*)::
 
   $> helm install panda-secrets  secrets/
 
@@ -67,86 +71,79 @@ Deploy the instances:
 +++++++++++++++++++++
 
 When the secrets are deployed. Someone else or some daemons can automatically deploy the panda instances.
+There is a tool to deploy instances consistently with the secrets::
+
+  $> ./bin/install -h
+        usage: install [-h] [--affix AFFIX] [--experiment EXPERIMENT]
+                   [--enable ENABLE] [--disable DISABLE] [--template]
+
+        optional arguments:
+          -h, --help            show this help message and exit
+          --affix AFFIX, -a AFFIX
+                                Prefix (blah-) or suffix (-blah) of instance names. If
+                                this option is not specified, it looks for affix in
+                                secrets/values.yaml. "test-" is used if affix is not
+                                found in the values.yaml
+          --experiment EXPERIMENT, -e EXPERIMENT
+                                Experiment name
+          --enable ENABLE, -c ENABLE
+                                Comma-separated list of components to be installed
+          --disable DISABLE, -d DISABLE
+                                Comma-separated list of disabled components and/or
+                                sub-components
+          --template, -t        Dry-run
 
 * Deploy ActiveMQ::
 
-  $> helm install msgsvc-dev helm/msgsvc/
+  $> ./bin/install -c msgsvc
 
 * Deploy IAM::
 
-  $> helm install iam-dev helm/iam
+  $> ./bin/install -c iam
 
 * Deploy PanDA::
 
-  $> helm install panda-dev helm/panda/
+  $> ./bin/install -c panda
 
 * Deploy iDDS::
 
-  $> helm install idds-dev helm/idds/
+  $> ./bin/install -c idds
 
 * Deploy Harvester::
 
-  $> helm install harvester-dev helm/harvester/
+  $> ./bin/install -c harvester
 
 * Deploy BigMon (tobedone)::
 
-  $> helm install bigmon-dev helm/bigmon
+  $> ./bin/install -c bigmon
+
+* Deploy all components in one go::
+
+  $> ./bin/install
 
 LSST deployment
 -----------------
 
-For LSST deployment (at SLAC), the persistent volume is 'wekafs--sdf-k8s01'.
+For LSST deployment (at SLAC), you need to specify `-e lsst`
 
-* Deploy ActiveMQ::
+* Deploy ActiveMQ for example::
 
-  $> helm install msgsvc-dev helm/msgsvc/ -f helm/msgsvc/values.yaml -f helm/msgsvc/values/values-lsst.yaml
+  $> ./bin/install -c msgsvc -e lsst
 
-* Deploy IAM::
+* Deploy all components in one go::
 
-  $> helm install iam-dev helm/iam -f helm/iam/values.yaml -f helm/iam/values/values-lsst.yaml
-
-* Deploy PanDA::
-
-  $> helm install panda-dev helm/panda/ -f helm/panda/values.yaml -f helm/panda/values/values-lsst.yaml
-
-* Deploy iDDS::
-
-  $> helm install idds-dev helm/idds/ -f helm/idds/values.yaml -f helm/idds/values/values-lsst.yaml
-
-* Deploy Harvester::
-
-  $> helm install harvester-dev helm/harvester/ -f helm/harvester/values.yaml -f helm/harvester/values/values-lsst.yaml
-
-* Deploy BigMon::
-
-  $> helm install bigmon-dev helm/bigmon -f helm/bigmon/values.yaml -f helm/bigmon/values-lsst.yaml
+  $> ./bin/install -e lsst
 
 
 Sphenix deployment
 ------------------
 
-For Sphenix deployment (at BNL), the persistent volume is 'nas'.
+For Sphenix deployment (at BNL), you need to specify `-e sphenix`
 
-* Deploy ActiveMQ::
+** Deploy ActiveMQ for example::
 
-  $> helm install msgsvc-dev helm/msgsvc/ -f helm/msgsvc/values.yaml -f helm/msgsvc/values/values-sphenix.yaml
+  $> ./bin/install -c msgsvc -e sphenix
 
-* Deploy IAM::
+* Deploy all components in one go::
 
-  $> helm install iam-dev helm/iam -f helm/iam/values.yaml -f helm/iam/values/values-sphenix.yaml
-
-* Deploy PanDA::
-
-  $> helm install panda-dev helm/panda/ -f helm/panda/values.yaml -f helm/panda/values/values-sphenix.yaml
-
-* Deploy iDDS::
-
-  $> helm install idds-dev helm/idds/ -f helm/idds/values.yaml -f helm/idds/values/values-sphenix.yaml
-
-* Deploy Harvester::
-
-  $> helm install harvester-dev helm/harvester/ -f helm/harvester/values.yaml -f helm/harvester/values/values-sphenix.yaml
-
-* Deploy BigMon (tobedone)::
-
-  $> helm install bigmon-dev helm/bigmon
+  $> ./bin/install -e sphenix
