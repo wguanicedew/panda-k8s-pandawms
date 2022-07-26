@@ -58,7 +58,7 @@ spec:
       labels:
         {{- include "daemon.selectorLabels" . | nindent 8 }}
     spec:
-      hostname:  {{ include "daemon.fullname" . }}-local
+      hostname:  {{ .Release.Name }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -87,16 +87,16 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
             - configMapRef:
-                name: {{ include "daemon.fullname" . }}-envs
+                name: {{ .Release.Name }}-rest-envs
+            - secretRef:
+                name: {{ .Values.global.secret }}-idds-envs
           volumeMounts:
               - name: {{ include "daemon.fullname" . }}-logs
                 mountPath: /var/log/idds/
               - name: {{ include "daemon.fullname" . }}-configmap
                 mountPath: /opt/idds/configmap
-              {{- if .Values.hostcerts.enabled -}}
               - name: {{ include "daemon.fullname" . }}-certs
-                mountPath: /opt/idds/configmap
-              {{- end }}
+                mountPath: /opt/idds/certs
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -114,10 +114,12 @@ spec:
           persistentVolumeClaim:
             claimName: {{ include "daemon.fullname" . }}
         - name: {{ include "daemon.fullname" . }}-configmap
-          configMap:
-              name: {{ include "daemon.fullname" . }}-configmap
-        {{- if .Values.hostcerts.enabled -}}
+          projected:
+            sources:
+              - configMap:
+                  name: {{ .Release.Name }}-rest-configmap
+              - secret:
+                  name: {{ .Values.global.secret }}-idds-auth
         - name: {{ include "daemon.fullname" . }}-certs
-          configMap:
-              name: {{ include "daemon.fullname" . }}-certs
-        {{- end }}
+          secret:
+              secretName: {{ .Values.global.secret }}-idds-certs

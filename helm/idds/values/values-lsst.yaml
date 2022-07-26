@@ -10,22 +10,13 @@ daemon:
     class: wekafs--sdf-k8s01
     create: false
 
+  # use secret
+  secret:
+    name: idds-secret
+
   httpProxy: "http://squid.slac.stanford.edu:3128"
   httpsProxy: "http://squid.slac.stanford.edu:3128"
   noProxy: "localhost,idds-dev-rest,idds-dev-daemon,panda-dev-server,panda-dev-jedi"
-
-  panda:
-    panda_url_ssl: https://panda-dev-server:443/server/panda
-    panda_url: http://panda-dev-server:80/server/panda
-    panda_monitor_url: "https://panda-dev-server"
-    pandacache_url: https://panda-dev-server:443/server/panda
-
-  conductor:
-    brokers: activemq-dev
-    port: 61613
-    destination: /queue/iddspanda
-    username: FIXME_WRITER
-    password: FIXME_PASS
 
 rest:
 
@@ -41,11 +32,9 @@ rest:
   httpsProxy: "http://squid.slac.stanford.edu:3128"
   noProxy: "localhost,idds-dev-rest,idds-dev-daemon,panda-dev-server,panda-dev-jedi"
 
-  panda:
-    panda_url_ssl: https://panda-dev-server:443/server/panda
-    panda_url: http://panda-dev-server:80/server/panda
-    panda_monitor_url: "https://panda-dev-server"
-    pandacache_url: https://panda-dev-server:443/server/panda
+  # use secret
+  secret:
+    name: idds-secret
 
   ingress:
     enabled: true
@@ -62,6 +51,10 @@ rest:
             hostOverride: idds-dev.slac.stanford.edu
 
 postgres:
+
+  # use secret
+  secret:
+    name: idds-secret
 
   # PV: For use cases that users are not allowed to create PV,
   # please update class to corresponding storageclass and update create to false.

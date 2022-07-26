@@ -10,9 +10,6 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-# run with non-root account
-noRoot: false
-
 # start the service when pod gets started
 autoStart: true
 
@@ -21,48 +18,17 @@ iddsServer: localhost
 persistentvolume:
   create: true
   class: manual
-  path: "/mnt/idds-main-logs"
+  path: "/mnt/idds-daemon-logs"
   size: 5Gi
-
-panda:
-  panda_url_ssl: https://panda-dev-server:443/server/panda
-  panda_url: http://panda-dev-server:80/server/panda
-  panda_monitor_url: "https://panda-dev-server"
-  panda_auth: "oidc"
-  panda_auth_vo: "Rubin:production"
-  panda_config_root: "/opt/idds/config/"
-  pandacache_url: "https://panda-dev-server:443/server/panda"
-  panda_verify_host: "off"
 
 hostcerts:
   enabled: false
 
 database:
-  name: postgresdb
-  user: admin
-  password: MyPandaPass0508
-  schema: public
-
-oidc:
-  atlas:
-    client_id: abc
-    client_secret: abc
-  rubin:
-    client_id: abc
-    client_secret: abc
-  rubin_production:
-    client_id: abc
-    client_secret: abc
-  panda_dev:
-    client_id: abc
-    client_secret: abc
-
-conductor:
-  brokers: atlas-mb.cern.ch
-  port: 61013
-  destination: /topic/doma.idds
-  username: username
-  password: password
+  # Set the reference name of the database config
+  # Default is the {{Release.Name}}-postgres-configmap
+  # config_ref: idds-dev-postgres-configmap
+  config_ref: ""
 
 imagePullSecrets: []
 nameOverride: ""

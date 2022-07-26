@@ -2,47 +2,18 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# idds_db, idds_user and idds_schema can be changed currently
-database:
-  idds_db: &idds_db "idds_db"
-  idds_user: &idds_user "idds"
-  idds_password: &idds_password "MyPass123"
-  idds_schema: &idds_schema "doma_idds"
+global:
+  secret: "panda-secrets"
 
 daemon:
   enabled: true
   image:
-    tag: "0.11.4"
-
-  # run with non-root pid
-  # noRoot: false
-
-  database:
-    name: *idds_db
-    user: *idds_user
-    password: *idds_password
-    schema: *idds_schema
-
-  conductor:
-    brokers: activemq-dev
-    port: 61613
-    destination: /queue/iddspanda
-    username: FIXME_WRITER
-    password: FIXME_PASS
+    tag: "0.11.12"
 
 rest:
   enabled: true
   image:
-    tag: "0.11.4"
-
-  # run with non-root pid
-  # noRoot: false
-
-  database:
-    name: *idds_db
-    user: *idds_user
-    password: *idds_password
-    schema: *idds_schema
+    tag: "0.11.12"
 
 postgres:
   enabled: true
@@ -50,7 +21,8 @@ postgres:
     tag: "13.6"
 
   database:
-    name: *idds_db
-    user: *idds_user
-    password: *idds_password
-    schema: *idds_schema
+    name: "idds_db"
+    user: "idds"
+    password: "MyPass123"
+    schema: "doma_idds"
+    host: ""
