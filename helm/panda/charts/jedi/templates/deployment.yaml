@@ -76,9 +76,6 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - until  /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
-              chmod -R 777 /var/log/panda;
-              rm -fr /var/log/panda/panda_jedi.pid*;
-              rm -fr /var/lock/subsys/panda_jedi;
               cp /opt/panda/sandbox/init-jedi /data/panda/;
               chmod +x /data/panda/init-jedi;
               cp /opt/panda/sandbox/run-jedi-crons /data/panda/;

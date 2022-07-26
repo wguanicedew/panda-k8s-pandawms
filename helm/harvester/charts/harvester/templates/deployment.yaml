@@ -84,9 +84,6 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - while ! mysqladmin ping -h ${HARVESTER_DB_HOST} -p${MARIADB_PASSWORD} --silent; do sleep 1; done;
-              chmod -R 777 /var/log/panda;
-              rm -fr /var/log/panda/panda_harvester.pid*;
-              rm -fr /var/log/panda/*.lock;
               cp /opt/harvester/sandbox/init-harvester /data/harvester/;
               chmod +x /data/harvester/init-harvester;
               cp /opt/harvester/sandbox/run-harvester-crons /data/harvester/;

@@ -23,12 +23,6 @@ httpsProxy: ""
 # run with non-root PID
 noRoot: false
 
-# activeMQ
-activemq:
-  # hosts and ports
-  serverList:
-    - "activemq-dev:61613"
-
 
 persistentvolume:
   # Set true to create PV
