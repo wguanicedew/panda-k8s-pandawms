@@ -8,8 +8,6 @@ daemon:
     class: nas
     create: false
 
-  httpsProxy: "http://proxy.sdcc.bnl.local:3128"
-  httpProxy: "http://proxy.sdcc.bnl.local:3128"
   noRoot: true
 
 
@@ -20,7 +18,7 @@ rest:
     create: false
 
   noRoot: true
-  
+
 
 postgres:
 

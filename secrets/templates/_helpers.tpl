@@ -106,20 +106,20 @@ Add affix to instance reference names
 Set Proxies
 */}}
 {{- define "set_proxy" }}
-{{- if .Values.httpProxy }}
-http_proxy: "{{ .Values.httpProxy }}"
-{{- if .Values.noProxy }}
-no_proxy: "{{ .Values.noProxy }}"
+{{- if .Values.proxy.httpProxy }}
+http_proxy: "{{ .Values.proxy.httpProxy }}"
+{{- if .Values.proxy.noProxy }}
+no_proxy: "{{ .Values.proxy.noProxy }}"
 {{- else }}
 no_proxy: "localhost,{{ include "panda_ref" . }}-server,{{ include "idds_ref" . }}-rest"
 {{- end }}
-{{- if .Values.httpsProxy }}
-https_proxy: "{{ .Values.httpProxy }}"
+{{- if .Values.proxy.httpsProxy }}
+https_proxy: "{{ .Values.proxy.httpProxy }}"
 {{- end }}
-{{- else if .Values.httpsProxy }}
-https_proxy: "{{ .Values.httpsProxy }}"
-{{- if .Values.noProxy }}
-no_proxy: "{{ .Values.noProxy }}"
+{{- else if .Values.proxy.httpsProxy }}
+https_proxy: "{{ .Values.proxy.httpsProxy }}"
+{{- if .Values.proxy.noProxy }}
+no_proxy: "{{ .Values.proxy.noProxy }}"
 {{- else }}
 no_proxy: "localhost,{{ include "panda_ref" . }}-server,{{ include "idds_ref" . }}-rest"
 {{- end }}
