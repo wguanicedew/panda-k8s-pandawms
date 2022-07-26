@@ -16,9 +16,6 @@ persistentvolume:
   path: "/mnt/iam-data"
   size: 5Gi
 
-secret:
-  name: "iam-secret"
-
 iam:
   organization: 'Rubin'
 

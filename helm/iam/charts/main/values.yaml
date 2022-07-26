@@ -22,9 +22,6 @@ persistentvolume:
 hostcerts:
   enabled: false
 
-secret:
-  name: "iam-secret"
-
 iam:
   # profiles: "prod,google,saml"
   # profiles: "prod"

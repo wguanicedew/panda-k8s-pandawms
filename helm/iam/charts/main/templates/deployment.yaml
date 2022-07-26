@@ -78,7 +78,7 @@ spec:
               protocol: TCP
           envFrom:
             - secretRef:
-                name: {{ .Values.secret.name }}-iam-envs
+                name: {{ .Values.global.secret }}-iam-envs
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -99,4 +99,4 @@ spec:
       volumes:
         - name: {{ include "main.fullname" . }}-configmap
           secret:
-            secretName: {{ .Values.secret.name }}-conf
+            secretName: {{ .Values.global.secret }}-iam-conf

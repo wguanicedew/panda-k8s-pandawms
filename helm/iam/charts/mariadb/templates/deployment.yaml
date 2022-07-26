@@ -78,7 +78,7 @@ spec:
               protocol: TCP
           envFrom:
             - secretRef:
-                name: {{ .Values.secret.name }}-db-envs
+                name: {{ .Values.global.secret }}-iam-db-envs
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -104,4 +104,4 @@ spec:
             claimName: {{ include "mariadb.fullname" . }}
         - name: {{ include "mariadb.fullname" . }}-initdb
           secret:
-              secretName: {{ .Values.secret.name }}-initdb
+              secretName: {{ .Values.global.secret }}-iam-initdb
