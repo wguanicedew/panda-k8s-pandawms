@@ -3,9 +3,9 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: {{ include "postgres.fullname" . }}
+  name: {{ include "mariadb.fullname" . }}
   labels:
-      {{- include "postgres.labels" . | nindent 4 }}
+      {{- include "mariadb.labels" . | nindent 4 }}
 spec:
   storageClassName: {{ .Values.persistentvolume.class }}
   capacity:
@@ -20,9 +20,9 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ include "postgres.fullname" . }}
+  name: {{ include "mariadb.fullname" . }}
   labels:
-    {{- include "postgres.labels" . | nindent 4 }}
+    {{- include "mariadb.labels" . | nindent 4 }}
 spec:
   storageClassName: {{ .Values.persistentvolume.class }}
   accessModes:
@@ -33,22 +33,22 @@ spec:
   {{- if .Values.persistentvolume.create }}
   selector:
     matchLabels:
-      {{- include "postgres.selectorLabels" . | nindent 6 }}
+      {{- include "mariadb.selectorLabels" . | nindent 6 }}
   {{- end }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "postgres.fullname" . }}
+  name: {{ include "mariadb.fullname" . }}
   labels:
-    {{- include "postgres.labels" . | nindent 4 }}
+    {{- include "mariadb.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "postgres.selectorLabels" . | nindent 6 }}
+      {{- include "mariadb.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -56,13 +56,14 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "postgres.selectorLabels" . | nindent 8 }}
+        {{- include "mariadb.selectorLabels" . | nindent 8 }}
     spec:
+      hostname:  {{ .Release.Name}}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "postgres.serviceAccountName" . }}
+      serviceAccountName: {{ include "mariadb.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -72,23 +73,19 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: postgres-port
-              containerPort: 5432
+            - name: mariadb-port
+              containerPort: 3306
               protocol: TCP
           envFrom:
-            - configMapRef:
-                name: {{ include "postgres.fullname" . }}-configmap
             - secretRef:
-                name: {{ .Values.global.secret }}-idds-db-envs
+                name: {{ .Values.global.secret }}-iam-db-envs
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            {{- if .Values.noRoot }}
-            - mountPath: /tmp/pg_volume
-            {{- else }}
-            - mountPath: /var/lib/postgresql/data
-              name: {{ include "postgres.fullname" . }}-data
-            {{- end }}
+            - mountPath: /var/lib/mysql
+              name: {{ include "mariadb.fullname" . }}-data
+            - mountPath: /docker-entrypoint-initdb.d/
+              name: {{ include "mariadb.fullname" . }}-initdb
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -102,6 +99,9 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: {{ include "postgres.fullname" . }}-data
+        - name: {{ include "mariadb.fullname" . }}-data
           persistentVolumeClaim:
-            claimName: {{ include "postgres.fullname" . }}
+            claimName: {{ include "mariadb.fullname" . }}
+        - name: {{ include "mariadb.fullname" . }}-initdb
+          secret:
+              secretName: {{ .Values.global.secret }}-iam-initdb

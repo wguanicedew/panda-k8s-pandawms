@@ -1,0 +1,21 @@
+# Default values for idds.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+daemon:
+
+  persistentvolume:
+    class: nas
+    create: false
+
+rest:
+
+  persistentvolume:
+    class: nas
+    create: false
+
+postgres:
+
+  persistentvolume:
+    class: nas
+    create: false

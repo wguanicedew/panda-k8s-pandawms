@@ -58,7 +58,7 @@ spec:
       labels:
         {{- include "rest.selectorLabels" . | nindent 8 }}
     spec:
-      hostname:  {{ include "rest.fullname" . }}-local
+      hostname:  {{ .Release.Name}}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -87,9 +87,14 @@ spec:
             - name: https
               containerPort: 8443
               protocol: TCP
+            - name: http
+              containerPort: 8080
+              protocol: TCP
           envFrom:
             - configMapRef:
                 name: {{ include "rest.fullname" . }}-envs
+            - secretRef:
+                name: {{ .Values.global.secret }}-idds-envs
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -97,10 +102,8 @@ spec:
                 mountPath: /var/log/idds/
               - name: {{ include "rest.fullname" . }}-configmap
                 mountPath: /opt/idds/configmap
-              {{- if .Values.hostcerts.enabled -}}
               - name: {{ include "rest.fullname" . }}-certs
-                mountPath: /opt/idds/configmap
-              {{- end }}
+                mountPath: /opt/idds/certs
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -118,10 +121,12 @@ spec:
           persistentVolumeClaim:
             claimName: {{ include "rest.fullname" . }}
         - name: {{ include "rest.fullname" . }}-configmap
-          configMap:
-              name: {{ include "rest.fullname" . }}-configmap
-        {{- if .Values.hostcerts.enabled -}}
+          projected:
+            sources:
+              - configMap:
+                  name: {{ include "rest.fullname" . }}-configmap
+              - secret:
+                  name: {{ .Values.global.secret }}-idds-auth
         - name: {{ include "rest.fullname" . }}-certs
-          configMap:
-              name: {{ include "rest.fullname" . }}-certs
-        {{- end }}
+          secret:
+              secretName: {{ .Values.global.secret }}-idds-certs
