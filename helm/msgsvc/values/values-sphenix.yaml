@@ -1,7 +1,8 @@
-# create persistent volume
-persistentvolume:
-  create: false
-  class: nas
-  path: "/mnt/activemq-data"
-  size: 5Gi
-  selector: false
+activemq:
+  # create persistent volume
+  persistentvolume:
+    create: false
+    class: nas
+    path: "/mnt/activemq-data"
+    size: 5Gi
+    selector: false
