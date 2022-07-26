@@ -16,10 +16,6 @@ persistentvolume:
   size: 5Gi
   selector: true
 
-# use secret
-secret:
-  name: "panda-secret"
-
 database:
   # password
   password: PwJdJWr7vY

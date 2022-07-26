@@ -114,7 +114,7 @@ spec:
             - configMapRef:
                 name: {{ include "server.fullname" . }}-env
             - secretRef:
-                name: {{ .Values.secret.name }}-envs
+                name: {{ .Values.global.secret }}-panda-envs
           env:
             - name: PANDA_SERVER_CONF_SERVERNAME
               value: {{ include "server.fullname" . }}
@@ -142,7 +142,7 @@ spec:
               name: {{ include "server.fullname" . }}-configjson
         - name: {{ include "server.fullname" . }}-auth
           secret:
-              secretName: {{ .Values.secret.name }}-auth
+              secretName: {{ .Values.global.secret }}-panda-auth
         - name: {{ include "server.fullname" . }}-sandbox
           projected:
             sources:
@@ -152,4 +152,4 @@ spec:
                   name: {{ .Release.Name }}-external-sandbox
         - name: {{ include "server.fullname" . }}-certs
           secret:
-              secretName: {{ .Values.secret.name }}-certs
+              secretName: {{ .Values.global.secret }}-panda-certs

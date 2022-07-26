@@ -2,6 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+global:
+  secret: "panda-secrets"
+
 harvester:
   # enable harvester
   enabled: true

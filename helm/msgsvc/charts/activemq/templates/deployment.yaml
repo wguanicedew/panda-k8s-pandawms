@@ -106,7 +106,7 @@ spec:
               mountPath: /opt/activemq/sandbox
           envFrom:
             - secretRef:
-                name: {{ .Values.secret.name }}-envs
+                name: {{ .Values.global.secret }}-msgsvc-envs
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

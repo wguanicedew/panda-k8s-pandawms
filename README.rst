@@ -45,7 +45,7 @@ Deployment info
 
 There are different installations:
 
-  * Secret installation: In this installation, secret information are kept in *secrets/<service>*. You need to keep the secret file in a diferent place (such as applying *helm secrets*). For the secret deployment, you can keep them for long time and only update it when it's needed. After deploying the secrets, you can deploy the service.
+  * Secret installation: In this installation, secret information are kept in *secrets/*. You need to keep the secret file in a diferent place (such as applying *helm secrets*). For the secret deployment, you can keep them for long time and only update it when it's needed. After deploying the secrets, you can deploy the service.
 
   * Experiment based installation: For different experiments, there maybe special requirements, for example different namespaces or different persistent volumens. In this case, an experiment specific file *values-<experiment>.yaml* is required.
 
@@ -61,12 +61,7 @@ Deploy secrets:
 
 The secrets can be stored in a private repository or in the same repository but encrypted. They can be deployed one time and then used for long term (*Please set the values correctly in the secrets/<>/values.yaml*)::
 
-  $> helm install activemq-dev-secret  secrets/msgsvc/
-  $> helm install iam-dev-secret secrets/iam/
-  $> helm install panda-dev-secret secrets/panda/
-  $> helm install idds-dev-secret secrets/idds
-  $> helm install harvester-dev-secret secrets/harvester/
-  $> (bigmon to be done)
+  $> helm install panda-secrets  secrets/
 
 Deploy the instances:
 +++++++++++++++++++++
@@ -75,23 +70,23 @@ When the secrets are deployed. Someone else or some daemons can automatically de
 
 * Deploy ActiveMQ::
 
-  $> helm install activemq-dev helm/msgsvc/ -f helm/msgsvc/values.yaml -f helm/msgsvc/values/values-use-secret.yaml
+  $> helm install msgsvc-dev helm/msgsvc/
 
 * Deploy IAM::
 
-  $> helm install iam-dev helm/iam -f helm/iam/values.yaml -f helm/iam/values/values-use-secret.yaml
+  $> helm install iam-dev helm/iam
 
 * Deploy PanDA::
 
-  $> helm install panda-dev helm/panda/ -f helm/panda/values.yaml -f helm/panda/values/values-use-secret.yaml
+  $> helm install panda-dev helm/panda/
 
 * Deploy iDDS::
 
-  $> helm install idds-dev helm/idds/ -f helm/idds/values.yaml -f helm/idds/values/values-use-secret.yaml
+  $> helm install idds-dev helm/idds/
 
 * Deploy Harvester::
 
-  $> helm install harvester-dev helm/harvester/ -f helm/harvester/values.yaml  -f helm/harvester/values/values-use-secret.yaml
+  $> helm install harvester-dev helm/harvester/
 
 * Deploy BigMon (tobedone)::
 
@@ -102,27 +97,25 @@ LSST deployment
 
 For LSST deployment (at SLAC), the persistent volume is 'wekafs--sdf-k8s01'.
 
-*NOTE: values-use-secret.yaml will overwrite some values in values-lsst.yaml. So the order of value files is important*
-
 * Deploy ActiveMQ::
 
-  $> helm install activemq-dev helm/msgsvc/ -f helm/msgsvc/values.yaml -f helm/msgsvc/values/values-lsst.yaml -f helm/msgsvc/values/values-use-secret.yaml
+  $> helm install msgsvc-dev helm/msgsvc/ -f helm/msgsvc/values.yaml -f helm/msgsvc/values/values-lsst.yaml
 
 * Deploy IAM::
 
-  $> helm install iam-dev helm/iam -f helm/iam/values.yaml -f helm/iam/values/values-lsst.yaml -f helm/iam/values/values-use-secret.yaml
+  $> helm install iam-dev helm/iam -f helm/iam/values.yaml -f helm/iam/values/values-lsst.yaml
 
 * Deploy PanDA::
 
-  $> helm install panda-dev helm/panda/ -f helm/panda/values.yaml -f helm/panda/values/values-lsst.yaml -f helm/panda/values/values-use-secret.yaml
+  $> helm install panda-dev helm/panda/ -f helm/panda/values.yaml -f helm/panda/values/values-lsst.yaml
 
 * Deploy iDDS::
 
-  $> helm install idds-dev helm/idds/ -f helm/idds/values.yaml -f helm/idds/values/values-lsst.yaml -f helm/idds/values/values-use-secret.yaml
+  $> helm install idds-dev helm/idds/ -f helm/idds/values.yaml -f helm/idds/values/values-lsst.yaml
 
 * Deploy Harvester::
 
-  $> helm install harvester-dev helm/harvester/ -f helm/harvester/values.yaml -f helm/harvester/values/values-lsst.yaml -f helm/harvester/values/values-use-secret.yaml
+  $> helm install harvester-dev helm/harvester/ -f helm/harvester/values.yaml -f helm/harvester/values/values-lsst.yaml
 
 * Deploy BigMon (tobedone)::
 
@@ -134,27 +127,25 @@ Sphenix deployment
 
 For Sphenix deployment (at BNL), the persistent volume is 'nas'.
 
-*NOTE: values-use-secret.yaml will overwrite some values in values-sphenix.yaml. So the order of value files is important*
-
 * Deploy ActiveMQ::
 
-  $> helm install activemq-dev helm/msgsvc/ -f helm/msgsvc/values.yaml -f helm/msgsvc/values/values-sphenix.yaml -f helm/msgsvc/values/values-use-secret.yaml
+  $> helm install msgsvc-dev helm/msgsvc/ -f helm/msgsvc/values.yaml -f helm/msgsvc/values/values-sphenix.yaml
 
 * Deploy IAM::
 
-  $> helm install iam-dev helm/iam -f helm/iam/values.yaml -f helm/iam/values/values-sphenix.yaml -f helm/iam/values/values-use-secret.yaml
+  $> helm install iam-dev helm/iam -f helm/iam/values.yaml -f helm/iam/values/values-sphenix.yaml
 
 * Deploy PanDA::
 
-  $> helm install panda-dev helm/panda/ -f helm/panda/values.yaml -f helm/panda/values/values-sphenix.yaml -f helm/panda/values/values-use-secret.yaml
+  $> helm install panda-dev helm/panda/ -f helm/panda/values.yaml -f helm/panda/values/values-sphenix.yaml
 
 * Deploy iDDS::
 
-  $> helm install idds-dev helm/idds/ -f helm/idds/values.yaml -f helm/idds/values/values-sphenix.yaml -f helm/idds/values/values-use-secret.yaml
+  $> helm install idds-dev helm/idds/ -f helm/idds/values.yaml -f helm/idds/values/values-sphenix.yaml
 
 * Deploy Harvester::
 
-  $> helm install harvester-dev helm/harvester/ -f helm/harvester/values.yaml -f helm/harvester/values/values-sphenix.yaml -f helm/harvester/values/values-use-secret.yaml
+  $> helm install harvester-dev helm/harvester/ -f helm/harvester/values.yaml -f helm/harvester/values/values-sphenix.yaml
 
 * Deploy BigMon (tobedone)::
 

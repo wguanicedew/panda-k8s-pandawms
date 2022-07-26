@@ -101,7 +101,7 @@ spec:
             - configMapRef:
                 name: {{ .Release.Name }}-server-env
             - secretRef:
-                name: {{ .Values.secret.name }}-envs
+                name: {{ .Values.global.secret }}-panda-envs
           env:
             # set no_proxy since $() is resolved not in envFrom section
             - name: no_proxy
@@ -137,8 +137,4 @@ spec:
               - configMap:
                   name: {{ include "jedi.fullname" . }}-configjson
               - configMap:
-                  {{- if .Values.server.config_ref }}
-                  name: {{ .Values.server.config_ref }}
-                  {{- else }}
                   name: {{ .Release.Name }}-server-configjson
-                  {{- end }}

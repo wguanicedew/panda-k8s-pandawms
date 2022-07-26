@@ -117,7 +117,7 @@ spec:
             - configMapRef:
                 name: {{ include "harvester.fullname" . }}-env
             - secretRef:
-                name: {{ .Values.secret.name }}-envs
+                name: {{ .Values.global.secret }}-harvester-envs
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -145,4 +145,4 @@ spec:
             name: {{ include "harvester.fullname" . }}-sandbox
         - name: {{ include "harvester.fullname" . }}-certs
           secret:
-              secretName: {{ .Values.secret.name }}-certs
+              secretName: {{ .Values.global.secret }}-harvester-certs

@@ -77,7 +77,7 @@ spec:
               protocol: TCP
           envFrom:
             - secretRef:
-                name: {{ .Values.secret.name }}-envs
+                name: {{ .Values.global.secret }}-panda-envs
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

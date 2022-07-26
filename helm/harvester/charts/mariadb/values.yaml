@@ -16,10 +16,6 @@ persistentvolume:
   size: 5Gi
   selector: true
 
-# use secret
-secret:
-  name: "harvester-secret"
-
 database:
   # harvester password
   password: NKdSRhjE
