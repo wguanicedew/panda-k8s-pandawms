@@ -8,6 +8,7 @@ jedi:
     create: false
     selector: false
 
+
 server:
   persistentvolume:
     class: nas
@@ -28,3 +29,5 @@ postgres:
     class: nas
     create: false
     selector: false
+
+  noRoot: true
