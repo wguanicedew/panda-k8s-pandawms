@@ -10,9 +10,6 @@ harvester:
 
   experiment: "sphenix"
 
-  httpProxy: "http://proxy.sdcc.bnl.local:3128"
-  httpsProxy: "http://proxy.sdcc.bnl.local:3128"
-
   noRoot: true
 
 mariadb:

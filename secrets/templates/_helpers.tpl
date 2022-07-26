@@ -101,3 +101,27 @@ Add affix to instance reference names
 {{- include "add_affix" (list .Values.affix "bigmon") }}
 {{- end }}
 
+
+{{/*
+Set Proxies
+*/}}
+{{- define "set_proxy" }}
+{{- if .Values.proxy.httpProxy }}
+http_proxy: "{{ .Values.proxy.httpProxy }}"
+{{- if .Values.proxy.noProxy }}
+no_proxy: "{{ .Values.proxy.noProxy }}"
+{{- else }}
+no_proxy: "localhost,{{ include "panda_ref" . }}-server,{{ include "idds_ref" . }}-rest"
+{{- end }}
+{{- if .Values.proxy.httpsProxy }}
+https_proxy: "{{ .Values.proxy.httpProxy }}"
+{{- end }}
+{{- else if .Values.proxy.httpsProxy }}
+https_proxy: "{{ .Values.proxy.httpsProxy }}"
+{{- if .Values.proxy.noProxy }}
+no_proxy: "{{ .Values.proxy.noProxy }}"
+{{- else }}
+no_proxy: "localhost,{{ include "panda_ref" . }}-server,{{ include "idds_ref" . }}-rest"
+{{- end }}
+{{- end }}
+{{- end }}

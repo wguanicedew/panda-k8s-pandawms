@@ -8,14 +8,22 @@ daemon:
     class: nas
     create: false
 
+  noRoot: true
+
+
 rest:
 
   persistentvolume:
     class: nas
     create: false
 
+  noRoot: true
+
+
 postgres:
 
   persistentvolume:
     class: nas
     create: false
+
+  noRoot: true
