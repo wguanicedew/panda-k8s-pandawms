@@ -73,3 +73,31 @@ Add affix to refer the instance names
 {{- printf "%s%s" $affix $body }}
 {{- end }}
 {{- end }}
+
+{{/*
+Add affix to instance reference names
+*/}}
+{{- define "iam_ref" }}
+{{- include "add_affix" (list .Values.affix "iam") }}
+{{- end }}
+
+{{- define "msgsvc_ref" }}
+{{- include "add_affix" (list .Values.affix "msgsvc") }}
+{{- end }}
+
+{{- define "panda_ref" }}
+{{- include "add_affix" (list .Values.affix "panda") }}
+{{- end }}
+
+{{- define "idds_ref" }}
+{{- include "add_affix" (list .Values.affix "idds") }}
+{{- end }}
+
+{{- define "harvester_ref" }}
+{{- include "add_affix" (list .Values.affix "harvester") }}
+{{- end }}
+
+{{- define "bigmon_ref" }}
+{{- include "add_affix" (list .Values.affix "bigmon") }}
+{{- end }}
+
