@@ -140,7 +140,7 @@ Sphenix deployment
 
 For Sphenix deployment (at BNL), you need to specify `-e sphenix`
 
-** Deploy ActiveMQ for example::
+* Deploy ActiveMQ for example::
 
   $> ./bin/install -c msgsvc -e sphenix
 
