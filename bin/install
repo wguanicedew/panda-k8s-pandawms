@@ -41,7 +41,7 @@ if not options.affix:
         with open(secrets_yaml) as f:
             for line in f:
                 if line.startswith('affix:'):
-                    options.affix = line.strip().split()[-1]
+                    options.affix = line.strip().split()[-1].replace('"', '').replace("'", '')
                     break
     # default value
     if not options.affix:
