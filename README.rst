@@ -117,9 +117,9 @@ For LSST deployment (at SLAC), the persistent volume is 'wekafs--sdf-k8s01'.
 
   $> helm install harvester-dev helm/harvester/ -f helm/harvester/values.yaml -f helm/harvester/values/values-lsst.yaml
 
-* Deploy BigMon (tobedone)::
+* Deploy BigMon::
 
-  $> helm install bigmon-dev helm/bigmon
+  $> helm install bigmon-dev helm/bigmon -f helm/bigmon/values.yaml -f helm/bigmon/values-lsst.yaml
 
 
 Sphenix deployment
