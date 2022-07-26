@@ -91,6 +91,8 @@ spec:
               chmod +x /data/harvester/init-harvester;
               cp /opt/harvester/sandbox/run-harvester-crons /data/harvester/;
               chmod +x /data/harvester/run-harvester-crons;
+              mkdir -p /opt/harvester/etc/queue_config;
+              chmod 777 /opt/harvester/etc/queue_config;
               cp /opt/harvester/sandbox/* /data/harvester/;
               {{- if .Values.noRoot }}
               /opt/harvester/etc/rc.d/init.d/run-harvester-services;
