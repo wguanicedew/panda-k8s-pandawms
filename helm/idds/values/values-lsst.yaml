@@ -45,7 +45,7 @@ rest:
           - path: /
             pathType: Prefix
     tls:
-      - secretName: idds-dev-main-tlssan-cert
+      - secretName: "FIXME"
         hosts:
           - domain: slac.stanford.edu
             hostOverride: idds-dev.slac.stanford.edu
