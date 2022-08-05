@@ -8,3 +8,16 @@ main:
     class: wekafs--sdf-k8s01
     create: false
 
+  ingress:
+    enabled: true
+    hosts:
+      - domain: slac.stanford.edu
+        hostOverride: rubin-panda-bigmon-dev.slac.stanford.edu
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: "default"
+        hosts:
+          - domain: slac.stanford.edu
+            hostOverride: rubin-panda-bigmon-dev.slac.stanford.edu
