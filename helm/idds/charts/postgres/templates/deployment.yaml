@@ -87,8 +87,8 @@ spec:
             - mountPath: /tmp/pg_volume
             {{- else }}
             - mountPath: /var/lib/postgresql/data
-              name: {{ include "postgres.fullname" . }}-data
             {{- end }}
+              name: {{ include "postgres.fullname" . }}-data
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
