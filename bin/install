@@ -23,6 +23,7 @@ options = parser.parse_args()
 disabled = {}
 for item in options.disable.split(','):
     if not item:
+        print("ERROR: unknown component {0}".format(item))
         continue
     if '.' not in item:
         main_name, sub_name = item, 'all'
