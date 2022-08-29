@@ -23,7 +23,6 @@ options = parser.parse_args()
 disabled = {}
 for item in options.disable.split(','):
     if not item:
-        print("ERROR: unknown component {0}".format(item))
         continue
     if '.' not in item:
         main_name, sub_name = item, 'all'
@@ -52,6 +51,10 @@ if not options.affix:
 for component in options.enable.split(','):
     # disabled
     if component in disabled and 'all' in disabled[component]:
+        continue
+    # unknown
+    if component not in all_components:
+        print("ERROR: unknown component {0}".format(item))
         continue
 
     # define instant name
