@@ -52,6 +52,10 @@ for component in options.enable.split(','):
     # disabled
     if component in disabled and 'all' in disabled[component]:
         continue
+    # unknown
+    if component not in all_components:
+        print("ERROR: unknown component {0}".format(item))
+        continue
 
     # define instant name
     if options.affix.endswith('-'):

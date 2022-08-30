@@ -18,6 +18,8 @@ rest:
     create: false
 
   noRoot: true
+  ingress:
+    enabled: false
 
 
 postgres:
