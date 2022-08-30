@@ -1,0 +1,13 @@
+main:
+
+  persistentvolume:
+    create: false
+    class: nas
+
+  hostName: "sphenix-panda.apps.rcf.bnl.gov"
+
+  ingress:
+    enabled: false
+
+  route:
+    enabled: true
