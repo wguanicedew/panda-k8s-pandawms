@@ -1,4 +1,4 @@
-# JEDI and server configuration
+# BigMon configuration
 apiVersion: v1
 kind: ConfigMap
 metadata:
