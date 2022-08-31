@@ -21,9 +21,6 @@ persistentvolume:
 # hostname for external access
 hostName: "FIXME"
 
-# debug mode
-debugMode: false
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
