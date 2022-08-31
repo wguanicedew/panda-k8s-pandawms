@@ -84,22 +84,20 @@ spec:
               {{- end }}
           ports:
             - name: https
-              containerPort: 443
+              containerPort: 8443
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
               - name: {{ include "main.fullname" . }}-logs
                 mountPath: /data/bigmon/logs
-              - name: {{ include "main.fullname" . }}-configmap
+              - name: {{ include "main.fullname" . }}-sandbox
                 mountPath: /data/bigmon/configmap
               - name: {{ include "main.fullname" . }}-certs
                 mountPath: /opt/bigmon/etc/cert
           envFrom:
             - secretRef:
                 name: {{ .Values.global.secret }}-bigmon-envs
-            - configMapRef:
-                name: {{ include "main.fullname" . }}-env
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -116,9 +114,9 @@ spec:
         - name: {{ include "main.fullname" . }}-logs
           persistentVolumeClaim:
             claimName: {{ include "main.fullname" . }}
-        - name: {{ include "main.fullname" . }}-configmap
+        - name: {{ include "main.fullname" . }}-sandbox
           configMap:
-              name: {{ include "main.fullname" . }}-configmap
+              name: {{ include "main.fullname" . }}-sandbox
         - name: {{ include "main.fullname" . }}-certs
           secret:
               secretName: {{ .Values.global.secret }}-bigmon-certs
