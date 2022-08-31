@@ -18,23 +18,6 @@ main:
   #  path: "/mnt/panda-bigmon-logs"
   #  size: 5Gi
 
-  # hostname for external access
-  hostName: "FIXME"
-
-  # secret key for configuration
-  secretKey: "FIXME"
-
-  panda:
-    hostName: "panda-postgres"
-    password: "FIXME"
-  idds:
-    hostName: "idds-postgres"
-    password: "FIXME"
-
-  rucio:
-    rucioHost: "https://rucio-lb-prod.cern.ch"
-    authHost: "https://rucio-auth-prod.cern.ch"
-
   ingress:
     enabled: true
     hosts:
