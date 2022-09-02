@@ -113,7 +113,7 @@ There is a tool to deploy instances consistently with the secrets::
 
   $> ./bin/install -c harvester
 
-* Deploy BigMon (tobedone)::
+* Deploy BigMon::
 
   $> ./bin/install -c bigmon
 
