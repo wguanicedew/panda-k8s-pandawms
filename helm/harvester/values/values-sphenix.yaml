@@ -12,6 +12,10 @@ harvester:
 
   noRoot: true
 
+  route:
+    enabled: true
+    hostName: "FIXME"
+
 mariadb:
   persistentvolume:
     class: nas
