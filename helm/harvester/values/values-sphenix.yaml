@@ -14,7 +14,7 @@ harvester:
 
   route:
     enabled: true
-    hostName: "shenix.FIXME"
+    hostName: "FIXME"
 
 mariadb:
   persistentvolume:
