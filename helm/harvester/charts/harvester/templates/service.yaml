@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "harvester.fullname" . }}
+  labels:
+    {{- include "harvester.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.harvester.type }}
+  ports:
+    - port: {{ .Values.harvester.httpPort }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "harvester.selectorLabels" . | nindent 4 }}

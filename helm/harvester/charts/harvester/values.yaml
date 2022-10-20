@@ -23,6 +23,10 @@ httpsProxy: ""
 # run with non-root pid
 noRoot: false
 
+service:
+  type: ClusterIP
+  httpPort: 80
+
 persistentvolume:
   create: true
   class: manual
