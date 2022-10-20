@@ -1,0 +1,17 @@
+{{- if .Values.route.enabled -}}
+# for log access
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "harvester.fullname" . }}-route
+  labels:
+      {{- include "harvester.labels" . | nindent 4 }}
+
+spec:
+  host: {{ .Values.hostName }}
+  to:
+    kind: Service
+    name: {{ include "harvester.fullname" . }}
+  port:
+    targetPort: http
+{{ end }}

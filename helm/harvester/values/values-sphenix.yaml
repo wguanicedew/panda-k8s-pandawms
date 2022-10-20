@@ -17,3 +17,7 @@ mariadb:
     class: nas
     create: false
     selector: false
+
+route:
+  enabled: true
+  hostName: FIXME
