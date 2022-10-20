@@ -5,9 +5,9 @@ metadata:
   labels:
     {{- include "harvester.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.harvester.type }}
+  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.harvester.httpPort }}
+    - port: {{ .Values.service.httpPort }}
       targetPort: http
       protocol: TCP
       name: http
