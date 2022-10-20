@@ -12,12 +12,12 @@ harvester:
 
   noRoot: true
 
+  route:
+    enabled: true
+    hostName: "shenix.FIXME"
+
 mariadb:
   persistentvolume:
     class: nas
     create: false
     selector: false
-
-route:
-  enabled: true
-  hostName: FIXME
