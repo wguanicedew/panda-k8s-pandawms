@@ -7,3 +7,25 @@ mkdir -p /data/harvester/run
 chmod 777 /data/harvester/run
 bash /opt/harvester/sandbox/lsst.vomsproxy-renew
 
+cd /data
+
+# gcloud config
+cp /opt/harvester/etc/auth/gcloud_config.tar.gz /data/
+tar xzf gcloud_config.tar.gz
+chmod 777 -R /data/gcloud_config
+
+# k8s config
+cp /opt/harvester/etc/auth/k8s.tar.gz /data/
+tar xzf k8s.tar.gz
+chmod 777 -R /data/k8s
+
+mkdir -p /data/gcloud_config_rubin/
+for queue in moderatemem highmem extra-highmem merge highmem-non-preempt developmentcluster extra-highmem-non-preempt
+do
+    export KUBECONFIG=/data/gcloud_config_rubin/$queue
+    gcloud container clusters get-credentials --region=us-central1 $queue
+    chmod og+rw $KUBECONFIG
+done
+
+export KUBECONFIG=/data/gcloud_config/.kube
+
