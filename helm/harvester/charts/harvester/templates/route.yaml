@@ -8,7 +8,7 @@ metadata:
       {{- include "harvester.labels" . | nindent 4 }}
 
 spec:
-  host: {{ .Values.hostName }}
+  host: {{ .Values.route.hostName }}
   to:
     kind: Service
     name: {{ include "harvester.fullname" . }}
