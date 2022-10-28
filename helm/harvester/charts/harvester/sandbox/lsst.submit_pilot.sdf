@@ -21,7 +21,9 @@ transfer_input_files = {accessPoint}/pandaJobData.out
 
 universe = grid
 # grid_resource = arc https://arcce1.slac.stanford.edu:9443/arex/rest/1.0
-grid_resource = {ceARCGridType} {ceEndpoint}
+# grid_resource = {ceARCGridType} {ceEndpoint}
+
+grid_resource = {ceARCGridType} {ceHostname}
 
 nordugrid_rsl = (queue = {ceQueueName})(runtimeenvironment = APPS/HEP/ATLAS-SITE-LCG)(runtimeenvironment = ENV/PROXY)(jobname = arc_pilot)(count = {nCoreTotal})(countpernode = {nCoreTotal})(memory = {requestRamPerCore})(walltime = {requestWalltime})(cputime = {requestCputime})(environment = (PANDA_JSID harvester-{harvesterID})(HARVESTER_ID {harvesterID})(HARVESTER_WORKER_ID {workerID})(GTAG {gtag})(APFMON http://apfmon.lancs.ac.uk/api)(APFFID {harvesterID})(APFCID $(Cluster).$(Process)))
 
