@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export CLOUDSDK_CONFIG=/data/harvester/gcloud_config
+export KUBECONFIG=/data/harvester/gcloud_config/.kube
