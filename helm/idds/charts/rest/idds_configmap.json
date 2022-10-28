@@ -10,16 +10,25 @@
              "echo": 0,
              "pool_reset_on_return": "rollback"
             },
+	 "carrier":
+	    {"plugin.receiver": "idds.agents.common.plugins.messaging.MessagingReceiver",
+             "plugin.receiver.brokers": "${IDDS_RECEIVER_BROKERS}",
+             "plugin.receiver.port": "${IDDS_RECEIVER_PORT}",
+             "plugin.receiver.destination": "${IDDS_RECEIVER_DESTINATION}",
+             "plugin.receiver.username": "${IDDS_RECEIVER_USERNAME}",
+             "plugin.receiver.password": "${IDDS_RECEIVER_PASSWORD}",
+             "plugin.receiver.broker_timeout": 10
+	    },
          "conductor":
             {"threshold_to_release_messages": 1000,
              "random_delay": 60,
-              "plugin.notifier": "idds.agents.conductor.plugins.messaging.MessagingSender",
-              "plugin.notifier.brokers": "${IDDS_CONDUCTOR_BROKERS}",
-              "plugin.notifier.port": "${IDDS_CONDUCTOR_PORT}",
-              "plugin.notifier.destination": "${IDDS_CONDUCTOR_DESTINATION}",
-              "plugin.notifier.username": "${IDDS_CONDUCTOR_USERNAME}",
-              "plugin.notifier.password": "${IDDS_CONDUCTOR_PASSWORD}",
-              "plugin.notifier.broker_timeout": 10
+             "plugin.notifier": "idds.agents.common.plugins.messaging.MessagingSender",
+             "plugin.notifier.brokers": "${IDDS_CONDUCTOR_BROKERS}",
+             "plugin.notifier.port": "${IDDS_CONDUCTOR_PORT}",
+             "plugin.notifier.destination": "${IDDS_CONDUCTOR_DESTINATION}",
+             "plugin.notifier.username": "${IDDS_CONDUCTOR_USERNAME}",
+             "plugin.notifier.password": "${IDDS_CONDUCTOR_PASSWORD}",
+             "plugin.notifier.broker_timeout": 10
             }
         },
     "/opt/idds/config/panda.cfg":
