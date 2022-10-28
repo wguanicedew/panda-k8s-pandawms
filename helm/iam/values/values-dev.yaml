@@ -1,0 +1,15 @@
+main:
+
+  ingress:
+    enabled: true
+    hosts:
+      - domain: cern.ch
+        hostOverride: panda-iam-dev.cern.ch
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: "default"
+        hosts:
+          - domain: cern.ch
+            hostOverride: panda-iam-dev.cern.ch
