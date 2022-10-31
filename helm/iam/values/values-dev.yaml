@@ -9,7 +9,7 @@ main:
           - path: /
             pathType: Prefix
     tls:
-      - secretName: "default"
+      - secretName: "my-test-tls-certs"
         hosts:
           - domain: cern.ch
             hostOverride: panda-iam-dev.cern.ch
