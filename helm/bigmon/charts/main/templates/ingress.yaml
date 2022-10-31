@@ -26,7 +26,8 @@ spec:
         - {{ printf "%s.%s" $fullName .domain | quote }}
         {{- end }}
         {{- end }}
-      secretName: {{ .secretName }}
+      # secretName: {{ .secretName }}
+      secretName: {{ .Values.global.secret }}-bigmon-tls-certs
     {{- end }}
   {{- end }}
   rules:
