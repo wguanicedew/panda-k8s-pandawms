@@ -112,8 +112,6 @@ spec:
               mountPath: /opt/harvester/etc/queue_config_mount
             - name: {{ include "harvester.fullname" . }}-sandbox
               mountPath: /opt/harvester/sandbox
-            - name: {{ include "harvester.fullname" . }}-certs
-              mountPath: /opt/harvester/etc/cert
             - name: {{ include "harvester.fullname" . }}-auth
               mountPath: /opt/harvester/etc/auth
           envFrom:
@@ -146,9 +144,6 @@ spec:
         - name: {{ include "harvester.fullname" . }}-sandbox
           configMap:
             name: {{ include "harvester.fullname" . }}-sandbox
-        - name: {{ include "harvester.fullname" . }}-certs
-          secret:
-              secretName: {{ .Values.global.secret }}-harvester-certs
         - name: {{ include "harvester.fullname" . }}-auth
           secret:
               secretName: {{ .Values.global.secret }}-harvester-auth

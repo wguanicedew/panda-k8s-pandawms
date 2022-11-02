@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # copy certs and set permission
-cp /opt/harvester/etc/cert/*.pem /data/harvester/
+cp /opt/harvester/etc/auth/*.pem /data/harvester/
 chmod 600 /data/harvester/*.pem
