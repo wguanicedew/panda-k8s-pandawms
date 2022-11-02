@@ -1,6 +1,6 @@
 #!/bin/bash
 
-proxy_path=/opt/harvester/etc/cert
+proxy_path=/opt/harvester/etc/auth
 new_proxy_path=/data/harvester/run
 proxy_user=iddssv1
 

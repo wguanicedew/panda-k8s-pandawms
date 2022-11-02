@@ -84,6 +84,8 @@ spec:
           volumeMounts:
               - name: {{ include "main.fullname" . }}-configmap
                 mountPath: /indigo-iam/config/
+              - name: {{ include "main.fullname" . }}-certs
+                mountPath: /indigo-iam/certs/
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -100,3 +102,6 @@ spec:
         - name: {{ include "main.fullname" . }}-configmap
           secret:
             secretName: {{ .Values.global.secret }}-iam-conf
+        - name: {{ include "main.fullname" . }}-certs
+          secret:
+            secretName: {{ .Values.global.secret }}-iam-certs

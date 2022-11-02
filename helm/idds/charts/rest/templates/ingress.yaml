@@ -1,6 +1,7 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "rest.fullname" . -}}
 {{- $svcPort := .Values.service.httpsPort -}}
+{{- $globalSecret := .Values.global.secret -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -26,7 +27,8 @@ spec:
         - {{ printf "%s.%s" $fullName .domain | quote }}
         {{- end }}
         {{- end }}
-      secretName: {{ .secretName }}
+      # secretName: {{ .secretName }}
+      secretName: {{ $globalSecret }}-idds-tls-certs
     {{- end }}
   {{- end }}
   rules:
