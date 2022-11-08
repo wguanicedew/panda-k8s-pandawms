@@ -78,6 +78,7 @@ spec:
               python /data/bigmon/config/process_template.py ;
               {{- if .Values.autoStart }}
               until /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p ${PANDA_DB_PORT}; do echo waiting for database; sleep 2; done;
+              chmod 777 /data/bigmon/logs;
               start-daemon.sh all
               {{- else }}
               sleep infinity & wait
