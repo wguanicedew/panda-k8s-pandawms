@@ -8,6 +8,8 @@ main:
     class: wekafs--sdf-k8s01
     create: false
 
+  hostName: "rubin-panda-bigmon-dev.slac.stanford.edu"
+
   ingress:
     enabled: true
     hosts:
