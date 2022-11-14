@@ -4,7 +4,7 @@
 while true; do sleep 36000; /opt/harvester/bin/panda_common-install_igtf_ca > /var/log/panda/install_igtf_ca.log 2>&1; done &
 
 # log rotate
-while true; do /usr/sbin/logrotate /data/panda/logrotate-harvester >> /var/log/panda/logrotate.log 2>&1; sleep 3600; done &
+while true; do /usr/sbin/logrotate /data/harvester/logrotate-harvester >> /var/log/panda/logrotate.log 2>&1; sleep 3600; done &
 
 # experiment specific
 if [[ ! -z "${EXPERIMENT}" ]]; then
