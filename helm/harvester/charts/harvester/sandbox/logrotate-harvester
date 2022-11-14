@@ -1,0 +1,12 @@
+/var/log/panda/*log {
+    rotate 3
+    daily
+    compress
+    missingok
+    notifempty
+    sharedscripts
+    postrotate
+	/opt/harvester/etc/rc.d/init.d/panda_harvester-uwsgi stop >> /var/log/panda/panda-harvester_logrotate.log 2>/dev/null || true
+	/opt/harvester/etc/rc.d/init.d/panda_harvester-uwsgi start >> /var/log/panda/panda-harvester_logrotate.log 2>/dev/null || true
+    endscript
+}
