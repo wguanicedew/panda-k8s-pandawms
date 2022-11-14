@@ -4,7 +4,7 @@ while true; do sleep 36000; /opt/panda/bin/panda_common-install_igtf_ca > /var/l
 # refresh schedconfig json
 tmpExe=/data/panda/run-jedi-crons-tmp-exe
 cat <<EOT >> ${tmpExe}
-while true; do /user/sbin/logrotate /data/panda/logrotate-jedi >> /var/log/panda/logrotate.log 2>&1; sleep 3600; done &
+while true; do /usr/sbin/logrotate /data/panda/logrotate-jedi >> /var/log/panda/logrotate.log 2>&1; sleep 3600; done &
 EOT
 chmod +x ${tmpExe}
 
