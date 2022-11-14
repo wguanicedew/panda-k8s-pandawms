@@ -6,7 +6,7 @@
     notifempty
     sharedscripts
     postrotate
-	/etc/rc.d/init.d/httpd-pandasrv stop stop >> /var/log/panda/panda-server_logrotate.log 2>/dev/null || true
+	/etc/rc.d/init.d/httpd-pandasrv stop >> /var/log/panda/panda-server_logrotate.log 2>/dev/null || true
 	/etc/rc.d/init.d/httpd-pandasrv start >> /var/log/panda/panda-server_logrotate.log 2>/dev/null || true
     endscript
 }
