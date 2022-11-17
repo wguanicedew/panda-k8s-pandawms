@@ -16,5 +16,9 @@
     },
     "mq": {
         "configFile": "/opt/panda/etc/panda/jedi_mq_config.json"
+    },
+    "watchdog": {
+        "waitForPending": "1",
+	"loopCycle": "60"
     }
 }

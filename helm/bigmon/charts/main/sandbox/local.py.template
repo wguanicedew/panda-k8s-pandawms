@@ -5,28 +5,28 @@ MY_SECRET_KEY = '${BIGMON_SECRET_KEY}'
 dbaccess_postgres = {
          'default':
          {
-         'ENGINE':'django.db.backends.postgresql_psycopg2',
-         'OPTIONS': {
+             'ENGINE':'django.db.backends.postgresql_psycopg2',
+             'OPTIONS': {
                  'options': '-c search_path=doma_pandabigmon,doma_pandameta,doma_panda,doma_pandaarch,public'
+             },
+             'NAME': '${PANDA_DB_NAME}',
+             'HOST': '${PANDA_DB_HOST}',
+             'PORT': '${PANDA_DB_PORT}',
+             'USER': '${PANDA_DB_USER}',
+             'PASSWORD': "${PANDA_DB_PASSWORD}",
          },
-         'NAME': '${PANDA_DB_NAME}',
-         'HOST': '${PANDA_DB_HOST}',
-         'PORT': '${PANDA_DB_PORT}',
-         'USER': '${PANDA_DB_USER}',
-         'PASSWORD': "${PANDA_DB_PASSWORD}",
-         },
-        'doma_idds_gcp':
+        'idds':
         {
-        'ENGINE':'django.db.backends.postgresql_psycopg2',
-        'OPTIONS': {
-                 'options': '-c search_path=doma_idds,public'
-        },
-        'NAME': '${IDDS_DB_NAME}',
-        'HOST': '${IDDS_DB_HOST}',
-        'PORT': '${IDDS_DB_PORT}',
-        'USER': '${IDDS_DB_USER}',
-        'PASSWORD': "${IDDS_DB_PASSWORD}",
-         },        
+            'ENGINE':'django.db.backends.postgresql_psycopg2',
+            'OPTIONS': {
+                 'options': '-c search_path=${IDDS_DB_SCHEMA},public'
+            },
+            'NAME': '${IDDS_DB_NAME}',
+            'HOST': '${IDDS_DB_HOST}',
+            'PORT': '${IDDS_DB_PORT}',
+            'USER': '${IDDS_DB_USER}',
+            'PASSWORD': "${IDDS_DB_PASSWORD}",
+        }       
 }
 
 dbaccess = dbaccess_postgres
