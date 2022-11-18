@@ -76,13 +76,12 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - until  /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
-              cp /opt/panda/sandbox/init-jedi /data/panda/;
-              chmod +x /data/panda/init-jedi;
-              cp /opt/panda/sandbox/run-jedi-crons /data/panda/;
-              chmod +x /data/panda/run-jedi-crons;
               cp /opt/panda/sandbox/* /data/panda/;
+              chmod +x /data/panda/init-jedi;
+              chmod +x /data/panda/run-jedi-crons;
+              chmod +x /data/panda/run-jedi-services;              
               python /data/panda/process_template.py;
-              /etc/rc.d/init.d/run-jedi-services;
+              /data/panda/run-jedi-services;
               sleep infinity & wait
           {{- end }}
           resources:

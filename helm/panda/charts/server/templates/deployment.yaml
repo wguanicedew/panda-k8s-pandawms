@@ -78,13 +78,12 @@ spec:
           command: [ "/bin/sh", "-c" ]
           args:
             - until /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p 5432; do echo waiting for database; sleep 2; done;
-              cp /opt/panda/sandbox/init-panda /data/panda/;
-              chmod +x /data/panda/init-panda;
-              cp /opt/panda/sandbox/run-panda-crons /data/panda/;
-              chmod +x /data/panda/run-panda-crons;
               cp /opt/panda/sandbox/* /data/panda/;
+              chmod +x /data/panda/init-panda;
+              chmod +x /data/panda/run-panda-crons;
+              chmod +x /data/panda/run-panda-services;
               python /data/panda/process_template.py;
-              /etc/rc.d/init.d/run-panda-services;
+              /data/panda/run-panda-services;
               sleep infinity & wait
           {{- end }}
           ports:
