@@ -7,7 +7,7 @@ harvester:
     class: wekafs--sdf-k8s01
     create: false
     selector: false
-    size: 100Gi
+    size: 300Gi
 
   httpProxy: "http://atlsquid.slac.stanford.edu:3128"
   httpsProxy: "http://atlsquid.slac.stanford.edu:3128"
@@ -24,4 +24,4 @@ mariadb:
     class: wekafs--sdf-k8s01
     create: false
     selector: false
-    size: 20Gi
+    size: 30Gi

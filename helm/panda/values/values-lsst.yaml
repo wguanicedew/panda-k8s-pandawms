@@ -7,7 +7,7 @@ jedi:
     class: wekafs--sdf-k8s01
     create: false
     selector: false
-    size: 20Gi
+    size: 50Gi
 
   httpProxy: "http://squid.slac.stanford.edu:3128"
   httpsProxy: "http://squid.slac.stanford.edu:3128"
@@ -18,7 +18,7 @@ server:
     class: wekafs--sdf-k8s01
     create: false
     selector: false
-    size: 20Gi
+    size: 50Gi
 
   httpProxy: "http://squid.slac.stanford.edu:3128"
   httpsProxy: "http://squid.slac.stanford.edu:3128"
@@ -46,4 +46,4 @@ postgres:
     class: wekafs--sdf-k8s01
     create: false
     selector: false
-    size: 20Gi
+    size: 30Gi
