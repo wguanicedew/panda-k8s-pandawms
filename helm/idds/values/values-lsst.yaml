@@ -9,6 +9,7 @@ daemon:
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
+    size: 20Gi
 
   httpProxy: "http://squid.slac.stanford.edu:3128"
   httpsProxy: "http://squid.slac.stanford.edu:3128"
@@ -23,6 +24,7 @@ rest:
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
+    size: 20Gi
 
   httpProxy: "http://squid.slac.stanford.edu:3128"
   httpsProxy: "http://squid.slac.stanford.edu:3128"
@@ -49,3 +51,4 @@ postgres:
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
+    size: 20Gi
