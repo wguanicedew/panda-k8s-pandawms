@@ -75,6 +75,13 @@ ingress:
     nginx.ingress.kubernetes.io/auth-tls-verify-client: 'optional_no_ca'
     nginx.ingress.kubernetes.io/auth-tls-verify-depth: '10'
 
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "10"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "360"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "360"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/client-body-buffer-size: "10m"
+    nginx.ingress.kubernetes.io/client_max_body_size: "10m"
+
     nginx.ingress.kubernetes.io/configuration-snippet: |-
       proxy_set_header PANDA-OIDC-VO  $http_panda_oidc_vo;
       proxy_set_header PANDA-OIDC-GROUP $http_panda_oidc_group;
