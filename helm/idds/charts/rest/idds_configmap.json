@@ -17,7 +17,7 @@
              "plugin.receiver.destination": "${IDDS_RECEIVER_DESTINATION}",
              "plugin.receiver.username": "${IDDS_RECEIVER_USERNAME}",
              "plugin.receiver.password": "${IDDS_RECEIVER_PASSWORD}",
-             "plugin.receiver.broker_timeout": 10
+             "plugin.receiver.broker_timeout": 600
 	    },
          "conductor":
             {"threshold_to_release_messages": 1000,
@@ -28,7 +28,7 @@
              "plugin.notifier.destination": "${IDDS_CONDUCTOR_DESTINATION}",
              "plugin.notifier.username": "${IDDS_CONDUCTOR_USERNAME}",
              "plugin.notifier.password": "${IDDS_CONDUCTOR_PASSWORD}",
-             "plugin.notifier.broker_timeout": 10
+             "plugin.notifier.broker_timeout": 600
             }
         },
     "/opt/idds/config/panda.cfg":
