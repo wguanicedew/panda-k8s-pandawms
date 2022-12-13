@@ -3,6 +3,8 @@
 # Declare variables to be passed into your templates.
 
 harvester:
+  replicaCount: 2
+
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
