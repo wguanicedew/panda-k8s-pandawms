@@ -1,0 +1,147 @@
+{{- if .Values.persistentvolume.create -}}
+# pv
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ include "rest.fullname" . }}
+  labels:
+      {{- include "rest.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.persistentvolume.class }}
+  capacity:
+    storage: {{ .Values.persistentvolume.size }}
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  hostPath:
+    path: {{ .Values.persistentvolume.path }}
+---
+# pv claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "rest.fullname" . }}
+  labels:
+    {{- include "rest.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.persistentvolume.class }}
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.persistentvolume.size }}
+  {{- if .Values.persistentvolume.create }}
+  selector:
+    matchLabels:
+      {{- include "rest.selectorLabels" . | nindent 6 }}
+  {{- end }}
+---
+{{- end }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "rest.fullname" . }}
+  labels:
+    {{- include "rest.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  serviceName: {{ include "rest.fullname" . }}
+  selector:
+    matchLabels:
+      {{- include "rest.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "rest.selectorLabels" . | nindent 8 }}
+    spec:
+      hostname:  {{ .Release.Name}}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "rest.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{ if .Values.autoStart -}}
+          command: ["/bin/sh", "-c"]
+          args:
+            - until /usr/pgsql-*/bin/pg_isready -h ${IDDS_DATABASE_HOST} -p 5432; do echo waiting for database; sleep 2; done;
+              {{- if .Values.noRoot }}
+              /opt/idds/bin/start-daemon.sh rest
+              {{- else }}
+              chmod 777 /var/log/idds;
+              runuser -u atlpan -g zp -- /opt/idds/bin/start-daemon.sh all
+              {{- end}}
+          {{ end -}}
+          ports:
+            - name: https
+              containerPort: 8443
+              protocol: TCP
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{ include "rest.fullname" . }}-envs
+            - secretRef:
+                name: {{ .Values.global.secret }}-idds-envs
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+              - name: {{ include "rest.fullname" . }}-logs
+                mountPath: /var/log/idds/
+              - name: {{ include "rest.fullname" . }}-configmap
+                mountPath: /opt/idds/configmap
+              - name: {{ include "rest.fullname" . }}-certs
+                mountPath: /opt/idds/certs
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: {{ include "rest.fullname" . }}-configmap
+          projected:
+            sources:
+              - configMap:
+                  name: {{ include "rest.fullname" . }}-configmap
+              - secret:
+                  name: {{ .Values.global.secret }}-idds-auth
+        - name: {{ include "rest.fullname" . }}-certs
+          secret:
+              secretName: {{ .Values.global.secret }}-idds-certs
+  {{- if .Values.persistentvolume.create }}
+        - name: {{ include "rest.fullname" . }}-logs
+          persistentVolumeClaim:
+            claimName: {{ include "rest.fullname" . }}
+  {{- else }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "rest.fullname" . }}-logs
+      spec:
+        storageClassName: {{ .Values.persistentvolume.class }}
+        accessModes: 
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: {{ .Values.persistentvolume.size }}
+  {{- end }}
