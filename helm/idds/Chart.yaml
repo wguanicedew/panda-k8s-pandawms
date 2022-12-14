@@ -25,10 +25,6 @@ appVersion: "1.16.0"
 
 
 dependencies:
-    - name: daemon
-      repository: http://localhost:10191
-      version: 0.1.0
-      condition: daemon.enabled
     - name: rest
       repository: http://localhost:10191
       version: 0.1.0
