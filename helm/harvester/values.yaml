@@ -30,7 +30,7 @@ harvester:
 
 mariadb:
   # enable database
-  enabled: true
+  enabled: false
 
   # PV with selector support
   #persistentvolume:
