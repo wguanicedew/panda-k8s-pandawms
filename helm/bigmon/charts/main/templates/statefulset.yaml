@@ -12,10 +12,10 @@ spec:
     storage: {{ .Values.persistentvolume.size }}
   accessModes:
     - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
-{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -36,8 +36,9 @@ spec:
       {{- include "main.selectorLabels" . | nindent 6 }}
   {{- end }}
 ---
+{{- end }}
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "main.fullname" . }}
   labels:
@@ -112,12 +113,25 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: {{ include "main.fullname" . }}-logs
-          persistentVolumeClaim:
-            claimName: {{ include "main.fullname" . }}
         - name: {{ include "main.fullname" . }}-sandbox
           configMap:
               name: {{ include "main.fullname" . }}-sandbox
         - name: {{ include "main.fullname" . }}-certs
           secret:
               secretName: {{ .Values.global.secret }}-bigmon-certs
+  {{- if .Values.persistentvolume.create }}
+        - name: {{ include "main.fullname" . }}-logs
+          persistentVolumeClaim:
+            claimName: {{ include "main.fullname" . }}
+  {{- else }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "main.fullname" . }}-logs
+      spec:
+        storageClassName: {{ .Values.persistentvolume.class }}
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: {{ .Values.persistentvolume.size }}
+  {{- end }}
