@@ -41,12 +41,24 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
+{{- define "harvester.labels-condor-logs" -}}
+helm.sh/chart: {{ include "harvester.chart" . }}
+{{ include "harvester.selectorLabels-condor-logs" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
 
 {{/*
 Selector labels
 */}}
 {{- define "harvester.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "harvester.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+{{- define "harvester.selectorLabels-condor-logs" -}}
+app.kubernetes.io/name: {{ include "harvester.name" . }}-condor-logs
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 

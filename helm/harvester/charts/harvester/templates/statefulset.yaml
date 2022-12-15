@@ -16,7 +16,6 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
-{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -37,8 +36,49 @@ spec:
       {{- include "harvester.selectorLabels" . | nindent 6 }}
   {{- end }}
 ---
+{{- end }}
+# pv for condor logs
+{{- if .Values.persistentvolume.create }}
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ include "harvester.fullname" . }}-condor-logs
+  labels:
+      {{- include "harvester.labels-condor-logs" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.persistentvolume.class }}
+  capacity:
+    storage: {{ .Values.persistentvolume.size }}
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  hostPath:
+    path: {{ .Values.persistentvolume.path }}
+---
+{{- end }}
+# pv claim for condor logs
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "harvester.fullname" . }}-condor-logs
+  labels:
+    {{- include "harvester.labels-condor-logs" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.persistentvolume.class }}
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.persistentvolume.size }}
+  {{- if .Values.persistentvolume.selector }}
+  selector:
+    matchLabels:
+      {{- include "harvester.selectorLabels-condor-logs" . | nindent 6 }}
+  {{- end }}
+---
+
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "harvester.fullname" . }}
   labels:
@@ -47,6 +87,7 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  serviceName: {{ include "harvester.fullname" . }}
   selector:
     matchLabels:
       {{- include "harvester.selectorLabels" . | nindent 6 }}
@@ -84,7 +125,7 @@ spec:
           {{- if .Values.autoStart }}
           command: ["/bin/sh", "-c"]
           args:
-            - while ! mysqladmin ping -h ${HARVESTER_DB_HOST} -p${MARIADB_PASSWORD} --silent; do sleep 1; done;
+            - if [ ${HARVESTER_DB_HOST} != "localhost" ]; then while ! mysqladmin ping -h ${HARVESTER_DB_HOST} -p${MARIADB_PASSWORD} --silent; do sleep 1; done; fi;
               cp /opt/harvester/sandbox/* /data/harvester/;
               chmod +x /data/harvester/init-harvester;
               chmod +x /data/harvester/run-harvester-crons;
@@ -92,6 +133,8 @@ spec:
               /opt/harvester/etc/rc.d/init.d/run-harvester-services;
               {{- else }}
               chmod -R 777 /var/log/panda;
+              chown -R atlpan /var/log/panda/mariadb;
+              chmod -R 777 /var/log/condor_logs;
               runuser -u atlpan -g zp -- /opt/harvester/etc/rc.d/init.d/run-harvester-services;
               {{- end }}
               sleep infinity & wait
@@ -105,6 +148,8 @@ spec:
           volumeMounts:
             - name: {{ include "harvester.fullname" . }}-logs
               mountPath: /var/log/panda/
+            - name: {{ include "harvester.fullname" . }}-condor-logs
+              mountPath: /var/log/condor_logs/
             - name: {{ include "harvester.fullname" . }}-configjson
               mountPath: /opt/harvester/etc/configmap
             - name: {{ include "harvester.fullname" . }}-queueconfig
@@ -131,9 +176,6 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: {{ include "harvester.fullname" . }}-logs
-          persistentVolumeClaim:
-            claimName: {{ include "harvester.fullname" . }}
         - name: {{ include "harvester.fullname" . }}-configjson
           configMap:
             name: {{ include "harvester.fullname" . }}-configjson
@@ -146,3 +188,22 @@ spec:
         - name: {{ include "harvester.fullname" . }}-auth
           secret:
               secretName: {{ .Values.global.secret }}-harvester-auth
+        - name: {{ include "harvester.fullname" . }}-condor-logs
+          persistentVolumeClaim:
+            claimName: {{ include "harvester.fullname" . }}-condor-logs
+  {{- if .Values.persistentvolume.create }}
+        - name: {{ include "harvester.fullname" . }}-logs
+          persistentVolumeClaim:
+            claimName: {{ include "harvester.fullname" . }}
+  {{- else }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "harvester.fullname" . }}-logs
+      spec:
+        storageClassName: {{ .Values.persistentvolume.class }}
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: {{ .Values.persistentvolume.size }}
+  {{- end }}
