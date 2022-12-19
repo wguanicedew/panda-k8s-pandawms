@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 jedi:
+  replicaCount: 2
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
@@ -14,6 +15,7 @@ jedi:
   noProxy: "localhost,idds-dev-rest,panda-dev-server"
 
 server:
+  replicaCount: 2
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
@@ -46,4 +48,4 @@ postgres:
     class: wekafs--sdf-k8s01
     create: false
     selector: false
-    size: 30Gi
+    size: 50Gi
