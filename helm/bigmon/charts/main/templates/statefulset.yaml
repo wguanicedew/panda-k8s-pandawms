@@ -47,6 +47,7 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  serviceName: {{ include "main.fullname" . }}
   selector:
     matchLabels:
       {{- include "main.selectorLabels" . | nindent 6 }}
