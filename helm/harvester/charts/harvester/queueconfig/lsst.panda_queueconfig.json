@@ -27,6 +27,7 @@
       "executableFile": "/opt/harvester/sandbox/lsst.runpilot2-wrapper.sh",
       "x509UserProxy": "/data/harvester/run/x509up_u25606",
       "logDir": "/var/log/condor_logs/${hostname}",
+      "submissionHost": "$hostname",
       "logBaseURL": "https://panda-dev-server/condor_logs/${hostname}",
       "nProcesses": 8
     },
@@ -91,6 +92,7 @@
       "executableFile": "/opt/harvester/sandbox/lsst.runpilot2-wrapper.sh",
       "x509UserProxy": "/data/harvester/run/x509up_u25606",
       "logDir": "/var/log/condor_logs/$hostname",
+      "submissionHost": "$hostname",
       "logBaseURL": "https://panda-dev-server/condor_logs/$hostname",
       "nProcesses": 8
     },
@@ -173,6 +175,7 @@
           "x509UserProxy": "/data/harvester/run/x509up_u25606",    
           "proxySecretPath": "/data/harvester/run/x509up_u25606",
           "logDir": "/var/log/condor_logs/$hostname",
+	  "submissionHost": "$hostname",
           "logBaseURL": "https://panda-dev-server/condor_logs/$hostname",
           "cpuAdjustRatio": 90,
           "memoryAdjustRatio": 100,
@@ -225,6 +228,7 @@
           "x509UserProxy": "/data/harvester/run/x509up_u25606",
           "proxySecretPath": "/data/harvester/run/x509up_u25606",
           "logDir": "/var/log/condor_logs/$hostname",
+	  "submissionHost": "$hostname",
           "logBaseURL": "https://panda-dev-server/condor_logs/$hostname",
           "cpuAdjustRatio": 90,
           "memoryAdjustRatio": 100,
