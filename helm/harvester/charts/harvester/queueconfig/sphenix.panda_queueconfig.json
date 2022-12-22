@@ -26,8 +26,8 @@
       "templateFile": "/cephfs/atlpan/harvester/harvester_common/CERN_central_1/cloudscheduler-pilot2.sdf",
       "executableFile": "/cephfs/atlpan/harvester/harvester_common/CERN_central_1/runpilot2-wrapper.sh",
       "x509UserProxy": "/data/idds/x509up_u25606",
-      "logDir": "/data1/idds/condor_logs",
-      "logBaseURL": "https://ai-idds-02.cern.ch/condor_logs",
+      "logDir": "/data1/idds/condor_logs/${hostname}",
+      "logBaseURL": "https://ai-idds-02.cern.ch/condor_logs/${hostname}",
       "nProcesses": 8
     },
     "workerMaker": {

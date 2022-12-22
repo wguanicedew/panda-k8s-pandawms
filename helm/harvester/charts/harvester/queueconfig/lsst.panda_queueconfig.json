@@ -26,8 +26,8 @@
       "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot.sdf",
       "executableFile": "/opt/harvester/sandbox/lsst.runpilot2-wrapper.sh",
       "x509UserProxy": "/data/harvester/run/x509up_u25606",
-      "logDir": "/var/log/panda/condor_logs",
-      "logBaseURL": "https://panda-dev-server/condor_logs",
+      "logDir": "/var/log/panda/condor_logs/${hostname}",
+      "logBaseURL": "https://panda-dev-server/condor_logs/${hostname}",
       "nProcesses": 8
     },
     "workerMaker": {
