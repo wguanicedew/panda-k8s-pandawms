@@ -59,6 +59,9 @@
     "lookupTime": 30,
     "sleepTime": 10
   },
+  "service_monitor": {
+    "pidfile": "/var/run/panda/panda_harvester.pid"
+  },
   "qconf": {
     "configFile": "/opt/harvester/etc/panda/panda_queueconfig.json",
     "queueList": [
