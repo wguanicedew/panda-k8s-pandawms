@@ -26,7 +26,7 @@
       "templateFile": "/cephfs/atlpan/harvester/harvester_common/CERN_central_1/cloudscheduler-pilot2.sdf",
       "executableFile": "/cephfs/atlpan/harvester/harvester_common/CERN_central_1/runpilot2-wrapper.sh",
       "x509UserProxy": "/data/idds/x509up_u25606",
-      "logDir": "/data1/idds/condor_logs/${hostname}",
+      "logDir": "/var/log/condor_logs/${hostname}",
       "logBaseURL": "https://ai-idds-02.cern.ch/condor_logs/${hostname}",
       "nProcesses": 8
     },
@@ -74,8 +74,8 @@
     "nQueueLimitWorkerMin": 1,
     "nQueueLimitWorkerMax": 60,
     "submitter": {
-      "logDir": "/var/log/panda/condor_logs",
-      "logBaseURL": "https://ai-idds-02.cern.ch/condor_logs",
+      "logDir": "/var/log/condor_logs/${hostname}",
+      "logBaseURL": "https://ai-idds-02.cern.ch/condor_logs/${hostname}",
       "templateFile": "/opt/harvester/sandbox/sphenix.submit_pilot.sdf",
       "x509UserProxy": "/data/harvester/sphenix.proxy"
     }
