@@ -56,7 +56,6 @@
     "monitor": {
       "name": "HTCondorMonitor",
       "module": "pandaharvester.harvestermonitor.htcondor_monitor",
-      "submissionHost": "$hostname",
       "cancelUnknown": false
     },
     "sweeper": {
