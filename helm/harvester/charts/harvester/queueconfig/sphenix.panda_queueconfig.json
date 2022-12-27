@@ -28,6 +28,7 @@
       "x509UserProxy": "/data/idds/x509up_u25606",
       "logDir": "/var/log/condor_logs/${hostname}",
       "logBaseURL": "https://ai-idds-02.cern.ch/condor_logs/${hostname}",
+      "condorPool": "${hostname}",
       "nProcesses": 8
     },
     "workerMaker": {
