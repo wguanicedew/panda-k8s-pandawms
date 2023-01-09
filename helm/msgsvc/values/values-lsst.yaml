@@ -5,5 +5,5 @@ activemq:
     create: false
     class: wekafs--sdf-k8s01
     path: "/mnt/activemq-data"
-    size: 5Gi
+    size: 50Gi
     selector: false

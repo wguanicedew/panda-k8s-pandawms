@@ -2,20 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-daemon:
-
-  # PV: For use cases that users are not allowed to create PV,
-  # please update class to corresponding storageclass and update create to false.
-  persistentvolume:
-    class: wekafs--sdf-k8s01
-    create: false
-
-  httpProxy: "http://squid.slac.stanford.edu:3128"
-  httpsProxy: "http://squid.slac.stanford.edu:3128"
-  noProxy: "localhost,idds-dev-rest,idds-dev-daemon,panda-dev-server,panda-dev-jedi"
-
 rest:
-
+  replicaCount: 2
   iddsServer: rubin-panda-idds-dev.slac.stanford.edu
 
   # PV: For use cases that users are not allowed to create PV,
@@ -23,6 +11,7 @@ rest:
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
+    size: 50Gi
 
   httpProxy: "http://squid.slac.stanford.edu:3128"
   httpsProxy: "http://squid.slac.stanford.edu:3128"
@@ -49,3 +38,4 @@ postgres:
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
+    size: 50Gi

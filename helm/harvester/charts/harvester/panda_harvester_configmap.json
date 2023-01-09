@@ -31,6 +31,37 @@
   "frontend": {
     "type": "apache"
   },
+  "jobfetcher": {
+    "lookupTime": 30,
+    "sleepTime": 10
+  },
+  "propagator": {
+    "maxJobs": 1000,
+    "maxWorkers": 1000,
+    "nWorkersInBulk": 20,
+    "sleepTime": 5
+  },
+  "preparator": {
+    "maxJobsToCheck": 1000,
+    "maxJobsToTrigger": 1000,
+    "checkInterval": 30,
+    "triggerInterval": 30,
+    "sleepTime": 10
+  },
+  "submitter": {
+    "nQueues": 30,
+    "lookupTime": 30,
+    "maxNewWorkers": 1000,
+    "sleepTime": 10
+  },
+  "monitor": {
+    "checkInterval": 60,
+    "lookupTime": 30,
+    "sleepTime": 10
+  },
+  "service_monitor": {
+    "pidfile": "/var/run/panda/panda_harvester.pid"
+  },
   "qconf": {
     "configFile": "/opt/harvester/etc/panda/panda_queueconfig.json",
     "queueList": [

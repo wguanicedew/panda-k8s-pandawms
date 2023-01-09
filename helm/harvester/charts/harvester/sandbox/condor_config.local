@@ -15,3 +15,7 @@ GRIDMANAGER_DEBUG = D_FULLDEBUG
 
 SEC_DEFAULT_AUTHENTICATION_METHODS = CLAIMTOBE, FS, GSI
 SEC_CLIENT_AUTHENTICATION_METHODS = GSI, FS
+
+LOG = /var/log/condor_logs/$(hostname)/log
+SPOOL = /var/log/condor_logs/$(hostname)/spool
+EXECUTE = /var/log/condor_logs/$(hostname)/execute

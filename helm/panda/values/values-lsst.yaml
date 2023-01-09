@@ -3,20 +3,24 @@
 # Declare variables to be passed into your templates.
 
 jedi:
+  replicaCount: 2
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
     selector: false
+    size: 50Gi
 
   httpProxy: "http://squid.slac.stanford.edu:3128"
   httpsProxy: "http://squid.slac.stanford.edu:3128"
   noProxy: "localhost,idds-dev-rest,panda-dev-server"
 
 server:
+  replicaCount: 2
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
     selector: false
+    size: 50Gi
 
   httpProxy: "http://squid.slac.stanford.edu:3128"
   httpsProxy: "http://squid.slac.stanford.edu:3128"
@@ -44,3 +48,4 @@ postgres:
     class: wekafs--sdf-k8s01
     create: false
     selector: false
+    size: 50Gi

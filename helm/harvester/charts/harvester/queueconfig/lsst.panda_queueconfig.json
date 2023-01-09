@@ -26,8 +26,9 @@
       "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot.sdf",
       "executableFile": "/opt/harvester/sandbox/lsst.runpilot2-wrapper.sh",
       "x509UserProxy": "/data/harvester/run/x509up_u25606",
-      "logDir": "/var/log/panda/condor_logs",
-      "logBaseURL": "https://panda-dev-server/condor_logs",
+      "logDir": "/var/log/condor_logs/${hostname}",
+      "logBaseURL": "https://panda-dev-server/condor_logs/${hostname}",
+      "condorPool": "${hostname}",
       "nProcesses": 8
     },
     "workerMaker": {
@@ -90,8 +91,9 @@
       "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot.sdf",
       "executableFile": "/opt/harvester/sandbox/lsst.runpilot2-wrapper.sh",
       "x509UserProxy": "/data/harvester/run/x509up_u25606",
-      "logDir": "/var/log/panda/condor_logs",
-      "logBaseURL": "https://panda-dev-server/condor_logs",
+      "logDir": "/var/log/condor_logs/$hostname",
+      "logBaseURL": "https://panda-dev-server/condor_logs/$hostname",
+      "condorPool": "${hostname}",
       "nProcesses": 8
     },
     "workerMaker": {
@@ -172,8 +174,8 @@
           "module": "pandaharvester.harvestersubmitter.k8s_submitter",
           "x509UserProxy": "/data/harvester/run/x509up_u25606",    
           "proxySecretPath": "/data/harvester/run/x509up_u25606",
-          "logDir": "/var/log/panda/condor_logs",
-          "logBaseURL": "https://panda-dev-server/condor_logs",
+          "logDir": "/var/log/condor_logs/$hostname",
+          "logBaseURL": "https://panda-dev-server/condor_logs/$hostname",
           "cpuAdjustRatio": 90,
           "memoryAdjustRatio": 100,
           "nProcesses": 4
@@ -224,8 +226,8 @@
           "module": "pandaharvester.harvestersubmitter.k8s_submitter",
           "x509UserProxy": "/data/harvester/run/x509up_u25606",
           "proxySecretPath": "/data/harvester/run/x509up_u25606",
-          "logDir": "/var/log/panda/condor_logs",
-          "logBaseURL": "https://panda-dev-server/condor_logs",
+          "logDir": "/var/log/condor_logs/$hostname",
+          "logBaseURL": "https://panda-dev-server/condor_logs/$hostname",
           "cpuAdjustRatio": 90,
           "memoryAdjustRatio": 100,
           "nProcesses": 4

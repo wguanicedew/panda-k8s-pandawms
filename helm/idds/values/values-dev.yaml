@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 rest:
-
+  replicaCount: 2
   iddsServer: panda-idds-dev.cern.ch
 
   ingress:

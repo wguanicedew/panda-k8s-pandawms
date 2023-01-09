@@ -5,15 +5,10 @@
 global:
   secret: "panda-secrets"
 
-daemon:
-  enabled: true
-  image:
-    tag: "1.0.6"
-
 rest:
   enabled: true
   image:
-    tag: "1.0.6"
+    tag: "1.0.8"
 
 postgres:
   enabled: true
