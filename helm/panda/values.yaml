@@ -11,7 +11,7 @@ jedi:
 
   # container image and tag
   image:
-    tag: "0.0.17"
+    tag: "0.0.18"
     # tag: "master"
 
   # PV with selector support
