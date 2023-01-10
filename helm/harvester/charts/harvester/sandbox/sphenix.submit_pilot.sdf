@@ -8,7 +8,7 @@ output = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).out
 error = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).err
 transfer_executable = True
 
-environment = "PANDA_JSID=harvester-{harvesterID} HARVESTER_ID={harvesterID} HARVESTER_WORKER_ID={workerID} GTAG={gtag} STORAGEDATA_SERVER_URL=http://datalake-cric.cern.ch/api/atlas/ddmendpoint/query/?json"
+environment = "PANDA_JSID=harvester-{harvesterID} HARVESTER_ID={harvesterID} HARVESTER_WORKER_ID={workerID} GTAG={gtag} STORAGEDATA_SERVER_URL=$ENV(HARVESTER_CRIC_URL_DDMENDPOINTS)"
 +harvesterID = "{harvesterID}"
 +harvesterWorkerID = "{workerID}"
 
