@@ -107,7 +107,7 @@ spec:
                mountPath: /opt/panda/sandbox
              - name: {{ include "server.fullname" . }}-certs
                mountPath: /opt/panda/etc/cert
-             - name: cric-jsons-volume
+             - name: {{ include "server.fullname" . }}-cric-jsons-volume
                mountPath: /var/cric
           envFrom:
             - configMapRef:
@@ -120,10 +120,6 @@ spec:
             # set no_proxy since $() is resolved not in envFrom section
             - name: no_proxy
               value: $(no_proxy),$(PANDA_IDDS_HOST)
-          volumes:
-            - name: cric-jsons-volume
-              secretRef:
-                name: {{ .Values.global.secret }}-cric-jsons
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -153,6 +149,9 @@ spec:
         - name: {{ include "server.fullname" . }}-certs
           secret:
               secretName: {{ .Values.global.secret }}-panda-certs
+        - name: {{ include "server.fullname" . }}-cric-jsons-volume
+          secret:
+              secretName: {{ .Values.global.secret }}-cric-jsons
   {{- if .Values.persistentvolume.create }}
         - name: {{ include "server.fullname" . }}-logs
           persistentVolumeClaim:
