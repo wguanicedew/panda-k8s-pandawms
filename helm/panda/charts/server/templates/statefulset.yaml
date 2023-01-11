@@ -152,6 +152,7 @@ spec:
         - name: {{ include "server.fullname" . }}-cric-jsons-volume
           secret:
               secretName: {{ .Values.global.secret }}-cric-jsons
+              optional: true
   {{- if .Values.persistentvolume.create }}
         - name: {{ include "server.fullname" . }}-logs
           persistentVolumeClaim:
