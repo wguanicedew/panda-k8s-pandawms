@@ -107,6 +107,8 @@ spec:
                mountPath: /opt/panda/sandbox
              - name: {{ include "server.fullname" . }}-certs
                mountPath: /opt/panda/etc/cert
+             - name: {{ include "server.fullname" . }}-cric-jsons-volume
+               mountPath: /var/cric
           envFrom:
             - configMapRef:
                 name: {{ include "server.fullname" . }}-env
@@ -147,6 +149,10 @@ spec:
         - name: {{ include "server.fullname" . }}-certs
           secret:
               secretName: {{ .Values.global.secret }}-panda-certs
+        - name: {{ include "server.fullname" . }}-cric-jsons-volume
+          secret:
+              secretName: {{ .Values.global.secret }}-cric-jsons
+              optional: true
   {{- if .Values.persistentvolume.create }}
         - name: {{ include "server.fullname" . }}-logs
           persistentVolumeClaim:
