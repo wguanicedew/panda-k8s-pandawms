@@ -9,7 +9,7 @@ image:
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   # tag: "latest"
-  tag: "v1.6.0"
+  tag: "v1.8.0"
 
 # start the service when pod gets started
 autoStart: true
@@ -66,6 +66,9 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+
+container:
+  port: 8443
 
 service:
   enabled: true
