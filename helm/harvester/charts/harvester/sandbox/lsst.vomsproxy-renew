@@ -16,7 +16,7 @@ new_proxy_key=${new_proxy_path}/pilot_userkey.pem
 chmod 600 $new_proxy_cert
 chmod 600 $new_proxy_key
 
-voms-proxy-init2 -valid 96:00 -q -cert $new_proxy_cert -key $new_proxy_key -out $proxy 
+voms-proxy-init2 -valid 96:00 -rfc -voms lsst -q -cert $new_proxy_cert -key $new_proxy_key -out $proxy 
 
 #check lifetime of certificate
 voms-proxy-info2 -exists -hours 11 -file $proxy
