@@ -470,7 +470,7 @@
       "prodSourceLabel": "managed",
       "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
       "templateQueueName": "production.push",
-      "maxWorkers": 3,
+      "maxWorkers": 20,
       "nQueueLimitWorkerRatio": 500,
       "nQueueLimitWorkerMin":100,
       "nQueueLimitWorkerMax": 500,
@@ -490,10 +490,10 @@
 
   "LANCS_TEST": {
       "queueStatus": "online",
-      "prodSourceLabel": "test",
+      "prodSourceLabel": "managed",
       "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
       "templateQueueName": "production.push",
-      "maxWorkers": 3,
+      "maxWorkers": 20,
       "nQueueLimitWorkerRatio": 500,
       "nQueueLimitWorkerMin":100,
       "nQueueLimitWorkerMax": 500,
@@ -503,8 +503,11 @@
       "nQueueLimitWorker":10000,
 
       "submitter": {
-          "useAtlasGridCE": true,
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot.sdf"
+	  "ceQueueName": "grid7",
+          "ceARCGridType": "arc",
+          "ceHostname": "grendel.hec.lancs.ac.uk",
+          "ceEndpoint": "https://grendel.hec.lancs.ac.uk:443/arex/rest/1.0",
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_push.sdf"
       }
   },
 
