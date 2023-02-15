@@ -2,6 +2,7 @@
     "db": {
         "backend": "postgres",
         "dbhost": "$PANDA_DB_HOST",
+        "dbport": "$PANDA_DB_PORT",
         "dbpasswd": "$PANDA_DB_PASSWORD"
     },
     "ddm": {

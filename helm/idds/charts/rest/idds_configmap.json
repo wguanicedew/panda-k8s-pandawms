@@ -3,7 +3,7 @@
         {"common":
             {"loglevel": "DEBUG"},
          "database":
-            {"default": "postgresql://${IDDS_DATABASE_USER}:${IDDS_DATABASE_PASSWORD}@${IDDS_DATABASE_HOST}/${IDDS_DATABASE_NAME}",
+            {"default": "postgresql://${IDDS_DATABASE_USER}:${IDDS_DATABASE_PASSWORD}@${IDDS_DATABASE_HOST}:${IDDS_DATABASE_PORT}/${IDDS_DATABASE_NAME}",
              "schema": "${IDDS_DATABASE_SCHEMA}",
              "pool_size": 20,
              "pool_recycle": 3600,
