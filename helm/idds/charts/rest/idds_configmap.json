@@ -74,7 +74,7 @@
         },
     "/opt/idds/config/idds/alembic.ini":
         {"alembic":
-            {"sqlalchemy.url": "postgresql://${IDDS_DATABASE_USER}:${IDDS_DATABASE_PASSWORD}@${IDDS_DATABASE_HOST}/${IDDS_DATABASE_NAME}",
+            {"sqlalchemy.url": "postgresql://${IDDS_DATABASE_USER}:${IDDS_DATABASE_PASSWORD}@${IDDS_DATABASE_HOST}:${IDDS_DATABASE_PORT}/${IDDS_DATABASE_NAME}",
              "version_table_schema": "${IDDS_DATABASE_SCHEMA}"
             }
         },
