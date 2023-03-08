@@ -1,0 +1,57 @@
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  # note the name is the DB services/pods  not the Cluster name.
+  name: usdf-panda-server
+spec:
+  backup:
+    retentionPolicy: "15d"
+    barmanObjectStore:
+      destinationPath: s3://rubin-panda-dev
+      endpointURL: https://s3dfrgw.slac.stanford.edu
+      s3Credentials:
+        accessKeyId:
+          name: s3-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: s3-creds
+          key: ACCESS_SECRET_KEY
+  instances: 2
+  primaryUpdateStrategy: unsupervised
+
+  bootstrap:
+    initdb:
+      database: panda
+      owner: panda
+      secret:
+        name: usdf-panda-server-creds
+  
+  imageName:  ghcr.io/cloudnative-pg/postgresql:14.4-7
+  inheritedMetadata:
+    annotations:
+      prometheus.io/scrape: 'true' 
+
+  nodeMaintenanceWindow:
+    inProgress: false
+    reusePVC: true
+
+  postgresql:
+    parameters:
+      shared_buffers: 16GB
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
+
+  resources:
+    requests:
+      memory: 64Gi
+      cpu: 16
+    limits:
+      memory: 128Gi
+      cpu: 32 
+
+  storage:
+    storageClass: wekafs--sdf-k8s01
+    size: 1000Gi
+
+
