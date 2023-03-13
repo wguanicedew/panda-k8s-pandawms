@@ -15,9 +15,6 @@ autoStart: true
 # experiment to use to init and setup crons
 experiment: ""
 
-# to override deployment name
-deploymentName: ""
-
 # http proxy
 httpProxy: ""
 httpsProxy: ""

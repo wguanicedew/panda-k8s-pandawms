@@ -69,7 +69,7 @@ for component in options.enable.split(','):
     else:
         com = ['helm', 'install', inst_name, os.path.join(helm_dir, component)]
     com += ['-f', os.path.join(helm_dir, component, "values.yaml")]
-    com += ['--set', 'deploymentName={}'.format(inst_name)]
+    com += ['--set', 'global.deploymentName={}'.format(inst_name)]
 
     # add experiment yaml
     if options.experiment:

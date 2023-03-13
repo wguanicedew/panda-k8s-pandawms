@@ -162,12 +162,12 @@ spec:
                 name: {{ include "harvester.fullname" . }}-env
             - secretRef:
                 name: {{ .Values.global.secret }}-harvester-envs
-          {{- if .Values.deploymentName }}
+          {{- if .Values.global.deploymentName }}
           env:
             - name: "HARVESTER_ID"
-              value: "{{ .Values.deploymentName }}"
+              value: "{{ .Values.global.deploymentName }}"
             - name: "HARVESTER_DB_HOST"
-              value: "{{ .Values.deploymentName }}-mariadb"
+              value: "{{ .Values.global.deploymentName }}-mariadb"
           {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
