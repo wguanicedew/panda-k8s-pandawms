@@ -77,6 +77,10 @@ for component in options.enable.split(','):
         if os.path.exists(exp_yaml):
             com += ['-f', exp_yaml]
 
+    # give deployment name
+    if options.affix:
+        com += ['--set', 'global.deploymentName={}'.format(inst_name)]
+
     # disable sub components
     if component in disabled:
         for sub_name in disabled[component]:
