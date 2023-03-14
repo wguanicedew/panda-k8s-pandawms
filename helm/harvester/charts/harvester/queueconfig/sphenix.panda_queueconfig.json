@@ -29,7 +29,8 @@
       "logDir": "/var/log/condor_logs/${hostname}",
       "logBaseURL": "https://ai-idds-02.cern.ch/condor_logs/${hostname}",
       "condorPool": "${hostname}",
-      "nProcesses": 8
+      "nProcesses": 8,
+      "useFQDN": true
     },
     "workerMaker": {
       "name": "SimpleWorkerMaker",
