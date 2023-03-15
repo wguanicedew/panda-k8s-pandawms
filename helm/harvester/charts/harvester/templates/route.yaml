@@ -6,11 +6,15 @@ metadata:
   name: {{ include "harvester.fullname" . }}-route
   labels:
       {{- include "harvester.labels" . | nindent 4 }}
+  {{- if .Values.global.deploymentName }}
+  annotations:
+    haproxy.router.openshift.io/rewrite-target: /
+  {{- end }}
 
 spec:
   host: {{ .Values.route.hostName }}
   {{- if .Values.global.deploymentName }}
-  path: "/{{ .Values.global.deploymentName }}*"
+  path: "/{{ .Values.global.deploymentName }}"
   {{- end }}
   to:
     kind: Service

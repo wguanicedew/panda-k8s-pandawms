@@ -5,7 +5,7 @@
     "nQueueLimitWorker": 10000,
     "nQueueLimitJobRatio":40,
     "nQueueLimitJobMax": 1000,
-    "nQueueLimitJobMin":3,
+    "nQueueLimitJobMin": 100,
     "maxWorkers": 10,
     "maxNewWorkersPerCycle": 100,
     "mapType": "OneToOne",
@@ -68,16 +68,22 @@
 
   "BNL_OSG_SPHENIX": {
     "queueStatus": "online",
-    "prodSourceLabel": "managed",
+    "prodSourceLabel": "unified",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.push",
-    "maxWorkers": 10000,
-    "nQueueLimitWorkerRatio": 200,
-    "nQueueLimitWorkerMin": 1,
-    "nQueueLimitWorkerMax": 60,
+    "maxWorkers": 150000,
+    "maxNewWorkersPerCycle": 2000,
+    "nQueueLimitWorkerRatio": 4000,
+    "nQueueLimitWorkerMin": 50000,
+    "nQueueLimitWorkerMax": 150000,
+    "nQueueLimitJobRatio": 4000,
+    "nQueueLimitJobMin": 50000,
+    "nQueueLimitJobMax": 150000,
     "submitter": {
       "logDir": "/var/log/condor_logs/${hostname}",
-      "logBaseURL": "https://ai-idds-02.cern.ch/condor_logs/${hostname}",
+      "ceHostname":["spce01.sdcc.bnl.gov","spce03.sdcc.bnl.gov","spce04.sdcc.bnl.gov","spce05.sdcc.bnl.gov","spce06.sdcc.bnl.gov"],
+      "ceEndpoint":["spce01.sdcc.bnl.gov:9619","spce03.sdcc.bnl.gov:9619","spce04.sdcc.bnl.gov:9619","spce05.sdcc.bnl.gov:9619","spce06.sdcc.bnl.gov:9619"],
+      "logBaseURL": "http://sphenix-harvester-test.apps.rcf.bnl.gov/${harvester_id}/${hostname}",
       "templateFile": "/opt/harvester/sandbox/sphenix.submit_pilot.sdf",
       "x509UserProxy": "/data/harvester/sphenix.proxy"
     }
