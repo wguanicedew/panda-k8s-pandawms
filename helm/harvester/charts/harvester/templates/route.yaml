@@ -10,12 +10,12 @@ metadata:
 spec:
   host: {{ .Values.route.hostName }}
   {{- if .Values.global.deploymentName }}
-  path: "/{{ .Values.global.deploymentName }}-harvester"
+  path: "/{{ .Values.global.deploymentName }}*"
   {{- end }}
   to:
     kind: Service
     {{- if .Values.global.deploymentName }}
-    name: "{{ .Values.global.deploymentName }}-harvester"
+    name: "{{ .Values.global.deploymentName }}"
     {{- else }}
     name: {{ include "harvester.fullname" . }}
     {{- end }}
