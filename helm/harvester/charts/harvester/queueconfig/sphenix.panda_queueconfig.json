@@ -83,7 +83,7 @@
       "logDir": "/var/log/condor_logs/${hostname}",
       "ceHostname":["spce01.sdcc.bnl.gov","spce03.sdcc.bnl.gov","spce04.sdcc.bnl.gov","spce05.sdcc.bnl.gov","spce06.sdcc.bnl.gov"],
       "ceEndpoint":["spce01.sdcc.bnl.gov:9619","spce03.sdcc.bnl.gov:9619","spce04.sdcc.bnl.gov:9619","spce05.sdcc.bnl.gov:9619","spce06.sdcc.bnl.gov:9619"],
-      "logBaseURL": "http://sphenix-harvester-test.apps.rcf.bnl.gov/${harvester_id}/${hostname}",
+      "logBaseURL": "http://sphenix-harvester.apps.rcf.bnl.gov/${harvester_id}/${hostname}",
       "templateFile": "/opt/harvester/sandbox/sphenix.submit_pilot.sdf",
       "x509UserProxy": "/data/harvester/sphenix.proxy"
     }
