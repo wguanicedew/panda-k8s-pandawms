@@ -11,7 +11,7 @@ spec:
   bootstrap:
     initdb:
       database: panda
-      owner: panda
+      owner: rubin
       secret:
         name: usdf-panda-server-dev-creds
   

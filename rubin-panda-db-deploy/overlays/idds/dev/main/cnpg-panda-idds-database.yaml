@@ -11,7 +11,7 @@ spec:
   bootstrap:
     initdb:
       database: idds
-      owner: idds
+      owner: rubin
       secret:
         name: usdf-panda-idds-dev-creds
   
