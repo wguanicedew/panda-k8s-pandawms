@@ -27,7 +27,7 @@ spec:
       secret:
         name: usdf-panda-server-creds
   
-  imageName:  ghcr.io/cloudnative-pg/postgresql:14.4-7
+  imageName:  ghcr.io/pandawms/panda-k8s:0.0.1
   inheritedMetadata:
     annotations:
       prometheus.io/scrape: 'true' 
