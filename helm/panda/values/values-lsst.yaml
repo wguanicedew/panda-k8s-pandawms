@@ -44,6 +44,8 @@ server:
             hostOverride: rubin-panda-server-dev.slac.stanford.edu
 
 postgres:
+  enabled: false
+
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false

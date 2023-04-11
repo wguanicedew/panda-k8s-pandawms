@@ -18,6 +18,8 @@
         "dbhost": "$PANDA_DB_HOST",
         "dbport": "$PANDA_DB_PORT",
         "dbpasswd": "$PANDA_DB_PASSWORD",
+	"dbuser": "$PANDA_DB_USER",
+	"dbname": "$PANDA_DB_NAME",
         "adder_plugins": "wlcg:dataservice.AdderDummyPlugin:AdderDummyPlugin,wlcg:dataservice.AdderSimplePlugin:AdderSimplePlugin:sphenix",
         "setupper_plugins": "wlcg:dataservice.SetupperDummyPlugin:SetupperDummyPlugin", 
         "token_authType": "oidc",

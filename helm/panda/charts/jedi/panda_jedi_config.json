@@ -3,7 +3,9 @@
         "backend": "postgres",
         "dbhost": "$PANDA_DB_HOST",
         "dbport": "$PANDA_DB_PORT",
-        "dbpasswd": "$PANDA_DB_PASSWORD"
+        "dbpasswd": "$PANDA_DB_PASSWORD",
+	"dbuser": "$PANDA_DB_USER",
+	"dbname": "$PANDA_DB_NAME"
     },
     "ddm": {
         "modConfig": "wlcg:4:pandajedi.jediddm.GenDDMClient:GenDDMClient::off,wlcg:2:pandajedi.jediddm.AtlasDDMClient:AtlasDDMClient:sphenix",
