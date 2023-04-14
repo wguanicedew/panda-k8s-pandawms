@@ -44,8 +44,8 @@ spec:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
     pg_hba:
-      - local all panda trust
-      - host all panda localhost trust
+      - local all rubin trust
+      - host all rubin localhost trust
       - local all postgres trust
       - host all postgres localhost trust
       - host all all 0.0.0.0/0 md5
