@@ -30,8 +30,6 @@ spec:
       postInitTemplateSQL:
         - CREATE EXTENSION IF NOT EXISTS pg_cron;
         - GRANT USAGE ON SCHEMA cron TO rubin;
-        - CREATE SCHEMA IF NOT EXISTS partman;
-        - CREATE EXTENSION IF NOT EXISTS pg_partman SCHEMA partman;
 
   imageName: lsstsqre/cloudnative-pg:14
   inheritedMetadata:
