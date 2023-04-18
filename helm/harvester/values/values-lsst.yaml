@@ -11,10 +11,6 @@ harvester:
     selector: false
     size: 300Gi
 
-  httpProxy: "http://atlsquid.slac.stanford.edu:3128"
-  httpsProxy: "http://atlsquid.slac.stanford.edu:3128"
-  noProxy: "localhost,idds-dev-rest,panda-dev-server"
-
   experiment: "lsst"
   panda:
     host: "panda-dev-server:443"
