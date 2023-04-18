@@ -9,7 +9,7 @@
 
 ## Backup and Restore
 
-CloudNativePG supports online/hot backup of Postgres through continous backpu and WAL archiving.  Backups is based on the Barman tool.  Full info [here](https://cloudnative-pg.io/documentation/1.18/backup_recovery)  Backups are configured on each Postgres cluster to back up to an S3 bucket in Ceph.  WAL logs are also archived to the same S3 bucket in Ceph.  An example of the configuration in prod is below.  Backups are retained for 15 days.  Please note that older backups are retained if a successful backup has not been performed in the last 15 days.
+CloudNativePG supports online/hot backup of Postgres through continuous backpu and WAL archiving.  Backups is based on the Barman tool.  Full info [here](https://cloudnative-pg.io/documentation/1.18/backup_recovery)  Backups are configured on each Postgres cluster to back up to an S3 bucket in Ceph.  WAL logs are also archived to the same S3 bucket in Ceph.  An example of the configuration in prod is below.  Backups are retained for 15 days.  Please note that older backups are retained if a successful backup has not been performed in the last 15 days.
 
 ```
     backup:
