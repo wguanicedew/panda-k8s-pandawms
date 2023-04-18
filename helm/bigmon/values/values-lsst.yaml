@@ -17,6 +17,10 @@ main:
       - domain: slac.stanford.edu
         hostOverride: rubin-panda-bigmon-dev.slac.stanford.edu
         paths:
+          - path: /condor_logs
+            pathType: Prefix
+            serviceName: harvester-dev
+            servicePort: 443
           - path: /
             pathType: Prefix
     tls:
