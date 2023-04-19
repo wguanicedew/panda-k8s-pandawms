@@ -3,7 +3,6 @@
   "production.pull": {
     "isTemplateQueue": true,
     "prodSourceLabel": "managed",
-    "nQueueLimitWorkerRatio": 5000,
     "nQueueLimitWorkerMin": 100,
     "nQueueLimitWorkerMax": 10000,
     "maxWorkers": 10,
@@ -416,7 +415,6 @@
     "templateQueueName": "production.pull",
     "maxWorkers": 700,
     "maxNewWorkersPerCycle":20,
-    "nQueueLimitWorkerRatio": 200,
     "nQueueLimitWorkerMin":3,
     "nQueueLimitWorkerMax": 20,
     "nQueueLimitJobMax":10000,
@@ -440,7 +438,6 @@
     "templateQueueName": "production.push",
     "maxWorkers": 500,
     "maxNewWorkersPerCycle":10,
-    "nQueueLimitWorkerRatio": 500,
     "nQueueLimitWorkerMin":3,
     "nQueueLimitWorkerMax": 20,
     "nQueueLimitJobMax":10000,
