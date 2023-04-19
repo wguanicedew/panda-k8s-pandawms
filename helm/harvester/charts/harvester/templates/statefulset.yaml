@@ -67,6 +67,7 @@ spec:
   storageClassName: {{ .Values.persistentvolume.class }}
   accessModes:
     - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
   resources:
     requests:
       storage: {{ .Values.persistentvolume.size }}
