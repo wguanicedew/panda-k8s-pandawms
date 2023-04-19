@@ -12,7 +12,7 @@ spec:
     storage: {{ .Values.persistentvolume.size }}
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Delete
+  # persistentVolumeReclaimPolicy: Delete
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
@@ -51,7 +51,7 @@ spec:
     storage: {{ .Values.persistentvolume.size }}
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Delete
+  # persistentVolumeReclaimPolicy: Delete
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
