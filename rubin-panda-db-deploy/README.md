@@ -27,6 +27,12 @@ Note that in order to hep revision control our operator deployment, we also comm
 
 ## Deploy the appropriate overlay
 
+### Log in in Vault 
+At SLAC they are using Vault for the distribution of secrets, i.e. S3 credentials, db passwords and etc.  Before you start the PanDA DB deployment, please make sure that you login in vault using:
+```
+vault login -method=ldap username=your_username
+```
+
 ### Deploy PanDA
 
 For PanDA, the main database and the archive database are in the same database with different schema.
