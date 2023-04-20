@@ -310,8 +310,9 @@
     "submitter": {
           "ceQueueName": "rubin",
           "ceARCGridType": "arc",
-	  "ceHostname": "sdfarcce001.slac.stanford.edu",
-          "ceEndpoint": "https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
+	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
+          "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
+		         "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
@@ -333,8 +334,9 @@
     "submitter": {
           "ceQueueName": "rubin",
           "ceARCGridType": "arc",
-	  "ceHostname": "sdfarcce001.slac.stanford.edu",
-          "ceEndpoint": "https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
+	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
+          "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
+                         "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
@@ -356,8 +358,9 @@
     "submitter": {
           "ceQueueName": "rubin_himem",
           "ceARCGridType": "arc",
-	  "ceHostname": "sdfarcce001.slac.stanford.edu",
-          "ceEndpoint": "https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
+	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
+          "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
+                         "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
@@ -379,8 +382,9 @@
     "submitter": {
           "ceQueueName": "rubin_extra_himem",
           "ceARCGridType": "arc",
-	  "ceHostname": "sdfarcce001.slac.stanford.edu",
-          "ceEndpoint": "https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
+	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
+          "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
+                         "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_push.sdf"
       }
   },
@@ -402,8 +406,9 @@
     "submitter": {
           "ceQueueName": "rubin_merge",
           "ceARCGridType": "arc",
-	  "ceHostname": "sdfarcce001.slac.stanford.edu",
-          "ceEndpoint": "https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
+	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
+          "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
+                         "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_push.sdf"
       }
   },
