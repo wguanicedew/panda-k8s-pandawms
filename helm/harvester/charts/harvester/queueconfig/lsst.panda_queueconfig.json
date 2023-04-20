@@ -478,7 +478,7 @@
           "ceARCGridType": "arc",
 	  "ceHostname": "sdfarcce001.slac.stanford.edu",
           "ceEndpoint": "https://ccarccelsst01.in2p3.fr:9443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_push.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
@@ -501,7 +501,7 @@
           "ceARCGridType": "arc",
           "ceHostname": "grendel.hec.lancs.ac.uk",
           "ceEndpoint": "https://grendel.hec.lancs.ac.uk:443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_push.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
