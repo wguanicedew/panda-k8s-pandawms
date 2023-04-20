@@ -4,6 +4,8 @@ main:
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
+    selector: false
+    size: 50Gi
 
   ingress:
     enabled: true
@@ -23,3 +25,5 @@ mariadb:
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
+    selector: false
+    size: 50Gi
