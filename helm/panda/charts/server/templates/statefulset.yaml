@@ -111,7 +111,7 @@ spec:
                mountPath: /opt/panda/etc/cert
              - name: {{ include "server.fullname" . }}-cric-jsons-volume
                mountPath: /var/cric
-             {{- if and .Values.sharedCache not .Values.persistentvolume.create }}
+             {{- if and .Values.sharedCache (not .Values.persistentvolume.create) }}
              - name: {{ include "server.fullname" . }}-cache
                mountPath: /var/log/panda/pandacache
              {{- end }}
@@ -159,7 +159,7 @@ spec:
           secret:
               secretName: {{ .Values.global.secret }}-cric-jsons
               optional: true
-        {{- if and .Values.sharedCache not .Values.persistentvolume.create }}
+        {{- if and .Values.sharedCache (not .Values.persistentvolume.create) }}
         - name: {{ include "server.fullname" . }}-cache
           persistentVolumeClaim:
             claimName: { { include "server.fullname" . }}
