@@ -16,6 +16,7 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
+{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -36,7 +37,6 @@ spec:
       {{- include "server.selectorLabels" . | nindent 6 }}
   {{- end }}
 ---
-{{- end }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -109,6 +109,10 @@ spec:
                mountPath: /opt/panda/etc/cert
              - name: {{ include "server.fullname" . }}-cric-jsons-volume
                mountPath: /var/cric
+             {{- if not .Values.persistentvolume.create }}
+             - name: { { include "server.fullname" . } }-cache
+               mountPath: /var/log/panda/pandacache
+             {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "server.fullname" . }}-env
@@ -158,6 +162,9 @@ spec:
           persistentVolumeClaim:
             claimName: {{ include "server.fullname" . }}
   {{- else }}
+        - name: {{ include "server.fullname" . }}-cache
+          persistentVolumeClaim:
+            claimName: {{ include "server.fullname" . }}
   volumeClaimTemplates:
     - metadata:
         name: {{ include "server.fullname" . }}-logs
