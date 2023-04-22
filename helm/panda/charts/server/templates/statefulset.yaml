@@ -85,7 +85,7 @@ spec:
               chmod +x /data/panda/init-panda;
               chmod +x /data/panda/run-panda-crons;
               chmod +x /data/panda/run-panda-services;
-              mkdir -p /var/log/panda/pandacache; chmod 777 /var/log/panda/pandacache || true;
+              mkdir -p /var/log/panda/pandacache/jedilog; chmod -R 777 /var/log/panda/pandacache || true;
               python /data/panda/process_template.py;
               /data/panda/run-panda-services;
               sleep infinity & wait
