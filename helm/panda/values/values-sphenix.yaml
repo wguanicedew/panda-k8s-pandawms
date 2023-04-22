@@ -21,6 +21,8 @@ server:
   noRoot: true
   hostName: "sphenix-pandaserver.apps.rcf.bnl.gov"
 
+  sharedCache: true
+
 
 postgres:
   persistentvolume:
