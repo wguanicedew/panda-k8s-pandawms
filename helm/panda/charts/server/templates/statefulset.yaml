@@ -162,7 +162,7 @@ spec:
         {{- if and .Values.sharedCache (not .Values.persistentvolume.create) }}
         - name: {{ include "server.fullname" . }}-cache
           persistentVolumeClaim:
-            claimName: { { include "server.fullname" . }}
+            claimName: {{ include "server.fullname" . }}
         {{- end }}
   {{- if .Values.persistentvolume.create }}
         - name: {{ include "server.fullname" . }}-logs
