@@ -15,7 +15,7 @@
         "pserverhost": "$PANDA_HOSTNAME",
         "pserverport": "443",
         "pserverhosthttp": "$PANDA_HOSTNAME",
-        "pserverporthttp": "80",
+        "pserverporthttp": "443",
         "dbhost": "$PANDA_DB_HOST",
         "dbport": "$PANDA_DB_PORT",
         "dbpasswd": "$PANDA_DB_PASSWORD",
