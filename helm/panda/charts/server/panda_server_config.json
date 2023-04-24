@@ -12,13 +12,16 @@
         "configurator_use_cert": "False",
         "production_dns": "iddssv1",
         "pserveralias": "panda-dev-server",
+        "pserverhost": "$PANDA_HOSTNAME",
+        "pserverport": "443",
+        "disableHTTP": "True",
         "dbhost": "$PANDA_DB_HOST",
         "dbport": "$PANDA_DB_PORT",
         "dbpasswd": "$PANDA_DB_PASSWORD",
         "adder_plugins": "wlcg:dataservice.AdderDummyPlugin:AdderDummyPlugin,wlcg:dataservice.AdderSimplePlugin:AdderSimplePlugin:sphenix",
         "setupper_plugins": "wlcg:dataservice.SetupperDummyPlugin:SetupperDummyPlugin", 
         "token_authType": "oidc",
-        "sandboxHostname": "$PANDA_SANDBOX_HOST",
+        "sandboxHostname": "$PANDA_HOSTNAME",
         "mbproxy_configFile": "/opt/panda/etc/panda/panda_mbproxy_config.json"
     },
     "daemon": {

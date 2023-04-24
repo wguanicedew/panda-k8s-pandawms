@@ -19,6 +19,8 @@ httpsProxy: ""
 # run with non-root PID
 noRoot: false
 
+# shared cache space
+sharedCache: false
 
 persistentvolume:
   # Set true to create PV

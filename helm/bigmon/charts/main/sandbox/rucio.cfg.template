@@ -1,0 +1,15 @@
+[common]
+logdir = /var/log/panda
+loglevel = DEBUG
+logformat = %%(asctime)s\t%%(process)d\t%%(levelname)s\t%%(message)s
+
+[client]
+rucio_host = https://${RUCIO_SERVER_HOST}
+auth_host = https://${RUCIO_AUTH_HOST}
+auth_type = userpass
+username = ${RUCIO_USERNAME}
+password = ${RUCIO_PASSWORD}
+ca_cert = /etc/grid-security/certificates/
+account = ${RUCIO_ACCOUNT}
+request_retries = 3
+protocol_stat_retries = 6
