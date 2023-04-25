@@ -79,7 +79,7 @@ spec:
           args:
             - until /usr/pgsql-*/bin/pg_isready -h ${IDDS_DATABASE_HOST} -p ${IDDS_DATABASE_PORT}; do echo waiting for database; sleep 2; done;
               {{- if .Values.noRoot }}
-              /opt/idds/bin/start-daemon.sh rest
+              /opt/idds/bin/start-daemon.sh all
               {{- else }}
               chmod 777 /var/log/idds;
               runuser -u atlpan -g zp -- /opt/idds/bin/start-daemon.sh all
