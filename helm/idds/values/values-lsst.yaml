@@ -13,10 +13,6 @@ rest:
     create: false
     size: 50Gi
 
-  httpProxy: "http://squid.slac.stanford.edu:3128"
-  httpsProxy: "http://squid.slac.stanford.edu:3128"
-  noProxy: "localhost,idds-dev-rest,idds-dev-daemon,panda-dev-server,panda-dev-jedi"
-
   ingress:
     enabled: true
     hosts:
@@ -32,6 +28,7 @@ rest:
             hostOverride: rubin-panda-idds-dev.slac.stanford.edu
 
 postgres:
+  enabled: false
 
   # PV: For use cases that users are not allowed to create PV,
   # please update class to corresponding storageclass and update create to false.
