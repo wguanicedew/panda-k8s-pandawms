@@ -16,6 +16,8 @@ spec:
   hostPath:
     path: {{ .Values.persistentvolume.path }}
 ---
+{{- end }}
+{{- if or .Values.persistentvolume.create .Values.sharedCache }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -83,6 +85,7 @@ spec:
               chmod +x /data/panda/init-panda;
               chmod +x /data/panda/run-panda-crons;
               chmod +x /data/panda/run-panda-services;
+              mkdir -p /var/log/panda/pandacache/jedilog; chmod -R 777 /var/log/panda/pandacache || true;
               python /data/panda/process_template.py;
               /data/panda/run-panda-services;
               sleep infinity & wait
@@ -109,6 +112,10 @@ spec:
                mountPath: /opt/panda/etc/cert
              - name: {{ include "server.fullname" . }}-cric-jsons-volume
                mountPath: /var/cric
+             {{- if and .Values.sharedCache (not .Values.persistentvolume.create) }}
+             - name: {{ include "server.fullname" . }}-cache
+               mountPath: /var/log/panda/pandacache
+             {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "server.fullname" . }}-env
@@ -153,6 +160,11 @@ spec:
           secret:
               secretName: {{ .Values.global.secret }}-cric-jsons
               optional: true
+        {{- if and .Values.sharedCache (not .Values.persistentvolume.create) }}
+        - name: {{ include "server.fullname" . }}-cache
+          persistentVolumeClaim:
+            claimName: {{ include "server.fullname" . }}
+        {{- end }}
   {{- if .Values.persistentvolume.create }}
         - name: {{ include "server.fullname" . }}-logs
           persistentVolumeClaim:

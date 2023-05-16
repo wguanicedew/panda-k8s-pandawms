@@ -1,0 +1,10 @@
+[common]
+loglevel = DEBUG
+auth_type = oidc
+
+[rest]
+host = https://${IDDS_HOST}:${IDDS_PORT}/idds
+
+[oidc]
+oidc_token_file = /data/bigmon/config/idds_token.json
+vo = ${IDDS_AUTH_VO}

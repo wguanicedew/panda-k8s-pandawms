@@ -1,35 +1,29 @@
-# Default values for server.
+# Default values for mariadb.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: ghcr.io/pandawms/panda-server
-  pullPolicy: Always
+  repository: bitnami/mariadb
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-# start the service when pod gets started
-autoStart: true
-
-# http proxy
-httpProxy: ""
-httpsProxy: ""
-
-# run with non-root PID
-noRoot: false
-
-# shared cache space
-sharedCache: false
-
 persistentvolume:
-  # Set true to create PV
   create: true
-  # StorageClass
   class: manual
-  path: "/mnt/panda-server-logs"
+  path: "/mnt/iam-data"
   size: 5Gi
-  selector: true
+
+iam:
+  organization: 'Rubin'
+
+database:
+  name: iamdb
+  user: iam
+  password: MyPandaPass0508
+  admin_password: MyAdminPass0508
 
 imagePullSecrets: []
 nameOverride: ""
@@ -59,63 +53,34 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  httpPort: 80
-  httpsPort: 443
+  port: 3306
 
 ingress:
   enabled: false
-
-  ### configration for CERN k8s
   className: ""
-  annotations:
+  annotations: 
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/secure-backends: "true"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: 'true'
-    nginx.ingress.kubernetes.io/auth-tls-verify-client: 'optional_no_ca'
-    nginx.ingress.kubernetes.io/auth-tls-verify-depth: '10'
-
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: "10"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "360"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "360"
-    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
-    nginx.ingress.kubernetes.io/client-body-buffer-size: "10m"
-    nginx.ingress.kubernetes.io/client_max_body_size: "10m"
-
-    nginx.ingress.kubernetes.io/configuration-snippet: |-
-      proxy_set_header PANDA-OIDC-VO  $http_panda_oidc_vo;
-      proxy_set_header PANDA-OIDC-GROUP $http_panda_oidc_group;
-      proxy_set_header PANDA-OIDC-ROLE $http_panda_oidc_role;
-
-      proxy_set_header SSL-CLIENT-CERT $ssl_client_escaped_cert;
-      proxy_set_header SSL-CLIENT-S-DN  $ssl_client_s_dn;
-    nginx.ingress.kubernetes.io/server-snippet: |
-       ssl on;
-       ssl_verify_client optional_no_ca;
-       ssl_verify_depth 10;
-
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
   hosts:
     - domain: cern.ch
       hostOverride: ""
       paths:
         - path: /
           pathType: Prefix
-  tls:
+
+  tls: 
     - secretName: ""
       hosts:
         - domain: cern.ch
           hostOverride: ""
-
-route:
-  enabled: false
-
-  ### configuration for OKD
-  tls:
-    termination: passthrough
-    insecureEdgeTerminationPolicy: None
-
+  #  - hosts:
+  #       - panda-k8s-mariadb.cern.ch
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

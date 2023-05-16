@@ -25,7 +25,7 @@ universe = grid
 
 grid_resource = {ceARCGridType} {ceHostname}
 
-nordugrid_rsl = (queue = {ceQueueName})(runtimeenvironment = APPS/HEP/ATLAS-SITE-LCG)(runtimeenvironment = ENV/PROXY)(jobname = arc_pilot)(count = {nCoreTotal})(countpernode = {nCoreTotal})(memory = {requestRamPerCore})(walltime = {requestWalltime})(cputime = {requestCputime})(environment = (PANDA_JSID harvester-{harvesterID})(HARVESTER_ID {harvesterID})(HARVESTER_WORKER_ID {workerID})(GTAG {gtag})(APFMON http://apfmon.lancs.ac.uk/api)(APFFID {harvesterID})(APFCID $(Cluster).$(Process)))
+nordugrid_rsl = (queue = {ceQueueName})(runtimeenvironment = ENV/PROXY)(jobname = arc_pilot)(count = {nCoreTotal})(countpernode = {nCoreTotal})(memory = {requestRamPerCore})(walltime = {requestWalltime})(cputime = {requestCputime})(environment = (PANDA_JSID harvester-{harvesterID})(HARVESTER_ID {harvesterID})(HARVESTER_WORKER_ID {workerID})(GTAG {gtag})(APFMON http://apfmon.lancs.ac.uk/api)(APFFID {harvesterID})(APFCID $(Cluster).$(Process)))
 
 arc_resources = <SlotRequirement>  \
                 <NumberOfSlots>1</NumberOfSlots> \
@@ -33,6 +33,8 @@ arc_resources = <SlotRequirement>  \
                 </SlotRequirement> \
                 <QueueName>{ceQueueName}</QueueName> \
                 <IndividualPhysicalMemory>{requestRamBytes}</IndividualPhysicalMemory>
+
+arc_rte = ENV/PROXY
 
 X509UserProxy = {x509UserProxy}
 ShouldTransferFiles = YES
@@ -57,9 +59,9 @@ use_x509userproxy = true
 delegate_job_GSI_credentials_lifetime = 0
 
 #+remote_Requirements = JobRunCount == 0
-periodic_remove = (JobStatus == 2 && (CurrentTime - EnteredCurrentStatus) > 604800) || (JobStatus == 5 && (CurrentTime - EnteredCurrentStatus) > 3600)
+periodic_remove = (JobStatus == 2 && (CurrentTime - EnteredCurrentStatus) > 604800) || (JobStatus == 5 && (CurrentTime - EnteredCurrentStatus) > 600)
 #+remote_PeriodicHold = ( JobStatus==1 && gridjobstatus=?=UNDEFINED && CurrentTime-EnteredCurrentStatus>3600 ) || ( (JobRunCount =!= UNDEFINED && JobRunCount > 0) ) || ( JobStatus == 2 && CurrentTime-EnteredCurrentStatus>604800 )
-+remote_PeriodicRemove = (JobStatus == 5 && (CurrentTime - EnteredCurrentStatus) > 3600) || (JobStatus == 1 && globusstatus =!= 1 && (CurrentTime - EnteredCurrentStatus) > 86400)
++remote_PeriodicRemove = (JobStatus == 5 && (CurrentTime - EnteredCurrentStatus) > 600) || (JobStatus == 1 && globusstatus =!= 1 && (CurrentTime - EnteredCurrentStatus) > 86400)
 
 +sdfPath = "{sdfPath}"
 

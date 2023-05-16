@@ -27,6 +27,12 @@ Note that in order to hep revision control our operator deployment, we also comm
 
 ## Deploy the appropriate overlay
 
+### Log in to Vault 
+At SLAC they are using Vault for the distribution of secrets, i.e. S3 credentials, db passwords and etc.  Before you start the PanDA DB deployment, please make sure that you login in vault using:
+```
+vault login -method=ldap username=your_username
+```
+
 ### Deploy PanDA
 
 For PanDA, the main database and the archive database are in the same database with different schema.
@@ -41,9 +47,6 @@ make apply
 For iDDS, the main database and the archive database can be different databases. The archive database may need much bigger storages (depending on how long we want to keep the history data), however the performance requirement is not critical.
 
 ```
-cd overlays/idds/$ENVIRONMENT/main
-make apply
-
 cd overlays/idds/$ENVIRONMENT/{main|archive}
 make apply
 ```

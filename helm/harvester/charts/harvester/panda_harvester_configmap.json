@@ -38,7 +38,7 @@
   "propagator": {
     "maxJobs": 1000,
     "maxWorkers": 1000,
-    "nWorkersInBulk": 20,
+    "nWorkersInBulk": 100,
     "sleepTime": 5
   },
   "preparator": {
@@ -55,7 +55,8 @@
     "sleepTime": 10
   },
   "monitor": {
-    "checkInterval": 60,
+    "nThreads": 10,
+    "checkInterval": 30,
     "lookupTime": 30,
     "sleepTime": 10
   },
@@ -70,6 +71,8 @@
   },
   "cacher": {
     "data": [
+      "resource_types.json||panda_server:get_resource_types",
+      "job_statistics.json||panda_server:get_job_stats",
       "ddmendpoints_objectstores.json||$HARVESTER_CRIC_OS",
       "panda_queues.json||$HARVESTER_CRIC_SCHEDCONFIG",
       "agis_ddmendpoints.json||$HARVESTER_CRIC_DDMENDPOINTS"
