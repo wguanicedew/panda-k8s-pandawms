@@ -26,7 +26,7 @@ spec:
       secret:
         name: usdf-panda-idds-creds
   
-  imageName: ghcr.io/cloudnative-pg/postgresql:14.4-7
+  imageName: lsstsqre/cloudnative-pg:14
   inheritedMetadata:
     annotations:
       prometheus.io/scrape: 'true'
