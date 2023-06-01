@@ -44,7 +44,7 @@ make apply
 
 ### Deploy iDDS
 
-For iDDS, the main database and the archive database can be different databases. The archive database may need much bigger storages (depending on how long we want to keep the history data), however the performance requirement is not critical.
+For iDDS, the main database and the archive database can be different databases. The archive database may need much bigger underlying storage (depending on how long we want to keep the history data), however the performance requirement is not critical.
 
 ```
 cd overlays/idds/$ENVIRONMENT/{main|archive}
