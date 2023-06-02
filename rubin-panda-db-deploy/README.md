@@ -8,7 +8,7 @@ We need different kustomize overlays to present the postgres environments. For l
 
 # Deployment
 
-As we are reliant on kubernetes for the infrastructure, we assume that you already have a suitable KUBECONFIG configured.
+As we are reliant on kubernetes for the infrastructure, we assume that you already have a suitable KUBECONFIG configured. At SLAC, we have two vclusters, one for developoment (usdf-panda-dev) and one for production (usdf-panda).
 
 Deployment comes in two parts:
 
@@ -32,6 +32,7 @@ At SLAC they are using Vault for the distribution of secrets, i.e. S3 credential
 ```
 vault login -method=ldap username=your_username
 ```
+Depending on the KUBECONFIG environment you are using when deploying PanDA and/or iDDS (as described below), it will fetch the appropriate dev or prod secrets.
 
 ### Deploy PanDA
 
