@@ -15,7 +15,7 @@ CloudNativePG supports online/hot backup of Postgres through continuous backpu a
     backup:
       retentionPolicy: "15d"
         barmanObjectStore:
-        destinationPath: s3://rubin-panda-dev
+        destinationPath: s3://rubin-panda
         endpointURL: https://s3dfrgw.slac.stanford.edu
         s3Credentials:
             accessKeyId:
