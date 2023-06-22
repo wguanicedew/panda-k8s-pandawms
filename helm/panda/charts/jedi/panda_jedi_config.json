@@ -9,7 +9,8 @@
     },
     "ddm": {
         "modConfig": "wlcg:4:pandajedi.jediddm.GenDDMClient:GenDDMClient::off,wlcg:2:pandajedi.jediddm.AtlasDDMClient:AtlasDDMClient:sphenix",
-        "endpoints_json_path": "$PANDA_CRIC_URL_DDMENDPOINTS"
+        "endpoints_json_path": "$PANDA_CRIC_URL_DDMENDPOINTS",
+        "voWithScope": "wlcg"
     },
     "tasksetup": {
         "modConfig": "wlcg:any:pandajedi.jedisetup.SimpleTaskSetupper:SimpleTaskSetupper"
