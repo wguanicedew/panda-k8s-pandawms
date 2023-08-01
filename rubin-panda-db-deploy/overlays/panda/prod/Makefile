@@ -1,11 +1,11 @@
 
 SECRET_PATH ?= secret/rubin/usdf-panda-idds/postgres
-S3_SECRET_PATH ?= secret/rubin/usdf-panda/s3
+S3_SECRET_PATH ?= secret/rubin/usdf-panda-server
 
 get-secrets-from-vault:
 	mkdir -p etc/.secrets/
 	set -e; for i in username password; do vault kv get --field=$$i $(SECRET_PATH) > etc/.secrets/$$i ; done
-	set -e; for i in client-id client-secret; do vault kv get --field=$$i $(S3_SECRET_PATH) > etc/.secrets/$$i ; done
+	set -e; for i in access-key secret-key; do vault kv get --field=$$i $(S3_SECRET_PATH) > etc/.secrets/$$i ; done
 
 clean-secrets:
 	rm -rf etc/.secrets/
