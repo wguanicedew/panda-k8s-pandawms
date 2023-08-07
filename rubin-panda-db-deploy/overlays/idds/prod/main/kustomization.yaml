@@ -5,6 +5,7 @@ resources:
 #- ../../base/cnpg
 - cnpg-panda-idds-database.yaml
 - cnpg-panda-idds-pooler.yaml
+- backup.yaml
 
 #patches:
 #- endpoints-patch.yaml
