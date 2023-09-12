@@ -10,8 +10,8 @@ spec:
 
   bootstrap:
     initdb:
-      database: panda
-      owner: rubin
+      database: panda_db
+      owner: panda
       secret:
         name: usdf-panda-server-dev-creds
   
