@@ -1,5 +1,5 @@
 
-SECRET_PATH ?= secret/rubin/usdf-panda-idds/postgres
+SECRET_PATH ?= secret/rubin/usdf-panda-dev/postgres
 
 get-secrets-from-vault:
 	mkdir -p etc/.secrets/
