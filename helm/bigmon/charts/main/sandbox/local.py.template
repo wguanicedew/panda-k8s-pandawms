@@ -32,7 +32,7 @@ dbaccess_postgres = {
 dbaccess = dbaccess_postgres
 
 #object store
-object_store = {
+OBJECT_STORE = {
     "host_name" : "${OBJECTSTORE_HOST}",
     "port" : "${OBJECTSTORE_PORT}",
     "bucket_name" : "${OBJECTSTORE_BUCKET}",
