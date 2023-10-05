@@ -31,12 +31,16 @@ dbaccess_postgres = {
 
 dbaccess = dbaccess_postgres
 
-#aws
-aws = {
-    "AWS_ACCESS_KEY_ATLAS" : "${AWS_ACCESS_KEY_ATLAS}",
-    "AWS_SECRET_KEY_ATLAS" : "${AWS_SECRET_KEY_ATLAS}"
+#object store
+object_store = {
+    "host_name" : "${OBJECTSTORE_HOST}",
+    "port" : "${OBJECTSTORE_PORT}",
+    "bucket_name" : "${OBJECTSTORE_BUCKET}",
+    "access_key" : "${OBJECTSTORE_ACCESSKEY}",
+    "secret_key" : "${OBJECTSTORE_SECRETKEY}"
 }
 
+LOGS_PROVIDER = "${LOGS_PROVIDER}"
 
 SESSION_COOKIE_SAMESITE = None
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
