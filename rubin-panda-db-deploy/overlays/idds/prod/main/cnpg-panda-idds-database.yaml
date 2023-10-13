@@ -5,7 +5,7 @@ metadata:
   name: usdf-panda-idds
 spec:
   backup:
-    retentionPolicy: "3d"
+    retentionPolicy: "7d"
     barmanObjectStore:
       destinationPath: s3://rubin-usdf-panda-idds
       endpointURL: https://s3dfrgw.slac.stanford.edu

@@ -7,7 +7,7 @@ metadata:
 spec:
   startDelay: 300
   backup:
-    retentionPolicy: "3d"
+    retentionPolicy: "7d"
     barmanObjectStore:
       destinationPath: s3://rubin-usdf-panda-server
       endpointURL: https://s3dfrgw.slac.stanford.edu

@@ -5,7 +5,7 @@ metadata:
   # note the name is the DB services/pods  not the Cluster name.
   name: usdf-panda-idds
 spec:
-  instances: 1
+  instances: 2
   primaryUpdateStrategy: unsupervised
 
   bootstrap:
