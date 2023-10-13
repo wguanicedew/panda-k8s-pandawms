@@ -17,7 +17,7 @@ secretGenerator:
   files:
   - etc/.secrets/username
   - etc/.secrets/password
-- name: s3-creds
+- name: s3-creds-panda
   options:
     disableNameSuffixHash: true
   files:

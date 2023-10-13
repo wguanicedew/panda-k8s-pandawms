@@ -11,10 +11,10 @@ spec:
       endpointURL: https://s3dfrgw.slac.stanford.edu
       s3Credentials:
         accessKeyId:
-          name: s3-creds
+          name: s3-creds-idds
           key: ACCESS_KEY_ID
         secretAccessKey:
-          name: s3-creds
+          name: s3-creds-idds
           key: ACCESS_SECRET_KEY
   instances: 2
   primaryUpdateStrategy: unsupervised
