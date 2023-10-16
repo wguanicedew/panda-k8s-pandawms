@@ -82,7 +82,7 @@ spec:
               chmod +x /data/panda/init-jedi;
               chmod +x /data/panda/run-jedi-crons;
               chmod +x /data/panda/run-jedi-services;              
-              python /data/panda/process_template.py;
+              /opt/panda/bin/python /data/panda/process_template.py;
               /data/panda/run-jedi-services;
               sleep infinity & wait
           {{- end }}
