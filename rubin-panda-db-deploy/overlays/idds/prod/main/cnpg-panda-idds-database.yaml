@@ -53,10 +53,10 @@ spec:
 
   resources:
     requests:
-      memory: 64Gi
+      memory: 128Gi
       cpu: 16
     limits:
-      memory: 128Gi
+      memory: 256Gi
       cpu: 32
 
   storage:
