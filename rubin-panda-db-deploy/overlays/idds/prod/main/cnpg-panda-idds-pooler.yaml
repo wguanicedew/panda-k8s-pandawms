@@ -153,10 +153,10 @@ spec:
       - name: pgbouncer
         resources:
           requests:
-            cpu: "0.1"
+            cpu: "1.0"
             memory: 100Mi
           limits:
-            cpu: "0.5"
+            cpu: "1.0"
             memory: 500Mi
 
       affinity:

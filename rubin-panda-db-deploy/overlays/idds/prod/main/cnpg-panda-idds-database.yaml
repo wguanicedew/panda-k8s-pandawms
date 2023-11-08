@@ -37,10 +37,11 @@ spec:
 
   postgresql:
     parameters:
-      shared_buffers: 16GB
+      shared_buffers: 32GB
       max_connections: "1000"
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
+      work_mem: 128MB
 #      ldap:
 #        scheme: ldaps
 #        server: 'ldap-unix.slac.stanford.edu'
