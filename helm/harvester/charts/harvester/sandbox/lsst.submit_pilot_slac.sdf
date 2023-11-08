@@ -1,5 +1,5 @@
 # executable = /opt/harvester/sandbox/lsst.runpilot2-wrapper.sh
-executable = /opt/harvester/sandbox/lsst.rubin-wrapper.sh
+executable = /opt/harvester/sandbox/lsst.rubin-wrapper_slac.sh
 
 #arguments = -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {prodSourceLabel} -i {pilotType} -t -w generic --pilot-user generic --url https://sphenix-pandaserver.apps.rcf.bnl.gov -p 443 -d --harvester-submit-mode PUSH --allow-same-user=False --input-destination-dir /sphenix/lustre01/sphnxpro/rucio --job-type={jobType} {pilotResourceTypeOption} {pilotUrlOption} --pilotversion {pilotVersion} {pilotPythonOption}
 
@@ -33,10 +33,11 @@ grid_resource = arc {ceEndpoint}
 nordugrid_rsl = (queue = rubin)(runtimeenvironment = ENV/PROXY)(jobname = arc_pilot)(count = {nCoreTotal})(countpernode = {nCoreTotal})(memory = {requestRamPerCore})(walltime = {requestWalltime})(cputime = {requestCputime})(environment = (PANDA_JSID harvester-{harvesterID})(HARVESTER_ID {harvesterID})(HARVESTER_WORKER_ID {workerID})(GTAG {gtag})(APFMON http://apfmon.lancs.ac.uk/api)(APFFID {harvesterID})(APFCID $(Cluster).$(Process)))
 
 arc_resources = <SlotRequirement>  \
-                <NumberOfSlots>1</NumberOfSlots> \
-                    <SlotsPerHost>1</SlotsPerHost> \
+                <NumberOfSlots>{nCoreTotal}</NumberOfSlots> \
+                    <SlotsPerHost>{nCoreTotal}</SlotsPerHost> \
                 </SlotRequirement> \
                 <QueueName>rubin</QueueName> \
+                <RuntimeEnvironment><Name>ENV/PROXY</Name></RuntimeEnvironment> \
                 <IndividualPhysicalMemory>{requestRamBytes}</IndividualPhysicalMemory>
 
 arc_rte = ENV/PROXY

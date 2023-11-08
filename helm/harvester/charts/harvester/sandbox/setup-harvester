@@ -1,21 +1,13 @@
 #!/bin/bash
 
-if [ ${HARVESTER_DB_HOST_ADD_INDEX} == "true" ]; then
-    if [[ ! -z "${HARVESTER_DB_HOST_DOMAIN}" ]]; then
-        export HARVESTER_DB_HOST=${HARVESTER_DB_HOST_PREFIX}-${HOSTNAME##*-}.${HARVESTER_DB_HOST_DOMAIN}
-    else
-        export HARVESTER_DB_HOST=${HARVESTER_DB_HOST_PREFIX}-${HOSTNAME##*-}
-    fi
+echo "setup harvester env"
 
-    if [[ ! -z "${MARIADB_DATABASE_PREFIX}" ]]; then
-        export MARIADB_DATABASE=${MARIADB_DATABASE_PREFIX}-${HOSTNAME##*-}
+if [[ ! -z "${EXPERIMENT}" ]]; then
+    echo "setup experiment ${EXPERIMENT} environment"
+    CurrentDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    setup_script=${CurrentDir}/${EXPERIMENT}.setup-harvester
+    if [[ -f ${setup_script} ]]; then
+        echo "Executing ${setup_script}"
+        source ${setup_script}
     fi
 fi
-
-if [[ -z "${ORIG_HARVESTER_ID}" ]]; then
-    export ORIG_HARVESTER_ID=${HARVESTER_ID}
-fi
-
-export HARVESTER_ID=${ORIG_HARVESTER_ID}-${HOSTNAME##*-}
-export CLOUDSDK_CONFIG=/data/harvester/gcloud_config
-export KUBECONFIG=/data/harvester/gcloud_config/.kube
