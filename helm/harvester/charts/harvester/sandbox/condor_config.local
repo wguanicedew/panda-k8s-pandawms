@@ -18,6 +18,12 @@ GRIDMANAGER_DEBUG = D_FULLDEBUG
 SEC_DEFAULT_AUTHENTICATION_METHODS = CLAIMTOBE, FS, GSI, SCITOKENS
 SEC_CLIENT_AUTHENTICATION_METHODS = GSI, FS, SCITOKENS
 
+LOWPORT = 26000
+HIGHPORT = 39999
+
+IN_LOWPORT = 26000
+IN_HIGHPORT = 39999
+
 LOG = /var/log/condor_logs/$(hostname)/log
 SPOOL = /var/log/condor_logs/$(hostname)/spool
 EXECUTE = /var/log/condor_logs/$(hostname)/execute
