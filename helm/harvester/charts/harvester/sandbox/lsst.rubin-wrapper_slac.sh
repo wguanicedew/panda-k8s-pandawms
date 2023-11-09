@@ -118,7 +118,20 @@ function check_arcproxy() {
 }
 
 function pilot_cmd() {
-  cmd="${pybin} ${pilotbase}/pilot.py -q ${qarg} -i ${iarg} -j ${jarg} ${pilotargs}"
+  if [[ $pilotnum -eq 1 ]]; then
+    cmd="${pybin} ${pilotbase}/pilot.py -q ${qarg} -i ${iarg} -j ${jarg} ${pilotargs}"
+  else
+    cmd=""
+    for i in $(eval echo {1..${pilotnum}}); do
+      dupcmd="${pybin} ${pilotbase}/pilot.py -q ${qarg} -i ${iarg} -j ${jarg} ${pilotargs} | sed -e 's/^/pilot_$i: /'"
+      if [[ $i -eq 1 ]]; then
+        cmd="$dupcmd"
+      else
+        cmd="$cmd & $dupcomd"
+      fi
+    done
+    cmd="$cmd && fg"
+  fi
   echo ${cmd}
 }
 
@@ -574,6 +587,7 @@ piloturl=''
 pilotversion='latest'
 pilotbase='pilot3'
 pandaenvtag=''
+pilotnum=1
 mute='false'
 myargs="$@"
 
@@ -612,6 +626,11 @@ case $key in
     ;;
     --pandaenvtag)
     pandaenvtag="$2"
+    shift
+    shift
+    ;;
+    --pilotnum)
+    pilotnum="$2"
     shift
     shift
     ;;
