@@ -25,19 +25,21 @@ spec:
     reusePVC: true
 
   postgresql:
+    shared_preload_libraries: [ 'pg_cron', 'pg_partman_bgw' ]
     parameters:
-      shared_buffers: 2GB
+      shared_buffers: 32GB
       max_connections: "1000"
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
+      work_mem: 128MB
 
   resources:
     requests:
-      memory: 8Gi
-      cpu: 8
+      memory: 128Gi
+      cpu: 16
     limits:
-      memory: 16Gi
-      cpu: 16 
+      memory: 256Gi
+      cpu: 32
 
   storage:
     storageClass: wekafs--sdf-k8s01
