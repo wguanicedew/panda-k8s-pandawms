@@ -14,9 +14,9 @@ spec:
       owner: panda
       secret:
         name: usdf-panda-idds-dev-creds
-  postInitTemplateSQL:
-    - CREATE EXTENSION IF NOT EXISTS pg_cron;
-    - GRANT USAGE ON SCHEMA cron TO rubin;
+      postInitTemplateSQL:
+        - CREATE EXTENSION IF NOT EXISTS pg_cron;
+        - GRANT USAGE ON SCHEMA cron TO rubin;
 
   imageName: lsstsqre/cloudnative-pg:14
   inheritedMetadata:
