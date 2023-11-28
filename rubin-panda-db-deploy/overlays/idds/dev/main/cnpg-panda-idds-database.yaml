@@ -14,8 +14,11 @@ spec:
       owner: panda
       secret:
         name: usdf-panda-idds-dev-creds
-  
-  imageName:  ghcr.io/cloudnative-pg/postgresql:14.4-7
+  postInitTemplateSQL:
+    - CREATE EXTENSION IF NOT EXISTS pg_cron;
+    - GRANT USAGE ON SCHEMA cron TO rubin;
+
+  imageName: lsstsqre/cloudnative-pg:14
   inheritedMetadata:
     annotations:
       prometheus.io/scrape: 'true' 
