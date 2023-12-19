@@ -293,6 +293,8 @@
       "submitter": {
 	  "nCore": 1,
           "nCorePerNode": 1,
+	  "nCoreFactor": 8,
+	  "activateWorkerFactor": 0.042,
           "submitMode": "PULL",
 	  "ceQueueName": "rubin",
 	  "ceARCGridType": "arc",
@@ -319,13 +321,15 @@
     "submitter": {
 	  "nCore": 1,
           "nCorePerNode": 1,
+	  "nCoreFactor": 8,
+          "activateWorkerFactor": 0.042,
           "submitMode": "PULL",
           "ceQueueName": "rubin",
           "ceARCGridType": "arc",
 	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
           "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
 		         "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_low.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
@@ -346,13 +350,15 @@
     "submitter": {
 	  "nCore": 1,
           "nCorePerNode": 1,
+	  "nCoreFactor": 4,
+          "activateWorkerFactor": 0.083,
           "submitMode": "PULL",
           "ceQueueName": "rubin",
           "ceARCGridType": "arc",
 	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
           "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
                          "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_medium.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
@@ -373,13 +379,44 @@
     "submitter": {
 	  "nCore": 1,
           "nCorePerNode": 1,
+	  "nCoreFactor": 2,
+          "activateWorkerFactor": 0.167,
           "submitMode": "PULL",
           "ceQueueName": "rubin_himem",
           "ceARCGridType": "arc",
 	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
           "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
                          "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_high.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
+      }
+  },
+
+  "SLAC_Rubin_Big_Himem": {
+    "queueStatus": "online",
+    "prodSourceLabel": "managed",
+    "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
+    "templateQueueName": "production.pull",
+    "maxWorkers": 400,
+    "maxNewWorkersPerCycle":50,
+    "nQueueLimitWorkerMin":1,
+    "nQueueLimitWorkerMax": 50,
+    "nQueueLimitJobMax":200,
+    "nQueueLimitJobMin":100,
+    "nQueueLimitJob": 200,
+    "nQueueLimitWorker":200,
+
+    "submitter": {
+          "nCore": 1,
+          "nCorePerNode": 1,
+          "nCoreFactor": 1,
+          "activateWorkerFactor": 0.33,
+          "submitMode": "PULL",
+          "ceQueueName": "rubin_himem",
+          "ceARCGridType": "arc",
+          "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
+          "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
+                         "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
@@ -437,58 +474,12 @@
       }
   },
 
-  "SLAC_Rubin_SDF": {
-    "queueStatus": "offline",
-    "prodSourceLabel": "managed",
-    "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
-    "templateQueueName": "production.pull",
-    "maxWorkers": 700,
-    "maxNewWorkersPerCycle":20,
-    "nQueueLimitWorkerMin":3,
-    "nQueueLimitWorkerMax": 20,
-    "nQueueLimitJobMax":100,
-    "nQueueLimitJobMin":1000,
-    "nQueueLimitJob": 100,
-    "nQueueLimitWorker":50,
-
-    "submitter": {
-          "ceQueueName": "rubin",
-          "ceARCGridType": "arc",
-	  "ceHostname": "sdfarcce001.slac.stanford.edu",
-          "ceEndpoint": "https://arcce1.slac.stanford.edu:9443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
-      }
-  },
-
-  "SLAC_Rubin_SDF_Big": {
-    "queueStatus": "offline",
-    "prodSourceLabel": "managed",
-    "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
-    "templateQueueName": "production.push",
-    "maxWorkers": 500,
-    "maxNewWorkersPerCycle":10,
-    "nQueueLimitWorkerMin":3,
-    "nQueueLimitWorkerMax": 20,
-    "nQueueLimitJobMax":100,
-    "nQueueLimitJobMin":100,
-    "nQueueLimitJob": 100,
-    "nQueueLimitWorker":50,
-
-    "submitter": {
-          "ceQueueName": "rubin_himem",
-          "ceARCGridType": "arc",
-	  "ceHostname": "sdfarcce001.slac.stanford.edu",
-          "ceEndpoint": "https://arcce1.slac.stanford.edu:9443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_push.sdf"
-      }
-  },
-
   "CC-IN2P3_TEST": {
       "queueStatus": "online",
       "prodSourceLabel": "managed",
       "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
       "templateQueueName": "production.pull",
-      "maxWorkers": 3000,
+      "maxWorkers": 300,
       "maxNewWorkersPerCycle":50,
       "nQueueLimitWorkerMin":1,
       "nQueueLimitWorkerMax": 50,
@@ -498,6 +489,10 @@
       "nQueueLimitWorker": 50,
 
       "submitter": {
+	  "nCore": 1,
+          "nCorePerNode": 1,
+          "nCoreFactor": 8,
+          "activateWorkerFactor": 0.042,
           "ceQueueName": "lsst",
           "ceARCGridType": "arc",
 	  "ceHostname": "sdfarcce001.slac.stanford.edu",
@@ -523,12 +518,14 @@
       "submitter": {
 	  "nCore": 1,
           "nCorePerNode": 1,
+          "nCoreFactor": 8,
+          "activateWorkerFactor": 0.042,
           "submitMode": "PULL",
           "ceQueueName": "lsst",
           "ceARCGridType": "arc",
           "ceHostname": "sdfarcce001.slac.stanford.edu",
           "ceEndpoint": "https://ccarccelsst01.in2p3.fr:9443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_low.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
@@ -549,12 +546,14 @@
     "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
+	  "nCoreFactor": 4,
+          "activateWorkerFactor": 0.083,
           "submitMode": "PULL",
           "ceQueueName": "lsst",
           "ceARCGridType": "arc",
           "ceHostname": "sdfarcce001.slac.stanford.edu",
           "ceEndpoint": "https://ccarccelsst01.in2p3.fr:9443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_medium.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
@@ -575,12 +574,42 @@
     "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
+	  "nCoreFactor": 2,
+          "activateWorkerFactor": 0.167,
           "submitMode": "PULL",
           "ceQueueName": "lsst",
           "ceARCGridType": "arc",
 	  "ceHostname": "sdfarcce001.slac.stanford.edu",
           "ceEndpoint": "https://ccarccelsst01.in2p3.fr:9443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_high.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
+      }
+  },
+
+  "CC-IN2P3_Rubin_Big_Himem": {
+    "queueStatus": "online",
+    "prodSourceLabel": "managed",
+    "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
+    "templateQueueName": "production.pull",
+    "maxWorkers": 400,
+    "maxNewWorkersPerCycle":50,
+    "nQueueLimitWorkerMin":1,
+    "nQueueLimitWorkerMax": 50,
+    "nQueueLimitJobMax":200,
+    "nQueueLimitJobMin":100,
+    "nQueueLimitJob": 200,
+    "nQueueLimitWorker":200,
+
+    "submitter": {
+          "nCore": 1,
+          "nCorePerNode": 1,
+          "nCoreFactor": 1,
+          "activateWorkerFactor": 0.33,
+          "submitMode": "PULL",
+          "ceQueueName": "lsst",
+          "ceARCGridType": "arc",
+          "ceHostname": "sdfarcce001.slac.stanford.edu",
+          "ceEndpoint": "https://ccarccelsst01.in2p3.fr:9443/arex/rest/1.0",
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
@@ -589,7 +618,7 @@
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.push",
-    "maxWorkers": 1500,
+    "maxWorkers": 500,
     "maxNewWorkersPerCycle":50,
     "nQueueLimitWorkerMin":1,
     "nQueueLimitWorkerMax": 50,
@@ -641,7 +670,7 @@
       "prodSourceLabel": "managed",
       "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
       "templateQueueName": "production.pull",
-      "maxWorkers": 1000,
+      "maxWorkers": 300,
       "maxNewWorkersPerCycle":50,
       "nQueueLimitWorkerMin":1,
       "nQueueLimitWorkerMax": 50,
@@ -651,6 +680,10 @@
       "nQueueLimitWorker":200,
 
       "submitter": {
+	  "nCore": 1,
+          "nCorePerNode": 1,
+          "nCoreFactor": 8,
+          "activateWorkerFactor": 0.042,
 	  "ceQueueName": "grid",
           "ceARCGridType": "arc",
           "ceHostname": "grendel2.hec.lancs.ac.uk",
@@ -676,12 +709,14 @@
       "submitter": {
 	  "nCore": 1,
           "nCorePerNode": 1,
+          "nCoreFactor": 8,
+          "activateWorkerFactor": 0.042,
           "submitMode": "PULL",
           "ceQueueName": "grid",
           "ceARCGridType": "arc",
           "ceHostname": "grendel2.hec.lancs.ac.uk",
           "ceEndpoint": "https://grendel2.hec.lancs.ac.uk:443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_low.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
@@ -702,12 +737,14 @@
     "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
+	  "nCoreFactor": 4,
+          "activateWorkerFactor": 0.083,
           "submitMode": "PULL",
           "ceQueueName": "grid",
           "ceARCGridType": "arc",
           "ceHostname": "grendel2.hec.lancs.ac.uk",
           "ceEndpoint": "https://grendel2.hec.lancs.ac.uk:443/arex/rest/1.0",
-	  "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_medium.sdf"
+	  "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
@@ -728,12 +765,42 @@
     "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
+	  "nCoreFactor": 2,
+          "activateWorkerFactor": 0.167,
           "submitMode": "PULL",
           "ceQueueName": "grid",
           "ceARCGridType": "arc",
 	  "ceHostname": "grendel2.hec.lancs.ac.uk",
           "ceEndpoint": "https://grendel2.hec.lancs.ac.uk:443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_high.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
+      }
+  },
+
+  "LANCS_Rubin_Big_Himem": {
+    "queueStatus": "online",
+    "prodSourceLabel": "managed",
+    "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
+    "templateQueueName": "production.pull",
+    "maxWorkers": 400,
+    "maxNewWorkersPerCycle":50,
+    "nQueueLimitWorkerMin":1,
+    "nQueueLimitWorkerMax": 50,
+    "nQueueLimitJobMax":200,
+    "nQueueLimitJobMin":100,
+    "nQueueLimitJob": 200,
+    "nQueueLimitWorker":200,
+
+    "submitter": {
+          "nCore": 1,
+          "nCorePerNode": 1,
+          "nCoreFactor": 1,
+          "activateWorkerFactor": 0.33,
+          "submitMode": "PULL",
+          "ceQueueName": "grid",
+          "ceARCGridType": "arc",
+          "ceHostname": "grendel2.hec.lancs.ac.uk",
+          "ceEndpoint": "https://grendel2.hec.lancs.ac.uk:443/arex/rest/1.0",
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
