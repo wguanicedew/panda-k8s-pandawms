@@ -53,7 +53,9 @@
     "nQueues": 30,
     "lookupTime": 30,
     "maxNewWorkers": 1000,
-    "sleepTime": 10
+    "sleepTime": 10,
+    "activateWorkerFactor": "auto",
+    "noPilotsWhenNoActiveJobs": true
   },
   "monitor": {
     "nThreads": 10,
