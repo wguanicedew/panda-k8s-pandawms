@@ -76,6 +76,7 @@
     "data": [
       "resource_types.json||panda_server:get_resource_types",
       "job_statistics.json||panda_server:get_job_stats",
+      "worker_statistics.json||panda_server:get_worker_stats_from_panda",
       "ddmendpoints_objectstores.json||$HARVESTER_CRIC_OS",
       "panda_queues.json||$HARVESTER_CRIC_SCHEDCONFIG",
       "agis_ddmendpoints.json||$HARVESTER_CRIC_DDMENDPOINTS"
