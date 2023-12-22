@@ -73,7 +73,7 @@
     ]
   },
   "cacher": {
-    "refreshInterval": 2,
+    "refreshInterval": 1,
     "data": [
       "resource_types.json||panda_server:get_resource_types",
       "job_statistics.json||panda_server:get_job_stats",
