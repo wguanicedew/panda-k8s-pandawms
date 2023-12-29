@@ -34,7 +34,7 @@ arc_resources = <SlotRequirement>  \
                     <SlotsPerHost>{nCoreTotal}</SlotsPerHost> \
                 </SlotRequirement> \
                 <QueueName>{ceQueueName}</QueueName> \
-                <IndividualPhysicalMemory>{requestRamBytes}</IndividualPhysicalMemory> \
+                <IndividualPhysicalMemory>{requestRamBytesPerCore}</IndividualPhysicalMemory> \
                 <RuntimeEnvironment><Name>ENV/PROXY</Name></RuntimeEnvironment> \
                 <WallTime>86400</WallTime>
 

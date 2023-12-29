@@ -38,7 +38,7 @@ arc_resources = <SlotRequirement>  \
                 </SlotRequirement> \
                 <QueueName>rubin</QueueName> \
                 <RuntimeEnvironment><Name>ENV/PROXY</Name></RuntimeEnvironment> \
-                <IndividualPhysicalMemory>{requestRamBytes}</IndividualPhysicalMemory>
+                <IndividualPhysicalMemory>{requestRamBytesPerCore}</IndividualPhysicalMemory>
 
 arc_rte = ENV/PROXY
 
