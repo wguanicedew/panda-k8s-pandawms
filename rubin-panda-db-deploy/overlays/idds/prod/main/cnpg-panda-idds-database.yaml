@@ -36,6 +36,7 @@ spec:
     reusePVC: true
 
   postgresql:
+    shared_preload_libraries: [ 'pg_cron', 'pg_partman_bgw' ]
     parameters:
       shared_buffers: 32GB
       max_connections: "1000"
