@@ -181,7 +181,7 @@ function get_piloturl() {
   pilottar_local=/sdf/data/rubin/panda_jobs/panda_env_pilot/pilot3.tar.gz
   if [[ -f ${pilottar_local} ]]; then
       # log "${pilottar_local} exist. Use it"
-      pilottar1="file://"${pilottar_local}
+      pilottar="file://"${pilottar_local}
       # log "pilottar=${pilottar}"
   fi
   # log "pilottar=${pilottar}"
