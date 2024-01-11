@@ -38,7 +38,7 @@ arc_resources = <SlotRequirement>  \
                 <QueueName>{ceQueueName}</QueueName> \
                 <IndividualPhysicalMemory>{requestRamBytes}</IndividualPhysicalMemory> \
                 <RuntimeEnvironment><Name>ENV/PROXY</Name></RuntimeEnvironment> \
-                <WallTime>345600</WallTime>
+                <WallTime>259200</WallTime>
 
 arc_rte = ENV/PROXY
 
