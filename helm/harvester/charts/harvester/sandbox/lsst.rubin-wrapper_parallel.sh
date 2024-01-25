@@ -93,6 +93,11 @@ function setup_lsst() {
   # RUCIO_CONFIG=/some/path/to/rucio.cfg is temporarily in site PROLOG script
   # log "rucio whoami: $(rucio whoami)"
   # log "rucio ping: $(rucio ping)"
+
+  pilot_cfg=${pandaenvdir}/pilot/pilot_default.cfg
+  if [[ -f ${pilot_cfg} ]]; then
+    export HARVESTER_PILOT_CONFIG=${pilot_cfg}
+  fi
 }
 
 function check_vomsproxyinfo() {
