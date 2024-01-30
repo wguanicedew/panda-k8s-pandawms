@@ -13,6 +13,9 @@
     "harvester_id": "${HARVESTER_ID}",
     "uname": "atlpan"
   },
+  "communicator": {
+    "nConnections": 10
+  },
   "credmanager": {
     "moduleName": [],
     "pluginConfigs": []
@@ -43,16 +46,19 @@
     "sleepTime": 5
   },
   "preparator": {
+    "nThreads": 5,
     "maxJobsToCheck": 1000,
     "maxJobsToTrigger": 1000,
-    "checkInterval": 30,
-    "triggerInterval": 30,
+    "checkInterval": 15,
+    "triggerInterval": 10,
     "sleepTime": 10
   },
   "submitter": {
+    "nThreads": 5,
     "nQueues": 30,
     "lookupTime": 30,
     "maxNewWorkers": 1000,
+    "checkInterval": 30,
     "sleepTime": 10,
     "activateWorkerFactor": "auto"
   },
@@ -61,6 +67,19 @@
     "checkInterval": 30,
     "lookupTime": 30,
     "sleepTime": 10
+  },
+  "stager": {
+    "nThreads": 5,
+    "maxJobsToCheck": 1000,
+    "maxJobsToTrigger": 1000,
+    "maxJobsToZip": 1000,
+    "checkInterval": 180,
+    "triggerInterval": 180,
+    "sleepTime": 60
+  },
+  "watcher": {
+    "checkInterval": 30,
+    "sleepTime": 30
   },
   "service_monitor": {
     "pidfile": "/var/run/panda/panda_harvester.pid"
