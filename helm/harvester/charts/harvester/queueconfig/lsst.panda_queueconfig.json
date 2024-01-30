@@ -61,6 +61,13 @@
     "sweeper": {
       "name": "HTCondorSweeper",
       "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+    },
+    "throttler": {
+      "name": "TinyThrottler",
+      "module": "pandaharvester.harvesterthrottler.tiny_throttler",
+      "logicType": "OR",
+      "rulesForMissed": [{"level": "site", "timeWindow": 10, "maxMissed": 50}],
+      "rulesForSiteSubmittedRunning":[{"level": "cores", "maxCores": 1000}]
     }
   },
 
@@ -128,6 +135,13 @@
     "sweeper": {
       "name": "HTCondorSweeper",
       "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+    },
+    "throttler": {
+      "name": "TinyThrottler",
+      "module": "pandaharvester.harvesterthrottler.tiny_throttler",
+      "logicType": "OR",
+      "rulesForMissed": [{"level": "site", "timeWindow": 10, "maxMissed": 50}],
+      "rulesForSiteSubmittedRunning":[{"level": "cores", "maxCores": 1000}]
     }
   },
 
@@ -278,6 +292,7 @@
 
   "SLAC_TEST": {
       "queueStatus": "online",
+      "siteName": "SLAC",
       "prodSourceLabel": "managed",
       "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
       "templateQueueName": "production.pull",
@@ -307,6 +322,7 @@
 
   "SLAC_Rubin": {
     "queueStatus": "online",
+    "siteName": "SLAC",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.pull",
@@ -337,6 +353,7 @@
 
   "SLAC_Rubin_Medium": {
     "queueStatus": "online",
+    "siteName": "SLAC",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.pull",
@@ -367,6 +384,7 @@
 
   "SLAC_Rubin_Himem": {
     "queueStatus": "online",
+    "siteName": "SLAC",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.pull",
@@ -397,6 +415,7 @@
 
   "SLAC_Rubin_Big_Himem": {
     "queueStatus": "online",
+    "siteName": "SLAC",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.pull",
@@ -427,6 +446,7 @@
 
   "SLAC_Rubin_Extra_Himem": {
     "queueStatus": "online",
+    "siteName": "SLAC",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.push",
@@ -454,6 +474,7 @@
 
   "SLAC_Rubin_Merge": {
     "queueStatus": "online",
+    "siteName": "SLAC",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.push",
@@ -481,6 +502,7 @@
 
   "CC-IN2P3_TEST": {
       "queueStatus": "online",
+      "siteName": "CC-IN2P3",
       "prodSourceLabel": "managed",
       "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
       "templateQueueName": "production.pull",
@@ -509,6 +531,7 @@
 
   "CC-IN2P3_Rubin": {
       "queueStatus": "online",
+      "siteName": "CC-IN2P3",
       "prodSourceLabel": "managed",
       "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
       "templateQueueName": "production.pull",
@@ -538,6 +561,7 @@
 
   "CC-IN2P3_Rubin_Medium": {
     "queueStatus": "online",
+    "siteName": "CC-IN2P3",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.pull",
@@ -567,6 +591,7 @@
 
   "CC-IN2P3_Rubin_Himem": {
     "queueStatus": "online",
+    "siteName": "CC-IN2P3",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.pull",
@@ -596,6 +621,7 @@
 
   "CC-IN2P3_Rubin_Big_Himem": {
     "queueStatus": "online",
+    "siteName": "CC-IN2P3",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.pull",
@@ -625,6 +651,7 @@
 
   "CC-IN2P3_Rubin_Extra_Himem": {
     "queueStatus": "online",
+    "siteName": "CC-IN2P3",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.push",
@@ -651,6 +678,7 @@
 
   "CC-IN2P3_Rubin_Merge": {
     "queueStatus": "online",
+    "siteName": "CC-IN2P3",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.push",
@@ -677,6 +705,7 @@
 
   "LANCS_TEST": {
       "queueStatus": "online",
+      "siteName": "LANCS",
       "prodSourceLabel": "managed",
       "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
       "templateQueueName": "production.pull",
@@ -705,6 +734,7 @@
 
   "LANCS_Rubin": {
       "queueStatus": "online",
+      "siteName": "LANCS",
       "prodSourceLabel": "managed",
       "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
       "templateQueueName": "production.pull",
@@ -734,6 +764,7 @@
 
   "LANCS_Rubin_Medium": {
     "queueStatus": "online",
+    "siteName": "LANCS",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.pull",
@@ -763,6 +794,7 @@
 
   "LANCS_Rubin_Himem": {
     "queueStatus": "online",
+    "siteName": "LANCS",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.pull",
@@ -792,6 +824,7 @@
 
   "LANCS_Rubin_Big_Himem": {
     "queueStatus": "online",
+    "siteName": "LANCS",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.pull",
@@ -821,6 +854,7 @@
 
   "LANCS_Rubin_Extra_Himem": {
     "queueStatus": "online",
+    "siteName": "LANCS",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.push",
@@ -847,6 +881,7 @@
 
   "LANCS_Rubin_Merge": {
     "queueStatus": "online",
+    "siteName": "LANCS",
     "prodSourceLabel": "managed",
     "prodSourceLabelRandomWeightsPermille": {"rc_test":0, "rc_test2":0, "rc_alrb":0},
     "templateQueueName": "production.push",
