@@ -122,6 +122,77 @@ function check_arcproxy() {
   fi
 }
 
+function create_multicore_executor() {
+  cmdfile="run_multicore_pilots.py"
+cat <<- EOF > ./$cmdfile
+import concurrent.futures
+import subprocess
+import time
+
+def run_subprocess(command):
+    process = subprocess.Popen(command, shell=True)
+    process.wait()
+
+def run_parallel_subprocesses(num_processes, command):
+    process_id = 0
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=num_processes) as executor:
+        running_processes = set()
+
+        try:
+            while True:
+                # Start new subprocesses until reaching the maximum
+                while len(running_processes) < num_processes:
+                    cmd = command + "| sed -e 's/^/pilot_%s: /'" % process_id
+                    process_id += 1
+                    future = executor.submit(run_subprocess, cmd)
+                    running_processes.add(future)
+
+                time_start = time.time()
+                while time.time() < time_start + 120:   # 2 minutes
+                    # Wait for any subprocess to complete
+                    completed, _ = concurrent.futures.wait(running_processes, return_when=concurrent.futures.FIRST_COMPLETED)
+
+                    # Remove completed subprocesses from the set
+                    running_processes -= completed
+
+                    # Print information about completed subprocesses
+                    for future in completed:
+                        try:
+                            future.result()
+                            print(f"Subprocess '{future}' completed successfully.")
+                        except Exception as e:
+                            print(f"Subprocess '{future}' failed with error: {e}")
+
+                    if len(running_processes) == 0:
+                        break
+                    # Sleep for a short duration before checking again
+                    time.sleep(5)
+
+                if len(running_processes) == 0:
+                    print(f"All processes finished")
+                    return
+
+        except Exception as ex:
+            # Handle keyboard interrupt (Ctrl+C)
+            print(ex)
+
+        # Wait for all remaining subprocesses to complete
+        concurrent.futures.wait(running_processes)
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Run multiple subprocesses in parallel.")
+    parser.add_argument("--num_processes", type=int, help="Number of subprocesses to run in parallel", required=True)
+    parser.add_argument("--command", type=str, help="Command to run in each subprocess", required=True)
+    args = parser.parse_args()
+
+    run_parallel_subprocesses(args.num_processes, args.command)
+EOF
+    chmod +x ./$cmdfile
+
+}
 function pilot_cmd() {
   if [[ $pilotnum -eq 1 ]]; then
     cmd="${pybin} ${pilotbase}/pilot.py -q ${qarg} -i ${iarg} -j ${jarg} ${pilotargs}"
@@ -130,17 +201,11 @@ function pilot_cmd() {
 
     echo $dupcmd > run_pilot_local_embeded.sh
     chmod +x run_pilot_local_embeded.sh
-    cmdfile="run_pilot_local_combine.sh"
-    cmd="bash $cmdfile"
-    rm -fr $cmdfile
-    echo "cat ./run_pilot_local_embeded.sh" >> $cmdfile
-    for i in $(eval echo {1..${pilotnum}}); do
-      run_cmd="bash ./run_pilot_local_embeded.sh | sed -e 's/^/pilot_$i: /' &"
-      echo ${run_cmd} >> $cmdfile
-      echo "pid_$i=\$!" >> $cmdfile
-    done
-    echo "wait" >> $cmdfile
-    chmod +x $cmdfile
+
+    create_multicore_executor
+
+    cmd="python3 ./run_multicore_pilots.py --num_processes ${pilotnum} --command ./run_pilot_local_embeded.sh"
+
   fi
   echo ${cmd}
 }
