@@ -12,6 +12,24 @@
         "endpoints_json_path": "$PANDA_CRIC_URL_DDMENDPOINTS",
         "voWithScope": "wlcg"
     },
+    "confeeder": {
+        "nWorkers": 6
+    },
+    "taskrefine": {
+        "nWorkers": 3
+    },
+    "jobgen": {
+        "nWorkers": 6
+    },
+    "postprocessor": {
+        "nWorkers": 6
+    },
+    "taskbroker": {
+        "nWorkers": 3
+    },
+    "tcommando": {
+        "nWorkers": 6
+    },
     "tasksetup": {
         "modConfig": "wlcg:any:pandajedi.jedisetup.SimpleTaskSetupper:SimpleTaskSetupper"
     },
