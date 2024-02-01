@@ -20,7 +20,7 @@ jedi:
       memory: 32Gi
 
 server:
-  replicaCount: 2
+  replicaCount: 3
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
