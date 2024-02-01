@@ -135,6 +135,7 @@ def run_subprocess(command):
 
 def run_parallel_subprocesses(num_processes, command):
     process_id = 0
+    time_begin = time.time()
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=num_processes) as executor:
         running_processes = set()
@@ -148,26 +149,31 @@ def run_parallel_subprocesses(num_processes, command):
                     future = executor.submit(run_subprocess, cmd)
                     running_processes.add(future)
 
-                time_start = time.time()
-                while time.time() < time_start + 120:   # 2 minutes
-                    # Wait for any subprocess to complete
-                    completed, _ = concurrent.futures.wait(running_processes, return_when=concurrent.futures.FIRST_COMPLETED)
+                if time.time() < time_begin + 6 * 3600:  # 6 hours
+                    time_start = time.time()
+                    while time.time() < time_start + 600:   # 10 minutes
+                        # Wait for any subprocess to complete
+                        completed, _ = concurrent.futures.wait(running_processes, return_when=concurrent.futures.FIRST_COMPLETED)
 
-                    # Remove completed subprocesses from the set
-                    running_processes -= completed
+                        # Remove completed subprocesses from the set
+                        running_processes -= completed
 
-                    # Print information about completed subprocesses
-                    for future in completed:
-                        try:
-                            future.result()
-                            print(f"Subprocess '{future}' completed successfully.")
-                        except Exception as e:
-                            print(f"Subprocess '{future}' failed with error: {e}")
+                        # Print information about completed subprocesses
+                        for future in completed:
+                            try:
+                                future.result()
+                                print(f"Subprocess '{future}' completed successfully.")
+                            except Exception as e:
+                                print(f"Subprocess '{future}' failed with error: {e}")
 
-                    if len(running_processes) == 0:
-                        break
-                    # Sleep for a short duration before checking again
-                    time.sleep(5)
+                        if len(running_processes) == 0:
+                            break
+                        # Sleep for a short duration before checking again
+                        time.sleep(5)
+
+                completed, _ = concurrent.futures.wait(running_processes, return_when=concurrent.futures.FIRST_COMPLETED)
+                # Remove completed subprocesses from the set
+                running_processes -= completed
 
                 if len(running_processes) == 0:
                     print(f"All processes finished")
