@@ -28,6 +28,7 @@
     },
     "daemon": {
         "enable": "True",
-        "n_proc": "18"
+        "n_proc": "18",
+        "n_dbconn": "4"
     }
 }
