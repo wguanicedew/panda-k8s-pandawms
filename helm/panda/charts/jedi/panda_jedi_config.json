@@ -6,7 +6,7 @@
         "dbpasswd": "$PANDA_DB_PASSWORD",
 	"dbuser": "$PANDA_DB_USER",
 	"dbname": "$PANDA_DB_NAME",
-	"nWorkers": "10"
+	"nWorkers": "5"
     },
     "ddm": {
         "modConfig": "wlcg:4:pandajedi.jediddm.GenDDMClient:GenDDMClient::off,wlcg:2:pandajedi.jediddm.AtlasDDMClient:AtlasDDMClient:sphenix",
