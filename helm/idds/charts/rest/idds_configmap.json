@@ -11,7 +11,7 @@
              "pool_reset_on_return": "rollback"
             },
 	 "clerk":
-	    {"cache_expire_seconds": 120},
+	    {"cache_expire_seconds": 300},
 	 "carrier":
 	    {"receiver_num_threads": 16,
 	     "plugin.receiver": "idds.agents.common.plugins.messaging.MessagingReceiver",
