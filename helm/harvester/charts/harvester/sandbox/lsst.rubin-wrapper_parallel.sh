@@ -176,16 +176,16 @@ def run_parallel_subprocesses(num_processes, command):
                     # Sleep for a short duration before checking again
                     # time.sleep(5)
 
-                # Wait for all subprocess to complete
-                completed, _ = concurrent.futures.wait(running_processes, return_when=concurrent.futures.ALL_COMPLETED)
+            # Wait for all subprocess to complete
+            completed, _ = concurrent.futures.wait(running_processes, return_when=concurrent.futures.ALL_COMPLETED)
 
-                # Remove completed subprocesses from the set
-                running_processes -= completed
+            # Remove completed subprocesses from the set
+            running_processes -= completed
 
-                if len(running_processes) == 0:
-                    print("run_multicore_pilots number of running pilots %s, all finished" % len(running_processes))
-                    print(f"run_multicore_pilots All processes finished")
-                    return
+            if len(running_processes) == 0:
+                print("run_multicore_pilots final number of running pilots %s, all finished" % len(running_processes))
+                print(f"run_multicore_pilots final All processes finished")
+                return
 
         except Exception as ex:
             # Handle keyboard interrupt (Ctrl+C)
