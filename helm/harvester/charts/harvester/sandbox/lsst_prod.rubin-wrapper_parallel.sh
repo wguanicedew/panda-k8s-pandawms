@@ -96,7 +96,9 @@ function setup_lsst() {
 
   pilot_cfg=${pandaenvdir}/pilot/pilot_default.cfg
   if [[ -f ${pilot_cfg} ]]; then
-    export HARVESTER_PILOT_CONFIG=${pilot_cfg}
+    if [[ -z "${HARVESTER_PILOT_CONFIG}" ]]; then
+      export HARVESTER_PILOT_CONFIG=${pilot_cfg}
+    fi
   fi
 }
 
