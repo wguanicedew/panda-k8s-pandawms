@@ -14,6 +14,7 @@
 	    {"cache_expire_seconds": 300},
 	 "carrier":
 	    {"receiver_num_threads": 16,
+             "enable_executors": true,
 	     "plugin.receiver": "idds.agents.common.plugins.messaging.MessagingReceiver",
              "plugin.receiver.brokers": "${IDDS_RECEIVER_BROKERS}",
              "plugin.receiver.port": "${IDDS_RECEIVER_PORT}",
