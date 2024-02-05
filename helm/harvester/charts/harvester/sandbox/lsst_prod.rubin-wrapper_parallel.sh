@@ -140,59 +140,36 @@ def run_parallel_subprocesses(num_processes, command):
     time_report = time.time()
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=num_processes) as executor:
-        running_processes = set()
+        jobs = {}
+        num_jobs = 0
+        for i in range(num_processes):
+            jobs[i] = {'cmd': command + "| sed -e 's/^/pilot_%s: /'" % i}
+        for i in range(num_processes):
+            jobs[i]['future'] = executor.submit(run_subprocess, jobs[i]['cmd'])
+            num_jobs += 1
 
         try:
-            while True:
+            while time.time() - time_begin < 6 * 3600:   # 6 hours
                 if time.time() > time_report + 30 * 60:    # 30 minutes
-                    print("run_multicore_pilots number of running pilots %s" % len(running_processes))
+                    print("run_multicore_pilots number of running pilots %s" % num_jobs)
                     time_report = time.time()
 
-                if time.time() < time_begin + 6 * 3600:  # 6 hours
-                    # Start new subprocesses until reaching the maximum
-                    while len(running_processes) < num_processes:
-                        cmd = command + "| sed -e 's/^/pilot_%s: /'" % process_id
-                        process_id += 1
-                        future = executor.submit(run_subprocess, cmd)
-                        running_processes.add(future)
+                for i in range(num_processes):
+                    if jobs[i]['future'].done():
+                        print(f"run_multicore_pilots Subprocess i completed successfully. rerun it.")
+                        jobs[i]['future'] = executor.submit(run_subprocess, jobs[i]['cmd'])
+                time.sleep(5)
 
-                    # Wait for all subprocess to complete in 3 minutes
-                    completed, _ = concurrent.futures.wait(running_processes, timeout=180, return_when=concurrent.futures.ALL_COMPLETED)
-
-                    # Remove completed subprocesses from the set
-                    running_processes -= completed
-
-                    # Print information about completed subprocesses
-                    for future in completed:
-                        try:
-                            future.result()
-                            print(f"run_multicore_pilots Subprocess '{future}' completed successfully.")
-                        except Exception as e:
-                            print(f"run_multicore_pilots Subprocess '{future}' failed with error: {e}")
-
-                    if len(running_processes) == 0:
-                        print("run_multicore_pilots number of running pilots %s, all finished" % len(running_processes))
-                        return
-                    # Sleep for a short duration before checking again
-                    # time.sleep(5)
-
-            # Wait for all subprocess to complete
-            completed, _ = concurrent.futures.wait(running_processes, return_when=concurrent.futures.ALL_COMPLETED)
-
-            # Remove completed subprocesses from the set
-            running_processes -= completed
-
-            if len(running_processes) == 0:
-                print("run_multicore_pilots final number of running pilots %s, all finished" % len(running_processes))
-                print(f"run_multicore_pilots final All processes finished")
-                return
-
+            while num_jobs > 0:
+                num_jobs = 0
+                for i in range(num_processes):
+                    if not jobs[i]['future'].done():
+                        num_jobs += 1
+                time.sleep(5)
         except Exception as ex:
             # Handle keyboard interrupt (Ctrl+C)
             print(ex)
 
-        # Wait for all remaining subprocesses to complete
-        concurrent.futures.wait(running_processes)
 
 if __name__ == "__main__":
     import argparse
