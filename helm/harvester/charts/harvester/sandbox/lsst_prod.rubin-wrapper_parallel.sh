@@ -160,7 +160,16 @@ def run_parallel_subprocesses(num_processes, command):
                     if jobs[i]['future'].done():
                         print(f"run_multicore_pilots Subprocess i completed successfully. rerun it.")
                         jobs[i]['future'] = executor.submit(run_subprocess, jobs[i]['cmd'])
-                time.sleep(5)
+
+                time_monitor = time.time()
+                while time.time() - time_monitor < 360:   # 6 minutes
+                    num_jobs = 0
+                    for i in range(num_processes):
+                        if not jobs[i]['future'].done():
+                            num_jobs += 1
+                    if num_jobs < 1:
+                        return
+                    time.sleep(5)
 
             while num_jobs > 0:
                 num_jobs = 0
@@ -244,7 +253,7 @@ function get_piloturl() {
   pilottar_local=/sdf/data/rubin/panda_jobs/panda_env_pilot/pilot3.tar.gz
   if [[ -f ${pilottar_local} ]]; then
       # log "${pilottar_local} exist. Use it"
-      pilottar="file://"${pilottar_local}
+      pilottar1="file://"${pilottar_local}
       # log "pilottar=${pilottar}"
   fi
   # log "pilottar=${pilottar}"

@@ -96,7 +96,9 @@ function setup_lsst() {
 
   pilot_cfg=${pandaenvdir}/pilot/pilot_default.cfg
   if [[ -f ${pilot_cfg} ]]; then
-    export HARVESTER_PILOT_CONFIG=${pilot_cfg}
+    if [[ -z "${HARVESTER_PILOT_CONFIG}" ]]; then
+      export HARVESTER_PILOT_CONFIG=${pilot_cfg}
+    fi
   fi
 }
 
@@ -158,7 +160,16 @@ def run_parallel_subprocesses(num_processes, command):
                     if jobs[i]['future'].done():
                         print(f"run_multicore_pilots Subprocess i completed successfully. rerun it.")
                         jobs[i]['future'] = executor.submit(run_subprocess, jobs[i]['cmd'])
-                time.sleep(5)
+
+                time_monitor = time.time()
+                while time.time() - time_monitor < 360:   # 6 minutes
+                    num_jobs = 0
+                    for i in range(num_processes):
+                        if not jobs[i]['future'].done():
+                            num_jobs += 1
+                    if num_jobs < 1:
+                        return
+                    time.sleep(5)
 
             while num_jobs > 0:
                 num_jobs = 0

@@ -314,7 +314,7 @@
 	  "ceARCGridType": "arc",
 	  "ceHostname": "sdfarcce001.slac.stanford.edu",
 	  "ceEndpoint": "https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_slac.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
       }
   },
 
@@ -345,7 +345,7 @@
 	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
           "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
 		         "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_slac.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
       }
   },
 
@@ -376,7 +376,7 @@
 	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
           "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
                          "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_slac.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
       }
   },
 
@@ -407,7 +407,7 @@
 	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
           "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
                          "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_slac.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
       }
   },
 
@@ -438,7 +438,7 @@
           "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
           "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
                          "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_slac.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
       }
   },
 
@@ -466,7 +466,7 @@
 	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
           "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
                          "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_push_slac_96.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_push_96.sdf"
       }
   },
 
@@ -494,7 +494,7 @@
 	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
           "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
                          "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_push_slac.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_push.sdf"
       }
   },
 
