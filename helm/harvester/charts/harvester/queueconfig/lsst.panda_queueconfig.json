@@ -525,7 +525,7 @@
           "ceARCGridType": "arc",
           "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
           "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
-                         "https://ccarcce02.in2p3.fr:9444/arex/rest/1.0"],
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
 	  "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
@@ -556,7 +556,7 @@
           "ceARCGridType": "arc",
 	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
           "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
-                         "https://ccarcce02.in2p3.fr:9444/arex/rest/1.0"],
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
@@ -587,7 +587,7 @@
           "ceARCGridType": "arc",
 	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
           "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
-                         "https://ccarcce02.in2p3.fr:9444/arex/rest/1.0"],
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
@@ -618,7 +618,7 @@
           "ceARCGridType": "arc",
 	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
           "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
-                         "https://ccarcce02.in2p3.fr:9444/arex/rest/1.0"],
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
@@ -649,7 +649,7 @@
           "ceARCGridType": "arc",
 	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
           "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
-                         "https://ccarcce02.in2p3.fr:9444/arex/rest/1.0"],
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
@@ -677,7 +677,7 @@
           "ceARCGridType": "arc",
 	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
           "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
-                         "https://ccarcce02.in2p3.fr:9444/arex/rest/1.0"],
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_push_96.sdf"
       }
   },
@@ -705,7 +705,7 @@
           "ceARCGridType": "arc",
 	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
           "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
-                         "https://ccarcce02.in2p3.fr:9444/arex/rest/1.0"],
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_push.sdf"
       }
   },
