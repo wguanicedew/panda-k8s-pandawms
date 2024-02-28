@@ -521,8 +521,9 @@
 	  "noPilotsWhenNoActiveJobs": false,
           "ceQueueName": "lsst",
           "ceARCGridType": "arc",
-	  "ceHostname": "ccarccelsst01.in2p3.fr",
-          "ceEndpoint": "https://ccarccelsst01.in2p3.fr:9443/arex/rest/1.0",
+	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
+          "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
       }
   },
@@ -551,8 +552,9 @@
           "submitMode": "PULL",
           "ceQueueName": "lsst",
           "ceARCGridType": "arc",
-          "ceHostname": "ccarccelsst01.in2p3.fr",
-          "ceEndpoint": "https://ccarccelsst01.in2p3.fr:9443/arex/rest/1.0",
+	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
+          "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
       }
   },
@@ -581,8 +583,9 @@
           "submitMode": "PULL",
           "ceQueueName": "lsst",
           "ceARCGridType": "arc",
-	  "ceHostname": "ccarccelsst01.in2p3.fr",
-          "ceEndpoint": "https://ccarccelsst01.in2p3.fr:9443/arex/rest/1.0",
+	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
+          "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
       }
   },
@@ -611,8 +614,9 @@
           "submitMode": "PULL",
           "ceQueueName": "lsst",
           "ceARCGridType": "arc",
-	  "ceHostname": "ccarccelsst01.in2p3.fr",
-          "ceEndpoint": "https://ccarccelsst01.in2p3.fr:9443/arex/rest/1.0",
+	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
+          "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
       }
   },
@@ -641,8 +645,9 @@
           "submitMode": "PULL",
           "ceQueueName": "lsst",
           "ceARCGridType": "arc",
-          "ceHostname": "ccarccelsst01.in2p3.fr",
-          "ceEndpoint": "https://ccarccelsst01.in2p3.fr:9443/arex/rest/1.0",
+	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
+          "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
       }
   },
@@ -668,8 +673,9 @@
           "submitMode": "PUSH",
           "ceQueueName": "lsst",
           "ceARCGridType": "arc",
-	  "ceHostname": "ccarccelsst01.in2p3.fr",
-          "ceEndpoint": "https://ccarccelsst01.in2p3.fr:9443/arex/rest/1.0",
+	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
+          "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_push_96.sdf"
       }
   },
@@ -695,8 +701,9 @@
           "submitMode": "PUSH",
           "ceQueueName": "lsst",
           "ceARCGridType": "arc",
-	  "ceHostname": "ccarccelsst01.in2p3.fr",
-          "ceEndpoint": "https://ccarccelsst01.in2p3.fr:9443/arex/rest/1.0",
+	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
+          "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
+                         "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
           "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_push.sdf"
       }
   },
