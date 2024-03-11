@@ -89,7 +89,6 @@ ingress:
     nginx.ingress.kubernetes.io/auth-tls-verify-depth: '10'
 
     nginx.ingress.kubernetes.io/server-snippet: |
-      ssl on;
       ssl_verify_client optional_no_ca;
       ssl_verify_depth 10;
 

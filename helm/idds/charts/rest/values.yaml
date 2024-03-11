@@ -86,7 +86,6 @@ ingress:
 
     nginx.ingress.kubernetes.io/ssl-prefer-server-ciphers: "true"
     nginx.ingress.kubernetes.io/server-snippet: |
-        ssl on;
         ssl_verify_client optional_no_ca;
         ssl_verify_depth 10;
 

@@ -92,7 +92,6 @@ ingress:
       proxy_set_header SSL-CLIENT-CERT $ssl_client_escaped_cert;
       proxy_set_header SSL-CLIENT-S-DN  $ssl_client_s_dn;
     nginx.ingress.kubernetes.io/server-snippet: |
-       ssl on;
        ssl_verify_client optional_no_ca;
        ssl_verify_depth 10;
 
