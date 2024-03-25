@@ -314,7 +314,7 @@
 	  "ceARCGridType": "arc",
 	  "ceHostname": "sdfarcce001.slac.stanford.edu",
 	  "ceEndpoint": "https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -345,7 +345,7 @@
 	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
           "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
 		         "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -376,7 +376,7 @@
 	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
           "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
                          "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -407,7 +407,7 @@
 	  "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
           "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
                          "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -438,7 +438,7 @@
           "ceHostname": ["sdfarcce001.slac.stanford.edu", "sdfarcce001.slac.stanford.edu"],
           "ceEndpoint": ["https://sdfarcce001.slac.stanford.edu:9443/arex/rest/1.0",
                          "https://sdfarcce001.slac.stanford.edu:9444/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -524,7 +524,7 @@
 	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
           "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
                          "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -555,7 +555,7 @@
 	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
           "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
                          "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -586,7 +586,7 @@
 	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
           "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
                          "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -617,7 +617,7 @@
 	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
           "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
                          "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -648,7 +648,7 @@
 	  "ceHostname": ["ccarcce01.in2p3.fr", "ccarcce02.in2p3.fr"],
           "ceEndpoint": ["https://ccarcce01.in2p3.fr:9443/arex/rest/1.0",
                          "https://ccarcce02.in2p3.fr:9443/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -733,7 +733,7 @@
           "ceARCGridType": "arc",
           "ceHostname": "grendel2.hec.lancs.ac.uk",
           "ceEndpoint": "https://grendel2.hec.lancs.ac.uk:443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -763,7 +763,7 @@
           "ceARCGridType": "arc",
           "ceHostname": "grendel2.hec.lancs.ac.uk",
           "ceEndpoint": "https://grendel2.hec.lancs.ac.uk:443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -793,7 +793,7 @@
           "ceARCGridType": "arc",
 	  "ceHostname": "grendel2.hec.lancs.ac.uk",
           "ceEndpoint": "https://grendel2.hec.lancs.ac.uk:443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -823,7 +823,7 @@
           "ceARCGridType": "arc",
 	  "ceHostname": "grendel2.hec.lancs.ac.uk",
           "ceEndpoint": "https://grendel2.hec.lancs.ac.uk:443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
@@ -853,7 +853,7 @@
           "ceARCGridType": "arc",
           "ceHostname": "grendel2.hec.lancs.ac.uk",
           "ceEndpoint": "https://grendel2.hec.lancs.ac.uk:443/arex/rest/1.0",
-          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst_prod.submit_pilot_pull_srun.sdf"
       }
   },
 
