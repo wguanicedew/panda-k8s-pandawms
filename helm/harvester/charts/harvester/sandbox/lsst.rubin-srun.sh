@@ -55,7 +55,7 @@ if [[ ${mem_per_cpu} -gt 0 ]]; then
 fi
 
 latest=$(ls -td /cvmfs/sw.lsst.eu/linux-x86_64/panda_env/v* | head -1)
-rucio_cfg=${latest}/conda/install/envs/rucio/rucio.cfg
+rucio_cfg=${latest}/rucio/rucio-rubin-dev.cfg
 
 # export RUCIO_CONFIG=/cvmfs/sw.lsst.eu/linux-x86_64/panda_env/v1.0.9/conda/install/envs/pilot/etc/rucio.cfg.atlas.client.template
 export RUCIO_CONFIG=$rucio_cfg
