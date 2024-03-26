@@ -17,6 +17,12 @@ harvester:
     selector: false
     size: 3000Gi
 
+  persistentvolumespecial:
+    mount: true
+    class: sdf-data-rubin
+    path: "/mnt/harvester-data"
+    size: 5Gi
+
   experiment: "lsst"
   panda:
     host: "panda-dev-server:443"

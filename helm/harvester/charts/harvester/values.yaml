@@ -41,6 +41,13 @@ persistentvolumecondor:
   size: 5Gi
   selector: true
 
+persistentvolumespecial:
+  mount: false
+  class: manual
+  path: "/mnt/harvester-data"
+  size: 5Gi
+  selector: true
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

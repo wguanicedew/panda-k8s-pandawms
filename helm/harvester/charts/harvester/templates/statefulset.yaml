@@ -114,6 +114,22 @@ spec:
   {{- end }}
 ---
 
+# special mount data
+{{- if .Values.persistentvolumespecial.mount }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+ name: {{ include "harvester.fullname" . }}-special-data
+spec:
+ storageClassName: {{ .Values.persistentvolumespecial.class }}
+ accessModes:
+  - ReadWriteMany
+ resources:
+  requests:
+   storage: {{ .Values.persistentvolumespecial.size }}
+---
+{{- end }}
+
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -214,6 +230,10 @@ spec:
               mountPath: /var/cric
             - name: {{ include "harvester.fullname" . }}-certs
               mountPath: /opt/harvester/etc/certs
+            {{- if .Values.persistentvolumespecial.mount }}
+            - name: {{ include "harvester.fullname" . }}-special-data
+              mountPath: /mnt/harvester-data
+            {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "harvester.fullname" . }}-env
@@ -254,6 +274,11 @@ spec:
         - name: {{ include "harvester.fullname" . }}-condor-logs
           persistentVolumeClaim:
             claimName: {{ include "harvester.fullname" . }}-condor-logs
+        {{- if .Values.persistentvolumespecial.mount }}
+        - name: {{ include "harvester.fullname" . }}-special-data
+          persistentVolumeClaim:
+            claimName: {{ include "harvester.fullname" . }}-special-data
+        {{- end }}
         - name: {{ include "harvester.fullname" . }}-cric-jsons-volume
           secret:
               secretName: {{ .Values.global.secret }}-cric-jsons
