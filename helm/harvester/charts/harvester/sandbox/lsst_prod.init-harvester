@@ -8,7 +8,7 @@ chmod 777 /data/harvester/run
 bash /opt/harvester/sandbox/lsst.vomsproxy-renew
 
 # link harvester-data
-ln -s /mnt/harvester-data/panda_jobs/harvester_workdir_k8s/harvester_wdirs/SLAC_Harvester_SDF /var/www/html/
+# ln -s /mnt/harvester-data/panda_jobs/harvester_workdir_k8s/harvester_wdirs/SLAC_Harvester_SDF /var/www/html/
 
 # fix lsst voms
 mkdir /data/harvester/lsst_voms

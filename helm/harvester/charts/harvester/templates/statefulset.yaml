@@ -197,6 +197,9 @@ spec:
               chmod -R 777 /var/log/harvester_wdirs;
               chmod -R 777 /var/log/condor_logs;
               ln -s /var/log/condor_logs /var/www/html/;
+              if [ -d /mnt/harvester-data/panda_jobs/harvester_workdir_k8s/harvester_wdirs/SLAC_Harvester_SDF ]; then
+                  ln -s /mnt/harvester-data/panda_jobs/harvester_workdir_k8s/harvester_wdirs/SLAC_Harvester_SDF /var/www/html/condor_logs/;
+              fi;
               runuser -u atlpan -g zp -- /opt/harvester/etc/rc.d/init.d/run-harvester-services;
               {{- end }}
               echo "done";
