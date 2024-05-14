@@ -21,7 +21,7 @@
 	"dbuser": "$PANDA_DB_USER",
 	"dbname": "$PANDA_DB_NAME",
         "adder_plugins": "wlcg:dataservice.AdderDummyPlugin:AdderDummyPlugin,wlcg:dataservice.AdderSimplePlugin:AdderSimplePlugin:sphenix",
-        "setupper_plugins": "wlcg:dataservice.SetupperDummyPlugin:SetupperDummyPlugin", 
+        "setupper_plugins": "wlcg:dataservice.setupper_dummy_plugin:SetupperDummyPlugin",
         "token_authType": "oidc",
         "sandboxHostname": "$PANDA_HOSTNAME",
         "mq_configFile": "/opt/panda/etc/panda/panda_mbproxy_config.json"
