@@ -96,7 +96,22 @@ function setup_lsst() {
 
   pilot_cfg=${pandaenvdir}/pilot/pilot_default.cfg
   if [[ -f ${pilot_cfg} ]]; then
-    export HARVESTER_PILOT_CONFIG=${pilot_cfg}
+    if [[ -z "${HARVESTER_PILOT_CONFIG}" ]]; then
+      export HARVESTER_PILOT_CONFIG=${pilot_cfg}
+    fi
+  fi
+
+  queue_url=${pandaenvdir}/datalake-cric-pandaqueue.json
+  storage_url=${pandaenvdir}/cric/datalake-cric-ddm.json
+  if [[ -f ${queue_url} ]]; then
+    if [[ -z "${QUEUEDATA_SERVER_URL}" ]]; then
+      export QUEUEDATA_SERVER_URL=${queue_url}
+    fi
+  fi
+  if [[ -f ${storage_url} ]]; then
+    if [[ -z "${STORAGEDATA_SERVER_URL}" ]]; then
+      export STORAGEDATA_SERVER_URL=${storage_url}
+    fi
   fi
 }
 

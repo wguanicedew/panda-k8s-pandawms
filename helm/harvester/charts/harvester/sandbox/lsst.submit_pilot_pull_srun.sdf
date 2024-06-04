@@ -1,6 +1,6 @@
 executable = /opt/harvester/sandbox/lsst.rubin-srun.sh
 
-arguments = "--ntasks-total {nCoreTotal} --ntasks 1 --cpus-per-task 1 --mem-per-cpu {requestRamPerCore}  -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {prodSourceLabel} -i {pilotType} -t -w generic --pilot-user rubin --allow-same-user false --url https://rubin-panda-server-dev.slac.stanford.edu:8443 -d --harvester-submit-mode PULL {pilotResourceTypeOption} --queuedata-url https://rubin-panda-server-dev.slac.stanford.edu:8443/cache/schedconfig/{computingSite}.all.json --storagedata-url /cvmfs/sw.lsst.eu/linux-x86_64/panda_env/v1.0.8/conda/datalake-cric-ddm.json --use-realtime-logging --realtime-logging-server google-cloud-logging --realtime-logname Panda-RubinLog --pilotversion 3  --pythonversion 3 --localpy"
+arguments = "--ntasks-total {nCoreTotal} --ntasks 1 --cpus-per-task 1 --mem-per-cpu {requestRamPerCore}  -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {prodSourceLabel} -i {pilotType} -t -w generic --pilot-user rubin --allow-same-user false --url https://rubin-panda-server-dev.slac.stanford.edu:8443 -d --harvester-submit-mode PULL  --queuedata-url https://rubin-panda-server-dev.slac.stanford.edu:8443/cache/schedconfig/{computingSite}.all.json --storagedata-url https://none-url --use-realtime-logging --realtime-logging-server google-cloud-logging --realtime-logname Panda-RubinLog --pilotversion 3  --pythonversion 3 --localpy"
 
 initialdir = {accessPoint}
 

@@ -21,6 +21,7 @@ harvester:
     mount: true
     class: sdf-data-rubin
     path: "/mnt/harvester-data"
+    logpath: "/mnt/harvester-data/panda_jobs/harvester_workdir_k8s/harvester_wdirs/SLAC_Harvester_SDF"
     size: 5Gi
 
   experiment: "lsst"
@@ -30,7 +31,7 @@ harvester:
     enabled: true
 
 mariadb:
-  enabled: false
+  enabled: true
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false

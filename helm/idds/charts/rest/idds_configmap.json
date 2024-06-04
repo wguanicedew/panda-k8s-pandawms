@@ -5,7 +5,7 @@
          "database":
             {"default": "postgresql://${IDDS_DATABASE_USER}:${IDDS_DATABASE_PASSWORD}@${IDDS_DATABASE_HOST}:${IDDS_DATABASE_PORT}/${IDDS_DATABASE_NAME}?keepalives=1&keepalives_idle=30&keepalives_interval=5&keepalives_count=5",
              "schema": "${IDDS_DATABASE_SCHEMA}",
-             "pool_size": 20,
+             "pool_size": 50,
              "pool_recycle": 3600,
              "echo": 0,
              "pool_reset_on_return": "rollback"
