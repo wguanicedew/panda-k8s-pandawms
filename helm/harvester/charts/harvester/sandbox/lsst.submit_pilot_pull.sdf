@@ -1,5 +1,6 @@
 # executable = /opt/harvester/sandbox/lsst.runpilot2-wrapper.sh
-executable = /opt/harvester/sandbox/lsst.rubin-wrapper_parallel.sh
+# executable = /opt/harvester/sandbox/lsst.rubin-wrapper_parallel.sh
+executable = /opt/harvester/sandbox/lsst.rubin-wrapper.sh
 
 #arguments = -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {prodSourceLabel} -i {pilotType} -t -w generic --pilot-user generic --url https://sphenix-pandaserver.apps.rcf.bnl.gov -p 443 -d --harvester-submit-mode PUSH --allow-same-user=False --input-destination-dir /sphenix/lustre01/sphnxpro/rucio --job-type={jobType} {pilotResourceTypeOption} {pilotUrlOption} --pilotversion {pilotVersion} {pilotPythonOption}
 
@@ -9,7 +10,7 @@ executable = /opt/harvester/sandbox/lsst.rubin-wrapper_parallel.sh
 
 # arguments = "--pilotnum {nCoreTotal} -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {prodSourceLabel} -i {pilotType} -t -w generic --pilot-user rubin --allow-same-user false --url https://rubin-panda-server-dev.slac.stanford.edu:8443 -d --harvester-submit-mode PULL {pilotResourceTypeOption} --queuedata-url https://rubin-panda-server-dev.slac.stanford.edu:8443/cache/schedconfig/{computingSite}.all.json --storagedata-url https://datalake-cric.cern.ch/api/atlas/ddmendpoint/query/?json --use-realtime-logging --realtime-logging-server google-cloud-logging --realtime-logname Panda-RubinLog --pilotversion 3  --pythonversion 3 --localpy"
 
-arguments = "--pilotnum {nCoreTotal} -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {prodSourceLabel} -i {pilotType} -t -w generic --pilot-user rubin --allow-same-user false --url https://rubin-panda-server-dev.slac.stanford.edu:8443 -d --harvester-submit-mode PULL  --queuedata-url https://rubin-panda-server-dev.slac.stanford.edu:8443/cache/schedconfig/{computingSite}.all.json --storagedata-url https://none-url --use-realtime-logging --realtime-logging-server google-cloud-logging --realtime-logname Panda-RubinLog --pilotversion 3  --pythonversion 3 --localpy"
+arguments = " -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {prodSourceLabel} -i {pilotType} -t --es-executor-type fineGrainedProc -w generic --pilot-user rubin --allow-same-user false --url https://rubin-panda-server-dev.slac.stanford.edu:8443 -d --harvester-submit-mode PULL  --queuedata-url https://rubin-panda-server-dev.slac.stanford.edu:8443/cache/schedconfig/{computingSite}.all.json --storagedata-url https://none-url --use-realtime-logging --realtime-logging-server google-cloud-logging --realtime-logname Panda-RubinLog --pilotversion 3  --pythonversion 3 --localpy"
 
 initialdir = {accessPoint}
 

@@ -4,7 +4,7 @@
 #
 
 main:
-  replicaCount: 2
+  replicaCount: 1
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false

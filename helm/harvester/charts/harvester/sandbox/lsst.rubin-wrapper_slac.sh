@@ -94,6 +94,8 @@ function setup_lsst() {
   # log "rucio whoami: $(rucio whoami)"
   # log "rucio ping: $(rucio ping)"
 
+  export PILOT_ES_EXECUTOR_TYPE=fineGrainedProc
+
   pilot_cfg=${pandaenvdir}/pilot/pilot_default.cfg
   if [[ -f ${pilot_cfg} ]]; then
     if [[ -z "${HARVESTER_PILOT_CONFIG}" ]]; then

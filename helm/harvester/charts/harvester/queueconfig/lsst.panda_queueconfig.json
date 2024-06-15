@@ -1014,15 +1014,13 @@
       "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
-          "nCoreFactor": 8,
-          "activateWorkerFactor": 0.125,
           "noPilotsWhenNoActiveJobs": false,
           "ceQueueName": "EL9",
           "ceARCGridType": "arc",
 	  "ceHostname": ["arc-ce01.gridpp.rl.ac.uk", "arc-ce02.gridpp.rl.ac.uk"],
           "ceEndpoint": ["https://arc-ce01.gridpp.rl.ac.uk:443/arex/rest/1.0",
                          "https://arc-ce02.gridpp.rl.ac.uk:443/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_srun.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
@@ -1044,8 +1042,6 @@
       "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
-          "nCoreFactor": 8,
-          "activateWorkerFactor": 0.125,
           "noPilotsWhenNoActiveJobs": false,
           "submitMode": "PULL",
 	  "ceQueueName": "EL9",
@@ -1053,7 +1049,7 @@
           "ceHostname": ["arc-ce01.gridpp.rl.ac.uk", "arc-ce02.gridpp.rl.ac.uk"],
           "ceEndpoint": ["https://arc-ce01.gridpp.rl.ac.uk:443/arex/rest/1.0",
                          "https://arc-ce02.gridpp.rl.ac.uk:443/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_srun.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
@@ -1075,8 +1071,6 @@
     "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
-          "nCoreFactor": 4,
-          "activateWorkerFactor": 0.25,
           "noPilotsWhenNoActiveJobs": false,
           "submitMode": "PULL",
 	  "ceQueueName": "EL9",
@@ -1084,7 +1078,7 @@
           "ceHostname": ["arc-ce01.gridpp.rl.ac.uk", "arc-ce02.gridpp.rl.ac.uk"],
           "ceEndpoint": ["https://arc-ce01.gridpp.rl.ac.uk:443/arex/rest/1.0",
                          "https://arc-ce02.gridpp.rl.ac.uk:443/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_srun.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
@@ -1106,8 +1100,6 @@
     "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
-          "nCoreFactor": 2,
-          "activateWorkerFactor": 0.5,
           "noPilotsWhenNoActiveJobs": false,
           "submitMode": "PULL",
 	  "ceQueueName": "EL9",
@@ -1115,7 +1107,7 @@
           "ceHostname": ["arc-ce01.gridpp.rl.ac.uk", "arc-ce02.gridpp.rl.ac.uk"],
           "ceEndpoint": ["https://arc-ce01.gridpp.rl.ac.uk:443/arex/rest/1.0",
                          "https://arc-ce02.gridpp.rl.ac.uk:443/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_srun.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 
@@ -1137,8 +1129,6 @@
     "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
-          "nCoreFactor": 1,
-          "activateWorkerFactor": 1.0,
           "noPilotsWhenNoActiveJobs": false,
           "submitMode": "PULL",
 	  "ceQueueName": "EL9",
@@ -1146,7 +1136,7 @@
           "ceHostname": ["arc-ce01.gridpp.rl.ac.uk", "arc-ce02.gridpp.rl.ac.uk"],
           "ceEndpoint": ["https://arc-ce01.gridpp.rl.ac.uk:443/arex/rest/1.0",
                          "https://arc-ce02.gridpp.rl.ac.uk:443/arex/rest/1.0"],
-          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull_srun.sdf"
+          "templateFile": "/opt/harvester/sandbox/lsst.submit_pilot_pull.sdf"
       }
   },
 

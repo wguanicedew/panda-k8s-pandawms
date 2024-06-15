@@ -436,6 +436,8 @@ function main() {
   cd ${workdir}
   echo
  
+  export PILOT_ES_EXECUTOR_TYPE=fineGrainedProc
+
   echo "---- LSST_LOCAL_PROLOG script ----"
   if [[ -n "${LSST_LOCAL_PROLOG}" ]]; then
     if [[ -f "${LSST_LOCAL_PROLOG}" ]]; then

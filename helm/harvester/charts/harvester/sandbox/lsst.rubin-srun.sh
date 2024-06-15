@@ -67,6 +67,8 @@ if [[ -f ${pilot_cfg} ]]; then
     fi
 fi
 
+export PILOT_ES_EXECUTOR_TYPE=fineGrainedProc
+
 queue_url=${pandaenvdir}/datalake-cric-pandaqueue.json
 storage_url=${pandaenvdir}/cric/datalake-cric-ddm.json
 if [[ -f ${queue_url} ]]; then
