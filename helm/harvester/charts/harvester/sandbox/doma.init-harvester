@@ -7,3 +7,11 @@ echo "/C=NL/O=GEANT Vereniging/CN=GEANT eScience SSL CA 4" >> /etc/grid-security
 
 # vomses file to refer to the darkside VOMS server
 echo "\"vo.darkside.org\" \"vomsmania.cnaf.infn.it\" \"15008\" \"/DC=org/DC=terena/DC=tcs/C=IT/ST=Roma/O=Istituto Nazionale di Fisica Nucleare/CN=vomsmania.cnaf.infn.it\" \"vo.darkside.org\"" >> /etc/vomses
+
+# copy iDDS robot certificate, correct permissions and create a darkside proxy
+cp /opt/harvester/etc/auth/pilot_user* /data/harvester/
+chmod 600 /data/harvester/pilot_usercert.pem
+chmod 400 /data/harvester/pilot_userkey.pem
+chown atlpan.zp /data/harvester/pilot_*.pem
+/usr/bin/voms-proxy-init -valid 96:0 -voms vo.darkside.org -key /data/harvester/pilot_userkey.pem -cert /data/harvester/pilot_usercert.pem -out /data/harvester/darkside.short.proxy
+chown atlpan.zp /data/harvester/darkside.short.proxy
