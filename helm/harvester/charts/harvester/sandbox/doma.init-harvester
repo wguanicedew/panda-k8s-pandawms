@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# LSC file for the darkside VOMS server
+mkdir -p /etc/grid-security/vomsdir/vo.darkside.org
+echo "/DC=org/DC=terena/DC=tcs/C=IT/ST=Roma/O=Istituto Nazionale di Fisica Nucleare/CN=vomsmania.cnaf.infn.it" > /etc/grid-security/vomsdir/vo.darkside.org/vomsmania.cnaf.infn.it.lsc
+echo "/C=NL/O=GEANT Vereniging/CN=GEANT eScience SSL CA 4" >> /etc/grid-security/vomsdir/vo.darkside.org/vomsmania.cnaf.infn.it.lsc
+
+# vomses file to refer to the darkside VOMS server
+echo "\"vo.darkside.org\" \"vomsmania.cnaf.infn.it\" \"15008\" \"/DC=org/DC=terena/DC=tcs/C=IT/ST=Roma/O=Istituto Nazionale di Fisica Nucleare/CN=vomsmania.cnaf.infn.it\" \"vo.darkside.org\"" >> /etc/vomses
