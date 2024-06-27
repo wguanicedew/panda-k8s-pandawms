@@ -1,4 +1,8 @@
 #!/bin/bash
+# copy certs and set permission
+cp /opt/harvester/etc/auth/pilot*.pem /data/harvester/
+chmod 600 /data/harvester/*.pem
+
 
 # LSC file for the darkside VOMS server
 mkdir -p /etc/grid-security/vomsdir/vo.darkside.org
