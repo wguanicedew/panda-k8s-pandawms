@@ -2,6 +2,18 @@
 # Make this unique, and don't share it with anybody.
 MY_SECRET_KEY = '${BIGMON_SECRET_KEY}'
 
+dbaccess_oracle_atlas = {
+     'default':
+     {
+         'ENGINE':'django.db.backends.oracle',
+             'NAME': '${PANDA_DB_NAME}',
+             'HOST': '${PANDA_DB_HOST}',
+             'PORT': '${PANDA_DB_PORT}',
+             'USER': '${PANDA_DB_USER}',
+             'PASSWORD': "${PANDA_DB_PASSWORD}",
+     }
+}
+
 dbaccess_postgres = {
          'default':
          {
@@ -29,7 +41,8 @@ dbaccess_postgres = {
         }       
 }
 
-dbaccess = dbaccess_postgres
+# Oracle or Postgres
+dbaccess = '${BIGMON_DB_ACCESS}'
 
 #object store
 OBJECT_STORE = {
