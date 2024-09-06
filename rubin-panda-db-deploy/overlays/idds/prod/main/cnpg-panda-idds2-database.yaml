@@ -1,0 +1,98 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  labels:
+    app: panda-idds2
+    env: prod
+    namespace: panda-db
+  name: usdf-panda-idds2
+  namespace: panda-db
+spec:
+
+  bootstrap:
+    recovery:
+      source: panda-idds
+
+  externalClusters:
+  - name: panda-idds
+    barmanObjectStore:
+      destinationPath: s3://rubin-usdf-panda-idds
+      endpointURL: https://s3dfrgw.slac.stanford.edu
+      serverName: usdf-panda-idds
+      s3Credentials:
+        accessKeyId:
+          name: s3-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: s3-creds
+          key: ACCESS_SECRET_KEY
+      wal:
+        maxParallel: 8
+
+  enableSuperuserAccess: true
+  failoverDelay: 0
+  imageName: lsstsqre/cloudnative-pg:14
+  inheritedMetadata:
+    annotations:
+      prometheus.io/scrape: "true"
+  instances: 2
+  logLevel: info
+  maxSyncReplicas: 0
+  minSyncReplicas: 0
+  monitoring:
+    customQueriesConfigMap:
+    - key: queries
+      name: cnpg-default-monitoring
+    disableDefaultQueries: false
+    enablePodMonitor: false
+  nodeMaintenanceWindow:
+    inProgress: false
+    reusePVC: true
+  postgresGID: 26
+  postgresUID: 26
+  postgresql:
+    parameters:
+      archive_mode: "on"
+      archive_timeout: 5min
+      dynamic_shared_memory_type: posix
+      log_destination: csvlog
+      log_directory: /controller/log
+      log_filename: postgres
+      log_rotation_age: "0"
+      log_rotation_size: "0"
+      log_truncate_on_rotation: "false"
+      logging_collector: "on"
+      max_connections: "1000"
+      max_parallel_workers: "32"
+      max_replication_slots: "32"
+      max_worker_processes: "32"
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
+      shared_buffers: 32GB
+      shared_memory_type: mmap
+      shared_preload_libraries: ""
+      wal_keep_size: 512MB
+      wal_receiver_timeout: 5s
+      wal_sender_timeout: 5s
+      work_mem: 128MB
+    shared_preload_libraries:
+    - pg_cron
+    - pg_partman_bgw
+    syncReplicaElectionConstraint:
+      enabled: false
+  primaryUpdateMethod: switchover
+  primaryUpdateStrategy: unsupervised
+  resources:
+    limits:
+      cpu: "32"
+      memory: 256Gi
+    requests:
+      cpu: "16"
+      memory: 128Gi
+  startDelay: 30
+  stopDelay: 30
+  storage:
+    resizeInUseVolumes: true
+    size: 3000Gi
+    storageClass: wekafs--sdf-k8s01
+  switchoverDelay: 40000000
