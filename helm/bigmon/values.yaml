@@ -9,17 +9,9 @@ main:
   enabled: true
 
   image:
-    tag: "v0.6.16"
+    tag: "v0.6.17"
 
   autoStart: true
-
-  resources:
-    limits:
-      cpu: 4000m
-      memory: 16Gi
-    requests:
-      cpu: 4000m
-      memory: 16Gi
 
   #persistentvolume:
   #  create: false         
