@@ -84,8 +84,15 @@ fi
 # env
 
 echo
-# cmd="$cmd --export=ALL /cvmfs/sw.lsst.eu/linux-x86_64/panda_env/v1.0.9/pilot/wrapper/rubin-wrapper.sh $@"
-cmd="$cmd --export=ALL ${latest}/pilot/wrapper/rubin-wrapper.sh $@"
+
+# check if there is a local dev pilot
+pilot_wrapper_local=/sdf/data/rubin/panda_jobs/panda_env_pilot/pilot_wrapper/rubin-wrapper.sh
+if [[ -f ${pilot_wrapper_local} ]]; then
+    cmd="$cmd --export=ALL ${pilot_wrapper_local} $@"
+else
+    # cmd="$cmd --export=ALL /cvmfs/sw.lsst.eu/linux-x86_64/panda_env/v1.0.9/pilot/wrapper/rubin-wrapper.sh $@"
+    cmd="$cmd --export=ALL ${latest}/pilot/wrapper/rubin-wrapper.sh $@"
+fi
 echo $cmd
 
 ntasks=${ntasks_total}
