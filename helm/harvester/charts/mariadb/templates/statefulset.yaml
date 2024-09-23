@@ -47,6 +47,7 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  serviceName: {{ include "mariadb.fullname" . }}
   selector:
     matchLabels:
       {{- include "mariadb.selectorLabels" . | nindent 6 }}
