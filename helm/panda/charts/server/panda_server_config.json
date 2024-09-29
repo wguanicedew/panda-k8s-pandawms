@@ -5,6 +5,7 @@
         "CRIC_URL_DDMENDPOINTS": "$PANDA_CRIC_DDMENDPOINTS",
         "CRIC_URL_SCHEDCONFIG": "$PANDA_CRIC_SCHEDCONFIG",
         "CRIC_URL_SITES": "$PANDA_CRIC_SITES",
+	"RUCIO_RSE_USAGE": "/opt/panda/sandbox/rucio_rse_usage.json",
         "adder_plugins": "wlcg:dataservice.AdderDummyPlugin:AdderDummyPlugin", 
         "backend": "postgres",
         "schemaPANDA": "$PANDA_DB_SCHEMAPANDA",
