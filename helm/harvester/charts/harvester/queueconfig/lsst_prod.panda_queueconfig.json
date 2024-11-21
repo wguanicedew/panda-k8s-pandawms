@@ -1012,7 +1012,7 @@
       "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
-          "noPilotsWhenNoActiveJobs": false,
+          "noPilotsWhenNoActiveJobs": true,
           "ceQueueName": "EL9",
           "ceARCGridType": "arc",
           "ceHostname": ["arc-ce01.gridpp.rl.ac.uk", "arc-ce02.gridpp.rl.ac.uk"],
@@ -1040,7 +1040,7 @@
       "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
-          "noPilotsWhenNoActiveJobs": false,
+          "noPilotsWhenNoActiveJobs": true,
           "submitMode": "PULL",
           "ceQueueName": "EL9",
           "ceARCGridType": "arc",
@@ -1069,7 +1069,7 @@
     "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
-          "noPilotsWhenNoActiveJobs": false,
+          "noPilotsWhenNoActiveJobs": true,
           "submitMode": "PULL",
           "ceQueueName": "EL9",
           "ceARCGridType": "arc",
@@ -1098,7 +1098,7 @@
     "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
-          "noPilotsWhenNoActiveJobs": false,
+          "noPilotsWhenNoActiveJobs": true,
           "submitMode": "PULL",
           "ceQueueName": "EL9",
           "ceARCGridType": "arc",
@@ -1127,7 +1127,7 @@
     "submitter": {
           "nCore": 1,
           "nCorePerNode": 1,
-          "noPilotsWhenNoActiveJobs": false,
+          "noPilotsWhenNoActiveJobs": true,
           "submitMode": "PULL",
           "ceQueueName": "EL9",
           "ceARCGridType": "arc",
