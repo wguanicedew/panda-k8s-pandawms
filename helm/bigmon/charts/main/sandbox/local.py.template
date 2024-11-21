@@ -42,7 +42,7 @@ dbaccess_postgres = {
 }
 
 # Oracle or Postgres
-dbaccess = ${BIGMON_DB_ACCESS}
+dbaccess = '${BIGMON_DB_ACCESS}'
 
 #object store
 OBJECT_STORE = {
