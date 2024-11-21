@@ -9,7 +9,7 @@ main:
   enabled: true
 
   image:
-    tag: "v0.6.20"
+    tag: "v0.6.22"
 
   autoStart: true
 
