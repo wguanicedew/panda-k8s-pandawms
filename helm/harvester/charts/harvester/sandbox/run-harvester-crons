@@ -6,6 +6,10 @@ while true; do sleep 36000; /opt/harvester/bin/panda_common-install_igtf_ca > /v
 # log rotate
 while true; do /usr/sbin/logrotate /data/harvester/logrotate-harvester >> /var/log/panda/logrotate.log 2>&1; sleep 3600; done &
 
+# health monitor
+
+while true; do bash /data/harvester/health_monitor.sh >> /var/log/panda/health_monitor.log 2>&1; sleep 600; done &
+
 # experiment specific
 if [[ ! -z "${EXPERIMENT}" ]]; then
     CurrentDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
