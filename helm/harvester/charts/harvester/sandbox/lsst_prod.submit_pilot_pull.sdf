@@ -15,16 +15,21 @@ executable = /opt/harvester/sandbox/lsst_prod.rubin-wrapper.sh
 
 # arguments = "--pilotnum {nCoreTotal} -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {prodSourceLabel} -i {pilotType} -t -w generic --pilot-user rubin --allow-same-user false --url https://usdf-panda-server.slac.stanford.edu:8443 -d --harvester-submit-mode PULL {pilotResourceTypeOption} --queuedata-url https://usdf-panda-server.slac.stanford.edu:8443/cache/schedconfig/{computingSite}.all.json --storagedata-url https://datalake-cric.cern.ch/api/atlas/ddmendpoint/query/?json --use-realtime-logging --realtime-logging-server google-cloud-logging --realtime-logname Panda-RubinLog  --pilotversion 3  --pythonversion 3 --localpy"
 
-arguments = " -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {prodSourceLabel} -i {pilotType} -t --es-executor-type fineGrainedProc -w generic --pilot-user rubin --allow-same-user false --url https://usdf-panda-server.slac.stanford.edu:8443 -d --harvester-submit-mode PULL  --queuedata-url https://usdf-panda-server.slac.stanford.edu:8443/cache/schedconfig/{computingSite}.all.json --storagedata-url https://none-url --use-realtime-logging --realtime-logging-server google-cloud-logging --realtime-logname Panda-RubinLog  --pilotversion 3  --pythonversion 3 --localpy"
+# arguments = " -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {prodSourceLabel} -i {pilotType} -t --es-executor-type fineGrainedProc -w generic --pilot-user rubin --allow-same-user false --url https://usdf-panda-server.slac.stanford.edu:8443 -d --harvester-submit-mode PULL  --queuedata-url https://usdf-panda-server.slac.stanford.edu:8443/cache/schedconfig/{computingSite}.all.json --storagedata-url https://none-url --use-realtime-logging --realtime-logging-server google-cloud-logging --realtime-logname Panda-RubinLog  --pilotversion 3  --pythonversion 3 --localpy"
+
+arguments = " -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {prodSourceLabel} -i {pilotType}  --es-executor-type fineGrainedProc -w generic --pilot-user rubin --allow-same-user false --url https://usdf-panda-server.slac.stanford.edu:8443  --harvester-submit-mode PULL  --queuedata-url https://usdf-panda-server.slac.stanford.edu:8443/cache/schedconfig/{computingSite}.all.json  --use-realtime-logging  --realtime-logname Panda-RubinLog  --pilotversion 3  --pythonversion 3 --localpy"
 
 initialdir = {accessPoint}
 
-log = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).log
-output = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).out
-error = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).err
+log = {logDir}/{logSubdir}/worker.{workerID}.grid.$(Cluster).$(Process).log
+output = {logDir}/{logSubdir}/worker.{workerID}.grid.$(Cluster).$(Process).out
+error = {logDir}/{logSubdir}/worker.{workerID}.grid.$(Cluster).$(Process).err
 transfer_executable = True
 
-environment = "PANDA_JSID=harvester-{harvesterID} HARVESTER_ID={harvesterID} HARVESTER_WORKER_ID={workerID} GTAG={gtag} STORAGEDATA_SERVER_URL=http://datalake-cric.cern.ch/api/atlas/ddmendpoint/query/?json"
+transfer_input_files = {pandaTokenPath}
+
+environment = "PANDA_JSID=harvester-{harvesterID} HARVESTER_ID={harvesterID} HARVESTER_WORKER_ID={workerID} GTAG={gtag} STORAGEDATA_SERVER_URL=http://datalake-cric.cern.ch/api/atlas/ddmendpoint/query/?json PANDA_AUTH_ORIGIN=panda_dev.pilot PANDA_AUTH_TOKEN={pandaTokenFilename}"
+
 +harvesterID = "{harvesterID}"
 +harvesterWorkerID = "{workerID}"
 
@@ -44,7 +49,7 @@ arc_resources = <SlotRequirement>  \
                 <QueueName>{ceQueueName}</QueueName> \
                 <IndividualPhysicalMemory>{requestRamBytesPerCore}</IndividualPhysicalMemory> \
                 <RuntimeEnvironment><Name>ENV/PROXY</Name></RuntimeEnvironment> \
-                <WallTime>259200</WallTime>
+                <WallTime>{requestWalltime}</WallTime>
 
 arc_rte = ENV/PROXY
 
@@ -65,8 +70,8 @@ use_x509userproxy = true
 +xcount = {nCoreTotal}
 +maxMemory = {requestRam}
 +remote_queue = "{ceQueueName}"
-#+maxWallTime = {requestWalltimeMinute}
-+maxWallTime = 1440
++maxWallTime = {requestWalltimeMinute}
+#+maxWallTime = 1440
 
 delegate_job_GSI_credentials_lifetime = 0
 

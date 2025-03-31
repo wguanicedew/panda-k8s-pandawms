@@ -100,5 +100,21 @@
       "panda_queues.json||$HARVESTER_CRIC_SCHEDCONFIG",
       "agis_ddmendpoints.json||$HARVESTER_CRIC_DDMENDPOINTS"
     ]
+  },
+  "credmanager": {
+    "pluginConfigs": [
+      {
+        "module": "pandaharvester.harvestercredmanager.iam_token_cred_manager",
+        "name": "IamTokenCredManager",
+        "configs": {
+          "panda-internal": {
+            "client_cred_file": "/opt/harvester/etc/auth/token_panda-internal_client.json",
+            "target_type": "common",
+            "target_list": ["https://pandaserver-doma.cern.ch:25443"],
+            "out_dir": "/opt/harvester/etc/auth_tokens/"
+          }
+        }
+      }
+    ]
   }
 }

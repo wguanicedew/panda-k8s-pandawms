@@ -10,7 +10,7 @@ harvester:
   enabled: true
   # container image and tag
   image:
-    tag: "v0.5.14"
+    tag: "v0.5.15"
     # tag: "master"
 
   # PV with selector support
@@ -31,9 +31,11 @@ harvester:
     limits:
       cpu: 4000m
       memory: 16Gi
+      ephemeral-storage: "50Gi"
     requests:
       cpu: 4000m
       memory: 16Gi
+      ephemeral-storage: "30Gi"
 
 mariadb:
   # enable database
@@ -47,6 +49,8 @@ mariadb:
     limits:
       cpu: 4000m
       memory: 16Gi
+      ephemeral-storage: "50Gi"
     requests:
       cpu: 4000m
       memory: 16Gi
+      ephemeral-storage: "30Gi"

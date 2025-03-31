@@ -15,8 +15,8 @@ ARC_GAHP_USE_THREADS = True
 
 GRIDMANAGER_DEBUG = D_FULLDEBUG
 
-SEC_DEFAULT_AUTHENTICATION_METHODS = CLAIMTOBE, FS, GSI, SCITOKENS
-SEC_CLIENT_AUTHENTICATION_METHODS = GSI, FS, SCITOKENS
+# SEC_DEFAULT_AUTHENTICATION_METHODS = CLAIMTOBE, FS, GSI, SCITOKENS
+# SEC_CLIENT_AUTHENTICATION_METHODS = GSI, FS, SCITOKENS
 
 LOWPORT = 26000
 HIGHPORT = 39999
@@ -27,3 +27,100 @@ IN_HIGHPORT = 39999
 LOG = /var/log/condor_logs/$(hostname)/log
 SPOOL = /var/log/condor_logs/$(hostname)/spool
 EXECUTE = /var/log/condor_logs/$(hostname)/execute
+
+
+JOB_ROUTER_RETRY_INTERVAL = 120
+GRIDMANAGER_JOB_PROBE_INTERVAL = 120
+NEGOTIATOR_RESOURCE_REQUEST_EXPIRY = 120
+# ARC_GAHP_USE_THREADS = False
+
+UID_DOMAIN = harvester-dev.panda.svc.cluster.local
+JOB_IS_FINISHED_INTERVAL = 0
+JOB_IS_FINISHED_COUNT = 1000
+JOB_TRANSFORM_NAMES = $(JOB_TRANSFORM_NAMES) LeaveInQueue
+
+JOB_TRANSFORM_LeaveInQueue @=end
+[
+    copy_LeaveJobInQueue = "SubmitterLeaveJobInQueue";
+    set_LeaveJobInQueue = ((time() - EnteredCurrentStatus) < 600) || SubmitterLeaveJobInQueue;
+]
+@end
+
+#GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE = 3000
+GRIDMANAGER_DEBUG = D_FULLDEBUG
+
+GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE = 20000
+GRIDMANAGER_GAHP_CALL_TIMEOUT = 3600
+## Jaime says <50
+GRIDMANAGER_MAX_PENDING_REQUESTS = 24
+CREAM_GAHP_WORKER_THREADS = 12
+#GRIDMANAGER_SELECTION_EXPR = MATCH_APF_QUEUE
+#GRIDMANAGER_SELECTION_EXPR = regexps("([^ ]*) .*",GridResource,"\1")
+GRIDMANAGER_SELECTION_EXPR = GridResource
+MAX_GRIDMANAGER_LOG = 1Gb
+#MAX_NUM_GRIDMANAGER_LOG = 10
+GRIDMANAGER_JOB_PROBE_INTERVAL = 240
+GRIDMANAGER_GAHP_RESPONSE_TIMEOUT = 300
+
+GRIDMANAGER_JOB_PROBE_RATE_ARC = 1000
+
+SEC_DEFAULT_AUTHENTICATION_METHODS = CLAIMTOBE, FS, GSI, SCITOKENS
+SEC_CLIENT_AUTHENTICATION_METHODS = GSI, FS, SCITOKENS
+SEC_DEFAULT_AUTHENTICATION = OPTIONAL
+SEC_DEFAULT_INTEGRITY = REQUIRED
+
+SEC_FSSERVER_DIR = /var/log/condor_logs/$(hostname)/
+FS_REMOTE_DIR = /var/log/condor_logs/$(hostname)/
+FS_LOCAL_DIR = /var/log/condor_logs/$(hostname)/
+
+ALLOW_READ = */*, */*.harvester*.panda.svc.cluster.local
+ALLOW_WRITE = $(FULL_HOSTNAME), atlpan/*.harvester*.panda.svc.cluster.local
+#ALLOW_DAEMON = condor_pool@$(UID_DOMAIN)/*.cern.ch
+ALLOW_DAEMON = *@$(UID_DOMAIN)/*.harvester*.panda.svc.cluster.local
+#ALLOW_NEGOTIATOR = condor_pool@$(UID_DOMAIN)/*.cern.ch
+ALLOW_NEGOTIATOR = *@$(UID_DOMAIN)/*.harvester*.panda.svc.cluster.local
+
+JOB_SPOOL_PERMISSIONS = world
+
+NEGOTIATOR_CONSIDER_PREEMPTION = false
+
+DELEGATE_JOB_GSI_CREDENTIALS_LIFETIME = 0
+
+# Macros and Remove resaons
+J_Active = member(JobStatus, {1,2,5,6,7})
+#RR_JobRestarted = ( ((NumJobStarts >= 1 || JobRunCount >= 1) && JobStatus == 1) || ((NumJobStarts > 1 || JobRunCount > 1) && JobStatus == 2) )
+#RR_JobRestarted = ( (NumJobStarts >= 1 && JobStatus == 1) || (NumJobStarts > 1 && JobStatus == 2) )
+RR_JobRestarted = (LastRemoteStatusUpdate > EnteredCurrentStatus) && !isUndefined(JobRunCount) && ( (NumJobStarts >= 1 && JobStatus == 1) || (NumJobStarts > 1 && JobStatus == 2) )
+#RR_JobMultipleJobRunCount = ( (JobRunCount >= 1 && JobStatus == 1) || (JobRunCount > 1 && JobStatus == 2) )
+RR_JobMultipleJobRunCount = false
+RR_JobHeldTooLong = ( JobStatus == 5 && time() - EnteredCurrentStatus > 3600*4 )
+RR_ActiveJobStatusStuckTooLong = ( time() - EnteredCurrentStatus > 3600*24*7 )
+RR_ActiveJobInQueueTooLong = ( time() - QDate > 3600*24*15 )
+RR_ActiveJobRemoteStatusStuckTooLong = ( LastRemoteStatusUpdate > 0 && time() - LastRemoteStatusUpdate > 3600*4 )
+
+SYSTEM_PERIODIC_HOLD = false
+
+SYSTEM_PERIODIC_REMOVE = $(RR_JobRestarted)        || \
+                         $(RR_JobMultipleJobRunCount)      || \
+                         $(RR_JobHeldTooLong)      || \
+                         ( $(J_Active) && (           \
+                             $(RR_ActiveJobStatusStuckTooLong)         || \
+                             $(RR_ActiveJobInQueueTooLong)             || \
+                             $(RR_ActiveJobRemoteStatusStuckTooLong)      \
+                         ) )
+
+SYSTEM_PERIODIC_REMOVE_REASON = strcat("removed by SYSTEM_PERIODIC_REMOVE due to ", \
+    ifThenElse($(RR_JobRestarted), "job restarted undesirably. ", \
+    ifThenElse($(RR_JobMultipleJobRunCount), "job JobRunCount > 1 (testing condition). ", \
+    ifThenElse($(RR_JobHeldTooLong), "job held time exceeded (3600*4).", \
+    ifThenElse($(RR_ActiveJobStatusStuckTooLong), "job status unchanged time exceeded (3600*24*7).", \
+    ifThenElse($(RR_ActiveJobInQueueTooLong), "job staying in queue time exceeded (3600*24*15).", \
+    ifThenElse($(RR_ActiveJobRemoteStatusStuckTooLong), "job remote status outdated time exceeded (3600*4).", \
+        "Remove Reason unknown." \
+    )))))))
+
+
+SCHEDD_INTERVAL = 60
+GRIDMANAGER_JOB_PROBE_INTERVAL = 60
+# GRIDMANAGER_JOB_PROBE_INTERVAL_ARC = 240
+# GRIDMANAGER_JOB_PROBE_RATE_ARC = 15

@@ -57,7 +57,7 @@ function check_proxy() {
 }
 
 function check_cvmfs() {
-  local VO_LSST_SW_DIR=/cvmfs/sw.lsst.eu/linux-x86_64/lsst_distrib
+  local VO_LSST_SW_DIR=/cvmfs/sw.lsst.eu/almalinux-x86_64/lsst_distrib
   if [[ -d ${VO_LSST_SW_DIR} ]]; then
     log "Found LSST software repository: ${VO_LSST_SW_DIR}"
   else
@@ -71,9 +71,9 @@ function check_cvmfs() {
 
 function get_pandaenvdir() {
   if [[ -z "$pandaenvtag" ]]; then
-    echo "$(ls -td /cvmfs/sw.lsst.eu/linux-x86_64/panda_env/v* | head -1)"
+    echo "$(ls -td /cvmfs/sw.lsst.eu/almalinux-x86_64/panda_env/v* | head -1)"
   else
-    echo "$(ls -td /cvmfs/sw.lsst.eu/linux-x86_64/panda_env/${pandaenvtag}* | head -1)"
+    echo "$(ls -td /cvmfs/sw.lsst.eu/almalinux-x86_64/panda_env/${pandaenvtag}* | head -1)"
   fi
 }
 
@@ -88,7 +88,7 @@ function get_pandaenvdir_local() {
 function setup_lsst() {
   log "Sourcing: ${pandaenvdir}/conda/install/bin/activate pilot"
   source ${pandaenvdir}/conda/install/bin/activate pilot
-  # source /cvmfs/sw.lsst.eu/linux-x86_64/panda_env/v0.0.4-dev/conda/install/bin/activate
+  # source /cvmfs/sw.lsst.eu/almalinux-x86_64/panda_env/v0.0.4-dev/conda/install/bin/activate
   # source activate pilot
   # RUCIO_CONFIG=/some/path/to/rucio.cfg is temporarily in site PROLOG script
   # log "rucio whoami: $(rucio whoami)"

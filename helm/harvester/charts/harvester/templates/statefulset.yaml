@@ -36,6 +36,8 @@ spec:
       {{- include "harvester.selectorLabels" . | nindent 6 }}
   {{- end }}
 ---
+{{- end }}
+{{- if .Values.persistentvolume.create }}
 # harvester wdirs
 kind: PersistentVolume
 apiVersion: v1
@@ -46,13 +48,14 @@ metadata:
 spec:
   storageClassName: {{ .Values.persistentvolume.class }}
   capacity:
-    storage: {{ .Values.persistentvolume.size }}
+    storage: {{ .Values.persistentvolumewdir.size }}
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: {{ .Values.persistentvolume.path }}
+-    path: {{ .Values.persistentvolume.path }}
 ---
+{{- end }}
 # pv claim
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -66,14 +69,13 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: {{ .Values.persistentvolume.size }}
+      storage: {{ .Values.persistentvolumewdir.size }}
   {{- if .Values.persistentvolume.selector }}
   selector:
     matchLabels:
       {{- include "harvester.selectorLabels-wdirs" . | nindent 6 }}
   {{- end }}
 ---
-{{- end }}
 # pv for condor logs
 {{- if .Values.persistentvolumecondor.create }}
 kind: PersistentVolume
@@ -196,6 +198,8 @@ spec:
               cp /opt/harvester/sandbox/* /data/harvester/;
               chmod +x /data/harvester/init-harvester;
               chmod +x /data/harvester/run-harvester-crons;
+              mkdir -p /opt/harvester/etc/auth_tokens;
+              chmod 777 /opt/harvester/etc/auth_tokens;
               echo "starting harvester service";
               {{- if .Values.noRoot }}
               /opt/harvester/etc/rc.d/init.d/run-harvester-services;
@@ -240,6 +244,8 @@ spec:
               mountPath: /var/cric
             - name: {{ include "harvester.fullname" . }}-certs
               mountPath: /opt/harvester/etc/certs
+            - name: {{ include "harvester.fullname" . }}-temp
+              mountPath: /tmp
             {{- if .Values.persistentvolumespecial.mount }}
             - name: {{ include "harvester.fullname" . }}-special-data
               mountPath: {{ .Values.persistentvolumespecial.path }}
@@ -296,26 +302,19 @@ spec:
         - name: {{ include "harvester.fullname" . }}-certs
           secret:
               secretName: {{ .Values.global.secret }}-harvester-certs
+        - name: {{ include "harvester.fullname" . }}-temp
+          emptyDir: {}
+        - name: {{ include "harvester.fullname" . }}-wdirs
+          persistentVolumeClaim:
+            claimName: {{ include "harvester.fullname" . }}-wdirs
   {{- if .Values.persistentvolume.create }}
         - name: {{ include "harvester.fullname" . }}-logs
           persistentVolumeClaim:
             claimName: {{ include "harvester.fullname" . }}
-        - name: {{ include "harvester.fullname" . }}-wdirs
-          persistentVolumeClaim:
-            claimName: {{ include "harvester.fullname" . }}-wdirs
   {{- else }}
   volumeClaimTemplates:
     - metadata:
         name: {{ include "harvester.fullname" . }}-logs
-      spec:
-        storageClassName: {{ .Values.persistentvolume.class }}
-        accessModes:
-          - "ReadWriteOnce"
-        resources:
-          requests:
-            storage: {{ .Values.persistentvolume.size }}
-    - metadata:
-        name: {{ include "harvester.fullname" . }}-wdirs
       spec:
         storageClassName: {{ .Values.persistentvolume.class }}
         accessModes:

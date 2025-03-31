@@ -44,9 +44,9 @@ set -- "${POSITIONAL[@]}" # restore positional parameters
 pilotargs="$@"
 
 cmd="srun"
-if [[ $ntasks -gt 0 ]]; then
-    cmd="$cmd --ntasks $ntasks"
-fi
+# if [[ $ntasks -gt 0 ]]; then
+#    cmd="$cmd --ntasks $ntasks"
+# fi
 if [[ ${cpus_per_task} -gt 0 ]]; then
     cmd="$cmd --cpus-per-task ${cpus_per_task}"
 fi
@@ -54,13 +54,21 @@ if [[ ${mem_per_cpu} -gt 0 ]]; then
     cmd="$cmd --mem-per-cpu ${mem_per_cpu}"
 fi
 
-latest=$(ls -td /cvmfs/sw.lsst.eu/linux-x86_64/panda_env/v* | head -1)
-rucio_cfg=${latest}/rucio/rucio-rubin-dev.cfg
+latest=$(ls -td /cvmfs/sw.lsst.eu/almalinux-x86_64/panda_env/v* | head -1)
+pandaenvdir=${latest}
+pandaenvdir=/cvmfs/sw.lsst.eu/almalinux-x86_64/panda_env/v1.0.17/
+
+export PANDA_ENV_PILOT_DIR=${pandaenvdir}
+
+echo "pandaenvdir: ${pandaenvdir}"
+echo "PANDA_ENV_PILOT_DIR: ${PANDA_ENV_PILOT_DIR}"
+
+rucio_cfg=${pandaenvdir}/rucio/rucio-rubin-dev.cfg
 
 # export RUCIO_CONFIG=/cvmfs/sw.lsst.eu/linux-x86_64/panda_env/v1.0.9/conda/install/envs/pilot/etc/rucio.cfg.atlas.client.template
 export RUCIO_CONFIG=$rucio_cfg
 
-pilot_cfg=${latest}/pilot/pilot_default.cfg
+pilot_cfg=${pandaenvdir}/pilot/pilot_default.cfg
 if [[ -f ${pilot_cfg} ]]; then
     if [[ -z "${HARVESTER_PILOT_CONFIG}" ]]; then
       export HARVESTER_PILOT_CONFIG=${pilot_cfg}
@@ -69,7 +77,11 @@ fi
 
 export PILOT_ES_EXECUTOR_TYPE=fineGrainedProc
 
-queue_url=${pandaenvdir}/datalake-cric-pandaqueue.json
+# https://rubin-panda-server-dev.slac.stanford.edu:8443/cache/schedconfig/{computingSite}.all.json
+# https://datalake-cric.cern.ch/cache/schedconfig/{pandaqueue}.json
+# https://datalake-cric.cern.ch/api/atlas/ddmendpoint/query/?json
+
+queue_url=${pandaenvdir}/cric/datalake-cric-pandaqueue.json
 storage_url=${pandaenvdir}/cric/datalake-cric-ddm.json
 if [[ -f ${queue_url} ]]; then
     if [[ -z "${QUEUEDATA_SERVER_URL}" ]]; then
@@ -81,23 +93,57 @@ if [[ -f ${storage_url} ]]; then
       export STORAGEDATA_SERVER_URL=${storage_url}
     fi
 fi
+
+echo "QUEUEDATA_SERVER_URL: ${QUEUEDATA_SERVER_URL}"
+echo "STORAGEDATA_SERVER_URL: ${STORAGEDATA_SERVER_URL}"
 # env
 
 echo
 
+piloturl=""
+local_pilot=/sdf/data/rubin/panda_jobs/panda_env_pilot/pilot3.tar.gz
+if [[ -f ${local_pilot} ]]; then
+    piloturl="--piloturl file://${local_pilot}"
+fi
+
 # check if there is a local dev pilot
 pilot_wrapper_local=/sdf/data/rubin/panda_jobs/panda_env_pilot/pilot_wrapper/rubin-wrapper.sh
 if [[ -f ${pilot_wrapper_local} ]]; then
-    cmd="$cmd --export=ALL ${pilot_wrapper_local} $@"
+    pilot_wrapper_cmd="${pilot_wrapper_local} ${piloturl} $@ --realtime-logging-server logserver='google-cloud-logging;https://google:80'"
 else
     # cmd="$cmd --export=ALL /cvmfs/sw.lsst.eu/linux-x86_64/panda_env/v1.0.9/pilot/wrapper/rubin-wrapper.sh $@"
-    cmd="$cmd --export=ALL ${latest}/pilot/wrapper/rubin-wrapper.sh $@"
+    pilot_wrapper_cmd="${pandaenvdir}/pilot/wrapper/rubin-wrapper.sh ${piloturl} --pandaenvtag v1.0.17 $@ --realtime-logging-server logserver='google-cloud-logging;https://google:80'"
 fi
 echo $cmd
+echo $pilot_wrapper_cmd
+echo 
 
-ntasks=${ntasks_total}
-for i in $(seq 1 $ntasks); do
-    $cmd | sed -e "s/^/pilot_$i: /"  &
-done
+# ntasks=${ntasks_total}
+# for i in $(seq 1 $ntasks); do
+#    run_command="$cmd ${pilot_wrapper_cmd}" 
+#    $run_cmd | sed -e "s/^/pilot_$i: /"  &
+# done
+# 
+# wait
 
-wait
+cat <<EOF > my_panda_run_script
+#!/bin/bash
+
+# Ensure SLURM_PROCID is available per task
+echo "Task started: pilot_\${SLURM_PROCID} on $(hostname)"
+
+echo ${pilot_wrapper_cmd} | sed -e "s/^/pilot_\${SLURM_PROCID}: /"
+echo
+
+${pilot_wrapper_cmd} | sed -e "s/^/pilot_\${SLURM_PROCID}: /"
+
+EOF
+
+
+chmod +x my_panda_run_script
+
+
+echo $cmd --export=ALL --ntasks=${ntasks_total} --cpu-bind=none ./my_panda_run_script
+echo
+
+$cmd --export=ALL --ntasks=${ntasks_total} --cpu-bind=none ./my_panda_run_script

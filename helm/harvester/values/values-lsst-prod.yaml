@@ -12,6 +12,12 @@ harvester:
     selector: false
     size: 300Gi
 
+  persistentvolumewdir:
+    class: wekafs--sdf-k8s01
+    create: false
+    selector: false
+    size: 3000Gi
+
   persistentvolumecondor:
     class: wekafs--sdf-k8s01
     create: false
@@ -24,6 +30,7 @@ harvester:
     path: "/mnt/harvester-data"
     logpath: "/mnt/harvester-data/panda_jobs/harvester_workdir_k8s/harvester_wdirs/SLAC_Harvester_S3DF"
     size: 5Gi
+    limit: 6Gi
 
   experiment: "lsst_prod"
   panda:
