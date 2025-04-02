@@ -52,6 +52,12 @@ echo "check proxy"
 voms-proxy-info -all
 echo
 
-cmd="${pandaenvdir}/pilot/wrapper/rubin-wrapper.sh --pandaenvtag v1.0.17 $@ --realtime-logging-server logserver='google-cloud-logging;https://google:80'"
+piloturl=""
+local_pilot=/sdf/data/rubin/panda_jobs/panda_env_pilot/prod_pilot3.tar.gz
+if [[ -f ${local_pilot} ]]; then
+    piloturl="--piloturl file://${local_pilot}"
+fi
+
+cmd="${pandaenvdir}/pilot/wrapper/rubin-wrapper.sh ${piloturl} --pandaenvtag v1.0.17 $@ --realtime-logging-server logserver='google-cloud-logging;https://google:80'"
 echo $cmd
 $cmd
