@@ -4,7 +4,7 @@
 
 
 rest:
-  replicaCount: 2
+  replicaCount: 3
   iddsServer: usdf-panda-idds.slac.stanford.edu
 
   # PV: For use cases that users are not allowed to create PV,
@@ -12,7 +12,7 @@ rest:
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false
-    size: 50Gi
+    size: 100Gi
 
   resources:
     limits:
