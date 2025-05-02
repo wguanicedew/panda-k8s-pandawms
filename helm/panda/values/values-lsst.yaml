@@ -52,6 +52,19 @@ server:
         hosts:
           - domain: slac.stanford.edu
             hostOverride: rubin-panda-server-dev.slac.stanford.edu
+  ingress_big:
+    enabled: true
+    hosts:
+      - domain: slac.stanford.edu
+        hostOverride: rubin-panda-server-big-dev.slac.stanford.edu
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: default
+        hosts:
+          - domain: slac.stanford.edu
+            hostOverride: rubin-panda-server-big-dev.slac.stanford.edu
 
 postgres:
   enabled: false

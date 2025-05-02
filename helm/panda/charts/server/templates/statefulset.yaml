@@ -80,12 +80,17 @@ spec:
           {{- if .Values.autoStart }}
           command: [ "/bin/sh", "-c" ]
           args:
-            - until /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p ${PANDA_DB_PORT}; do echo waiting for database; sleep 2; done;
+            - |
+              until /usr/pgsql-*/bin/pg_isready -h ${PANDA_DB_HOST} -p ${PANDA_DB_PORT}; do echo waiting for database; sleep 2; done;
               cp /opt/panda/sandbox/* /data/panda/;
               chmod +x /data/panda/init-panda;
               chmod +x /data/panda/run-panda-crons;
               chmod +x /data/panda/run-panda-services;
               mkdir -p /var/log/panda/pandacache/jedilog; chmod -R 777 /var/log/panda/pandacache || true;
+              if [ -f /opt/panda/sandbox/panda_server-httpd.conf ]; then
+                  mv /opt/panda/etc/panda/panda_server-httpd.conf /opt/panda/etc/panda/panda_server-httpd.conf.back;
+                  ln -s /opt/panda/sandbox/panda_server-httpd.conf /opt/panda/etc/panda/panda_server-httpd.conf;
+               fi;
               /opt/panda/bin/python /data/panda/process_template.py;
               /data/panda/run-panda-services;
               sleep infinity & wait
