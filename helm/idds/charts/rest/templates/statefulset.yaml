@@ -37,6 +37,46 @@ spec:
   {{- end }}
 ---
 {{- end }}
+# pv for idds requests
+{{- if .Values.persistentvolumerequests.create -}}
+# pv
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ include "rest.fullname" . }}-requests
+  labels:
+      {{- include "rest.labels-requests" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.persistentvolumerequests.class }}
+  capacity:
+    storage: {{ .Values.persistentvolumerequests.size }}
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  hostPath:
+    path: {{ .Values.persistentvolumerequests.path }}
+---
+{{- end }}
+# pv claim for idds requests
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "rest.fullname" . }}-requests
+  labels:
+    {{- include "rest.labels-requests" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.persistentvolumerequests.class }}
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.persistentvolumerequests.size }}
+  {{- if .Values.persistentvolumerequests.selector }}
+  selector:
+    matchLabels:
+      {{- include "rest.selectorLabels-requests" . | nindent 6 }}
+  {{- end }}
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -113,6 +153,8 @@ spec:
                 mountPath: /opt/idds/configmap
               - name: {{ include "rest.fullname" . }}-certs
                 mountPath: /opt/idds/certs
+              - name: {{ include "rest.fullname" . }}-requests
+                mountPath: {{ .Values.persistentvolumerequests.path }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -136,6 +178,9 @@ spec:
         - name: {{ include "rest.fullname" . }}-certs
           secret:
               secretName: {{ .Values.global.secret }}-idds-certs
+        - name: {{ include "rest.fullname" . }}-requests
+          persistentVolumeClaim:
+              claimName: {{ include "rest.fullname" . }}-requests
   {{- if .Values.persistentvolume.create }}
         - name: {{ include "rest.fullname" . }}-logs
           persistentVolumeClaim:

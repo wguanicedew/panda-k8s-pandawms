@@ -13,6 +13,23 @@ rest:
     class: wekafs--sdf-k8s01
     create: false
     size: 100Gi
+    selector: false
+
+  persistentvolumerequests:
+    create: false
+    class: sdf-data-rubin
+    size: 1000Gi
+    selector: false
+    path: "/data/idds-requests"
+    requestpath: "/data/idds-requests/panda_jobs/panda/idds-requests"
+
+  persistentvolumerequests_test:
+    create: false
+    class: wekafs--sdf-k8s01
+    size: 1000Gi
+    selector: false
+    path: "/data/idds-requests"
+    requestpath: "/data/idds-requests/panda_jobs/panda/idds-requests"
 
   resources:
     limits:

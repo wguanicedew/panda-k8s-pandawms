@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 rest:
-  replicaCount: 2
+  replicaCount: 1
   iddsServer: rubin-panda-idds-dev.slac.stanford.edu
 
   # PV: For use cases that users are not allowed to create PV,
@@ -12,6 +12,23 @@ rest:
     class: wekafs--sdf-k8s01
     create: false
     size: 50Gi
+    selector: false
+
+  persistentvolumerequests:
+    create: false
+    class: sdf-data-rubin
+    size: 1000Gi
+    selector: false
+    path: "/data/idds-requests"
+    requestpath: "/data/idds-requests/panda_jobs/panda/idds-requests"
+
+  persistentvolumerequests_test:
+    create: false
+    class: wekafs--sdf-k8s01
+    size: 1000Gi
+    selector: false
+    path: "/data/idds-requests"
+    requestpath: "/data/idds-requests/panda_jobs/panda/idds-requests"
 
   resources:
     limits:

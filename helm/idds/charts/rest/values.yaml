@@ -21,6 +21,14 @@ persistentvolume:
   class: manual
   path: "/mnt/idds-rest-logs"
   size: 5Gi
+  selector: true
+
+persistentvolumerequests:
+  create: true
+  class: manual
+  path: "/mnt/idds-rest-requests"
+  size: 10Gi
+  selector: true
 
 imagePullSecrets: []
 nameOverride: ""
@@ -59,7 +67,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
     spec.ingressClassName: nginx
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/secure-backends: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
@@ -70,9 +78,9 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "10"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "360"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "360"
-    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
-    nginx.ingress.kubernetes.io/client-body-buffer-size: "10m"
-    nginx.ingress.kubernetes.io/client_max_body_size: "10m"
+    nginx.ingress.kubernetes.io/proxy-body-size: "5g"
+    nginx.ingress.kubernetes.io/client-body-buffer-size: "5g"
+    nginx.ingress.kubernetes.io/client_max_body_size: "5g"
     
     nginx.ingress.kubernetes.io/configuration-snippet: |-
       proxy_set_header X-IDDS-Auth-Type $http_x_idds_auth_type;

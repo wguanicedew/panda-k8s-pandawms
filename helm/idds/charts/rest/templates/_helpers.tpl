@@ -49,6 +49,14 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
+{{- define "rest.labels-requests" -}}
+helm.sh/chart: {{ include "rest.chart" . }}
+{{ include "rest.selectorLabels-requests" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
 
 {{/*
 Selector labels
@@ -59,6 +67,10 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 {{- define "rest.selectorLabelsDaemon" -}}
 app.kubernetes.io/name: {{ include "rest.name" . }}-daemon
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+{{- define "rest.selectorLabels-requests" -}}
+app.kubernetes.io/name: {{ include "rest.name" . }}-requests
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
