@@ -32,6 +32,10 @@
     "pandaURLSSL": "${PANDA_URL_SSL}",
     "verbose": true
   },
+  "apfmon": {
+    "active": true,
+    "base_url": "https://rtmon.lancs.ac.uk/api"
+  },
   "frontend": {
     "type": "apache"
   },
