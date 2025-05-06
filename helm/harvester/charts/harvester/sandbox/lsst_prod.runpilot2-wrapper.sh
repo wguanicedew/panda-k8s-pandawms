@@ -1009,7 +1009,7 @@ if [ -z "${qarg}" ]; then usage; exit 1; fi
 pilotargs="$@"
 
 cricurl="http://http-sphenix-pandaserver.apps.rcf.bnl.gov/cache/schedconfig/${sarg}.all.json"
-fabricmon="http://apfmon.lancs.ac.uk/api"
+fabricmon="http://rtmon.lancs.ac.uk/api"
 if [ -z ${APFMON} ]; then
   APFMON=${fabricmon}
 fi

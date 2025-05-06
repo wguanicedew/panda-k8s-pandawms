@@ -754,7 +754,7 @@ if [ -z "${qarg}" ]; then usage; exit 1; fi
 pilotargs="$@"
 
 cricurl="http://pandaserver-doma.cern.ch:25085/cache/schedconfig/${sarg}.all.json"
-fabricmon="http://apfmon.lancs.ac.uk/api"
+fabricmon="http://rtmon.lancs.ac.uk/api"
 if [ -z ${APFMON} ]; then
   APFMON=${fabricmon}
 fi

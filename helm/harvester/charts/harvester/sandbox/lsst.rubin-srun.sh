@@ -109,10 +109,12 @@ fi
 # check if there is a local dev pilot
 pilot_wrapper_local=/sdf/data/rubin/panda_jobs/panda_env_pilot/pilot_wrapper/rubin-wrapper.sh
 if [[ -f ${pilot_wrapper_local} ]]; then
-    pilot_wrapper_cmd="${pilot_wrapper_local} ${piloturl} $@ --realtime-logging-server logserver='google-cloud-logging;https://google:80'"
+    # pilot_wrapper_cmd="${pilot_wrapper_local} ${piloturl} $@ --realtime-logging-server logserver='google-cloud-logging;https://google:80'"
+    pilot_wrapper_cmd="${pilot_wrapper_local} ${piloturl} $@ "
 else
     # cmd="$cmd --export=ALL /cvmfs/sw.lsst.eu/linux-x86_64/panda_env/v1.0.9/pilot/wrapper/rubin-wrapper.sh $@"
-    pilot_wrapper_cmd="${pandaenvdir}/pilot/wrapper/rubin-wrapper.sh ${piloturl} --pandaenvtag v1.0.17 $@ --realtime-logging-server logserver='google-cloud-logging;https://google:80'"
+    # pilot_wrapper_cmd="${pandaenvdir}/pilot/wrapper/rubin-wrapper.sh ${piloturl} --pandaenvtag v1.0.17 $@ --realtime-logging-server logserver='google-cloud-logging;https://google:80'"
+    pilot_wrapper_cmd="${pandaenvdir}/pilot/wrapper/rubin-wrapper.sh ${piloturl} $@ "
 fi
 echo $cmd
 echo $pilot_wrapper_cmd

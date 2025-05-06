@@ -1,0 +1,60 @@
+{{- if .Values.ingress_big.enabled -}}
+{{- $fullName := include "server.fullname" . -}}
+{{- $svcPort := .Values.service.httpsPort -}}
+{{- $globalSecret := .Values.global.secret -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-big
+  labels:
+    {{- include "server.labels" . | nindent 4 }}
+  {{- with .Values.ingress_big.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if and .Values.ingress_big.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  ingressClassName: {{ .Values.ingress_big.className }}
+  {{- end }}
+  {{- if .Values.ingress_big.tls }}
+  tls:
+    {{- range .Values.ingress_big.tls }}
+    - hosts:
+        {{- range .hosts }}
+        {{- if .hostOverride }}
+        - {{ .hostOverride | quote }}
+        {{- else }}
+        - {{ printf "%s.%s" $fullName .domain | quote }}
+        {{- end }}
+        {{- end }}
+      # secretName: {{ .secretName }}
+      secretName: {{ $globalSecret }}-panda-tls-certs
+    {{- end }}
+  {{- end }}
+  rules:
+    {{- range .Values.ingress_big.hosts }}
+    {{- if .hostOverride }}
+    - host: {{ .hostOverride | quote }}
+    {{- else }}
+    - host: {{ printf "%s.%s" $fullName .domain | quote }}
+    {{- end }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path }}
+            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
+            pathType: {{ .pathType }}
+            {{- end }}
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $svcPort }}
+              {{- else }}
+              serviceName: {{ $fullName }}
+              servicePort: {{ $svcPort }}
+              {{- end }}
+          {{- end }}
+    {{- end }}
+{{- end }}

@@ -113,7 +113,8 @@ fi
 # cmd="$cmd --export=ALL /cvmfs/sw.lsst.eu/linux-x86_64/panda_env/v1.0.9/pilot/wrapper/rubin-wrapper.sh $@"
 # cmd="$cmd --export=ALL ${latest}/pilot/wrapper/rubin-wrapper.sh $@ --realtime-logging-server logserver='google-cloud-logging;https://google:80'"
 
-pilot_wrapper_cmd="${pandaenvdir}/pilot/wrapper/rubin-wrapper.sh ${piloturl} --pandaenvtag v1.0.17 $@ --realtime-logging-server logserver='google-cloud-logging;https://google:80'"
+# pilot_wrapper_cmd="${pandaenvdir}/pilot/wrapper/rubin-wrapper.sh ${piloturl} --pandaenvtag v1.0.17 $@ --realtime-logging-server logserver='google-cloud-logging;https://google:80'"
+pilot_wrapper_cmd="${pandaenvdir}/pilot/wrapper/rubin-wrapper.sh ${piloturl} $@ "
 
 echo $cmd
 echo $pilot_wrapper_cmd

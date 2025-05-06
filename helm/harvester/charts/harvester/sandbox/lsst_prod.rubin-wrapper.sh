@@ -58,6 +58,7 @@ if [[ -f ${local_pilot} ]]; then
     piloturl="--piloturl file://${local_pilot}"
 fi
 
-cmd="${pandaenvdir}/pilot/wrapper/rubin-wrapper.sh ${piloturl} --pandaenvtag v1.0.17 $@ --realtime-logging-server logserver='google-cloud-logging;https://google:80'"
+# cmd="${pandaenvdir}/pilot/wrapper/rubin-wrapper.sh ${piloturl} --pandaenvtag v1.0.17 $@ --realtime-logging-server logserver='google-cloud-logging;https://google:80'"
+cmd="${pandaenvdir}/pilot/wrapper/rubin-wrapper.sh ${piloturl} $@ "
 echo $cmd
 $cmd
