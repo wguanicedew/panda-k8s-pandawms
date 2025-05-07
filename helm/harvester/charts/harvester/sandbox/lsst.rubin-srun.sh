@@ -56,7 +56,7 @@ fi
 
 latest=$(ls -td /cvmfs/sw.lsst.eu/almalinux-x86_64/panda_env/v* | head -1)
 pandaenvdir=${latest}
-pandaenvdir=/cvmfs/sw.lsst.eu/almalinux-x86_64/panda_env/v1.0.17/
+# pandaenvdir=/cvmfs/sw.lsst.eu/almalinux-x86_64/panda_env/v1.0.17/
 
 export PANDA_ENV_PILOT_DIR=${pandaenvdir}
 
