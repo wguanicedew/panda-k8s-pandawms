@@ -19,6 +19,8 @@
 	 "carrier":
 	    {"receiver_num_threads": 16,
              "enable_executors": true,
+	     "poller_max_number_workers": 3,
+	     "clean_locks_time_period": 1200,
 	     "plugin.receiver": "idds.agents.common.plugins.messaging.MessagingReceiver",
              "plugin.receiver.brokers": "${IDDS_RECEIVER_BROKERS}",
              "plugin.receiver.port": "${IDDS_RECEIVER_PORT}",
@@ -34,7 +36,7 @@
 	     "domapandawork.poll_panda_jobs_chunk_size": 2000,
 	     "domapandawork.site_to_cloud": "SLAC:US,LANCS:EU,CC-IN2P3:EU,RAL:EU",
 	     "domapandawork.additional_task_parameters": {},
-	     "domapandawork.additional_task_parameters_per_site": {"SLAC": {"noLoopingCheck": 1}},
+	     "domapandawork.additional_task_parameters_per_site1": {"SLAC": {"noLoopingCheck": 1}},
              "domapandawork.core_to_queues": {"1": {"queues": ["Rubin", "Rubin_Extra_Himem"], "processing_type": ""},
                                               "Rubin_Multi": {"queues": ["Rubin_Multi"], "processing_type": "Rubin_Multi"},
                                               "Rubin_Merge": {"queues": ["Rubin_Merge"], "processing_type": "Rubin_Merge"},
