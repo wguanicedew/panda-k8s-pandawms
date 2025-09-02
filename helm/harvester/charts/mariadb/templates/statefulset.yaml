@@ -81,6 +81,9 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ .Values.global.secret }}-harvester-envs
+          env:
+             - name: MARIADB_EXTRA_FLAGS
+               value: "--innodb_snapshot_isolation=0"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -90,6 +93,8 @@ spec:
               name: {{ include "mariadb.fullname" . }}-data
             - mountPath: /docker-entrypoint-initdb.d
               name: {{ include "mariadb.fullname" . }}-initdb
+            - mountPath: /opt/bitnami/mariadb/conf/my_custom.cnf
+              name: {{ include "mariadb.fullname" . }}-custom
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -109,3 +114,6 @@ spec:
         - name: {{ include "mariadb.fullname" . }}-initdb
           secret:
             secretName: {{ .Values.global.secret }}-harvester-initdb
+        - name: {{ include "mariadb.fullname" . }}-custom
+          configMap:
+              name: {{ include "mariadb.fullname" . }}-custom

@@ -125,13 +125,6 @@ spec:
               runuser -u atlpan -g zp -- /opt/idds/bin/start-daemon.sh all
               {{- end}}
           {{ end -}}
-          livenessProbe:
-            exec:
-              command:
-                - cat
-                - /var/log/idds/idds_health
-            initialDelaySeconds: 600
-            periodSeconds: 600
           ports:
             - name: https
               containerPort: 8443
@@ -144,6 +137,11 @@ spec:
                 name: {{ include "rest.fullname" . }}-envs
             - secretRef:
                 name: {{ .Values.global.secret }}-idds-envs
+          env:
+            - name: IDDS_REST_HOST
+              value: "{{ .Values.restHost }}"
+            - name: PANDAMON_URL
+              value: "{{ .Values.bigmonURL }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

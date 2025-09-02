@@ -103,6 +103,11 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ .Values.global.secret }}-bigmon-envs
+          {{- if .Values.installedAppsList }}
+          env:
+            - name: BIGMON_INSTALLED_APPS_LIST
+              value: "{{ .Values.installedAppsList }}"
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

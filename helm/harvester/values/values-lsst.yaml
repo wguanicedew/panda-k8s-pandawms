@@ -38,6 +38,10 @@ harvester:
 
 mariadb:
   enabled: true
+  image:
+      repository: bitnami/mariadb
+      pullPolicy: IfNotPresent
+      tag: "10.11.11-11"
   persistentvolume:
     class: wekafs--sdf-k8s01
     create: false

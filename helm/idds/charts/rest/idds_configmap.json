@@ -35,6 +35,7 @@
                                                       "broker_timeout": 600}},
 	     "domapandawork.poll_panda_jobs_chunk_size": 2000,
 	     "domapandawork.site_to_cloud": "SLAC:US,LANCS:EU,CC-IN2P3:EU,RAL:EU",
+	     "domapandawork.dispatch_ext_content": false,
 	     "domapandawork.additional_task_parameters": {},
 	     "domapandawork.additional_task_parameters_per_site1": {"SLAC": {"noLoopingCheck": 1}},
              "domapandawork.core_to_queues": {"1": {"queues": ["Rubin", "Rubin_Extra_Himem"], "processing_type": ""},
