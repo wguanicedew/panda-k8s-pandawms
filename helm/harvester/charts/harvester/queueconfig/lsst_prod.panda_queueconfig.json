@@ -32,9 +32,9 @@
       "pandaTokenFilename": "48975ff1c8b067b9dcea54d5cdd28cc8",
       "logDir": "/var/log/condor_logs/${hostname}",
       "logBaseURL": "https://usdf-panda-bigmon.slac.stanford.edu:8443/condor_logs/${hostname}",
-      "condorPoolOld": "${hostname}",
-      "condorSchedd": ["harvester-0.harvester.panda.svc.cluster.local","harvester-1.harvester.panda.svc.cluster.local","harvester-2.harvester.panda.svc.cluster.local"],
-      "condorPool": ["harvester-0.harvester.panda.svc.cluster.local:9618","harvester-1.harvester.panda.svc.cluster.local:9618","harvester-2.harvester.panda.svc.cluster.local:9618"],
+      "condorPool": "${hostname}",
+      "condorScheddNew": ["harvester-0.harvester.panda.svc.cluster.local","harvester-1.harvester.panda.svc.cluster.local","harvester-2.harvester.panda.svc.cluster.local"],
+      "condorPoolNew": ["harvester-0.harvester.panda.svc.cluster.local:9618","harvester-1.harvester.panda.svc.cluster.local:9618","harvester-2.harvester.panda.svc.cluster.local:9618"],
       "nProcesses": 8
     },
     "workerMaker": {
@@ -108,9 +108,9 @@
       "pandaTokenFilename": "48975ff1c8b067b9dcea54d5cdd28cc8",
       "logDir": "/var/log/condor_logs/${hostname}",
       "logBaseURL": "https://usdf-panda-bigmon.slac.stanford.edu:8443/condor_logs/${hostname}",
-      "condorPoolOld": "${hostname}",
-      "condorSchedd": ["harvester-0.harvester.panda.svc.cluster.local","harvester-1.harvester.panda.svc.cluster.local","harvester-2.harvester.panda.svc.cluster.local"],
-      "condorPool": ["harvester-0.harvester.panda.svc.cluster.local:9618","harvester-1.harvester.panda.svc.cluster.local:9618","harvester-2.harvester.panda.svc.cluster.local:9618"],
+      "condorPool": "${hostname}",
+      "condorScheddNew": ["harvester-0.harvester.panda.svc.cluster.local","harvester-1.harvester.panda.svc.cluster.local","harvester-2.harvester.panda.svc.cluster.local"],
+      "condorPoolNew": ["harvester-0.harvester.panda.svc.cluster.local:9618","harvester-1.harvester.panda.svc.cluster.local:9618","harvester-2.harvester.panda.svc.cluster.local:9618"],
       "nProcesses": 8
     },
     "workerMaker": {
@@ -184,11 +184,11 @@
       "x509UserProxy": "/data/harvester/run/x509up_u25606",
       "pandaTokenDir": "/opt/harvester/etc/auth_tokens/",
       "pandaTokenFilename": "48975ff1c8b067b9dcea54d5cdd28cc8",
-      "logDir": "/var/log/condor_logs/$hostname",
-      "logBaseURL": "https://usdf-panda-bigmon.slac.stanford.edu:8443/condor_logs/$hostname",
-      "condorPoolOld": "${hostname}",
-      "condorSchedd": ["harvester-0.harvester.panda.svc.cluster.local","harvester-1.harvester.panda.svc.cluster.local","harvester-2.harvester.panda.svc.cluster.local"],
-      "condorPool": ["harvester-0.harvester.panda.svc.cluster.local:9618","harvester-1.harvester.panda.svc.cluster.local:9618","harvester-2.harvester.panda.svc.cluster.local:9618"],
+      "logDir": "/var/log/condor_logs/${hostname}",
+      "logBaseURL": "https://usdf-panda-bigmon.slac.stanford.edu:8443/condor_logs/${hostname}",
+      "condorPool": "${hostname}",
+      "condorScheddNew": ["harvester-0.harvester.panda.svc.cluster.local","harvester-1.harvester.panda.svc.cluster.local","harvester-2.harvester.panda.svc.cluster.local"],
+      "condorPoolNew": ["harvester-0.harvester.panda.svc.cluster.local:9618","harvester-1.harvester.panda.svc.cluster.local:9618","harvester-2.harvester.panda.svc.cluster.local:9618"],
       "nProcesses": 8
     },
     "workerMaker": {
@@ -743,7 +743,7 @@
 
     "submitter": {
 	  "nCore": -1,
-          "nCorePerNode": -1,
+          "nCorePerNode": 1,
           "submitMode": "PUSH",
           "ceQueueName": "arc_usdf_merge",
           "ceARCGridType": "arc",
@@ -1116,7 +1116,7 @@
 
     "submitter": {
           "nCore": -1,
-          "nCorePerNode": -1,
+          "nCorePerNode": 1,
           "submitMode": "PUSH",
           "ceQueueName": "lsst",
           "ceARCGridType": "arc",
@@ -1478,7 +1478,7 @@
 
     "submitter": {
           "nCore": -1,
-          "nCorePerNode": -1,
+          "nCorePerNode": 1,
           "submitMode": "PUSH",
           "ceQueueName": "grid",
           "ceARCGridType": "arc",
@@ -1843,7 +1843,7 @@
 
     "submitter": {
           "nCore": -1,
-          "nCorePerNode": -1,
+          "nCorePerNode": 1,
           "submitMode": "PUSH",
           "ceQueueName": "EL9",
           "ceARCGridType": "arc",
