@@ -15,7 +15,14 @@
              "additional_storage": "/data/idds-requests/panda_jobs/panda/idds-requests"
 	    },
 	 "clerk":
-	    {"cache_expire_seconds": 300},
+	    {"cache_expire_seconds": 300,
+	     "update_poll_period": 120,
+	     "update_command_poll_period": 120},
+	 "transformer":
+	    {"num_threads": 16,
+	     "max_number_workers": 16,
+             "update_poll_period": 180,
+	     "poll_operation_time_period": 180},
 	 "carrier":
 	    {"receiver_num_threads": 16,
              "enable_executors": true,
