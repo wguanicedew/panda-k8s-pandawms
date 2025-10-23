@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 rest:
-  replicaCount: 1
+  replicaCount: 2
   iddsServer: rubin-panda-idds-dev.slac.stanford.edu
 
   # PV: For use cases that users are not allowed to create PV,
@@ -32,10 +32,10 @@ rest:
 
   resources:
     limits:
-      cpu: 4000m
+      cpu: 8000m
       memory: 32Gi
     requests:
-      cpu: 4000m
+      cpu: 8000m
       memory: 32Gi
 
   restHost: "https://rubin-panda-idds-dev.slac.stanford.edu:8443"
