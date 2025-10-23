@@ -8,7 +8,8 @@ global:
 rest:
   enabled: true
   image:
-    tag: "2.2.50"
+    tag: "2.3.8"
+    # tag: "2.2.52"
 
   resources:
     limits:
