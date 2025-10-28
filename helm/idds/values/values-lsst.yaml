@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 rest:
-  replicaCount: 2
+  replicaCount: 1
   iddsServer: rubin-panda-idds-dev.slac.stanford.edu
 
   # PV: For use cases that users are not allowed to create PV,
