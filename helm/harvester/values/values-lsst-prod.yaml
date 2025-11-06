@@ -5,6 +5,7 @@
 
 harvester:
   replicaCount: 3
+  enableProbe: true
 
   image:
     # repository: ghcr.io/wguanicedew/harvester

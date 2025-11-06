@@ -16,6 +16,9 @@ configVersion: "1"
 # start the service when pod gets started
 autoStart: true
 
+# enable live probe
+enableProbe: false
+
 # experiment to use to init and setup crons
 experiment: ""
 
