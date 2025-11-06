@@ -3,7 +3,8 @@
 # Declare variables to be passed into your templates.
 
 harvester:
-  replicaCount: 3
+  replicaCount: 1
+  enableProbe: false
 
   image:
     # repository: ghcr.io/wguanicedew/harvester
