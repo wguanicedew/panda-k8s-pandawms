@@ -6,12 +6,12 @@ harvester:
   replicaCount: 1
   enableProbe: false
 
-  image:
+  # image:
     # repository: ghcr.io/wguanicedew/harvester
     # tag: "wguan0.2.36"
     # repository: ghcr.io/wguanicedew/harvester-alma9
-    repository: ghcr.io/wguanicedew/harvester
-    tag: "wguan0.5.15.14"
+    # repository: ghcr.io/wguanicedew/harvester
+    # tag: "wguan0.5.15.14"
 
   persistentvolume:
     class: wekafs--sdf-k8s01

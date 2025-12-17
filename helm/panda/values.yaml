@@ -11,8 +11,11 @@ jedi:
 
   # container image and tag
   image:
-    # tag: "0.6.0"
-    tag: "0.4.5"
+    repository: ghcr.io/wguanicedew/panda-server
+    pullPolicy: Always
+    tag: "wguan0.6.12"
+    # tag: "0.6.12"
+    # tag: "0.4.5"
     # tag: "master"
 
   # PV with selector support
@@ -33,8 +36,11 @@ server:
 
   # container image and tag
   image:
-    # tag: "0.6.4"
-    tag: "0.4.2"
+    repository: ghcr.io/wguanicedew/panda-server
+    pullPolicy: Always
+    tag: "wguan0.6.12"
+    # tag: "0.6.12"
+    # tag: "0.4.2"
     # tag: "master"
 
   # PV with selector support

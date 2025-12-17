@@ -44,7 +44,7 @@
 	     "domapandawork.site_to_cloud": "SLAC:US,LANCS:EU,CC-IN2P3:EU,RAL:EU",
 	     "domapandawork.dispatch_ext_content": false,
 	     "domapandawork.additional_task_parameters": {},
-	     "domapandawork.additional_task_parameters_per_site1": {"SLAC": {"noLoopingCheck": 1}},
+	     "domapandawork.additional_task_parameters_per_site1": {"SLAC": {"noLoopingCheck": 1}, "CC-IN2P3": {"noLoopingCheck": 1}},
              "domapandawork.core_to_queues": {"1": {"queues": ["Rubin", "Rubin_Extra_Himem"], "processing_type": ""},
                                               "Rubin_Multi": {"queues": ["Rubin_Multi"], "processing_type": "Rubin_Multi"},
                                               "Rubin_Merge": {"queues": ["Rubin_Merge"], "processing_type": "Rubin_Merge"},
