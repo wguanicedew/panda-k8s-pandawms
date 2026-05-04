@@ -12,6 +12,8 @@ harvester:
     selector: false
     size: 50Gi
   persistentvolumewdir:
+    existingClaim: panda-shared-logs
+    subPath: harvester-wdirs
     selector: false
     size: 50Gi
   persistentvolumecondor:
@@ -41,7 +43,7 @@ mariadb:
   persistentvolume:
     create: false
     selector: false
-    existingClaim: panda-harvester-wdirs
+    existingClaim: panda-shared-logs
     subPath: mariadb-data
 
   nodeSelector:
