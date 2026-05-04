@@ -12,8 +12,6 @@ harvester:
     selector: false
     size: 50Gi
   persistentvolumewdir:
-    existingClaim: panda-shared-logs
-    subPath: harvester-wdirs
     selector: false
     size: 50Gi
   persistentvolumecondor:
