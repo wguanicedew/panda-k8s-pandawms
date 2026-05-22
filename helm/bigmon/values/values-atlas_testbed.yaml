@@ -4,6 +4,8 @@
 #
 
 main:
+  image:
+    tag: "latest"
   tolerations:
     - key: "node.kubernetes.io/not-ready"
       operator: "Exists"
