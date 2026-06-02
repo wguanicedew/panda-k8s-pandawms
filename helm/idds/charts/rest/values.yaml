@@ -150,3 +150,10 @@ cvmfs:
   #   repository: atlas.cern.ch
   # - name: atlas-condb
   #   repository: atlas-condb.cern.ch
+
+serverConf:
+  minWorkers: ""
+  maxWorkers: ""
+  numWsgi: ""
+  numWsgiThread: ""
+  maxBacklog: ""
