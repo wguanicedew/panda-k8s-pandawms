@@ -10,6 +10,14 @@ main:
     subPath: bigmon-logs
     size: 50Gi
 
+  resources:
+    requests:
+      cpu: "1"
+      memory: 2Gi
+    limits:
+      cpu: "4"
+      memory: 6Gi
+
   ingress:
     enabled: true
     hosts:

@@ -9,10 +9,10 @@ rest:
   resources:
     limits:
       cpu: 2000m
-      memory: 8Gi
+      memory: 4Gi
     requests:
-      cpu: 2000m
-      memory: 8Gi
+      cpu: 1000m
+      memory: 1Gi
   serverConf:
     minWorkers: "4"
     maxWorkers: "8"
