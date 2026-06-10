@@ -23,6 +23,8 @@
     },
     "watchdog": {
         "waitForPending": "1",
-        "loopCycle": "60"
+        "loopCycle": "60",
+        "modConfig": "wlcg:any:pandajedi.jedidog.AsyncRequestWatchDog:AsyncRequestWatchDog:async_request",
+        "procConfig": "wlcg:any:1:async_request:10"
     }
 }
