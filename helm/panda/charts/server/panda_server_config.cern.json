@@ -29,6 +29,12 @@
         "token_cache_config": "/data/panda/token_cache_config.json"
     },
     "daemon": {
-        "enable": "True"
+        "enable": "True",
+        "config": {
+            "async_request_daemon": {
+                "enable": true,
+                "period": 10
+            }
+        }
     }
 }
