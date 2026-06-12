@@ -96,6 +96,23 @@ spec:
             - name: https
               containerPort: 25443
               protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+                - test
+                - -f
+                - /var/log/panda/panda_jedi_stdout.log
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "test -f /var/run/panda/panda_jedi.pid && kill -0 $(cat /var/run/panda/panda_jedi.pid)"
+            initialDelaySeconds: 120
+            periodSeconds: 60
+            failureThreshold: 3
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
