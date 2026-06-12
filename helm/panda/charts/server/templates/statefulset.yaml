@@ -112,6 +112,12 @@ spec:
                 - /tmp/panda_server_start.log
             initialDelaySeconds: 5
             periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 25080
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            failureThreshold: 3
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
