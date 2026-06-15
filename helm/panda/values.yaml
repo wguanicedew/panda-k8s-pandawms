@@ -94,7 +94,7 @@ postgres:
 
   # container image and tag
   image:
-    tag: "0.1.3"
+    tag: "0.1.5-2"
     #tag: "main"
 
   # PV with selector support
