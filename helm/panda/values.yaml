@@ -13,8 +13,8 @@ jedi:
   image:
     repository: ghcr.io/wguanicedew/panda-server
     pullPolicy: Always
-    tag: "wguan0.6.12"
-    # tag: "0.6.12"
+    tag: "wguan0.6.13.13"
+    # tag: "0.6.13"
     # tag: "0.4.5"
     # tag: "master"
 
@@ -38,8 +38,8 @@ server:
   image:
     repository: ghcr.io/wguanicedew/panda-server
     pullPolicy: Always
-    tag: "wguan0.6.12"
-    # tag: "0.6.12"
+    tag: "wguan0.6.13.13"
+    # tag: "0.6.13"
     # tag: "0.4.2"
     # tag: "master"
 
