@@ -118,7 +118,7 @@ spec:
           {{ if .Values.autoStart -}}
           command: ["/bin/sh", "-c"]
           args:
-            - until /usr/bin/pg_isready -h ${IDDS_DATABASE_HOST} -p ${IDDS_DATABASE_PORT}; do echo waiting for database; sleep 2; done;
+            - if [ "${IDDS_DB_BACKEND}" != "oracle" ]; then until /usr/bin/pg_isready -h ${IDDS_DATABASE_HOST} -p ${IDDS_DATABASE_PORT}; do echo waiting for database; sleep 2; done; fi;
               {{- if .Values.noRoot }}
               /opt/idds/bin/start-daemon.sh all
               {{- else }}
@@ -133,11 +133,25 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
+          readinessProbe:
+            tcpSocket:
+              port: 8443
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            tcpSocket:
+              port: 8443
+            initialDelaySeconds: 120
+            periodSeconds: 30
+            failureThreshold: 3
           envFrom:
             - configMapRef:
                 name: {{ include "rest.fullname" . }}-envs
             - secretRef:
                 name: {{ .Values.global.secret }}-idds-envs
+            - secretRef:
+                name: {{ .Values.global.secret }}-idds-db-envs
           env:
             - name: IDDS_REST_HOST
               value: "{{ .Values.restHost }}"
@@ -158,6 +172,12 @@ spec:
                 mountPath: /opt/idds/sandbox
               - name: {{ include "rest.fullname" . }}-requests
                 mountPath: {{ .Values.persistentvolumerequests.path }}
+              {{- if .Values.cvmfs.enabled }}
+              {{- range .Values.cvmfs.repositories }}
+              - name: cvmfs-{{ .name }}
+                mountPath: /cvmfs/{{ .repository }}
+              {{- end }}
+              {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -181,12 +201,22 @@ spec:
         - name: {{ include "rest.fullname" . }}-sandbox
           configMap:
               name: {{ include "rest.fullname" . }}-sandbox
+              - configMap:
+                  name: {{ .Release.Name }}-tnsnames
         - name: {{ include "rest.fullname" . }}-certs
           secret:
               secretName: {{ .Values.global.secret }}-idds-certs
         - name: {{ include "rest.fullname" . }}-requests
           persistentVolumeClaim:
               claimName: {{ include "rest.fullname" . }}-requests
+        {{- if .Values.cvmfs.enabled }}
+        {{- range .Values.cvmfs.repositories }}
+        - name: cvmfs-{{ .name }}
+          persistentVolumeClaim:
+            claimName: {{ include "rest.fullname" $ }}-cvmfs-{{ .name }}
+            readOnly: true
+        {{- end }}
+        {{- end }}
   {{- if .Values.persistentvolume.create }}
         - name: {{ include "rest.fullname" . }}-logs
           persistentVolumeClaim:
