@@ -173,6 +173,11 @@ spec:
                 mountPath: /opt/idds/configmap
               - name: {{ include "rest.fullname" . }}-certs
                 mountPath: /opt/idds/certs
+              {{- if .Values.vomsProxyRenew.override }}
+              - name: {{ include "rest.fullname" . }}-vomsprox-renew
+                mountPath: /opt/idds/config_default/vomsprox-renew
+                subPath: vomsprox-renew
+              {{- end }}
               {{- if .Values.persistentvolumerequests.reuseLogsVolume }}
               - name: {{ include "rest.fullname" . }}-logs
                 mountPath: {{ .Values.persistentvolumerequests.path }}
@@ -219,6 +224,11 @@ spec:
         - name: {{ include "rest.fullname" . }}-certs
           secret:
               secretName: {{ .Values.global.secret }}-idds-certs
+        {{- if .Values.vomsProxyRenew.override }}
+        - name: {{ include "rest.fullname" . }}-vomsprox-renew
+          configMap:
+            name: {{ include "rest.fullname" . }}-vomsprox-renew
+        {{- end }}
         {{- if not .Values.persistentvolumerequests.reuseLogsVolume }}
         - name: {{ include "rest.fullname" . }}-requests
           persistentVolumeClaim:
