@@ -135,16 +135,19 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
+          startupProbe:
+            tcpSocket:
+              port: 8443
+            periodSeconds: 10
+            failureThreshold: 30
           readinessProbe:
             tcpSocket:
               port: 8443
-            initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
           livenessProbe:
             tcpSocket:
               port: 8443
-            initialDelaySeconds: 120
             periodSeconds: 30
             failureThreshold: 3
           envFrom:
@@ -173,6 +176,11 @@ spec:
                 mountPath: /opt/idds/configmap
               - name: {{ include "rest.fullname" . }}-certs
                 mountPath: /opt/idds/certs
+              {{- if .Values.vomsProxyRenew.override }}
+              - name: {{ include "rest.fullname" . }}-vomsprox-renew
+                mountPath: /opt/idds/config_default/vomsprox-renew
+                subPath: vomsprox-renew
+              {{- end }}
               {{- if .Values.persistentvolumerequests.reuseLogsVolume }}
               - name: {{ include "rest.fullname" . }}-logs
                 mountPath: {{ .Values.persistentvolumerequests.path }}
@@ -219,6 +227,11 @@ spec:
         - name: {{ include "rest.fullname" . }}-certs
           secret:
               secretName: {{ .Values.global.secret }}-idds-certs
+        {{- if .Values.vomsProxyRenew.override }}
+        - name: {{ include "rest.fullname" . }}-vomsprox-renew
+          configMap:
+            name: {{ include "rest.fullname" . }}-vomsprox-renew
+        {{- end }}
         {{- if not .Values.persistentvolumerequests.reuseLogsVolume }}
         - name: {{ include "rest.fullname" . }}-requests
           persistentVolumeClaim:
